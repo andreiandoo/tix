@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "custom.css";
+
+.container-full {
+    max-width: 100%;
+}
+.container-lg {
+    max-width: 95%;
+}

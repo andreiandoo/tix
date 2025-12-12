@@ -1,784 +1,548 @@
 <?php
 /**
- * Template: Tixello – Single Artist (API driven)
- * Este ales via template_include când avem query var tixello_artist_slug.
+ * Template: Tixello – Single Artist (Modern Design)
+ * URL: /artists/{slug}/
+ * Uses cached API calls for performance
  */
 
 get_header();
 
 $slug = get_query_var( 'tixello_artist_slug' );
 
-// Dacă nu avem slug, 404 simplu
 if ( ! $slug ) {
     status_header( 404 );
-    ?>
-    <main id="primary" class="site-main">
-        <div class="container mx-auto px-4 py-12">
-            <h1 class="text-2xl font-bold text-slate-900">Artist not found</h1>
-            <p class="mt-2 text-sm text-slate-600">No artist slug provided.</p>
-        </div>
-    </main>
-    <?php
+    get_template_part( '404' );
     get_footer();
     return;
 }
 
-// Luăm artistul din API (prin helper)
-if ( ! function_exists( 'tixello_get_artist_by_slug' ) ) {
-    // Dacă helperul nu există, nu avem ce face corect
-    status_header( 500 );
-    ?>
-    <main id="primary" class="site-main">
-        <div class="container mx-auto px-4 py-12">
-            <h1 class="text-2xl font-bold text-slate-900">Artist page error</h1>
-            <p class="mt-2 text-sm text-slate-600">Artist helper function is missing.</p>
-        </div>
-    </main>
-    <?php
-    get_footer();
-    return;
-}
+// Use cached function for performance
+$artist = function_exists( 'tixello_get_artist_by_slug_cached' )
+    ? tixello_get_artist_by_slug_cached( $slug )
+    : ( function_exists( 'tixello_get_artist_by_slug' ) ? tixello_get_artist_by_slug( $slug ) : null );
 
-$artist = tixello_get_artist_by_slug( $slug );
-
-if ( ! $artist ) {
+if ( ! $artist || ! is_array( $artist ) ) {
     status_header( 404 );
-    ?>
-    <main id="primary" class="site-main">
-        <div class="container mx-auto px-4 py-12">
-            <h1 class="text-2xl font-bold text-slate-900">Artist not found</h1>
-            <p class="mt-2 text-sm text-slate-600">We couldn’t find any artist with this slug in Tixello Core.</p>
-        </div>
-    </main>
-    <?php
+    get_template_part( '404' );
     get_footer();
     return;
 }
 
-/**
- * Normalizăm datele artistului pentru afișare
- */
-
-// Nume
-$name = isset( $artist['name'] ) ? $artist['name'] : 'Unknown artist';
-
-// Bio – încercăm ro, apoi en, apoi bio
-$bio_html = '';
-
-if ( ! empty( $artist['bio_translations'] ) && is_array( $artist['bio_translations'] ) ) {
-    if ( ! empty( $artist['bio_translations']['ro'] ) ) {
-        $bio_html = $artist['bio_translations']['ro'];
-    } elseif ( ! empty( $artist['bio_translations']['en'] ) ) {
-        $bio_html = $artist['bio_translations']['en'];
-    }
-}
-
-if ( empty( $bio_html ) && ! empty( $artist['bio'] ) ) {
-    $bio_html = $artist['bio'];
-}
-
-// Location
-$city    = isset( $artist['location']['city'] ) ? $artist['location']['city'] : '';
-$country = isset( $artist['location']['country'] ) ? $artist['location']['country'] : '';
-$location_label = '';
-if ( $city && $country ) {
-    $location_label = $city . ', ' . $country;
-} elseif ( $city ) {
-    $location_label = $city;
-} elseif ( $country ) {
-    $location_label = $country;
-}
-
-// Tipuri artist
-$types = [];
-if ( ! empty( $artist['artist_types'] ) && is_array( $artist['artist_types'] ) ) {
-    foreach ( $artist['artist_types'] as $t ) {
-        if ( ! empty( $t['name'] ) ) {
-            $types[] = $t['name'];
-        }
-    }
-}
-$types_label = ! empty( $types ) ? implode( ' · ', $types ) : 'Artist';
-
-// Genuri
-$genres = [];
-if ( ! empty( $artist['artist_genres'] ) && is_array( $artist['artist_genres'] ) ) {
-    foreach ( $artist['artist_genres'] as $g ) {
-        if ( ! empty( $g['name'] ) ) {
-            $genres[] = $g['name'];
-        }
-    }
-}
-$genres_label = ! empty( $genres ) ? implode( ' · ', $genres ) : '';
-
-// Imagini
+// =====================
+// Data Extraction
+// =====================
 $STORAGE_BASE = 'https://core.tixello.com/storage/';
-$full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
-    if ( empty( $path ) ) {
-        return '';
-    }
-    if ( preg_match( '#^https?://#i', $path ) ) {
-        return esc_url( $path );
-    }
-    $path = ltrim( $path, '/' );
-    return esc_url( $STORAGE_BASE . $path );
+
+$full_url = function( $path ) use ( $STORAGE_BASE ) {
+    if ( empty( $path ) ) return '';
+    if ( preg_match( '#^https?://#i', $path ) ) return esc_url( $path );
+    return esc_url( $STORAGE_BASE . ltrim( $path, '/' ) );
 };
 
-$main_image   = '';
-$portrait_img = '';
-$logo_img     = '';
+$name = $artist['name'] ?? 'Unknown Artist';
+$initial = mb_strtoupper( mb_substr( $name, 0, 1 ) );
 
-if ( ! empty( $artist['images'] ) && is_array( $artist['images'] ) ) {
-    if ( ! empty( $artist['images']['main_image_url'] ) ) {
-        $main_image = $full_storage_url( $artist['images']['main_image_url'] );
+// Bio
+$bio = '';
+if ( ! empty( $artist['bio_translations']['ro'] ) ) {
+    $bio = $artist['bio_translations']['ro'];
+} elseif ( ! empty( $artist['bio_translations']['en'] ) ) {
+    $bio = $artist['bio_translations']['en'];
+} elseif ( ! empty( $artist['bio'] ) ) {
+    $bio = $artist['bio'];
+}
+
+// Images
+$main_img = $full_url( $artist['images']['main_image_url'] ?? '' );
+$portrait = $full_url( $artist['images']['portrait_url'] ?? '' );
+$logo = $full_url( $artist['images']['logo_url'] ?? '' );
+$hero_img = $full_url( $artist['images']['hero_image_url'] ?? '' );
+$primary_img = $main_img ?: $portrait ?: '';
+$bg_img = $hero_img ?: $main_img ?: $portrait ?: '';
+
+// Location
+$city = $artist['location']['city'] ?? '';
+$country = $artist['location']['country'] ?? '';
+$location = $city && $country ? "$city, $country" : ( $city ?: $country );
+
+// Types & Genres
+$types = [];
+if ( ! empty( $artist['artist_types'] ) ) {
+    foreach ( $artist['artist_types'] as $t ) {
+        if ( ! empty( $t['name'] ) ) $types[] = $t['name'];
     }
-    if ( ! empty( $artist['images']['portrait_url'] ) ) {
-        $portrait_img = $full_storage_url( $artist['images']['portrait_url'] );
-    }
-    if ( ! empty( $artist['images']['logo_url'] ) ) {
-        $logo_img = $full_storage_url( $artist['images']['logo_url'] );
+}
+$types_label = $types ? implode( ' · ', $types ) : 'Artist';
+
+$genres = [];
+if ( ! empty( $artist['artist_genres'] ) ) {
+    foreach ( $artist['artist_genres'] as $g ) {
+        if ( ! empty( $g['name'] ) ) $genres[] = $g['name'];
     }
 }
 
-// Social & site
-$website     = isset( $artist['contact']['website'] ) ? $artist['contact']['website'] : '';
-$facebook    = isset( $artist['social']['facebook_url'] ) ? $artist['social']['facebook_url'] : '';
-$instagram   = isset( $artist['social']['instagram_url'] ) ? $artist['social']['instagram_url'] : '';
-$tiktok      = isset( $artist['social']['tiktok_url'] ) ? $artist['social']['tiktok_url'] : '';
-$youtube     = isset( $artist['social']['youtube_url'] ) ? $artist['social']['youtube_url'] : '';
-$spotify_url = isset( $artist['social']['spotify_url'] ) ? $artist['social']['spotify_url'] : '';
+// Social Links
+$social = [
+    'website' => $artist['contact']['website'] ?? '',
+    'facebook' => $artist['social']['facebook_url'] ?? '',
+    'instagram' => $artist['social']['instagram_url'] ?? '',
+    'tiktok' => $artist['social']['tiktok_url'] ?? '',
+    'youtube' => $artist['social']['youtube_url'] ?? '',
+    'spotify' => $artist['social']['spotify_url'] ?? '',
+    'twitter' => $artist['social']['twitter_url'] ?? '',
+];
 
-// Followers / stats
-$yt_subs = null;
-$sp_month = null;
-$yt_views = null;
-$spotify_popularity = null;
+// Stats
+$stats = [
+    'spotify_monthly' => $artist['followers']['spotify_monthly_listeners'] ?? null,
+    'youtube' => $artist['followers']['youtube'] ?? null,
+    'instagram' => $artist['followers']['instagram'] ?? null,
+    'facebook' => $artist['followers']['facebook'] ?? null,
+    'tiktok' => $artist['followers']['tiktok'] ?? null,
+    'youtube_views' => $artist['youtube_stats']['total_views'] ?? null,
+    'spotify_popularity' => $artist['spotify_popularity'] ?? null,
+];
 
-if ( ! empty( $artist['followers'] ) && is_array( $artist['followers'] ) ) {
-    if ( isset( $artist['followers']['youtube'] ) ) {
-        $yt_subs = $artist['followers']['youtube'];
-    }
-    if ( isset( $artist['followers']['spotify_monthly_listeners'] ) ) {
-        $sp_month = $artist['followers']['spotify_monthly_listeners'];
-    }
-}
+// Manager & Agent
+$manager = $artist['manager'] ?? [];
+$agent = $artist['agent'] ?? [];
+$manager_name = trim( ( $manager['first_name'] ?? '' ) . ' ' . ( $manager['last_name'] ?? '' ) );
+$agent_name = trim( ( $agent['first_name'] ?? '' ) . ' ' . ( $agent['last_name'] ?? '' ) );
 
-if ( ! empty( $artist['youtube_stats'] ) && is_array( $artist['youtube_stats'] ) ) {
-    if ( isset( $artist['youtube_stats']['total_views'] ) ) {
-        $yt_views = $artist['youtube_stats']['total_views'];
-    }
-}
-
-if ( isset( $artist['spotify_popularity'] ) ) {
-    $spotify_popularity = $artist['spotify_popularity'];
-}
-
-// Format numere (helper comun)
-if ( ! function_exists( 'tixello_format_number_short' ) ) {
-    function tixello_format_number_short( $num ) {
-        if ( ! is_numeric( $num ) ) {
-            return '';
-        }
-        $num = (float) $num;
-        if ( $num >= 1000000000 ) return rtrim( rtrim( number_format( $num / 1000000000, 1 ), '0' ), '.' ) . 'B';
-        if ( $num >= 1000000 )    return rtrim( rtrim( number_format( $num / 1000000, 1 ), '0' ), '.' ) . 'M';
-        if ( $num >= 1000 )       return rtrim( rtrim( number_format( $num / 1000, 1 ), '0' ), '.' ) . 'K';
-        return (string) intval( $num );
-    }
-}
-
-$yt_subs_fmt  = ! is_null( $yt_subs ) ? tixello_format_number_short( $yt_subs ) : null;
-$sp_month_fmt = ! is_null( $sp_month ) ? tixello_format_number_short( $sp_month ) : null;
-$yt_views_fmt = ! is_null( $yt_views ) ? tixello_format_number_short( $yt_views ) : null;
-
-// YouTube videos
-$youtube_videos = [];
-if ( ! empty( $artist['youtube_videos'] ) && is_array( $artist['youtube_videos'] ) ) {
+// YouTube Videos
+$yt_videos = [];
+if ( ! empty( $artist['youtube_videos'] ) ) {
     foreach ( $artist['youtube_videos'] as $v ) {
-        if ( ! empty( $v['url'] ) ) {
-            $youtube_videos[] = $v['url'];
-        }
+        if ( ! empty( $v['url'] ) ) $yt_videos[] = $v['url'];
     }
 }
 
-/**
- * Helper mic pentru extragere ID YouTube
- */
-if ( ! function_exists( 'tixello_extract_youtube_id' ) ) {
-    function tixello_extract_youtube_id( $url ) {
-        if ( empty( $url ) ) {
-            return '';
-        }
+// Upcoming Events
+$upcoming = $artist['upcoming_events'] ?? [];
 
-        $parts = wp_parse_url( $url );
-        if ( empty( $parts['host'] ) ) {
-            return '';
-        }
-
-        // youtu.be/VIDEO
-        if ( false !== strpos( $parts['host'], 'youtu.be' ) ) {
-            return isset( $parts['path'] ) ? ltrim( $parts['path'], '/' ) : '';
-        }
-
-        // youtube.com/watch?v=VIDEO
-        if ( false !== strpos( $parts['host'], 'youtube.com' ) ) {
-            if ( ! empty( $parts['query'] ) ) {
-                parse_str( $parts['query'], $q );
-                if ( ! empty( $q['v'] ) ) {
-                    return $q['v'];
-                }
-            }
-            // youtube.com/embed/VIDEO
-            if ( ! empty( $parts['path'] ) && strpos( $parts['path'], '/embed/' ) === 0 ) {
-                return substr( $parts['path'], strlen('/embed/') );
-            }
-        }
-
-        return '';
+// Extract YT video ID
+function get_yt_id( $url ) {
+    if ( empty( $url ) ) return '';
+    $parts = wp_parse_url( $url );
+    if ( ! empty( $parts['host'] ) && strpos( $parts['host'], 'youtu.be' ) !== false ) {
+        return ltrim( $parts['path'] ?? '', '/' );
     }
+    if ( ! empty( $parts['query'] ) ) {
+        parse_str( $parts['query'], $q );
+        if ( ! empty( $q['v'] ) ) return $q['v'];
+    }
+    if ( ! empty( $parts['path'] ) && strpos( $parts['path'], '/embed/' ) === 0 ) {
+        return substr( $parts['path'], 7 );
+    }
+    return '';
 }
 
-/**
- * Helper pentru dată/ora unui event (postponed vs start_date)
- */
-if ( ! function_exists( 'tixello_get_event_timestamp' ) ) {
-    function tixello_get_event_timestamp( $ev ) {
-        $use_postponed = ! empty( $ev['is_postponed'] ) && ! empty( $ev['postponed_date'] );
-        $raw = null;
+// Format number
+$fmt = function( $n ) {
+    if ( ! $n ) return '';
+    if ( $n >= 1e9 ) return number_format( $n / 1e9, 1 ) . 'B';
+    if ( $n >= 1e6 ) return number_format( $n / 1e6, 1 ) . 'M';
+    if ( $n >= 1e3 ) return number_format( $n / 1e3, 1 ) . 'K';
+    return number_format( $n );
+};
 
-        if ( $use_postponed && ! empty( $ev['postponed_date'] ) ) {
-            $raw = $ev['postponed_date'];
-        } elseif ( ! empty( $ev['start_date'] ) ) {
-            $raw = $ev['start_date'];
-        }
-
-        if ( ! $raw ) {
-            return null;
-        }
-
-        $ts = strtotime( $raw );
-        return $ts ? $ts : null;
-    }
-}
-
-if ( ! function_exists( 'tixello_format_event_date_display' ) ) {
-    function tixello_format_event_date_display( $ev ) {
-        $ts = tixello_get_event_timestamp( $ev );
-        if ( ! $ts ) {
-            return '';
-        }
-        return date_i18n( 'j M Y', $ts );
-    }
-}
-
-if ( ! function_exists( 'tixello_format_event_time_display' ) ) {
-    function tixello_format_event_time_display( $ev ) {
-        // folosim start_time / postponed_start_time doar pentru afisare
-        $time_raw = null;
-
-        if ( ! empty( $ev['is_postponed'] ) && ! empty( $ev['postponed_start_time'] ) ) {
-            $time_raw = $ev['postponed_start_time'];
-        } elseif ( ! empty( $ev['start_time'] ) ) {
-            $time_raw = $ev['start_time'];
-        }
-
-        if ( ! $time_raw ) {
-            return '';
-        }
-
-        // HH:MM:SS
-        $parts = explode( ':', $time_raw );
-        $hh = isset( $parts[0] ) ? intval( $parts[0] ) : 0;
-        $mm = isset( $parts[1] ) ? intval( $parts[1] ) : 0;
-
-        $ts = mktime( $hh, $mm, 0 );
-        return date_i18n( 'H:i', $ts );
-    }
-}
-
-/**
- * Evenimente pentru acest artist (din tixello_fetch_events_core)
- */
-$artist_events = [];
-if ( function_exists( 'tixello_fetch_events_core' ) ) {
-    $all_events = tixello_fetch_events_core();
-    if ( is_array( $all_events ) ) {
-        $artist_id   = isset( $artist['id'] ) ? $artist['id'] : null;
-        $artist_slug = isset( $artist['slug'] ) ? $artist['slug'] : null;
-        $now         = time();
-
-        foreach ( $all_events as $ev ) {
-            if ( ! is_array( $ev ) || empty( $ev['artists'] ) || ! is_array( $ev['artists'] ) ) {
-                continue;
-            }
-
-            $matches_artist = false;
-            foreach ( $ev['artists'] as $ev_artist ) {
-                if ( ! is_array( $ev_artist ) ) {
-                    continue;
-                }
-
-                if ( $artist_id && isset( $ev_artist['id'] ) && (int) $ev_artist['id'] === (int) $artist_id ) {
-                    $matches_artist = true;
-                    break;
-                }
-
-                if ( $artist_slug && isset( $ev_artist['slug'] ) && $ev_artist['slug'] === $artist_slug ) {
-                    $matches_artist = true;
-                    break;
-                }
-            }
-
-            if ( ! $matches_artist ) {
-                continue;
-            }
-
-            $ts = tixello_get_event_timestamp( $ev );
-            if ( $ts && $ts < $now ) {
-                // doar viitoare; dacă vrei și trecute, scoate condiția asta
-                continue;
-            }
-
-            $artist_events[] = $ev;
-        }
-
-        // sortăm by date asc
-        usort(
-            $artist_events,
-            function( $a, $b ) {
-                $tsA = tixello_get_event_timestamp( $a ) ?: PHP_INT_MAX;
-                $tsB = tixello_get_event_timestamp( $b ) ?: PHP_INT_MAX;
-                return $tsA <=> $tsB;
-            }
-        );
-    }
-}
-
+// JSON-LD Schema
+$schema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'MusicGroup',
+    'name' => $name,
+    'url' => home_url( '/artists/' . $slug . '/' ),
+];
+if ( $primary_img ) $schema['image'] = $primary_img;
+if ( $bio ) $schema['description'] = wp_strip_all_tags( $bio );
+if ( $genres ) $schema['genre'] = $genres;
+$same_as = array_filter( array_values( $social ) );
+if ( $same_as ) $schema['sameAs'] = $same_as;
 ?>
+<script type="application/ld+json"><?php echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
+
 <main id="primary" class="site-main">
-    <!-- HERO ARTIST -->
-    <section class="border-b border-slate-200 bg-slate-950/90 text-white">
-        <div class="container mx-auto px-4 py-10 md:py-14">
-            <div class="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)] md:items-center">
-                <!-- Info principală -->
-                <div class="space-y-4">
-                    <div class="inline-flex items-center rounded-full bg-slate-800/70 px-3 py-1 text-xs font-medium uppercase tracking-wide text-slate-200">
-                        Tixello Artist
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[70vh] flex items-end overflow-hidden">
+        <!-- Background Image with Parallax Effect -->
+        <div class="absolute inset-0 z-0">
+            <?php if ( $bg_img ) : ?>
+                <img
+                    src="<?php echo $bg_img; ?>"
+                    alt="<?php echo esc_attr( $name ); ?>"
+                    class="w-full h-full object-cover scale-105"
+                    style="filter: blur(0px);"
+                />
+            <?php else : ?>
+                <div class="w-full h-full bg-gradient-to-br from-slate-800 via-slate-900 to-black"></div>
+            <?php endif; ?>
+
+            <!-- Gradient Overlays -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 py-16 relative z-10">
+            <!-- Breadcrumb -->
+            <nav class="mb-8 flex items-center gap-2 text-sm text-white/60">
+                <a href="<?php echo home_url(); ?>" class="hover:text-white transition">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <a href="<?php echo home_url( '/artists/' ); ?>" class="hover:text-white transition">Artists</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-white"><?php echo esc_html( $name ); ?></span>
+            </nav>
+
+            <div class="grid lg:grid-cols-[1fr,auto] gap-8 items-end">
+                <!-- Left: Artist Info -->
+                <div class="space-y-6">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-sm font-medium text-white"><?php echo esc_html( $types_label ); ?></span>
                     </div>
 
-                    <h1 class="text-3xl font-bold tracking-tight md:text-4xl">
+                    <!-- Name -->
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-none">
                         <?php echo esc_html( $name ); ?>
                     </h1>
 
-                    <p class="text-sm font-medium text-slate-200/90">
-                        <?php echo esc_html( $types_label ); ?>
-                        <?php if ( $location_label ) : ?>
-                            · <span class="text-slate-300"><?php echo esc_html( $location_label ); ?></span>
+                    <!-- Location & Genres -->
+                    <div class="flex flex-wrap items-center gap-4 text-white/80">
+                        <?php if ( $location ) : ?>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="text-lg"><?php echo esc_html( $location ); ?></span>
+                            </div>
                         <?php endif; ?>
-                    </p>
 
-                    <?php if ( $genres_label ) : ?>
-                        <p class="text-sm text-slate-300">
-                            <span class="font-semibold text-slate-100">Genres:</span>
-                            <?php echo esc_html( $genres_label ); ?>
-                        </p>
-                    <?php endif; ?>
+                        <?php if ( $genres ) : ?>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1 h-1 rounded-full bg-white/40"></span>
+                                <span class="text-lg"><?php echo esc_html( implode( ', ', array_slice( $genres, 0, 3 ) ) ); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
-                    <!-- Bio scurtă -->
-                    <?php if ( $bio_html ) : ?>
-                        <div class="prose prose-invert prose-sm max-w-none">
-                            <?php echo wp_kses_post( $bio_html ); ?>
+                    <!-- Quick Stats -->
+                    <?php if ( $stats['spotify_monthly'] || $stats['youtube'] ) : ?>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <?php if ( $stats['spotify_monthly'] ) : ?>
+                                <div class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/30">
+                                    <svg class="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                    <div>
+                                        <p class="text-xl font-bold text-white"><?php echo $fmt( $stats['spotify_monthly'] ); ?></p>
+                                        <p class="text-xs text-emerald-300/80">Monthly Listeners</p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ( $stats['youtube'] ) : ?>
+                                <div class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-red-500/20 backdrop-blur-sm border border-red-500/30">
+                                    <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                    <div>
+                                        <p class="text-xl font-bold text-white"><?php echo $fmt( $stats['youtube'] ); ?></p>
+                                        <p class="text-xs text-red-300/80">Subscribers</p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
-                    <!-- Social / website -->
-                    <div class="mt-4 flex flex-wrap gap-2 text-xs">
-                        <?php if ( $website ) : ?>
-                            <a
-                                href="<?php echo esc_url( $website ); ?>"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20"
-                            >
-                                Website
+                    <!-- Social Links -->
+                    <div class="flex flex-wrap gap-3 pt-4">
+                        <?php if ( $social['spotify'] ) : ?>
+                            <a href="<?php echo esc_url( $social['spotify'] ); ?>" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#1DB954] text-white font-semibold hover:bg-[#1ed760] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/30">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                <span>Listen on Spotify</span>
                             </a>
                         <?php endif; ?>
 
-                        <?php if ( $facebook ) : ?>
-                            <a href="<?php echo esc_url( $facebook ); ?>" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20">
-                                Facebook
+                        <?php if ( $social['youtube'] ) : ?>
+                            <a href="<?php echo esc_url( $social['youtube'] ); ?>" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                                <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <span>YouTube</span>
                             </a>
                         <?php endif; ?>
 
-                        <?php if ( $instagram ) : ?>
-                            <a href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20">
-                                Instagram
+                        <?php if ( $social['instagram'] ) : ?>
+                            <a href="<?php echo esc_url( $social['instagram'] ); ?>" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 transition-all duration-300 border border-white/20 hover:border-transparent">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
                             </a>
                         <?php endif; ?>
 
-                        <?php if ( $tiktok ) : ?>
-                            <a href="<?php echo esc_url( $tiktok ); ?>" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20">
-                                TikTok
+                        <?php if ( $social['facebook'] ) : ?>
+                            <a href="<?php echo esc_url( $social['facebook'] ); ?>" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-blue-600 transition-all duration-300 border border-white/20 hover:border-transparent">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                             </a>
                         <?php endif; ?>
 
-                        <?php if ( $youtube ) : ?>
-                            <a href="<?php echo esc_url( $youtube ); ?>" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20">
-                                YouTube
+                        <?php if ( $social['tiktok'] ) : ?>
+                            <a href="<?php echo esc_url( $social['tiktok'] ); ?>" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-black transition-all duration-300 border border-white/20 hover:border-transparent">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                             </a>
                         <?php endif; ?>
 
-                        <?php if ( $spotify_url ) : ?>
-                            <a href="<?php echo esc_url( $spotify_url ); ?>" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-medium text-slate-50 hover:bg-white/20">
-                                Spotify
+                        <?php if ( $social['website'] ) : ?>
+                            <a href="<?php echo esc_url( $social['website'] ); ?>" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-slate-900 transition-all duration-300 border border-white/20 hover:border-transparent">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                             </a>
                         <?php endif; ?>
                     </div>
                 </div>
 
-                <!-- Imagine artist / logo -->
-                <div class="relative flex justify-center md:justify-end">
-                    <div class="relative h-52 w-52 overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900 shadow-2xl shadow-slate-900/50 md:h-64 md:w-64">
-                        <?php if ( $main_image || $portrait_img ) : ?>
-                            <img
-                                src="<?php echo esc_url( $main_image ? $main_image : $portrait_img ); ?>"
-                                alt="<?php echo esc_attr( $name ); ?>"
-                                class="h-full w-full object-cover"
-                                loading="lazy"
-                            />
-                        <?php else : ?>
-                            <div class="flex h-full w-full flex-col items-center justify-center gap-2 text-center">
-                                <div class="text-2xl font-bold text-slate-200">
-                                    <?php echo esc_html( strtoupper( mb_substr( $name, 0, 1 ) ) ); ?>
-                                </div>
-                                <div class="text-xs text-slate-400">
-                                    No image available
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ( $logo_img ) : ?>
-                            <div class="absolute bottom-3 left-3 rounded-xl bg-slate-950/70 p-2">
+                <!-- Right: Artist Photo -->
+                <?php if ( $primary_img ) : ?>
+                    <div class="hidden lg:block">
+                        <div class="relative">
+                            <div class="w-72 h-72 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl shadow-black/50 transform rotate-3 hover:rotate-0 transition-transform duration-500">
                                 <img
-                                    src="<?php echo esc_url( $logo_img ); ?>"
-                                    alt="<?php echo esc_attr( $name ); ?> logo"
-                                    class="h-8 w-auto object-contain"
+                                    src="<?php echo $primary_img; ?>"
+                                    alt="<?php echo esc_attr( $name ); ?>"
+                                    class="w-full h-full object-cover"
                                 />
                             </div>
-                        <?php endif; ?>
+                            <?php if ( $logo ) : ?>
+                                <div class="absolute -bottom-4 -left-4 w-20 h-20 rounded-2xl bg-white p-2 shadow-xl">
+                                    <img src="<?php echo $logo; ?>" alt="<?php echo esc_attr( $name ); ?> logo" class="w-full h-full object-contain" />
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
-    <!-- STATS + DETALII -->
-    <section class="border-b border-slate-100 bg-slate-50/60">
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)]">
-                <!-- Stats -->
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-600">
-                        Reach & Stats
-                    </h2>
-                    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        <?php if ( $yt_subs_fmt ) : ?>
-                            <div class="rounded-xl border border-red-100 bg-white p-3">
-                                <p class="text-[11px] font-semibold text-red-700">YouTube subscribers</p>
-                                <p class="mt-1 text-xl font-bold text-slate-900"><?php echo esc_html( $yt_subs_fmt ); ?></p>
-                            </div>
-                        <?php endif; ?>
+    <!-- CONTENT SECTIONS -->
+    <div class="bg-white">
 
-                        <?php if ( $yt_views_fmt ) : ?>
-                            <div class="rounded-xl border border-red-100 bg-white p-3">
-                                <p class="text-[11px] font-semibold text-red-700">YouTube total views</p>
-                                <p class="mt-1 text-xl font-bold text-slate-900"><?php echo esc_html( $yt_views_fmt ); ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ( $sp_month_fmt ) : ?>
-                            <div class="rounded-xl border border-emerald-100 bg-white p-3">
-                                <p class="text-[11px] font-semibold text-emerald-700">Spotify monthly listeners</p>
-                                <p class="mt-1 text-xl font-bold text-slate-900"><?php echo esc_html( $sp_month_fmt ); ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ( ! is_null( $spotify_popularity ) ) : ?>
-                            <div class="rounded-xl border border-emerald-100 bg-white p-3">
-                                <p class="text-[11px] font-semibold text-emerald-700">Spotify popularity</p>
-                                <p class="mt-1 text-xl font-bold text-slate-900">
-                                    <?php echo intval( $spotify_popularity ); ?>/100
-                                </p>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="rounded-xl border border-slate-100 bg-white p-3">
-                            <p class="text-[11px] font-semibold text-slate-600">Created in Tixello</p>
-                            <p class="mt-1 text-sm font-medium text-slate-900">
-                                <?php
-                                if ( ! empty( $artist['created_at'] ) ) {
-                                    $dt = date_i18n( 'j F Y', strtotime( $artist['created_at'] ) );
-                                    echo esc_html( $dt );
-                                } else {
-                                    echo 'N/A';
-                                }
-                                ?>
-                            </p>
-                        </div>
-
-                        <div class="rounded-xl border border-slate-100 bg-white p-3">
-                            <p class="text-[11px] font-semibold text-slate-600">Last updated</p>
-                            <p class="mt-1 text-sm font-medium text-slate-900">
-                                <?php
-                                if ( ! empty( $artist['updated_at'] ) ) {
-                                    $dt = date_i18n( 'j F Y', strtotime( $artist['updated_at'] ) );
-                                    echo esc_html( $dt );
-                                } else {
-                                    echo 'N/A';
-                                }
-                                ?>
-                            </p>
+        <!-- Bio Section -->
+        <?php if ( $bio ) : ?>
+            <section class="py-16 border-b border-slate-100">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">About</h2>
+                        <div class="prose prose-lg prose-slate max-w-none prose-p:text-slate-600 prose-headings:text-slate-900">
+                            <?php echo wp_kses_post( $bio ); ?>
                         </div>
                     </div>
                 </div>
+            </section>
+        <?php endif; ?>
 
-                <!-- Contact -->
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-600">
-                        Contact & Representation
-                    </h2>
-                    <div class="space-y-3 rounded-2xl border border-slate-100 bg-white p-4 text-sm text-slate-700">
-                        <div>
-                            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Manager</p>
-                            <?php
-                            $mgr = isset( $artist['manager'] ) && is_array( $artist['manager'] ) ? $artist['manager'] : [];
-                            $mgr_name = trim(
-                                ( isset( $mgr['first_name'] ) ? $mgr['first_name'] . ' ' : '' ) .
-                                ( isset( $mgr['last_name'] ) ? $mgr['last_name'] : '' )
-                            );
-                            ?>
-                            <p class="mt-1">
-                                <?php echo $mgr_name ? esc_html( $mgr_name ) : 'Not specified'; ?>
-                            </p>
-                            <?php if ( ! empty( $mgr['email'] ) ) : ?>
-                                <p class="text-xs text-slate-500">
-                                    Email: <a href="mailto:<?php echo esc_attr( $mgr['email'] ); ?>" class="text-slate-800 underline">
-                                        <?php echo esc_html( $mgr['email'] ); ?>
-                                    </a>
-                                </p>
-                            <?php endif; ?>
-                            <?php if ( ! empty( $mgr['phone'] ) ) : ?>
-                                <p class="text-xs text-slate-500">
-                                    Phone: <span class="text-slate-800"><?php echo esc_html( $mgr['phone'] ); ?></span>
-                                </p>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="border-t border-slate-100 pt-3">
-                            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Agent</p>
-                            <?php
-                            $ag = isset( $artist['agent'] ) && is_array( $artist['agent'] ) ? $artist['agent'] : [];
-                            $ag_name = trim(
-                                ( isset( $ag['first_name'] ) ? $ag['first_name'] . ' ' : '' ) .
-                                ( isset( $ag['last_name'] ) ? $ag['last_name'] : '' )
-                            );
-                            ?>
-                            <p class="mt-1">
-                                <?php echo $ag_name ? esc_html( $ag_name ) : 'Not specified'; ?>
-                            </p>
-                            <?php if ( ! empty( $ag['email'] ) ) : ?>
-                                <p class="text-xs text-slate-500">
-                                    Email: <a href="mailto:<?php echo esc_attr( $ag['email'] ); ?>" class="text-slate-800 underline">
-                                        <?php echo esc_html( $ag['email'] ); ?>
-                                    </a>
-                                </p>
-                            <?php endif; ?>
-                            <?php if ( ! empty( $ag['phone'] ) ) : ?>
-                                <p class="text-xs text-slate-500">
-                                    Phone: <span class="text-slate-800"><?php echo esc_html( $ag['phone'] ); ?></span>
-                                </p>
-                            <?php endif; ?>
-                        </div>
+        <!-- Genres Section -->
+        <?php if ( $genres ) : ?>
+            <section class="py-12 border-b border-slate-100 bg-slate-50/50">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">Genres</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <?php foreach ( $genres as $genre ) : ?>
+                            <span class="px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-700 font-medium shadow-sm hover:border-slate-300 hover:shadow transition-all">
+                                <?php echo esc_html( $genre ); ?>
+                            </span>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        <?php endif; ?>
 
-    <!-- UPCOMING EVENTS CU ACEST ARTIST -->
-    <?php if ( ! empty( $artist_events ) ) : ?>
-        <section class="bg-white border-b border-slate-100">
-            <div class="container mx-auto px-4 py-10 space-y-4">
-                <div class="flex items-center justify-between gap-2">
-                    <h2 class="text-lg font-semibold text-slate-900">
-                        Upcoming events with <?php echo esc_html( $name ); ?>
-                    </h2>
-                    <a
-                        href="<?php echo esc_url( home_url( '/search/?artist=' . urlencode( $name ) ) ); ?>"
-                        class="text-xs font-medium text-slate-600 underline underline-offset-4 hover:text-slate-900"
-                    >
-                        View all events
-                    </a>
+        <!-- Stats Grid -->
+        <?php if ( array_filter( $stats ) ) : ?>
+            <section class="py-16 border-b border-slate-100">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-8">Statistics & Reach</h2>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <?php if ( $stats['spotify_monthly'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
+                                <div class="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <svg class="w-12 h-12 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                </div>
+                                <p class="text-3xl font-black text-emerald-600"><?php echo $fmt( $stats['spotify_monthly'] ); ?></p>
+                                <p class="text-sm text-emerald-700/70 mt-1">Monthly Listeners</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['youtube'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-red-50 to-red-100/50 border border-red-200/50 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300">
+                                <div class="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                </div>
+                                <p class="text-3xl font-black text-red-600"><?php echo $fmt( $stats['youtube'] ); ?></p>
+                                <p class="text-sm text-red-700/70 mt-1">Subscribers</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['youtube_views'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-rose-50 to-rose-100/50 border border-rose-200/50 hover:shadow-lg hover:shadow-rose-500/10 transition-all duration-300">
+                                <p class="text-3xl font-black text-rose-600"><?php echo $fmt( $stats['youtube_views'] ); ?></p>
+                                <p class="text-sm text-rose-700/70 mt-1">Total Views</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['instagram'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-pink-50 to-purple-100/50 border border-pink-200/50 hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300">
+                                <p class="text-3xl font-black text-pink-600"><?php echo $fmt( $stats['instagram'] ); ?></p>
+                                <p class="text-sm text-pink-700/70 mt-1">Instagram</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['facebook'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                                <p class="text-3xl font-black text-blue-600"><?php echo $fmt( $stats['facebook'] ); ?></p>
+                                <p class="text-sm text-blue-700/70 mt-1">Facebook</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['tiktok'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200/50 hover:shadow-lg hover:shadow-slate-500/10 transition-all duration-300">
+                                <p class="text-3xl font-black text-slate-800"><?php echo $fmt( $stats['tiktok'] ); ?></p>
+                                <p class="text-sm text-slate-600/70 mt-1">TikTok</p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $stats['spotify_popularity'] ) : ?>
+                            <div class="group relative p-6 rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-100/50 border border-emerald-200/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
+                                <p class="text-3xl font-black text-emerald-600"><?php echo intval( $stats['spotify_popularity'] ); ?><span class="text-lg">/100</span></p>
+                                <p class="text-sm text-emerald-700/70 mt-1">Spotify Popularity</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
+            </section>
+        <?php endif; ?>
 
-                <div class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-                    <?php
-                    $max_events = 8;
-                    $count = 0;
-                    foreach ( $artist_events as $ev ) :
-                        if ( $count >= $max_events ) {
-                            break;
-                        }
-                        $count++;
+        <!-- YouTube Videos -->
+        <?php if ( $yt_videos ) : ?>
+            <section class="py-16 border-b border-slate-100 bg-slate-900 text-white">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-white/60">Featured Videos</h2>
+                        <?php if ( $social['youtube'] ) : ?>
+                            <a href="<?php echo esc_url( $social['youtube'] ); ?>" target="_blank" rel="noopener" class="text-sm text-white/60 hover:text-white flex items-center gap-2 transition-colors">
+                                <span>View all on YouTube</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        <?php endif; ?>
+                    </div>
 
-                        $event_slug = ! empty( $ev['slug'] ) ? $ev['slug'] : '';
-                        $internal_url = $event_slug ? home_url( '/events/' . $event_slug . '/' ) : '';
-                        $external_url = '';
-
-                        if ( ! empty( $ev['tenant']['event_url'] ) ) {
-                            $external_url = $ev['tenant']['event_url'];
-                        } elseif ( ! empty( $ev['event_website_url'] ) ) {
-                            $external_url = $ev['event_website_url'];
-                        } elseif ( ! empty( $ev['website_url'] ) ) {
-                            $external_url = $ev['website_url'];
-                        } elseif ( ! empty( $ev['facebook_url'] ) ) {
-                            $external_url = $ev['facebook_url'];
-                        }
-
-                        $card_url = $internal_url ? $internal_url : $external_url;
-
-                        $poster_url = '';
-                        if ( ! empty( $ev['poster_url'] ) ) {
-                            $poster_url = $full_storage_url( $ev['poster_url'] );
-                        }
-
-                        $date_label = tixello_format_event_date_display( $ev );
-                        $time_label = tixello_format_event_time_display( $ev );
-
-                        $venue_name = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
-                        $venue_city = isset( $ev['venue']['city'] ) ? $ev['venue']['city'] : '';
-                        $price_from = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <?php
+                        $i = 0;
+                        foreach ( $yt_videos as $url ) :
+                            if ( $i >= 3 ) break;
+                            $vid = get_yt_id( $url );
+                            if ( ! $vid ) continue;
+                            $i++;
                         ?>
-                        <article class="group flex flex-col rounded-xl border border-slate-200 bg-slate-50/80 p-3 text-xs text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-white">
-                            <?php if ( $card_url ) : ?>
-                                <a href="<?php echo esc_url( $card_url ); ?>" class="flex h-full flex-col" target="_blank" rel="noopener noreferrer">
-                            <?php endif; ?>
-
-                                <div class="mb-2 aspect-[3/4] w-full overflow-hidden rounded-lg bg-slate-200">
-                                    <?php if ( $poster_url ) : ?>
-                                        <img
-                                            src="<?php echo esc_url( $poster_url ); ?>"
-                                            alt="<?php echo esc_attr( $ev['title'] ?? '' ); ?>"
-                                            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                            loading="lazy"
-                                        />
-                                    <?php endif; ?>
+                            <div class="group rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-300 hover:shadow-xl hover:shadow-red-500/10">
+                                <div class="aspect-video">
+                                    <iframe
+                                        src="https://www.youtube.com/embed/<?php echo esc_attr( $vid ); ?>"
+                                        title="Video <?php echo $i; ?>"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        loading="lazy"
+                                        class="w-full h-full"
+                                    ></iframe>
                                 </div>
-
-                                <div class="mb-1 text-[11px] text-slate-500">
-                                    <?php if ( $date_label ) : ?>
-                                        <span><?php echo esc_html( $date_label ); ?></span>
-                                    <?php endif; ?>
-                                    <?php if ( $time_label ) : ?>
-                                        <span class="ml-1">· <?php echo esc_html( $time_label ); ?></span>
-                                    <?php endif; ?>
-                                </div>
-
-                                <h3 class="mb-1 line-clamp-2 text-sm font-semibold text-slate-900">
-                                    <?php echo esc_html( $ev['title'] ?? 'Untitled event' ); ?>
-                                </h3>
-
-                                <div class="mt-auto space-y-1 text-[11px]">
-                                    <?php if ( ! is_null( $price_from ) ) : ?>
-                                        <div class="font-semibold text-slate-800">
-                                            From <?php echo esc_html( $price_from ); ?> RON
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if ( $venue_name ) : ?>
-                                        <div class="font-medium text-slate-800">
-                                            <?php echo esc_html( $venue_name ); ?>
-                                            <?php if ( $venue_city ) : ?>
-                                                <span class="text-slate-500"> · <?php echo esc_html( $venue_city ); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-
-                            <?php if ( $card_url ) : ?>
-                                </a>
-                            <?php endif; ?>
-                        </article>
-                    <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
+            </section>
+        <?php endif; ?>
+
+        <!-- Upcoming Events -->
+        <?php if ( $upcoming ) : ?>
+            <section class="py-16 border-b border-slate-100">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-8">Upcoming Events</h2>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <?php foreach ( array_slice( $upcoming, 0, 8 ) as $ev ) :
+                            $ev_title = $ev['title'] ?? '';
+                            $ev_slug = $ev['slug'] ?? '';
+                            $ev_date = ! empty( $ev['event_date'] ) ? date_i18n( 'j M Y', strtotime( $ev['event_date'] ) ) : '';
+                            $ev_time = $ev['start_time'] ?? '';
+                            $ev_poster = ! empty( $ev['poster_url'] ) ? $full_url( $ev['poster_url'] ) : '';
+                            $ev_venue = $ev['venue']['name'] ?? '';
+                            $ev_city = $ev['venue']['city'] ?? '';
+                            $ev_url = $ev_slug ? home_url( '/events/' . $ev_slug . '/' ) : '#';
+                        ?>
+                            <a href="<?php echo esc_url( $ev_url ); ?>" class="group flex flex-col rounded-2xl border border-slate-200 bg-white overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-300 hover:-translate-y-1">
+                                <div class="aspect-[3/4] bg-slate-100 overflow-hidden">
+                                    <?php if ( $ev_poster ) : ?>
+                                        <img src="<?php echo $ev_poster; ?>" alt="<?php echo esc_attr( $ev_title ); ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                                    <?php endif; ?>
+                                </div>
+                                <div class="p-4 flex-1 flex flex-col">
+                                    <p class="text-xs font-semibold text-blue-600 mb-1"><?php echo esc_html( $ev_date ); ?><?php if ( $ev_time ) echo ' · ' . esc_html( substr( $ev_time, 0, 5 ) ); ?></p>
+                                    <h3 class="font-bold text-slate-900 line-clamp-2 mb-2 group-hover:text-blue-600 transition-colors"><?php echo esc_html( $ev_title ); ?></h3>
+                                    <?php if ( $ev_venue ) : ?>
+                                        <p class="mt-auto text-sm text-slate-500"><?php echo esc_html( $ev_venue ); ?><?php if ( $ev_city ) echo ' · ' . esc_html( $ev_city ); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+
+        <!-- Contact / Management -->
+        <?php if ( $manager_name || $agent_name ) : ?>
+            <section class="py-16 bg-slate-50">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-8">Management & Booking</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6 max-w-3xl">
+                        <?php if ( $manager_name ) : ?>
+                            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Manager</p>
+                                <p class="text-lg font-semibold text-slate-900 mb-2"><?php echo esc_html( $manager_name ); ?></p>
+                                <?php if ( ! empty( $manager['email'] ) ) : ?>
+                                    <a href="mailto:<?php echo esc_attr( $manager['email'] ); ?>" class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                        <span><?php echo esc_html( $manager['email'] ); ?></span>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( $agent_name ) : ?>
+                            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Booking Agent</p>
+                                <p class="text-lg font-semibold text-slate-900 mb-2"><?php echo esc_html( $agent_name ); ?></p>
+                                <?php if ( ! empty( $agent['email'] ) ) : ?>
+                                    <a href="mailto:<?php echo esc_attr( $agent['email'] ); ?>" class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                        <span><?php echo esc_html( $agent['email'] ); ?></span>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+
+        <!-- Back to Artists -->
+        <section class="py-12 border-t border-slate-100">
+            <div class="container mx-auto px-4 text-center">
+                <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all duration-300 hover:shadow-xl hover:shadow-slate-900/25">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    <span>Back to All Artists</span>
+                </a>
             </div>
         </section>
-    <?php endif; ?>
-
-    <!-- YOUTUBE VIDEOS (opțional, pentru SEO & engagement) -->
-    <?php if ( ! empty( $youtube_videos ) ) : ?>
-        <section class="bg-white">
-            <div class="container mx-auto px-4 py-10 space-y-4">
-                <div class="flex items-center justify-between gap-2">
-                    <h2 class="text-lg font-semibold text-slate-900">
-                        Featured videos
-                    </h2>
-                    <?php if ( $youtube ) : ?>
-                        <a
-                            href="<?php echo esc_url( $youtube ); ?>"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-xs font-medium text-slate-600 underline underline-offset-4 hover:text-slate-900"
-                        >
-                            View full YouTube channel
-                        </a>
-                    <?php endif; ?>
-                </div>
-
-                <div class="grid gap-4 md:grid-cols-3">
-                    <?php
-                    $max_videos = 3;
-                    $i = 0;
-                    foreach ( $youtube_videos as $url ) :
-                        if ( $i >= $max_videos ) {
-                            break;
-                        }
-                        $video_id = tixello_extract_youtube_id( $url );
-                        if ( ! $video_id ) {
-                            continue;
-                        }
-                        $i++;
-                        ?>
-                        <div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                            <div class="aspect-video w-full bg-black">
-                                <iframe
-                                    src="https://www.youtube.com/embed/<?php echo esc_attr( $video_id ); ?>"
-                                    title="<?php echo esc_attr( $name . ' video ' . $i ); ?>"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen
-                                    loading="lazy"
-                                    class="h-full w-full"
-                                ></iframe>
-                            </div>
-                            <div class="px-3 py-2 text-xs text-slate-600">
-                                <a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" class="line-clamp-2 hover:text-slate-900">
-                                    <?php echo esc_html( $name ); ?> – YouTube video
-                                </a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
-    <?php endif; ?>
+    </div>
 </main>
 
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>

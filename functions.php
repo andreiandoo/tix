@@ -1545,3 +1545,241 @@ function tixello_stats_cards_shortcode( $atts ) {
     return ob_get_clean();
 }
 add_shortcode( 'tixello_stats_cards', 'tixello_stats_cards_shortcode' );
+
+// =========================================================================
+// TIXELLO ARTISTS - PAGINATED API + AJAX + CACHING
+// =========================================================================
+
+/**
+ * Fetch artists from Tixello API with pagination support
+ *
+ * @param array $args {
+ *     @type int    $page     Page number (default 1)
+ *     @type int    $per_page Items per page (default 100, max 500)
+ *     @type string $country  Filter by country
+ *     @type string $city     Filter by city
+ * }
+ * @return array ['artists' => [], 'pagination' => []]
+ */
+function tixello_fetch_artists_paginated( $args = [] ) {
+    $defaults = [
+        'page'     => 1,
+        'per_page' => 100,
+        'country'  => '',
+        'city'     => '',
+    ];
+    $args = wp_parse_args( $args, $defaults );
+
+    // Enforce max per_page
+    $args['per_page'] = min( (int) $args['per_page'], 500 );
+
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+    $base_url = 'https://core.tixello.com/api/v1/public/artists';
+
+    $query_args = [
+        'page'     => (int) $args['page'],
+        'per_page' => (int) $args['per_page'],
+    ];
+
+    if ( ! empty( $args['country'] ) ) {
+        $query_args['country'] = $args['country'];
+    }
+    if ( ! empty( $args['city'] ) ) {
+        $query_args['city'] = $args['city'];
+    }
+
+    $url = add_query_arg( $query_args, $base_url );
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [ 'X-API-Key' => $api_key ],
+            'timeout' => 20,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return [ 'artists' => [], 'pagination' => [], 'error' => $response->get_error_message() ];
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        return [ 'artists' => [], 'pagination' => [] ];
+    }
+
+    $artists = isset( $data['data'] ) && is_array( $data['data'] ) ? $data['data'] : [];
+    $pagination = isset( $data['pagination'] ) ? $data['pagination'] : [];
+
+    return [
+        'artists'    => $artists,
+        'pagination' => $pagination,
+    ];
+}
+
+/**
+ * AJAX handler for loading artists
+ * Returns ALL artists from the requested page - filtering is done client-side
+ */
+function tixello_ajax_load_artists() {
+    // Verify nonce
+    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'tixello_artists_nonce' ) ) {
+        wp_send_json_error( [ 'message' => 'Invalid security token' ] );
+    }
+
+    $page     = isset( $_POST['page'] ) ? max( 1, (int) $_POST['page'] ) : 1;
+    $per_page = isset( $_POST['per_page'] ) ? min( 500, max( 1, (int) $_POST['per_page'] ) ) : 100;
+
+    // Fetch from API - NO filtering here, return all artists
+    $result = tixello_fetch_artists_paginated( [
+        'page'     => $page,
+        'per_page' => $per_page,
+    ] );
+
+    $artists = $result['artists'];
+    $pagination = $result['pagination'];
+
+    // Normalize artists for frontend - NO filtering
+    $STORAGE_BASE = 'https://core.tixello.com/storage/';
+    $normalized = [];
+
+    foreach ( $artists as $a ) {
+        if ( ! is_array( $a ) ) continue;
+
+        $name = isset( $a['name'] ) ? trim( $a['name'] ) : 'Unknown';
+        $initial = mb_strtoupper( mb_substr( $name, 0, 1 ) );
+
+        // Determine letter bucket
+        $letterBucket = '#';
+        if ( preg_match( '/[A-ZĂÂÎȘŞȚŢ]/u', $initial ) ) {
+            if ( in_array( $initial, [ 'Ă', 'Â' ] ) ) $letterBucket = 'A';
+            elseif ( $initial === 'Î' ) $letterBucket = 'I';
+            elseif ( in_array( $initial, [ 'Ș', 'Ş' ] ) ) $letterBucket = 'S';
+            elseif ( in_array( $initial, [ 'Ț', 'Ţ' ] ) ) $letterBucket = 'T';
+            else $letterBucket = $initial;
+        }
+
+        // Location
+        $city = $a['location']['city'] ?? '';
+        $country = $a['location']['country'] ?? '';
+        $locationLabel = $city && $country ? "$city, $country" : ( $city ?: $country );
+
+        // Image
+        $imageUrl = '';
+        if ( ! empty( $a['images']['main_image_url'] ) ) {
+            $imageUrl = $a['images']['main_image_url'];
+        } elseif ( ! empty( $a['images']['portrait_url'] ) ) {
+            $imageUrl = $a['images']['portrait_url'];
+        } elseif ( ! empty( $a['images']['logo_url'] ) ) {
+            $imageUrl = $a['images']['logo_url'];
+        }
+
+        if ( $imageUrl && ! preg_match( '#^https?://#i', $imageUrl ) ) {
+            $imageUrl = $STORAGE_BASE . ltrim( $imageUrl, '/' );
+        }
+
+        // Types & genres
+        $typesLabel = '';
+        if ( ! empty( $a['artist_types'] ) ) {
+            $types = array_filter( array_map( function( $t ) {
+                return $t['name'] ?? '';
+            }, $a['artist_types'] ) );
+            $typesLabel = implode( ' · ', $types );
+        }
+
+        $genresLabel = '';
+        $genresArray = [];
+        if ( ! empty( $a['artist_genres'] ) ) {
+            $genresArray = array_filter( array_map( function( $g ) {
+                return $g['name'] ?? '';
+            }, $a['artist_genres'] ) );
+            $genresLabel = implode( ' · ', $genresArray );
+        }
+
+        // Followers
+        $ytFollowers = $a['followers']['youtube'] ?? null;
+        $spMonthly = $a['followers']['spotify_monthly_listeners'] ?? null;
+
+        $normalized[] = [
+            'id'            => $a['id'] ?? null,
+            'name'          => $name,
+            'slug'          => $a['slug'] ?? '',
+            'initial'       => $initial,
+            'letterBucket'  => $letterBucket,
+            'imageUrl'      => $imageUrl,
+            'city'          => $city,
+            'country'       => $country,
+            'locationLabel' => $locationLabel,
+            'typesLabel'    => $typesLabel ?: 'Artist',
+            'genresLabel'   => $genresLabel,
+            'genresArray'   => $genresArray,
+            'ytFollowers'   => $ytFollowers,
+            'ytFollowersFmt'=> $ytFollowers ? tixello_format_number_short( $ytFollowers ) : '',
+            'spMonthly'     => $spMonthly,
+            'spMonthlyFmt'  => $spMonthly ? tixello_format_number_short( $spMonthly ) : '',
+        ];
+    }
+
+    wp_send_json_success( [
+        'artists'    => $normalized,
+        'pagination' => $pagination,
+        'page'       => $page,
+    ] );
+}
+add_action( 'wp_ajax_tixello_load_artists', 'tixello_ajax_load_artists' );
+add_action( 'wp_ajax_nopriv_tixello_load_artists', 'tixello_ajax_load_artists' );
+
+/**
+ * Get single artist by slug WITH CACHING
+ * Cache duration: 30 minutes
+ */
+function tixello_get_artist_by_slug_cached( $slug ) {
+    if ( empty( $slug ) ) {
+        return null;
+    }
+
+    $cache_key = 'tixello_artist_' . sanitize_key( $slug );
+    $cached = get_transient( $cache_key );
+
+    if ( $cached !== false ) {
+        return $cached;
+    }
+
+    // Fetch from API directly by slug
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+    $url = 'https://core.tixello.com/api/v1/public/artists/' . urlencode( $slug );
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [ 'X-API-Key' => $api_key ],
+            'timeout' => 15,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return null;
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) || empty( $data ) ) {
+        return null;
+    }
+
+    // Handle API response structure - might be direct or wrapped in 'data'
+    $artist = isset( $data['data'] ) ? $data['data'] : $data;
+
+    // Cache for 30 minutes
+    set_transient( $cache_key, $artist, 30 * MINUTE_IN_SECONDS );
+
+    return $artist;
+}

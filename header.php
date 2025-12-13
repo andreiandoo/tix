@@ -23,13 +23,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body <?php body_class( 'bg-white text-gray-900 antialiased noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden' ); ?> x-data="{ mobileMenu: false }">
+<body <?php body_class( 'text-gray-900 antialiased font-body bg-dark-900 text-zinc-200 overflow-x-hidden' ); ?> x-data="{ mobileMenu: false }">
 <!-- Scroll Progress Bar -->
 <div class="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-meta-blue to-cyan-400 z-[1001]" id="scroll-progress"></div>
 
 <?php do_action( 'tailpress_site_before' ); ?>
 
-<div id="page" class="flex flex-col min-h-screen bg-white">
+<div id="page" class="flex flex-col min-h-screen bg-dark-850">
 
 	<?php do_action( 'tailpress_header' ); ?>
 
@@ -64,27 +64,15 @@
 					<?php
 					wp_nav_menu( array(
 						'theme_location'  => 'primary',
-						'menu_id'         => 'primary-menu',
-						'menu_class'      => 'flex items-center gap-1',
-						'container'       => false,
-						'fallback_cb'     => false,
-						'depth'           => 2,
 					) );
 					?>
 					
 					<!-- Separator -->
 					<div class="w-px h-5 bg-white/10 mx-3"></div>
 					
-					<!-- Secondary Menu (Artiști, Evenimente, Locații) -->
 					<?php
 					wp_nav_menu( array(
 						'theme_location'  => 'secondary',
-						'menu_id'         => 'secondary-menu',
-						'menu_class'      => 'flex items-center gap-1',
-						'container'       => false,
-						'fallback_cb'     => false,
-						'depth'           => 1,
-						'link_class'      => 'nav-link px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors',
 					) );
 					?>
 				</div>
@@ -235,16 +223,9 @@
 				<?php include get_template_directory() . '/bits/top-search.php'; ?>
 
 				<?php
-				wp_nav_menu(
-					array(
-						'container_id'    => 'primary-menu',
-						'container_class' => 'hidden bg-gray-100 mt-4 p-4 lg:mt-0 lg:p-0 lg:bg-transparent lg:block',
-						'menu_class'      => 'lg:flex lg:-mx-4',
-						'theme_location'  => 'primary',
-						'li_class'        => 'lg:mx-4',
-						'fallback_cb'     => false,
-					)
-				);
+				wp_nav_menu( array(
+					'theme_location'  => 'primary',
+				) );
 				?>
 			</div>
 		</div>

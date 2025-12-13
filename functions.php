@@ -359,6 +359,31 @@ add_filter(
 	5
 );
 
+/**
+ * Fix Mega Menu + Polylang compatibility
+ */
+add_filter( 'megamenu_settings', 'tixello_megamenu_polylang_fix' );
+
+function tixello_megamenu_polylang_fix( $settings ) {
+    // Obține toate limbile Polylang
+    if ( function_exists( 'pll_languages_list' ) ) {
+        $languages = pll_languages_list( array( 'fields' => 'slug' ) );
+        
+        foreach ( $languages as $lang ) {
+            // Activează Mega Menu pentru fiecare locație de limbă
+            $location_key = 'primary___' . $lang;
+            
+            if ( ! isset( $settings[ $location_key ] ) ) {
+                $settings[ $location_key ] = array();
+            }
+            
+            $settings[ $location_key ]['enabled'] = '1';
+        }
+    }
+    
+    return $settings;
+}
+
 //#####################################################
 // CUSTOM MENUS ##
 //#####################################################

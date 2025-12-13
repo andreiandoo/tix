@@ -69,7 +69,6 @@
 						'container'       => false,
 						'fallback_cb'     => false,
 						'depth'           => 2,
-						'walker'          => new Tixello_Nav_Walker(),
 					) );
 					?>
 					
@@ -190,7 +189,6 @@
 						'container'       => false,
 						'fallback_cb'     => false,
 						'depth'           => 2,
-						// 'walker'          => new Tixello_Mobile_Nav_Walker(),
 					) );
 					?>
 				</div>
@@ -199,7 +197,7 @@
 		
 	</header>
 
-	<header class="bg-black">
+	<header class="bg-black hidden">
 
 		<div class="container mx-auto">
 			<div class="py-6 border-b lg:flex lg:justify-between lg:items-center">
@@ -252,7 +250,7 @@
 		</div>
 	</header>
 
-	<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+	<header class=" hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
 		<div class="max-w-7xl mx-auto px-6 lg:px-8">
 		<nav class="flex items-center justify-between h-20">
 			<a href="/" class="flex items-center gap-2">

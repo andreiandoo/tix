@@ -333,6 +333,12 @@
 .z-\[1001\] {
     z-index: 1001
 }
+.z-\[100\] {
+    z-index: 100
+}
+.z-\[101\] {
+    z-index: 101
+}
 .order-1 {
     order: 1
 }
@@ -647,6 +653,9 @@
 .h-px {
     height: 1px
 }
+.h-9 {
+    height: 2.25rem
+}
 .max-h-\[420px\] {
     max-height: 420px
 }
@@ -791,6 +800,9 @@
 .w-px {
     width: 1px
 }
+.w-9 {
+    width: 2.25rem
+}
 .min-w-0 {
     min-width: 0px
 }
@@ -832,6 +844,12 @@
 }
 .max-w-xl {
     max-width: 36rem
+}
+.max-w-\[1400px\] {
+    max-width: 1400px
+}
+.max-w-\[400px\] {
+    max-width: 400px
 }
 .flex-1 {
     flex: 1 1 0%
@@ -884,6 +902,10 @@
 }
 .translate-y-10 {
     --tw-translate-y: 2.5rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+.translate-x-full {
+    --tw-translate-x: 100%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 .-rotate-90 {
@@ -1164,6 +1186,9 @@
 }
 .gap-8 {
     gap: 2rem
+}
+.gap-2\.5 {
+    gap: 0.625rem
 }
 .gap-x-4 {
     -moz-column-gap: 1rem;
@@ -2708,6 +2733,9 @@
 }
 .bg-group-teal\/20 {
     background-color: rgb(20 184 166 / 0.2)
+}
+.bg-black\/60 {
+    background-color: rgb(0 0 0 / 0.6)
 }
 .bg-\[radial-gradient\(circle_at_top\2c _rgba\(56\2c 189\2c 248\2c 0\.2\)\2c _transparent_60\%\)\2c _radial-gradient\(circle_at_bottom\2c _rgba\(16\2c 185\2c 129\2c 0\.18\)\2c _transparent_55\%\)\] {
     background-image: radial-gradient(circle at top, rgba(56,189,248,0.2), transparent 60%), radial-gradient(circle at bottom, rgba(16,185,129,0.18), transparent 55%)
@@ -5420,6 +5448,11 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms
 }
+.transition-shadow {
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
 .duration-1000 {
     transition-duration: 1000ms
 }
@@ -5883,6 +5916,15 @@ body {
 .hover\:bg-group-primary\/80:hover {
     background-color: rgb(99 102 241 / 0.8)
 }
+.hover\:bg-brand-violet\/20:hover {
+    background-color: rgb(124 58 237 / 0.2)
+}
+.hover\:bg-brand-violet\/80:hover {
+    background-color: rgb(124 58 237 / 0.8)
+}
+.hover\:bg-brand-violet\/90:hover {
+    background-color: rgb(124 58 237 / 0.9)
+}
 .hover\:bg-gradient-to-br:hover {
     background-image: linear-gradient(to bottom right, var(--tw-gradient-stops))
 }
@@ -6064,6 +6106,10 @@ body {
     --tw-shadow-color: rgb(15 23 42 / 0.3);
     --tw-shadow: var(--tw-shadow-colored)
 }
+.hover\:shadow-brand-violet\/30:hover {
+    --tw-shadow-color: rgb(124 58 237 / 0.3);
+    --tw-shadow: var(--tw-shadow-colored)
+}
 .focus\:border-indigo-500:focus {
     --tw-border-opacity: 1;
     border-color: rgb(99 102 241 / var(--tw-border-opacity))
@@ -6153,6 +6199,10 @@ body {
 .group:hover .group-hover\:opacity-20 {
     opacity: 0.2
 }
+.group:hover .group-hover\:shadow-brand-violet\/40 {
+    --tw-shadow-color: rgb(124 58 237 / 0.4);
+    --tw-shadow: var(--tw-shadow-colored)
+}
 @media (min-width: 600px) {
     .sm\:grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr))
@@ -6168,6 +6218,10 @@ body {
     }
     .sm\:justify-between {
         justify-content: space-between
+    }
+    .sm\:px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem
     }
 }
 @media (min-width: 782px) {
@@ -6444,6 +6498,18 @@ body {
     }
 }
 @media (min-width: 1280px) {
+    .xl\:block {
+        display: block
+    }
+    .xl\:flex {
+        display: flex
+    }
+    .xl\:inline-flex {
+        display: inline-flex
+    }
+    .xl\:hidden {
+        display: none
+    }
     .xl\:grid-cols-4 {
         grid-template-columns: repeat(4, minmax(0, 1fr))
     }

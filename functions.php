@@ -368,6 +368,7 @@ function register_footer_menus() {
     register_nav_menu('footer_company', 'Footer Company');
     register_nav_menu('footer_quicklinks', 'Footer Quicklinks');
     register_nav_menu('footer_alternatives', 'Footer Alternatives');
+    register_nav_menu('mobile', 'Mobile Menu');
 }
 function register_top_menus() {
     register_nav_menu('top_main_menu', 'Top Main');

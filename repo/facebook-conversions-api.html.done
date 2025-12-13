@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Conversions API - Tracking Precis pentru Reclamele Tale | Tixello</title>
+  <meta name="description" content="Fă ca fiecare euro din reclamele Facebook să conteze. Tracking server-side care funcționează chiar și cu iOS 14.5+ și ad blockers. Optimizare mai bună, ROI mai mare.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536' },
+            meta: { 500: '#0866FF', 600: '#0756d6' }
+          }
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    
+    :root { --violet: #7c3aed; --cyan: #06b6d4; --rose: #f43f5e; --amber: #f59e0b; --green: #10b981; --dark: #0a0a0f; --meta: #0866FF; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--dark); color: #e4e4e7; overflow-x: hidden; }
+    .font-display { font-family: 'Clash Display', sans-serif; }
+    ::selection { background: var(--meta); color: white; }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    .text-gradient-meta {
+      background: linear-gradient(135deg, #0866FF 0%, #00c6ff 50%, #0866FF 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+    
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; padding: 1rem 2rem; border-radius: 100px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none; position: relative; overflow: hidden; }
+    .btn-primary { background: linear-gradient(135deg, var(--violet), var(--cyan)); color: white; }
+    .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(124, 58, 237, 0.4); }
+    .btn-meta { background: linear-gradient(135deg, #0866FF, #00c6ff); color: white; }
+    .btn-meta:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(8, 102, 255, 0.4); }
+    .btn-ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; } .reveal-delay-5 { transition-delay: 0.5s; }
+    
+    .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; }
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #0866FF, #00c6ff); z-index: 1001; width: 0%; }
+    
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    
+    .pulse-ring { animation: pulseRing 2s ease-out infinite; }
+    @keyframes pulseRing {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    
+    /* Data Flow Animation */
+    .data-flow { position: relative; }
+    .data-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--meta);
+      border-radius: 50%;
+      animation: flowParticle 3s ease-in-out infinite;
+      box-shadow: 0 0 20px var(--meta);
+    }
+    @keyframes flowParticle {
+      0% { left: 0%; opacity: 0; transform: scale(0); }
+      10% { opacity: 1; transform: scale(1); }
+      90% { opacity: 1; transform: scale(1); }
+      100% { left: 100%; opacity: 0; transform: scale(0); }
+    }
+    
+    /* Problem/Solution Cards */
+    .problem-card {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(244, 63, 94, 0.05) 100%);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+    }
+    .solution-card {
+      background: linear-gradient(135deg, rgba(8, 102, 255, 0.1) 0%, rgba(0, 198, 255, 0.05) 100%);
+      border: 1px solid rgba(8, 102, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+      background: linear-gradient(135deg, rgba(8, 102, 255, 0.08) 0%, rgba(0, 198, 255, 0.04) 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(8, 102, 255, 0.15), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover { border-color: rgba(8, 102, 255, 0.3); transform: translateY(-4px); }
+    
+    /* Browser/Phone Mockups */
+    .phone-mockup {
+      width: 280px;
+      height: 560px;
+      background: #1a1a27;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(255,255,255,0.1);
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #0a0a0f;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      background: #1a1a27;
+      border-radius: 0 0 20px 20px;
+    }
+    
+    /* Dashboard Card */
+    .dashboard-card {
+      background: #13131c;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .dashboard-header {
+      background: #0a0a0f;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* Progress Bar */
+    .quality-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .quality-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease-out;
+    }
+    
+    /* Connection Line */
+    .connection-line {
+      position: relative;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .connection-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 30%;
+      background: linear-gradient(90deg, transparent, var(--meta), transparent);
+      animation: connectionFlow 2s linear infinite;
+    }
+    @keyframes connectionFlow {
+      0% { left: -30%; }
+      100% { left: 100%; }
+    }
+    
+    /* Stats Animation */
+    .stat-up { color: #10b981; }
+    .stat-down { color: #f43f5e; }
+    
+    /* Comparison Table */
+    .comparison-cell {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* Testimonial */
+    .testimonial-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+    
+    /* Event Type Badge */
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    /* Animated Check */
+    .check-animated {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: checkPop 0.5s ease-out;
+    }
+    @keyframes checkPop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Glow effect on hover for boxes */
+    .glow-box {
+      transition: all 0.3s ease;
+    }
+    .glow-box:hover {
+      box-shadow: 0 0 40px rgba(8, 102, 255, 0.2);
+    }
+  </style>
+</head>
+
+<body class="noise" x-data="{ mobileMenu: false }">
+  <div class="scroll-progress" id="scroll-progress"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+            <span class="text-white font-display font-bold text-sm">T</span>
+          </div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/pentru-artisti" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Artiști</a>
+          <a href="/pentru-locatii" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Locații</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="btn btn-primary text-sm py-2.5 px-5">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/preturi" class="block py-2 text-white/70">Prețuri</a>
+        <a href="/despre" class="block py-2 text-white/70">Despre</a>
+        <a href="/signup" class="btn btn-primary w-full justify-center mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <div class="orb w-[600px] h-[600px] bg-blue-500/20 -top-40 -right-40"></div>
+    <div class="orb w-[400px] h-[400px] bg-cyan-500/20 bottom-20 -left-20"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+            <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span class="text-blue-400 text-sm font-medium">Integrare Oficială Meta</span>
+          </div>
+          
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Fă reclamele<br><span class="text-gradient-meta">să funcționeze</span>
+          </h1>
+          
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            iOS 14.5 și ad blockers îți distrug tracking-ul? Facebook Conversions API trimite vânzările direct de pe serverele tale către Meta. <strong class="text-white">Fără pierderi, fără ghiceli.</strong>
+          </p>
+          
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="btn btn-meta">
+              Activează gratuit
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#cum-functioneaza" class="btn btn-ghost">Cum funcționează?</a>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-8 text-sm text-white/50">
+            <div class="flex items-center gap-2">
+              <div class="check-animated">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Configurare în 2 minute
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="check-animated">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              GDPR compliant
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="check-animated">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Inclus în toate planurile
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Data Flow Animation -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative">
+            <!-- Server to Facebook visualization -->
+            <div class="flex items-center justify-between gap-4">
+              <!-- Your Server -->
+              <div class="flex-shrink-0">
+                <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-violet-500/20 to-cyan-500/20 border border-white/10 flex flex-col items-center justify-center float">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center mb-2">
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                  </div>
+                  <span class="text-xs text-white/60 text-center">Tixello<br>Server</span>
+                </div>
+              </div>
+              
+              <!-- Connection Line with flowing data -->
+              <div class="flex-1 relative h-2">
+                <div class="connection-line w-full"></div>
+                <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
+                <div class="absolute top-1/2 left-3/4 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full animate-ping" style="animation-delay: 1s;"></div>
+              </div>
+              
+              <!-- Facebook -->
+              <div class="flex-shrink-0">
+                <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/20 flex flex-col items-center justify-center float" style="animation-delay: -3s;">
+                  <div class="w-12 h-12 rounded-xl bg-[#0866FF] flex items-center justify-center mb-2">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  </div>
+                  <span class="text-xs text-white/60 text-center">Meta<br>Servers</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Stats below -->
+            <div class="mt-8 grid grid-cols-3 gap-4">
+              <div class="bg-dark-800 rounded-xl p-4 border border-white/10 text-center glow-box">
+                <div class="text-2xl font-display font-bold text-green-400">+40%</div>
+                <div class="text-xs text-white/40">Conversii detectate</div>
+              </div>
+              <div class="bg-dark-800 rounded-xl p-4 border border-white/10 text-center glow-box">
+                <div class="text-2xl font-display font-bold text-blue-400">8.2</div>
+                <div class="text-xs text-white/40">Event Match Quality</div>
+              </div>
+              <div class="bg-dark-800 rounded-xl p-4 border border-white/10 text-center glow-box">
+                <div class="text-2xl font-display font-bold text-cyan-400">100%</div>
+                <div class="text-xs text-white/40">iOS 14.5+ compatibil</div>
+              </div>
+            </div>
+            
+            <!-- Floating event badges -->
+            <div class="absolute -top-4 -left-4 event-badge bg-green-500/20 text-green-400 animate-pulse">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Purchase: 75€
+            </div>
+            <div class="absolute -bottom-4 -right-4 event-badge bg-blue-500/20 text-blue-400 animate-pulse" style="animation-delay: 1s;">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Add to Cart
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="py-24 relative overflow-hidden" id="problema">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-rose-400 text-sm font-medium uppercase tracking-widest">Problema</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">De ce reclamele tale<br><span class="text-rose-400">nu mai funcționează</span></h2>
+        <p class="text-lg text-white/60">Lumea s-a schimbat. Pixelul Meta, așa cum îl știai, a devenit aproape inutil.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+        <div class="problem-card reveal">
+          <div class="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">iOS 14.5+</h3>
+          <p class="text-white/50">Apple a introdus App Tracking Transparency. Peste 80% din utilizatori au ales să blocheze tracking-ul. Pixelul nu mai vede conversiile de pe iPhone.</p>
+          <div class="mt-4 flex items-center gap-2 text-rose-400 text-sm font-medium">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+            -60% conversii vizibile
+          </div>
+        </div>
+        
+        <div class="problem-card reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Ad Blockers</h3>
+          <p class="text-white/50">40% din utilizatori au ad blockers instalate. Scripturile de tracking sunt blocate complet. Vânzările se întâmplă, dar tu nu le vezi.</p>
+          <div class="mt-4 flex items-center gap-2 text-rose-400 text-sm font-medium">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+            -40% conversii vizibile
+          </div>
+        </div>
+        
+        <div class="problem-card reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Browser Privacy</h3>
+          <p class="text-white/50">Safari ITP, Firefox ETP, Chrome Privacy Sandbox - toate browserele restricționează cookie-urile third-party și tracking-ul cross-site.</p>
+          <div class="mt-4 flex items-center gap-2 text-rose-400 text-sm font-medium">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+            -30% conversii vizibile
+          </div>
+        </div>
+      </div>
+      
+      <!-- Impact visualization -->
+      <div class="max-w-2xl mx-auto reveal reveal-delay-3">
+        <div class="bg-dark-800 rounded-2xl p-8 border border-white/10">
+          <h4 class="text-center text-white font-semibold mb-6">Ce vede Facebook din vânzările tale</h4>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-white/60">Doar cu Pixel (înainte de iOS 14)</span>
+                <span class="text-white font-medium">~95%</span>
+              </div>
+              <div class="quality-bar">
+                <div class="quality-fill bg-gradient-to-r from-green-500 to-emerald-400" style="width: 95%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-white/60">Doar cu Pixel (acum)</span>
+                <span class="text-rose-400 font-medium">~35%</span>
+              </div>
+              <div class="quality-bar">
+                <div class="quality-fill bg-gradient-to-r from-rose-500 to-rose-400" style="width: 35%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-white/60">Cu Conversions API</span>
+                <span class="text-green-400 font-medium">~95%</span>
+              </div>
+              <div class="quality-bar">
+                <div class="quality-fill bg-gradient-to-r from-blue-500 to-cyan-400" style="width: 95%;"></div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-white/40 text-sm mt-6">Conversions API recuperează conversiile pierdute trimițând datele direct server-to-server</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-24 bg-dark-850 relative" id="cum-functioneaza">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-blue-400 text-sm font-medium uppercase tracking-widest">Cum Funcționează</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Direct de la server,<br><span class="text-gradient-meta">fără intermediari</span></h2>
+        <p class="text-lg text-white/60">Când cineva cumpără un bilet, serverele Tixello anunță Facebook direct. Fără browser, fără blocaje.</p>
+      </div>
+      
+      <!-- Visual Flow -->
+      <div class="max-w-4xl mx-auto mb-16">
+        <div class="grid md:grid-cols-5 gap-4 items-center">
+          <!-- Step 1 -->
+          <div class="text-center reveal">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-violet-500/20 to-violet-600/20 border border-violet-500/20 flex items-center justify-center mb-4">
+              <svg class="w-10 h-10 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div class="text-white font-medium mb-1">Client</div>
+            <div class="text-white/40 text-sm">Cumpără bilet</div>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex justify-center reveal reveal-delay-1">
+            <svg class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="text-center reveal reveal-delay-1">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 border border-cyan-500/20 flex items-center justify-center mb-4">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                <span class="text-white font-display font-bold text-sm">T</span>
+              </div>
+            </div>
+            <div class="text-white font-medium mb-1">Tixello</div>
+            <div class="text-white/40 text-sm">Procesează vânzarea</div>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex justify-center reveal reveal-delay-2">
+            <svg class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="text-center reveal reveal-delay-2">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/20 flex items-center justify-center mb-4">
+              <svg class="w-10 h-10 text-[#0866FF]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div class="text-white font-medium mb-1">Meta</div>
+            <div class="text-white/40 text-sm">Primește conversia</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Benefits Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="solution-card reveal">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Ocolește blocajele</h3>
+          <p class="text-white/50 text-sm">Nu depinde de browser. Funcționează cu ad blockers, iOS 14.5+ și orice restricții de confidențialitate.</p>
+        </div>
+        
+        <div class="solution-card reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Date în timp real</h3>
+          <p class="text-white/50 text-sm">Conversiile ajung la Facebook instant. Machine learning-ul primește semnale proaspete pentru optimizare.</p>
+        </div>
+        
+        <div class="solution-card reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Atribuire precisă</h3>
+          <p class="text-white/50 text-sm">Știi exact care campanii, adseturi și reclame aduc vânzări. Fără estimări, fără ghiceli.</p>
+        </div>
+        
+        <div class="solution-card reveal reveal-delay-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Confidențialitate</h3>
+          <p class="text-white/50 text-sm">Datele sunt hash-uite înainte de trimitere. GDPR compliant by design. Facebook nu vede date personale brute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS TRACKED -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="orb w-[500px] h-[500px] bg-blue-600/20 top-1/2 -right-60"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium mb-6">📊 Tracking Complet</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Urmărește<br><span class="text-gradient-meta">întreaga călătorie</span></h2>
+          <p class="text-lg text-white/60 mb-8 leading-relaxed">Nu doar vânzările finale. Urmărește fiecare pas din funnel-ul de achiziție pentru a înțelege unde pierzi clienți și cum să optimizezi.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-green-500/30 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">Purchase</div>
+                <div class="text-sm text-white/50">Bilet cumpărat - cu valoare, valută și detalii</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">Add to Cart</div>
+                <div class="text-sm text-white/50">Bilet adăugat în coș</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">Initiate Checkout</div>
+                <div class="text-sm text-white/50">Checkout început</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500/30 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">View Content</div>
+                <div class="text-sm text-white/50">Pagină eveniment vizualizată</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">Lead & Registration</div>
+                <div class="text-sm text-white/50">Înregistrări și creare cont</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dashboard Preview -->
+        <div class="reveal reveal-delay-1">
+          <div class="dashboard-card">
+            <div class="dashboard-header flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="w-6 h-6 text-[#0866FF]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span class="text-white font-medium">Events Manager</span>
+              </div>
+              <div class="flex items-center gap-2 text-green-400 text-sm">
+                <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                Live
+              </div>
+            </div>
+            <div class="p-6">
+              <!-- Event Quality Score -->
+              <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-white/60 text-sm">Event Match Quality</span>
+                  <span class="text-green-400 font-bold text-xl">8.2 / 10</span>
+                </div>
+                <div class="quality-bar">
+                  <div class="quality-fill bg-gradient-to-r from-green-500 to-emerald-400" style="width: 82%;"></div>
+                </div>
+                <p class="text-white/40 text-xs mt-2">Excelent - Datele tale sunt de înaltă calitate</p>
+              </div>
+              
+              <!-- Events List -->
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <div>
+                      <div class="text-white text-sm font-medium">Purchase</div>
+                      <div class="text-white/40 text-xs">Server + Browser</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-white font-medium">1,247</div>
+                    <div class="text-green-400 text-xs">+23%</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/></svg>
+                    </div>
+                    <div>
+                      <div class="text-white text-sm font-medium">Add to Cart</div>
+                      <div class="text-white/40 text-xs">Server + Browser</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-white font-medium">3,892</div>
+                    <div class="text-green-400 text-xs">+31%</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                      <div class="text-white text-sm font-medium">Initiate Checkout</div>
+                      <div class="text-white/40 text-xs">Server + Browser</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-white font-medium">2,156</div>
+                    <div class="text-green-400 text-xs">+18%</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                <div class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <div class="text-sm">
+                    <div class="text-blue-400 font-medium mb-1">Deduplicare Automată</div>
+                    <div class="text-white/50">Evenimentele server și browser sunt combinate automat - fără dubluri.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCES -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-violet-400 text-sm font-medium uppercase tracking-widest">Audiențe</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Găsește mai mulți<br><span class="text-gradient">cumpărători de bilete</span></h2>
+        <p class="text-lg text-white/60">Datele server-side îmbunătățesc calitatea audiențelor pentru retargeting și prospectare.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card reveal">
+          <div class="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Custom Audiences</h3>
+          <p class="text-white/50 mb-4">Creează audiențe din cumpărătorii tăi de bilete pentru retargeting. Bazate pe date server-side de înaltă calitate.</p>
+          <div class="text-violet-400 text-sm font-medium">Perfect pentru: Retargeting cart abandonat</div>
+        </div>
+        
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Lookalike Audiences</h3>
+          <p class="text-white/50 mb-4">Lasă Facebook să găsească oameni similari cu cei mai buni clienți ai tăi. Audiențe seed de calitate = rezultate mai bune.</p>
+          <div class="text-cyan-400 text-sm font-medium">Perfect pentru: Prospectare scalabilă</div>
+        </div>
+        
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Advantage+ Shopping</h3>
+          <p class="text-white/50 mb-4">Campaniile automatizate Meta au nevoie de date de conversie precise. Mai multe conversii = optimizare mai bună.</p>
+          <div class="text-green-400 text-sm font-medium">Perfect pentru: Campanii automate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="orb w-[500px] h-[500px] bg-green-600/20 top-1/2 -left-60"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-green-400 text-sm font-medium uppercase tracking-widest">Setup</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Configurare în<br><span class="text-gradient">2 minute</span></h2>
+        <p class="text-lg text-white/60">Nu e nevoie de programatori. Conectezi contul Facebook și gata.</p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-6">
+          <!-- Step 1 -->
+          <div class="flex gap-6 reveal">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-display font-bold text-xl">1</div>
+            </div>
+            <div class="flex-1 pb-6 border-b border-white/10">
+              <h3 class="text-xl font-semibold text-white mb-2">Conectează contul Facebook</h3>
+              <p class="text-white/50 mb-4">Din dashboard-ul Tixello, mergi la Integrări → Facebook și apasă "Conectează". Te vei autentifica cu contul tău Facebook Business.</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 text-blue-400 text-sm">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                OAuth securizat
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="flex gap-6 reveal reveal-delay-1">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-display font-bold text-xl">2</div>
+            </div>
+            <div class="flex-1 pb-6 border-b border-white/10">
+              <h3 class="text-xl font-semibold text-white mb-2">Selectează Pixelul</h3>
+              <p class="text-white/50 mb-4">Alege pixelul Facebook pentru care vrei să trimiți conversii. Dacă nu ai unul, îl poți crea direct din interfață.</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500/10 text-violet-400 text-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Pixel auto-detectat
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="flex gap-6 reveal reveal-delay-2">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-display font-bold text-xl">3</div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-white mb-2">Gata! Funcționează automat</h3>
+              <p class="text-white/50 mb-4">Din acest moment, fiecare vânzare de bilet este trimisă automat către Facebook. Verifică în Events Manager că evenimentele apar.</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 text-green-400 text-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Evenimente în timp real
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="mt-12 text-center reveal reveal-delay-3">
+          <a href="/signup" class="btn btn-meta text-lg px-8 py-4">
+            Conectează Facebook acum
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="testimonial-card reveal">
+        <div class="flex items-center gap-1 mb-6">
+          <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          "După ce am activat Conversions API, am văzut cu <span class="text-blue-400 font-semibold">40% mai multe conversii</span> în Facebook Ads Manager. Costul per bilet vândut a scăzut cu 25% pentru că algoritmul primește date mai bune."
+        </blockquote>
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500"></div>
+          <div>
+            <div class="font-semibold text-white">Alexandra M.</div>
+            <div class="text-white/50">Marketing Manager, Festival de Muzică</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium mb-6">🔒 Confidențialitate</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">GDPR compliant<br><span class="text-gradient">by design</span></h2>
+          <p class="text-lg text-white/60 mb-8 leading-relaxed">Nu trimitem niciodată date personale brute către Facebook. Toate informațiile sunt hash-uite înainte de transmisie.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Hash-uire SHA-256</strong>
+                <p class="text-sm text-white/50">Email, telefon, nume - toate criptate înainte de trimitere</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Minimizarea datelor</strong>
+                <p class="text-sm text-white/50">Trimitem doar ce e necesar pentru potrivire și atribuire</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Verificare consimțământ</strong>
+                <p class="text-sm text-white/50">Respectăm preferințele de cookie ale utilizatorilor</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Audit trail complet</strong>
+                <p class="text-sm text-white/50">Loguri detaliate pentru orice inspecție GDPR</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl p-8 border border-white/10">
+            <div class="text-center mb-8">
+              <div class="w-20 h-20 mx-auto rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2">Ce vede Facebook</h3>
+              <p class="text-white/50 text-sm">Doar identificatori hash-uiți pentru potrivire</p>
+            </div>
+            
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                <span class="text-white/60 text-sm">Email</span>
+                <span class="font-mono text-xs text-green-400">a1b2c3d4e5f6...</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                <span class="text-white/60 text-sm">Telefon</span>
+                <span class="font-mono text-xs text-green-400">f7g8h9i0j1k2...</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                <span class="text-white/60 text-sm">Nume</span>
+                <span class="font-mono text-xs text-green-400">m3n4o5p6q7r8...</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                <span class="text-white/60 text-sm">Țară</span>
+                <span class="font-mono text-xs text-white/70">ro</span>
+              </div>
+            </div>
+            
+            <p class="text-center text-white/30 text-xs mt-6">Hash-urile nu pot fi inversate - datele originale rămân private</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-cyan-600/20"></div>
+    <div class="orb w-[800px] h-[800px] bg-blue-500/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Fă reclamele să<br><span class="text-gradient-meta">funcționeze din nou</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Activează Facebook Conversions API în 2 minute. Fără programatori, fără complicații. Inclus gratuit în toate planurile Tixello.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="btn btn-meta text-lg px-10 py-4">
+          Activează acum - gratuit
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="btn btn-ghost text-lg px-10 py-4">Întrebări? Contactează-ne</a>
+      </div>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Funcționează cu Facebook, Instagram, Messenger și Audience Network</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
+        <div class="col-span-2 md:col-span-3 lg:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+              <span class="text-white font-display font-bold text-sm">T</span>
+            </div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm mb-6 max-w-xs">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/preturi" class="text-white/40 hover:text-white transition-colors">Prețuri</a></li>
+            <li><a href="/white-label" class="text-white/40 hover:text-white transition-colors">White-label</a></li>
+            <li><a href="/integrari" class="text-white/40 hover:text-white transition-colors">Integrări</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Integrări</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati/facebook-conversions-api" class="text-blue-400 hover:text-blue-300 transition-colors">Facebook CAPI</a></li>
+            <li><a href="/functionalitati/coduri-cupon" class="text-white/40 hover:text-white transition-colors">Coduri Cupon</a></li>
+            <li><a href="/functionalitati/google-analytics" class="text-white/40 hover:text-white transition-colors">Google Analytics</a></li>
+            <li><a href="/functionalitati/tiktok-pixel" class="text-white/40 hover:text-white transition-colors">TikTok Pixel</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Companie</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/despre" class="text-white/40 hover:text-white transition-colors">Despre noi</a></li>
+            <li><a href="/blog" class="text-white/40 hover:text-white transition-colors">Blog</a></li>
+            <li><a href="/contact" class="text-white/40 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/confidentialitate" class="text-white/40 hover:text-white transition-colors">Confidențialitate</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-4">
+          <span class="text-white/30 text-sm">Partener oficial</span>
+          <svg class="w-6 h-6 text-[#0866FF]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = progress + '%';
+    });
+
+    // Header background on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      } else {
+        header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      }
+    });
+
+    // Intersection Observer for reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Animate quality bars when visible
+    const qualityBars = document.querySelectorAll('.quality-fill');
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.width = entry.target.style.width;
+        }
+      });
+    }, { threshold: 0.5 });
+    qualityBars.forEach(bar => barObserver.observe(bar));
+
+    // Feature card hover effect
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

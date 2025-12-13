@@ -16,9 +16,12 @@
 
 		gtag('config', 'G-3QWH3K2WB2');
 	</script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body <?php body_class( 'bg-white text-gray-900 antialiased' ); ?>>
+<body <?php body_class( 'bg-white text-gray-900 antialiased noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden' ); ?> x-data="{ mobileMenu: false }">
+<!-- Scroll Progress Bar -->
+<div class="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-meta-blue to-cyan-400 z-[1001]" id="scroll-progress"></div>
 
 <?php do_action( 'tailpress_site_before' ); ?>
 
@@ -76,6 +79,41 @@
 				);
 				?>
 			</div>
+		</div>
+	</header>
+
+	<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<nav class="flex items-center justify-between h-20">
+			<a href="/" class="flex items-center gap-2">
+			<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+				<span class="text-white font-display font-bold text-sm">T</span>
+			</div>
+			<span class="font-display font-bold text-xl text-white">Tixello</span>
+			</a>
+			<div class="hidden lg:flex items-center gap-8">
+			<a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+			<a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+			<a href="/pentru-artisti" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Artiști</a>
+			<a href="/pentru-locatii" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Locații</a>
+			<a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+			</div>
+			<div class="hidden lg:flex items-center gap-4">
+			<a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+			<a href="/signup" class="btn btn-primary text-sm py-2.5 px-5">Începe Gratuit</a>
+			</div>
+			<button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2">
+			<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+			</button>
+		</nav>
+		</div>
+		<div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+		<div class="px-6 py-4 space-y-3">
+			<a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+			<a href="/preturi" class="block py-2 text-white/70">Prețuri</a>
+			<a href="/despre" class="block py-2 text-white/70">Despre</a>
+			<a href="/signup" class="btn btn-primary w-full justify-center mt-4">Începe Gratuit</a>
+		</div>
 		</div>
 	</header>
 

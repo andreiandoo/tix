@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Vizual Website - Construiește Fără Cod | Tixello</title>
+  <meta name="description" content="Constructor drag-and-drop pentru website-uri de evenimente. 25+ blocuri, teme personalizabile, previzualizare live. Fără cod necesar.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536', 500: '#32324a' },
+            brand: { violet: '#7c3aed', cyan: '#06b6d4', rose: '#f43f5e', amber: '#f59e0b', green: '#10b981' },
+            editor: { purple: '#8B5CF6', pink: '#EC4899', blue: '#3B82F6', indigo: '#6366F1' }
+          },
+          fontFamily: { display: ['Clash Display', 'sans-serif'], body: ['Outfit', 'sans-serif'] },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+            'shimmer-slow': 'shimmer 4s linear infinite',
+            'drag': 'drag 3s ease-in-out infinite',
+            'cursor-blink': 'cursorBlink 1s ease-in-out infinite',
+            'gradient-x': 'gradientX 3s ease infinite',
+            'scale-pulse': 'scalePulse 2s ease-in-out infinite',
+            'slide-up': 'slideUp 0.5s ease-out forwards',
+            'bounce-soft': 'bounceSoft 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+            shimmer: { '0%': { backgroundPosition: '0% center' }, '100%': { backgroundPosition: '200% center' } },
+            drag: { 
+              '0%, 100%': { transform: 'translate(0, 0)' }, 
+              '25%': { transform: 'translate(10px, -5px)' },
+              '50%': { transform: 'translate(20px, 0)' },
+              '75%': { transform: 'translate(10px, 5px)' }
+            },
+            cursorBlink: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0' } },
+            gradientX: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
+            },
+            scalePulse: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            bounceSoft: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          },
+          boxShadow: {
+            'glow-violet': '0 0 60px rgba(124, 58, 237, 0.4)',
+            'glow-pink': '0 0 60px rgba(236, 72, 153, 0.4)',
+            'glow-blue': '0 0 60px rgba(59, 130, 246, 0.4)',
+            'glow-multi': '0 0 80px rgba(139, 92, 246, 0.3), 0 0 120px rgba(236, 72, 153, 0.2)',
+          },
+          backgroundSize: { '200': '200% auto', '300': '300% auto' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Font faces */
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    
+    /* Selection */
+    ::selection { background: #8B5CF6; color: white; }
+    
+    /* Text gradients */
+    .text-gradient {
+      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-editor {
+      background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 33%, #3B82F6 66%, #8B5CF6 100%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+    .text-gradient-creative {
+      background: linear-gradient(90deg, #F472B6, #818CF8, #22D3EE, #F472B6);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientX 3s ease infinite;
+    }
+    
+    /* Noise overlay */
+    .noise::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    /* Reveal animations */
+    .reveal { 
+      opacity: 0; 
+      transform: translateY(40px); 
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    
+    /* Feature card glow */
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      border-radius: inherit;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    
+    /* Block card hover effects */
+    .block-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .block-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* Editor mockup styles */
+    .editor-frame {
+      background: linear-gradient(145deg, #1a1a27 0%, #0f0f16 100%);
+      border-radius: 16px;
+      box-shadow: 
+        0 50px 100px -20px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Draggable block animation */
+    .draggable-block {
+      cursor: grab;
+      transition: all 0.3s ease;
+    }
+    .draggable-block:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.5);
+    }
+    .draggable-block.dragging {
+      cursor: grabbing;
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.5);
+      z-index: 100;
+    }
+    
+    /* Color picker dot */
+    .color-dot {
+      transition: all 0.3s ease;
+    }
+    .color-dot:hover {
+      transform: scale(1.3);
+      box-shadow: 0 0 20px currentColor;
+    }
+    .color-dot.active {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3), 0 0 20px currentColor;
+    }
+    
+    /* Preview browser dots */
+    .browser-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    /* Grid pattern for canvas */
+    .canvas-grid {
+      background-image: 
+        linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    /* Drop zone highlight */
+    .drop-zone {
+      border: 2px dashed rgba(139, 92, 246, 0.3);
+      background: rgba(139, 92, 246, 0.05);
+      transition: all 0.3s ease;
+    }
+    .drop-zone.active {
+      border-color: #8B5CF6;
+      background: rgba(139, 92, 246, 0.1);
+    }
+    
+    /* Cursor animation */
+    .cursor-pointer-custom {
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      position: absolute;
+      pointer-events: none;
+      z-index: 100;
+    }
+    
+    /* Rainbow border */
+    .rainbow-border {
+      position: relative;
+      background: linear-gradient(#13131c, #13131c) padding-box,
+                  linear-gradient(135deg, #8B5CF6, #EC4899, #3B82F6, #8B5CF6) border-box;
+      border: 2px solid transparent;
+      background-size: 100% 100%, 300% 300%;
+      animation: gradientX 3s ease infinite;
+    }
+    
+    /* Glassmorphism panel */
+    .glass-panel {
+      background: rgba(19, 19, 28, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Theme preview card */
+    .theme-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .theme-card:hover {
+      transform: translateY(-5px);
+    }
+    .theme-card.active {
+      box-shadow: 0 0 0 3px #8B5CF6, 0 20px 40px -15px rgba(139, 92, 246, 0.4);
+    }
+    
+    /* Typing effect */
+    .typing-cursor::after {
+      content: '|';
+      animation: cursorBlink 1s ease-in-out infinite;
+      color: #8B5CF6;
+    }
+    
+    /* Stat number style */
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
+    }
+  </style>
+</head>
+
+<body class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+  
+  <!-- Scroll Progress Bar -->
+  <div class="fixed top-0 left-0 h-1 bg-gradient-to-r from-editor-purple via-editor-pink to-editor-blue z-[1001]" id="scroll-progress"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+            <span class="text-white font-display font-bold text-sm">T</span>
+          </div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/pentru-artisti" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Artiști</a>
+          <a href="/pentru-locatii" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Locații</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        
+        <!-- Desktop CTA -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="inline-flex items-center gap-2 font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-editor-purple to-editor-pink text-white text-sm hover:scale-105 hover:shadow-glow-pink transition-all duration-300">Începe Gratuit</a>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </nav>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/preturi" class="block py-2 text-white/70">Prețuri</a>
+        <a href="/despre" class="block py-2 text-white/70">Despre</a>
+        <a href="/signup" class="block w-full text-center font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-editor-purple to-editor-pink text-white mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute w-[800px] h-[800px] bg-editor-purple/20 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[600px] h-[600px] bg-editor-pink/15 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] bg-editor-blue/10 rounded-full top-1/3 left-1/3 blur-[120px] pointer-events-none"></div>
+    
+    <!-- Floating geometric shapes -->
+    <div class="absolute top-32 left-20 w-20 h-20 border border-editor-purple/20 rounded-xl rotate-12 animate-float opacity-30"></div>
+    <div class="absolute bottom-40 right-32 w-16 h-16 border border-editor-pink/20 rounded-full animate-float [animation-delay:1s] opacity-30"></div>
+    <div class="absolute top-1/2 left-10 w-12 h-12 bg-gradient-to-br from-editor-purple/10 to-editor-pink/10 rounded-lg rotate-45 animate-float [animation-delay:2s]"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Hero Content -->
+        <div class="reveal">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-editor-purple/10 to-editor-pink/10 border border-editor-purple/20 mb-6">
+            <div class="flex -space-x-1">
+              <div class="w-2 h-2 rounded-full bg-editor-purple"></div>
+              <div class="w-2 h-2 rounded-full bg-editor-pink"></div>
+              <div class="w-2 h-2 rounded-full bg-editor-blue"></div>
+            </div>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-editor-purple to-editor-pink text-sm font-medium">Editor Vizual Drag & Drop</span>
+          </div>
+          
+          <!-- Heading -->
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Designează<br>
+            <span class="text-gradient-editor">fără limite</span>
+          </h1>
+          
+          <!-- Description -->
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            Construiește website-uri de evenimente spectaculoase cu drag & drop. <strong class="text-white">Zero cod necesar.</strong> 25+ blocuri, teme personalizabile, previzualizare instant.
+          </p>
+          
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-editor-purple via-editor-pink to-editor-blue bg-size-200 bg-pos-0 hover:bg-pos-100 text-white transition-all duration-500 hover:scale-105 hover:shadow-glow-multi">
+              Încearcă Gratuit
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#demo" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Vezi Demo
+            </a>
+          </div>
+          
+          <!-- Feature Pills -->
+          <div class="flex flex-wrap gap-3">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+              <div class="w-2 h-2 rounded-full bg-brand-green"></div>
+              <span class="text-white/70 text-sm">Drag & Drop</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+              <div class="w-2 h-2 rounded-full bg-editor-purple"></div>
+              <span class="text-white/70 text-sm">25+ Blocuri</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+              <div class="w-2 h-2 rounded-full bg-editor-pink"></div>
+              <span class="text-white/70 text-sm">Live Preview</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+              <div class="w-2 h-2 rounded-full bg-editor-blue"></div>
+              <span class="text-white/70 text-sm">Multi-limbă</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Editor Mockup -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative" x-data="{ activeTheme: 'modern', dragging: false }">
+            <!-- Main Editor Frame -->
+            <div class="editor-frame overflow-hidden">
+              <!-- Browser Chrome -->
+              <div class="bg-dark-700 px-4 py-3 flex items-center gap-4 border-b border-white/10">
+                <div class="flex gap-2">
+                  <div class="browser-dot bg-red-500"></div>
+                  <div class="browser-dot bg-yellow-500"></div>
+                  <div class="browser-dot bg-green-500"></div>
+                </div>
+                <div class="flex-1 bg-dark-800 rounded-lg px-4 py-1.5 text-white/40 text-sm">
+                  tixello.com/editor
+                </div>
+              </div>
+              
+              <!-- Editor Interface -->
+              <div class="flex h-[420px]">
+                <!-- Left Sidebar - Blocks -->
+                <div class="w-16 bg-dark-800 border-r border-white/10 p-2 space-y-2">
+                  <div class="w-full aspect-square rounded-lg bg-editor-purple/20 flex items-center justify-center text-editor-purple cursor-pointer hover:bg-editor-purple/30 transition-colors draggable-block" :class="{ 'dragging': dragging }">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/></svg>
+                  </div>
+                  <div class="w-full aspect-square rounded-lg bg-editor-pink/20 flex items-center justify-center text-editor-pink cursor-pointer hover:bg-editor-pink/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="w-full aspect-square rounded-lg bg-editor-blue/20 flex items-center justify-center text-editor-blue cursor-pointer hover:bg-editor-blue/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  </div>
+                  <div class="w-full aspect-square rounded-lg bg-brand-amber/20 flex items-center justify-center text-brand-amber cursor-pointer hover:bg-brand-amber/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="w-full aspect-square rounded-lg bg-brand-green/20 flex items-center justify-center text-brand-green cursor-pointer hover:bg-brand-green/30 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                </div>
+                
+                <!-- Canvas Area -->
+                <div class="flex-1 bg-dark-900 canvas-grid p-4 overflow-hidden relative">
+                  <!-- Preview Content -->
+                  <div class="bg-dark-800 rounded-xl overflow-hidden shadow-2xl h-full">
+                    <!-- Mini Hero -->
+                    <div class="h-32 bg-gradient-to-br from-editor-purple/30 via-editor-pink/20 to-editor-blue/30 flex items-center justify-center relative">
+                      <div class="text-center">
+                        <div class="text-white/80 text-xs font-semibold mb-1">SUMMER FESTIVAL</div>
+                        <div class="text-white text-lg font-display font-bold">2025</div>
+                      </div>
+                      <!-- Selection indicator -->
+                      <div class="absolute inset-0 border-2 border-editor-purple rounded-t-xl"></div>
+                      <div class="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-editor-purple rounded text-white text-[10px] font-medium">Hero</div>
+                    </div>
+                    
+                    <!-- Mini Events Grid -->
+                    <div class="p-3 space-y-2">
+                      <div class="flex gap-2">
+                        <div class="flex-1 h-16 bg-white/5 rounded-lg"></div>
+                        <div class="flex-1 h-16 bg-white/5 rounded-lg"></div>
+                      </div>
+                      <div class="flex gap-2">
+                        <div class="flex-1 h-16 bg-white/5 rounded-lg"></div>
+                        <div class="flex-1 h-16 bg-white/5 rounded-lg"></div>
+                      </div>
+                    </div>
+                    
+                    <!-- Drop zone indicator -->
+                    <div class="mx-3 mb-3 p-4 drop-zone rounded-lg text-center">
+                      <div class="text-editor-purple/50 text-xs">Drop bloc aici</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Animated cursor -->
+                  <div class="absolute w-6 h-6 animate-drag pointer-events-none" style="top: 30%; left: 20%;">
+                    <svg class="w-6 h-6 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+                    </svg>
+                  </div>
+                </div>
+                
+                <!-- Right Sidebar - Properties -->
+                <div class="w-48 bg-dark-800 border-l border-white/10 p-3 space-y-4">
+                  <div>
+                    <div class="text-white/40 text-[10px] uppercase tracking-wider mb-2">Temă</div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <button @click="activeTheme = 'modern'" :class="activeTheme === 'modern' ? 'border-editor-purple' : 'border-white/10'" class="p-2 rounded-lg bg-white/5 border transition-colors">
+                        <div class="h-8 rounded bg-gradient-to-br from-editor-purple to-editor-pink mb-1"></div>
+                        <div class="text-white/60 text-[9px]">Modern</div>
+                      </button>
+                      <button @click="activeTheme = 'minimal'" :class="activeTheme === 'minimal' ? 'border-editor-purple' : 'border-white/10'" class="p-2 rounded-lg bg-white/5 border transition-colors">
+                        <div class="h-8 rounded bg-gradient-to-br from-gray-600 to-gray-800 mb-1"></div>
+                        <div class="text-white/60 text-[9px]">Minimal</div>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="text-white/40 text-[10px] uppercase tracking-wider mb-2">Culori</div>
+                    <div class="flex gap-2">
+                      <div class="w-6 h-6 rounded-full bg-editor-purple color-dot active cursor-pointer"></div>
+                      <div class="w-6 h-6 rounded-full bg-editor-pink color-dot cursor-pointer"></div>
+                      <div class="w-6 h-6 rounded-full bg-editor-blue color-dot cursor-pointer"></div>
+                      <div class="w-6 h-6 rounded-full bg-brand-green color-dot cursor-pointer"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="text-white/40 text-[10px] uppercase tracking-wider mb-2">Font</div>
+                    <select class="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-white text-xs">
+                      <option>Inter</option>
+                      <option>Poppins</option>
+                      <option>Montserrat</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <div class="text-white/40 text-[10px] uppercase tracking-wider mb-2">Limbă</div>
+                    <div class="flex gap-1">
+                      <button class="flex-1 px-2 py-1 rounded bg-editor-purple/20 text-editor-purple text-[10px] font-medium">RO</button>
+                      <button class="flex-1 px-2 py-1 rounded bg-white/5 text-white/40 text-[10px]">EN</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Badges -->
+            <div class="absolute -top-4 -right-4 bg-dark-800 rounded-xl px-4 py-3 border border-editor-purple/20 shadow-xl animate-float z-10">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-editor-purple to-editor-pink flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+                </div>
+                <div>
+                  <div class="text-white text-sm font-medium">Drag & Drop</div>
+                  <div class="text-white/40 text-xs">Instant</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-brand-green/20 shadow-xl animate-float [animation-delay:1.5s] z-10">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></div>
+                <span class="text-brand-green text-sm font-medium">Live Preview</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STATS BAR ==================== -->
+  <section class="py-12 border-y border-white/5 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-editor-purple/5 via-editor-pink/5 to-editor-blue/5"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center reveal">
+          <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-editor-purple to-editor-pink stat-number">25+</div>
+          <div class="text-white/40 text-sm mt-1">Tipuri de Blocuri</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1">
+          <div class="text-4xl md:text-5xl font-display font-bold text-white stat-number">4</div>
+          <div class="text-white/40 text-sm mt-1">Preseturi Temă</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2">
+          <div class="text-4xl md:text-5xl font-display font-bold text-white stat-number">∞</div>
+          <div class="text-white/40 text-sm mt-1">Pagini Nelimitate</div>
+        </div>
+        <div class="text-center reveal reveal-delay-3">
+          <div class="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-editor-pink to-editor-blue stat-number">0</div>
+          <div class="text-white/40 text-sm mt-1">Linii de Cod</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHY VISUAL EDITOR ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-editor-purple text-sm font-medium uppercase tracking-widest">De Ce Editor Vizual</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Fără agenții.<br><span class="text-gradient-editor">Fără freelanceri.</span></h2>
+        <p class="text-lg text-white/60">Tu ești designerul. Modifici oricând vrei, publici instant.</p>
+      </div>
+      
+      <!-- Comparison Grid -->
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Traditional Way -->
+        <div class="reveal">
+          <div class="bg-gradient-to-br from-brand-rose/10 to-brand-rose/5 rounded-3xl p-8 border border-brand-rose/20 h-full">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-brand-rose/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </div>
+              <span class="text-brand-rose font-semibold">Agenție Web</span>
+            </div>
+            <ul class="space-y-3 text-white/60 text-sm">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-rose flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                €2.000 - €10.000 per proiect
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-rose flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                2-4 săptămâni timp de livrare
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-rose flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                Modificări = costuri extra
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-rose flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                Dependent de disponibilitate
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Freelancer -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-gradient-to-br from-brand-amber/10 to-brand-amber/5 rounded-3xl p-8 border border-brand-amber/20 h-full">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-brand-amber/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <span class="text-brand-amber font-semibold">Freelancer</span>
+            </div>
+            <ul class="space-y-3 text-white/60 text-sm">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-amber flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                €500 - €2.000 per proiect
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-amber flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                1-2 săptămâni (dacă e disponibil)
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-amber flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Calitate inconsistentă
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-amber flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Comunicare dificilă
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Visual Editor -->
+        <div class="reveal reveal-delay-2">
+          <div class="rainbow-border rounded-3xl p-8 h-full relative overflow-hidden">
+            <div class="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-editor-purple to-editor-pink text-white text-xs font-semibold rounded-full">
+              RECOMANDAT
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-editor-purple to-editor-pink flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-editor-purple to-editor-pink font-semibold">Editor Vizual</span>
+            </div>
+            <ul class="space-y-3 text-white/80 text-sm">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <strong class="text-white">Inclus în platformă</strong>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <strong class="text-white">Minute</strong>, nu săptămâni
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Modificări <strong class="text-white">nelimitate & gratuite</strong>
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <strong class="text-white">Tu controlezi</strong> totul
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BLOCKS SHOWCASE ==================== -->
+  <section class="py-24 bg-dark-850 relative" id="blocuri">
+    <div class="absolute w-[600px] h-[600px] bg-editor-purple/15 rounded-full top-1/2 -right-80 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] bg-editor-pink/10 rounded-full top-1/4 -left-40 blur-[120px] pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-editor-pink text-sm font-medium uppercase tracking-widest">Biblioteca de Blocuri</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">25+ blocuri<br><span class="text-gradient-creative">gata de folosit</span></h2>
+        <p class="text-lg text-white/60">Fiecare bloc e optimizat pentru evenimente. Drag, drop, personalizează.</p>
+      </div>
+      
+      <!-- Blocks Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Hero Block -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal group">
+          <div class="h-24 rounded-xl bg-gradient-to-br from-editor-purple/30 via-editor-pink/20 to-editor-blue/30 mb-4 flex items-center justify-center relative overflow-hidden">
+            <div class="text-center">
+              <div class="text-white/60 text-[10px] font-medium">EVENT NAME</div>
+              <div class="text-white text-sm font-bold">2025</div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent"></div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Secțiune Hero</h3>
+          <p class="text-white/40 text-sm">Fundaluri uimitoare cu titlu, subtitlu și CTA.</p>
+        </div>
+        
+        <!-- Events Grid -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-1 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 p-2 grid grid-cols-2 gap-1">
+            <div class="bg-editor-purple/20 rounded-lg"></div>
+            <div class="bg-editor-pink/20 rounded-lg"></div>
+            <div class="bg-editor-blue/20 rounded-lg"></div>
+            <div class="bg-brand-amber/20 rounded-lg"></div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Grilă Evenimente</h3>
+          <p class="text-white/40 text-sm">Se populează automat cu evenimentele tale.</p>
+        </div>
+        
+        <!-- Countdown -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-2 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 flex items-center justify-center gap-2">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-editor-purple">12</div>
+              <div class="text-white/30 text-[8px]">ZILE</div>
+            </div>
+            <span class="text-white/20">:</span>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-editor-pink">08</div>
+              <div class="text-white/30 text-[8px]">ORE</div>
+            </div>
+            <span class="text-white/20">:</span>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-editor-blue">45</div>
+              <div class="text-white/30 text-[8px]">MIN</div>
+            </div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Cronometru</h3>
+          <p class="text-white/40 text-sm">Construiește anticiparea pentru evenimente.</p>
+        </div>
+        
+        <!-- Gallery -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-3 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 p-2 grid grid-cols-3 gap-1">
+            <div class="col-span-2 row-span-2 bg-gradient-to-br from-editor-purple/30 to-editor-pink/30 rounded-lg"></div>
+            <div class="bg-white/10 rounded-lg"></div>
+            <div class="bg-white/10 rounded-lg"></div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Galerie Masonry</h3>
+          <p class="text-white/40 text-sm">Prezintă locațiile cu lightbox elegant.</p>
+        </div>
+        
+        <!-- Video Embed -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 flex items-center justify-center relative">
+            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Video Embed</h3>
+          <p class="text-white/40 text-sm">YouTube sau Vimeo cu autoplay.</p>
+        </div>
+        
+        <!-- FAQ -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-1 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 p-3 space-y-2">
+            <div class="flex items-center justify-between p-2 bg-white/5 rounded-lg">
+              <div class="w-20 h-2 bg-white/20 rounded"></div>
+              <svg class="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+            <div class="flex items-center justify-between p-2 bg-editor-purple/10 rounded-lg">
+              <div class="w-16 h-2 bg-editor-purple/30 rounded"></div>
+              <svg class="w-3 h-3 text-editor-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+            </div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Acordeon FAQ</h3>
+          <p class="text-white/40 text-sm">Răspunde la întrebările frecvente.</p>
+        </div>
+        
+        <!-- Testimonials -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-2 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 p-3 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-editor-pink to-editor-purple flex-shrink-0"></div>
+            <div class="flex-1">
+              <div class="flex gap-0.5 mb-1">
+                <svg class="w-3 h-3 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-3 h-3 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-3 h-3 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-3 h-3 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-3 h-3 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="w-full h-2 bg-white/10 rounded"></div>
+            </div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Testimoniale</h3>
+          <p class="text-white/40 text-sm">Carusel cu review-uri de la clienți.</p>
+        </div>
+        
+        <!-- Partner Logos -->
+        <div class="block-card bg-dark-800 rounded-2xl p-5 border border-white/10 reveal reveal-delay-3 group">
+          <div class="h-24 rounded-xl bg-dark-700 mb-4 p-3 flex items-center justify-center gap-4">
+            <div class="w-12 h-6 bg-white/10 rounded"></div>
+            <div class="w-12 h-6 bg-white/10 rounded"></div>
+            <div class="w-12 h-6 bg-white/10 rounded"></div>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Logo-uri Parteneri</h3>
+          <p class="text-white/40 text-sm">Grilă cu sponsori și parteneri.</p>
+        </div>
+      </div>
+      
+      <!-- More blocks indicator -->
+      <div class="mt-12 text-center reveal">
+        <div class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-editor-purple/10 to-editor-pink/10 border border-white/10">
+          <span class="text-white/60">+17 blocuri adiționale:</span>
+          <span class="text-white/40 text-sm">Slider, Hărți, Newsletter, CTA, Alert Banner, HTML Custom și altele</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THEME CUSTOMIZATION ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="text-editor-blue text-sm font-medium uppercase tracking-widest">Personalizare Completă</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Brandul tău,<br><span class="text-gradient-editor">regulile tale</span></h2>
+          <p class="text-lg text-white/60 mb-8">Definește identitatea vizuală cu câteva click-uri. Culori, fonturi, layout-uri - totul sub controlul tău.</p>
+          
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-editor-purple/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-editor-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Scheme de Culori</h3>
+                <p class="text-white/50 text-sm">Culori primare și secundare cu previzualizare instant. Mod întunecat inclus.</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-editor-pink/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-editor-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Google Fonts</h3>
+                <p class="text-white/50 text-sm">Alege din sute de fonturi gratuite. Preview în timp real pe măsură ce selectezi.</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-editor-blue/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-editor-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Layout-uri Header/Footer</h3>
+                <p class="text-white/50 text-sm">Default, centrat sau minimal. Linkuri sociale configurabile.</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-brand-amber/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">CSS Custom</h3>
+                <p class="text-white/50 text-sm">Pentru dezvoltatorii care vor control total. Suprascrie orice stil.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Theme Presets Visual -->
+        <div class="reveal reveal-delay-1" x-data="{ activePreset: 'modern' }">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Modern Theme -->
+            <div @click="activePreset = 'modern'" :class="activePreset === 'modern' ? 'active' : ''" class="theme-card cursor-pointer rounded-2xl overflow-hidden border-2 border-transparent">
+              <div class="h-32 bg-gradient-to-br from-violet-600 via-purple-600 to-pink-500 p-4 flex items-end">
+                <div>
+                  <div class="text-white/60 text-[8px] uppercase tracking-wider">Temă</div>
+                  <div class="text-white font-bold text-sm">Modern</div>
+                </div>
+              </div>
+              <div class="bg-dark-800 p-3">
+                <div class="flex gap-2 mb-2">
+                  <div class="w-4 h-4 rounded-full bg-violet-500"></div>
+                  <div class="w-4 h-4 rounded-full bg-pink-500"></div>
+                </div>
+                <div class="text-white/40 text-[10px]">Gradient bold, vibrații moderne</div>
+              </div>
+            </div>
+            
+            <!-- Minimal Theme -->
+            <div @click="activePreset = 'minimal'" :class="activePreset === 'minimal' ? 'active' : ''" class="theme-card cursor-pointer rounded-2xl overflow-hidden border-2 border-transparent">
+              <div class="h-32 bg-gradient-to-br from-gray-100 to-gray-200 p-4 flex items-end">
+                <div>
+                  <div class="text-gray-500 text-[8px] uppercase tracking-wider">Temă</div>
+                  <div class="text-gray-900 font-bold text-sm">Minimal</div>
+                </div>
+              </div>
+              <div class="bg-dark-800 p-3">
+                <div class="flex gap-2 mb-2">
+                  <div class="w-4 h-4 rounded-full bg-gray-800"></div>
+                  <div class="w-4 h-4 rounded-full bg-gray-400"></div>
+                </div>
+                <div class="text-white/40 text-[10px]">Curat, elegant, profesional</div>
+              </div>
+            </div>
+            
+            <!-- Bold Theme -->
+            <div @click="activePreset = 'bold'" :class="activePreset === 'bold' ? 'active' : ''" class="theme-card cursor-pointer rounded-2xl overflow-hidden border-2 border-transparent">
+              <div class="h-32 bg-gradient-to-br from-orange-500 via-red-500 to-rose-500 p-4 flex items-end">
+                <div>
+                  <div class="text-white/60 text-[8px] uppercase tracking-wider">Temă</div>
+                  <div class="text-white font-bold text-sm">Bold</div>
+                </div>
+              </div>
+              <div class="bg-dark-800 p-3">
+                <div class="flex gap-2 mb-2">
+                  <div class="w-4 h-4 rounded-full bg-orange-500"></div>
+                  <div class="w-4 h-4 rounded-full bg-rose-500"></div>
+                </div>
+                <div class="text-white/40 text-[10px]">Impact puternic, energie</div>
+              </div>
+            </div>
+            
+            <!-- Default Theme -->
+            <div @click="activePreset = 'default'" :class="activePreset === 'default' ? 'active' : ''" class="theme-card cursor-pointer rounded-2xl overflow-hidden border-2 border-transparent">
+              <div class="h-32 bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-4 flex items-end">
+                <div>
+                  <div class="text-white/60 text-[8px] uppercase tracking-wider">Temă</div>
+                  <div class="text-white font-bold text-sm">Default</div>
+                </div>
+              </div>
+              <div class="bg-dark-800 p-3">
+                <div class="flex gap-2 mb-2">
+                  <div class="w-4 h-4 rounded-full bg-blue-500"></div>
+                  <div class="w-4 h-4 rounded-full bg-cyan-500"></div>
+                </div>
+                <div class="text-white/40 text-[10px]">Echilibrat, de încredere</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dark mode toggle -->
+          <div class="mt-6 flex items-center justify-center gap-4 p-4 bg-dark-800 rounded-xl border border-white/10">
+            <span class="text-white/60 text-sm">Mod Întunecat</span>
+            <button class="w-12 h-6 rounded-full bg-editor-purple relative">
+              <div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white shadow-lg"></div>
+            </button>
+            <span class="text-white text-sm">Activat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MULTI-LANGUAGE ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Visual -->
+        <div class="order-2 lg:order-1 reveal">
+          <div class="relative">
+            <!-- Browser frame -->
+            <div class="editor-frame overflow-hidden">
+              <div class="bg-dark-700 px-4 py-3 flex items-center gap-4 border-b border-white/10">
+                <div class="flex gap-2">
+                  <div class="browser-dot bg-red-500"></div>
+                  <div class="browser-dot bg-yellow-500"></div>
+                  <div class="browser-dot bg-green-500"></div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-dark-800 border border-white/10">
+                    <span class="text-white/40 text-sm">🇷🇴 RO</span>
+                    <span class="text-white/20">|</span>
+                    <span class="text-white/60 text-sm">🇬🇧 EN</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Content preview -->
+              <div class="p-6 bg-dark-900" x-data="{ lang: 'ro' }">
+                <div class="flex gap-2 mb-6">
+                  <button @click="lang = 'ro'" :class="lang === 'ro' ? 'bg-editor-purple text-white' : 'bg-white/5 text-white/40'" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">Română</button>
+                  <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-editor-purple text-white' : 'bg-white/5 text-white/40'" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">English</button>
+                </div>
+                
+                <!-- Romanian content -->
+                <div x-show="lang === 'ro'" x-transition class="space-y-4">
+                  <h3 class="text-2xl font-display font-bold text-white">Festival de Vară 2025</h3>
+                  <p class="text-white/60">Cel mai mare eveniment muzical al anului te așteaptă! Artiști internaționali, experiențe unice și amintiri de neuitat.</p>
+                  <button class="px-6 py-3 rounded-full bg-gradient-to-r from-editor-purple to-editor-pink text-white font-semibold text-sm">Cumpără Bilete</button>
+                </div>
+                
+                <!-- English content -->
+                <div x-show="lang === 'en'" x-transition class="space-y-4">
+                  <h3 class="text-2xl font-display font-bold text-white">Summer Festival 2025</h3>
+                  <p class="text-white/60">The biggest music event of the year awaits you! International artists, unique experiences and unforgettable memories.</p>
+                  <button class="px-6 py-3 rounded-full bg-gradient-to-r from-editor-purple to-editor-pink text-white font-semibold text-sm">Buy Tickets</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Flag badges -->
+            <div class="absolute -top-4 -right-4 flex gap-2">
+              <div class="w-10 h-10 rounded-full bg-dark-800 border border-white/10 flex items-center justify-center text-lg shadow-xl">🇷🇴</div>
+              <div class="w-10 h-10 rounded-full bg-dark-800 border border-white/10 flex items-center justify-center text-lg shadow-xl">🇬🇧</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="order-1 lg:order-2 reveal reveal-delay-1">
+          <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest">Suport Multi-Limbă</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Evenimente<br><span class="text-gradient animate-shimmer">internaționale</span></h2>
+          <p class="text-lg text-white/60 mb-8">Creează conținut în mai multe limbi și lasă vizitatorii să aleagă. Perfect pentru evenimente cu audiențe diverse.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="text-2xl">🇷🇴</div>
+              <div>
+                <div class="text-white font-medium">Română</div>
+                <div class="text-white/40 text-sm">Limba principală</div>
+              </div>
+              <div class="ml-auto w-2 h-2 rounded-full bg-brand-green"></div>
+            </div>
+            
+            <div class="flex items-center gap-3 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="text-2xl">🇬🇧</div>
+              <div>
+                <div class="text-white font-medium">English</div>
+                <div class="text-white/40 text-sm">Limbă secundară</div>
+              </div>
+              <div class="ml-auto w-2 h-2 rounded-full bg-brand-green"></div>
+            </div>
+            
+            <div class="flex items-center gap-3 p-4 rounded-xl bg-dark-800/30 border border-dashed border-white/10">
+              <div class="text-2xl opacity-50">🌍</div>
+              <div>
+                <div class="text-white/50 font-medium">Alte limbi</div>
+                <div class="text-white/30 text-sm">Extensibil la cerere</div>
+              </div>
+              <div class="ml-auto text-white/30 text-sm">+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SEO & PERFORMANCE ==================== -->
+  <section class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-green text-sm font-medium uppercase tracking-widest">Sub Capotă</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Frumos și<br><span class="text-gradient animate-shimmer">performant</span></h2>
+        <p class="text-lg text-white/60">Output SEO-friendly, cod curat, încărcare rapidă. Tot ce Google adoră.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-brand-green/20 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">SEO Optimizat</h3>
+          <p class="text-white/50 text-sm mb-4">Meta tags, structured data, sitemap generat automat. Website-ul tău e gata să fie găsit.</p>
+          <div class="flex items-center gap-2 text-brand-green text-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Schema.org pentru evenimente
+          </div>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-editor-purple/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-editor-purple/20 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-editor-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Încărcare Rapidă</h3>
+          <p class="text-white/50 text-sm mb-4">Imagini optimizate, CSS minimal, lazy loading. Sub 3 secunde pe orice dispozitiv.</p>
+          <div class="flex items-center gap-2 text-editor-purple text-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Core Web Vitals ✓
+          </div>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-editor-pink/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-editor-pink/20 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-editor-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">100% Responsive</h3>
+          <p class="text-white/50 text-sm mb-4">Arată perfect pe telefon, tabletă și desktop. Testat pe toate dispozitivele.</p>
+          <div class="flex items-center gap-2 text-editor-pink text-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Mobile-first design
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIAL ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="rainbow-border rounded-3xl p-8 md:p-12">
+          <!-- Stars -->
+          <div class="flex items-center gap-1 mb-6">
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <!-- Quote -->
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Am construit website-ul festivalului în 2 ore. <span class="text-gradient-creative font-semibold">Literalmente 2 ore.</span> Înainte așteptam săptămâni după agenție. Acum modific orice vreau, când vreau. Game changer."
+          </blockquote>
+          <!-- Author -->
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-editor-purple via-editor-pink to-editor-blue"></div>
+            <div>
+              <div class="font-semibold text-white">Mihai P.</div>
+              <div class="text-white/50">Director Festival, Transylvania Calling</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-editor-purple/20 via-editor-pink/10 to-editor-blue/20"></div>
+    <div class="absolute w-[800px] h-[800px] bg-gradient-to-br from-editor-purple/30 to-editor-pink/30 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none"></div>
+    
+    <!-- Floating blocks -->
+    <div class="absolute top-20 left-20 w-16 h-16 bg-dark-800 rounded-2xl border border-white/10 flex items-center justify-center animate-float opacity-50">
+      <svg class="w-8 h-8 text-editor-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/></svg>
+    </div>
+    <div class="absolute bottom-32 right-20 w-14 h-14 bg-dark-800 rounded-2xl border border-white/10 flex items-center justify-center animate-float [animation-delay:1s] opacity-50">
+      <svg class="w-7 h-7 text-editor-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    </div>
+    <div class="absolute top-1/3 right-32 w-12 h-12 bg-dark-800 rounded-2xl border border-white/10 flex items-center justify-center animate-float [animation-delay:2s] opacity-50">
+      <svg class="w-6 h-6 text-editor-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Începe să<br><span class="text-gradient-creative">creezi</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Website-ul evenimentului tău, designat de tine. Fără cod, fără așteptări, fără limite.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-editor-purple via-editor-pink to-editor-blue bg-size-200 bg-pos-0 hover:bg-pos-100 text-white transition-all duration-500 hover:scale-105 hover:shadow-glow-multi">
+          Încearcă Gratuit Acum
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/demo" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Vezi Demo Live
+        </a>
+      </div>
+      
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Inclus gratuit în toate planurile Tixello. Pagini nelimitate, modificări nelimitate.</p>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-3 lg:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+              <span class="text-white font-display font-bold text-sm">T</span>
+            </div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm mb-6 max-w-xs">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        
+        <!-- Links -->
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/preturi" class="text-white/40 hover:text-white transition-colors">Prețuri</a></li>
+            <li><a href="/editor-vizual" class="text-transparent bg-clip-text bg-gradient-to-r from-editor-purple to-editor-pink hover:opacity-80 transition-colors">Editor Vizual</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Integrări</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati/facebook-conversions-api" class="text-white/40 hover:text-white transition-colors">Facebook CAPI</a></li>
+            <li><a href="/functionalitati/google-ads" class="text-white/40 hover:text-white transition-colors">Google Ads</a></li>
+            <li><a href="/functionalitati/whatsapp" class="text-white/40 hover:text-white transition-colors">WhatsApp</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Companie</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/despre" class="text-white/40 hover:text-white transition-colors">Despre noi</a></li>
+            <li><a href="/blog" class="text-white/40 hover:text-white transition-colors">Blog</a></li>
+            <li><a href="/contact" class="text-white/40 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/confidentialitate" class="text-white/40 hover:text-white transition-colors">Confidențialitate</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Bottom -->
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-2">
+          <span class="text-white/30 text-sm">Construit cu</span>
+          <div class="flex -space-x-1">
+            <div class="w-4 h-4 rounded-full bg-editor-purple"></div>
+            <div class="w-4 h-4 rounded-full bg-editor-pink"></div>
+            <div class="w-4 h-4 rounded-full bg-editor-blue"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+    });
+
+    // Header Background on Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      } else {
+        header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      }
+    });
+
+    // Intersection Observer for Reveal Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Feature Card Mouse Tracking
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  </script>
+</body>
+</html>

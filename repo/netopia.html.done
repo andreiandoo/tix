@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrare Netopia - Plăți Românești de Încredere | Tixello</title>
+  <meta name="description" content="Acceptă plăți cu cardul și transfer bancar de la clienții români. Netopia - procesatorul de plăți #1 în România.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536', 500: '#32324a' },
+            brand: { violet: '#7c3aed', cyan: '#06b6d4', rose: '#f43f5e', amber: '#f59e0b', green: '#10b981' },
+            netopia: {
+              teal: '#00A99D',
+              dark: '#007A70',
+              light: '#33BFAA',
+              mint: '#4DD4C3',
+              navy: '#1A2B3C',
+              accent: '#FF6B35'
+            },
+            romania: {
+              blue: '#002B7F',
+              yellow: '#FCD116',
+              red: '#CE1126'
+            }
+          },
+          fontFamily: { display: ['Clash Display', 'sans-serif'], body: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+            'card-shine': 'cardShine 3s ease-in-out infinite',
+            'secure-pulse': 'securePulse 2s ease-in-out infinite',
+            'check-draw': 'checkDraw 0.5s ease-out forwards',
+            'trust-glow': 'trustGlow 2s ease-in-out infinite',
+            'redirect-flow': 'redirectFlow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+            shimmer: { '0%': { backgroundPosition: '0% center' }, '100%': { backgroundPosition: '200% center' } },
+            cardShine: { '0%': { transform: 'translateX(-100%) rotate(45deg)' }, '100%': { transform: 'translateX(100%) rotate(45deg)' } },
+            securePulse: { '0%, 100%': { boxShadow: '0 0 0 0 rgba(0, 169, 157, 0.4)' }, '50%': { boxShadow: '0 0 0 15px rgba(0, 169, 157, 0)' } },
+            checkDraw: { '0%': { strokeDashoffset: '100' }, '100%': { strokeDashoffset: '0' } },
+            trustGlow: { '0%, 100%': { opacity: '0.5' }, '50%': { opacity: '1' } },
+            redirectFlow: { '0%': { transform: 'translateX(0)' }, '50%': { transform: 'translateX(10px)' }, '100%': { transform: 'translateX(0)' } },
+          },
+          boxShadow: {
+            'glow-netopia': '0 0 60px rgba(0, 169, 157, 0.4)',
+            'glow-trust': '0 0 40px rgba(0, 169, 157, 0.3)',
+            'card-ro': '0 25px 50px -12px rgba(0, 43, 127, 0.3)',
+          },
+          backgroundSize: { '200': '200% auto' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    ::selection { background: #00A99D; color: white; }
+    
+    .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .text-gradient-netopia { background: linear-gradient(135deg, #00A99D 0%, #4DD4C3 50%, #00A99D 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+    
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .feature-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 169, 157, 0.15), transparent 50%); opacity: 0; transition: opacity 0.5s; border-radius: inherit; }
+    .feature-card:hover::before { opacity: 1; }
+    
+    /* Romanian credit card */
+    .ro-card {
+      background: linear-gradient(135deg, #002B7F 0%, #1a3a8f 50%, #002B7F 100%);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ro-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+      animation: cardShine 3s ease-in-out infinite;
+    }
+    .ro-card-chip {
+      width: 45px;
+      height: 35px;
+      background: linear-gradient(135deg, #d4af37 0%, #f9e076 50%, #d4af37 100%);
+      border-radius: 6px;
+    }
+    
+    /* Trust badge */
+    .trust-badge {
+      background: linear-gradient(135deg, rgba(0, 169, 157, 0.1), rgba(0, 169, 157, 0.05));
+      border: 1px solid rgba(0, 169, 157, 0.3);
+    }
+    
+    /* 3D Secure badge */
+    .secure-3d {
+      background: linear-gradient(135deg, #002B7F, #1a3a8f);
+      position: relative;
+    }
+    .secure-3d::after {
+      content: '3DS';
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      background: #CE1126;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* Status badges */
+    .status-pending { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-confirmed { background: rgba(0, 169, 157, 0.2); color: #00A99D; }
+    .status-cancelled { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .status-credited { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+    
+    /* Redirect flow arrow */
+    .redirect-arrow {
+      position: relative;
+    }
+    .redirect-arrow::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, #00A99D, transparent);
+      animation: redirectFlow 2s ease-in-out infinite;
+    }
+    
+    /* Romanian flag stripe */
+    .ro-flag-stripe {
+      background: linear-gradient(90deg, #002B7F 33%, #FCD116 33%, #FCD116 66%, #CE1126 66%);
+      height: 4px;
+    }
+    
+    /* Bank logos placeholder */
+    .bank-logo {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+
+<body class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+  <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #002B7F, #FCD116, #CE1126);"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="inline-flex items-center gap-2 font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-mint text-white text-sm hover:scale-105 hover:shadow-glow-netopia transition-all duration-300">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/signup" class="block w-full text-center font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-mint text-white mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute w-[800px] h-[800px] bg-netopia-teal/20 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[600px] h-[600px] bg-romania-blue/15 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
+    
+    <!-- Floating elements -->
+    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">🇷🇴</div>
+    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">💳</div>
+    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">🔒</div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Hero Content -->
+        <div class="reveal">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-netopia-teal/10 border border-netopia-teal/20 mb-6">
+            <span class="text-xl">🇷🇴</span>
+            <span class="text-netopia-teal text-sm font-medium">Procesator #1 în România</span>
+          </div>
+          
+          <!-- Heading -->
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Plăți<br><span class="text-gradient-netopia">românești</span>
+          </h1>
+          
+          <!-- Description -->
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            <strong class="text-white">Netopia</strong> - procesatorul de plăți de încredere, cunoscut de milioane de români. Carduri, transferuri bancare, rate. <strong class="text-white">Conversii mai mari</strong> datorită familiarității.
+          </p>
+          
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-light text-white hover:scale-105 hover:shadow-glow-netopia transition-all duration-300">
+              Conectează Netopia
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#metode" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+              Vezi metodele de plată
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6">
+            <div>
+              <div class="text-3xl font-display font-bold text-netopia-teal">15+</div>
+              <div class="text-white/40 text-sm">Ani experiență</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-white">RON</div>
+              <div class="text-white/40 text-sm">Valută nativă</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-brand-green">3DS</div>
+              <div class="text-white/40 text-sm">Securitate maximă</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Romanian Card + Checkout -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative" x-data="{ 
+            step: 1,
+            processing: false,
+            confirmed: false
+          }" x-init="setInterval(() => { 
+            if (step === 1) { step = 2; } 
+            else if (step === 2) { processing = true; setTimeout(() => { processing = false; confirmed = true; step = 3; }, 2000); }
+            else { step = 1; confirmed = false; }
+          }, 4000)">
+            
+            <!-- Main Checkout Card -->
+            <div class="bg-dark-800/80 backdrop-blur-xl rounded-3xl p-6 border border-netopia-teal/20 shadow-2xl">
+              <!-- Header -->
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-netopia-teal/20 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-white font-semibold">Netopia Payments</div>
+                    <div class="text-white/40 text-xs">Plată securizată</div>
+                  </div>
+                </div>
+                <div class="trust-badge px-3 py-1 rounded-full flex items-center gap-1">
+                  <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  <span class="text-netopia-teal text-xs font-medium">Securizat</span>
+                </div>
+              </div>
+              
+              <!-- Romanian flag stripe -->
+              <div class="ro-flag-stripe rounded-full mb-6"></div>
+              
+              <!-- Amount -->
+              <div class="bg-dark-900/50 rounded-xl p-4 mb-6">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white/40 text-xs">Total de plată</div>
+                    <div class="text-3xl font-display font-bold text-white">175 <span class="text-lg text-netopia-teal">RON</span></div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-white/40 text-xs">2 bilete</div>
+                    <div class="text-white/60 text-sm">Summer Fest 2025</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step Indicator -->
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-2">
+                  <div :class="step >= 1 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">1</div>
+                  <span :class="step >= 1 ? 'text-white' : 'text-white/40'" class="text-sm">Detalii</span>
+                </div>
+                <div class="flex-1 h-0.5 mx-2" :class="step >= 2 ? 'bg-netopia-teal' : 'bg-dark-700'"></div>
+                <div class="flex items-center gap-2">
+                  <div :class="step >= 2 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">2</div>
+                  <span :class="step >= 2 ? 'text-white' : 'text-white/40'" class="text-sm">3D Secure</span>
+                </div>
+                <div class="flex-1 h-0.5 mx-2" :class="step >= 3 ? 'bg-netopia-teal' : 'bg-dark-700'"></div>
+                <div class="flex items-center gap-2">
+                  <div :class="step >= 3 ? 'bg-brand-green text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">
+                    <span x-show="step < 3">3</span>
+                    <svg x-show="step >= 3" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  </div>
+                  <span :class="step >= 3 ? 'text-brand-green' : 'text-white/40'" class="text-sm">Confirmat</span>
+                </div>
+              </div>
+              
+              <!-- Step 1: Card Details -->
+              <div x-show="step === 1" x-transition class="space-y-4">
+                <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
+                  <div class="text-white/40 text-xs uppercase tracking-wider mb-2">Număr card</div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-white font-mono">4532 •••• •••• 1234</span>
+                    <div class="ml-auto flex items-center gap-2">
+                      <svg class="w-8 h-5" viewBox="0 0 32 20"><rect fill="#1A1F71" width="32" height="20" rx="2"/><text x="5" y="14" fill="white" font-size="8" font-weight="bold">VISA</text></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
+                    <div class="text-white/40 text-xs uppercase tracking-wider mb-2">Expirare</div>
+                    <span class="text-white font-mono">12/28</span>
+                  </div>
+                  <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
+                    <div class="text-white/40 text-xs uppercase tracking-wider mb-2">CVV</div>
+                    <span class="text-white font-mono">•••</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 2: 3D Secure -->
+              <div x-show="step === 2" x-transition class="text-center py-8">
+                <div class="secure-3d inline-flex items-center gap-3 px-6 py-3 rounded-xl text-white mb-4">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <span class="font-semibold">Verificare 3D Secure</span>
+                </div>
+                <div x-show="processing" class="flex items-center justify-center gap-2 text-white/60">
+                  <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  <span>Se verifică cu banca ta...</span>
+                </div>
+                <div x-show="!processing" class="text-white/60 text-sm">Redirecționare către bancă...</div>
+              </div>
+              
+              <!-- Step 3: Confirmed -->
+              <div x-show="step === 3" x-transition class="text-center py-8">
+                <div class="w-16 h-16 rounded-full bg-brand-green/20 flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div class="text-brand-green font-semibold text-lg mb-2">Plată Confirmată!</div>
+                <div class="text-white/40 text-sm">Tranzacție #TXN-2025-001234</div>
+              </div>
+              
+              <!-- Trust badges -->
+              <div class="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-white/10">
+                <div class="flex items-center gap-1 text-white/30 text-xs">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  PCI DSS
+                </div>
+                <div class="flex items-center gap-1 text-white/30 text-xs">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  3D Secure
+                </div>
+                <div class="flex items-center gap-1 text-white/30 text-xs">
+                  <span class="text-sm">🇷🇴</span>
+                  Netopia
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Romanian Card -->
+            <div class="absolute -top-8 -right-8 w-56 ro-card p-4 shadow-card-ro animate-float z-10">
+              <div class="flex justify-between items-start mb-8">
+                <div class="ro-card-chip"></div>
+                <svg class="w-8 h-8 text-white/30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M9.5 16.5l7-4.5-7-4.5z"/></svg>
+              </div>
+              <div class="text-white/70 font-mono text-sm tracking-wider mb-3">•••• •••• •••• 1234</div>
+              <div class="flex justify-between items-end">
+                <div>
+                  <div class="text-white/40 text-[10px]">TITULAR</div>
+                  <div class="text-white/80 text-xs">ION POPESCU</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white/40 text-[10px]">EXPIRARE</div>
+                  <div class="text-white/80 text-xs">12/28</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Trust Badge -->
+            <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-netopia-teal/30 shadow-xl animate-float [animation-delay:1s] z-10">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-netopia-teal/20 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div>
+                  <div class="text-netopia-teal text-sm font-medium">15+ ani</div>
+                  <div class="text-white/40 text-xs">pe piața RO</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAYMENT METHODS ==================== -->
+  <section class="py-24 relative overflow-hidden" id="metode">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-netopia-teal text-sm font-medium uppercase tracking-widest">Metode de Plată</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Toate cardurile<br><span class="text-gradient-netopia">românești</span></h2>
+        <p class="text-lg text-white/60">Visa, Mastercard, Maestro și cardurile locale ale băncilor românești. Plus transferuri bancare.</p>
+      </div>
+      
+      <!-- Payment Methods Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Visa -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-[#1A1F71]/20 flex items-center justify-center mb-4">
+            <svg class="w-10 h-6" viewBox="0 0 48 16"><rect fill="#1A1F71" width="48" height="16" rx="2"/><text x="8" y="12" fill="white" font-size="10" font-weight="bold">VISA</text></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Visa</h3>
+          <p class="text-white/50 text-sm">Credit, Debit, Electron. Toate cardurile Visa emise în România.</p>
+        </div>
+        
+        <!-- Mastercard -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#EB001B]/20 to-[#F79E1B]/20 flex items-center justify-center mb-4">
+            <svg class="w-10 h-10" viewBox="0 0 48 32"><circle cx="16" cy="16" r="12" fill="#EB001B"/><circle cx="32" cy="16" r="12" fill="#F79E1B"/><path d="M24 6c4 3 6.5 8 6.5 10s-2.5 7-6.5 10c-4-3-6.5-8-6.5-10s2.5-7 6.5-10z" fill="#FF5F00"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Mastercard</h3>
+          <p class="text-white/50 text-sm">Credit și Debit. Toate băncile românești partenere.</p>
+        </div>
+        
+        <!-- Maestro -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0066A1]/20 to-[#CC0000]/20 flex items-center justify-center mb-4">
+            <svg class="w-10 h-10" viewBox="0 0 48 32"><circle cx="16" cy="16" r="12" fill="#0066A1"/><circle cx="32" cy="16" r="12" fill="#CC0000"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Maestro</h3>
+          <p class="text-white/50 text-sm">Carduri de debit pentru plăți imediate din cont.</p>
+        </div>
+        
+        <!-- Bank Transfer -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-3">
+          <div class="w-14 h-14 rounded-2xl bg-netopia-teal/20 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Transfer Bancar</h3>
+          <p class="text-white/50 text-sm">Direct din contul bancar pentru clienții care preferă non-card.</p>
+        </div>
+      </div>
+      
+      <!-- Romanian Banks -->
+      <div class="mt-12 reveal">
+        <div class="text-center mb-6">
+          <span class="text-white/40 text-sm">Carduri emise de toate băncile românești majore</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4">
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">BCR</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">BRD</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">ING</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Raiffeisen</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">UniCredit</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">CEC Bank</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Banca Transilvania</div>
+          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Alpha Bank</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3D SECURE ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="text-brand-green text-sm font-medium uppercase tracking-widest">Securitate</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">3D Secure<br><span class="text-gradient animate-shimmer">obligatoriu</span></h2>
+          <p class="text-lg text-white/60 mb-8">Fiecare tranzacție cu cardul trece prin verificarea 3D Secure. Banca clientului autentifică plata - protecție maximă pentru tine și clienții tăi.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-brand-green/20">
+              <div class="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center flex-shrink-0 animate-secure-pulse">
+                <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-white font-semibold">Protecție Răspundere</span>
+                  <span class="px-2 py-0.5 rounded-full bg-brand-green/20 text-brand-green text-xs">Activă</span>
+                </div>
+                <p class="text-white/50 text-sm">Liability shift către bancă pentru tranzacțiile autentificate</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-netopia-teal/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-semibold">Detectare Fraudă</span>
+                <p class="text-white/50 text-sm">Monitorizare automată a tranzacțiilor suspecte</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-semibold">PCI DSS Compliant</span>
+                <p class="text-white/50 text-sm">Datele cardului nu ajung pe serverele tale</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Visual - 3D Secure Flow -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-romania-blue/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-semibold">Flux 3D Secure</div>
+                <div class="text-white/40 text-xs">Autentificare în 3 pași</div>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <!-- Step 1 -->
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
+                <div class="w-10 h-10 rounded-full bg-netopia-teal/20 flex items-center justify-center text-netopia-teal font-bold">1</div>
+                <div class="flex-1">
+                  <div class="text-white font-medium">Client introduce cardul</div>
+                  <div class="text-white/40 text-sm">Pe pagina securizată Netopia</div>
+                </div>
+                <svg class="w-5 h-5 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              
+              <div class="flex justify-center">
+                <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              </div>
+              
+              <!-- Step 2 -->
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-romania-blue/10 border border-romania-blue/30">
+                <div class="w-10 h-10 rounded-full bg-romania-blue/20 flex items-center justify-center text-white font-bold">2</div>
+                <div class="flex-1">
+                  <div class="text-white font-medium">Redirecționare către bancă</div>
+                  <div class="text-white/40 text-sm">Autentificare SMS/Token/App</div>
+                </div>
+                <span class="px-2 py-1 rounded bg-romania-blue text-white text-xs font-bold">3DS</span>
+              </div>
+              
+              <div class="flex justify-center">
+                <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              </div>
+              
+              <!-- Step 3 -->
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-brand-green/10 border border-brand-green/30">
+                <div class="w-10 h-10 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green font-bold">✓</div>
+                <div class="flex-1">
+                  <div class="text-brand-green font-medium">Tranzacție confirmată</div>
+                  <div class="text-white/40 text-sm">Webhook instant către sistemul tău</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TRANSACTION STATUS ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-netopia-teal text-sm font-medium uppercase tracking-widest">Statusuri Tranzacție</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Urmărește<br><span class="text-gradient-netopia">fiecare plată</span></h2>
+        <p class="text-lg text-white/60">Webhook-uri în timp real pentru toate schimbările de status. Știi imediat ce se întâmplă.</p>
+      </div>
+      
+      <!-- Status Flow -->
+      <div class="max-w-4xl mx-auto reveal">
+        <div class="grid md:grid-cols-4 gap-4">
+          <!-- Pending -->
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-brand-amber/20 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="status-pending px-3 py-1 rounded-full text-xs font-medium">În Așteptare</span>
+            <div class="mt-3 text-white/50 text-sm">Cod: 0</div>
+            <p class="text-white/40 text-xs mt-2">Plată inițiată, se așteaptă finalizarea</p>
+          </div>
+          
+          <!-- Confirmed -->
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-netopia-teal/30 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-netopia-teal/5 to-transparent"></div>
+            <div class="relative">
+              <div class="w-14 h-14 rounded-2xl bg-netopia-teal/20 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span class="status-confirmed px-3 py-1 rounded-full text-xs font-medium">Confirmat</span>
+              <div class="mt-3 text-white/50 text-sm">Cod: 1</div>
+              <p class="text-white/40 text-xs mt-2">Plată reușită, fonduri securizate</p>
+            </div>
+          </div>
+          
+          <!-- Cancelled -->
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-brand-rose/20 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-7 h-7 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="status-cancelled px-3 py-1 rounded-full text-xs font-medium">Anulat</span>
+            <div class="mt-3 text-white/50 text-sm">Cod: 4</div>
+            <p class="text-white/40 text-xs mt-2">Anulat de client sau timeout</p>
+          </div>
+          
+          <!-- Credited -->
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+            </div>
+            <span class="status-credited px-3 py-1 rounded-full text-xs font-medium">Creditat</span>
+            <div class="mt-3 text-white/50 text-sm">Cod: 5</div>
+            <p class="text-white/40 text-xs mt-2">Rambursare procesată</p>
+          </div>
+        </div>
+        
+        <!-- Webhook note -->
+        <div class="mt-8 text-center">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800/50 border border-white/10">
+            <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <span class="text-white/60 text-sm">Notificări webhook în timp real pentru fiecare schimbare de status</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== USE CASES ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Perfect pentru<br><span class="text-gradient animate-shimmer">piața românească</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-netopia-teal/20 to-netopia-mint/20 flex items-center justify-center mb-4"><span class="text-2xl">🎪</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Evenimente Românești</h3>
+          <p class="text-white/50 text-sm">Conversii mai mari când clienții văd Netopia - brand local de încredere pe care îl cunosc.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎸</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Festivaluri Locale</h3>
+          <p class="text-white/50 text-sm">Procesează mii de tranzacții în perioadele de vârf. Infrastructura Netopia scalează automat.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-romania-blue/20 to-romania-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Corporate România</h3>
+          <p class="text-white/50 text-sm">Transferuri bancare pentru companiile românești care preferă plăți directe.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🎤</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Artiști Români</h3>
+          <p class="text-white/50 text-sm">Procesare familiară pentru fanii care cumpără bilete la concertele artiștilor locali.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">💱</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Valută</h3>
+          <p class="text-white/50 text-sm">Afișează prețuri în EUR cu conversie automată la RON în checkout.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">💳</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Plăți în Rate</h3>
+          <p class="text-white/50 text-sm">Pachete VIP accesibile prin parteneriatele Netopia cu băncile românești.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIAL ==================== -->
+  <section class="py-24 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="bg-gradient-to-br from-netopia-teal/10 to-netopia-mint/10 rounded-3xl p-8 md:p-12 border border-netopia-teal/20">
+          <div class="flex items-center gap-1 mb-6">
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Când am trecut la Netopia, <span class="text-gradient-netopia font-semibold">rata de abandon</span> la checkout a scăzut cu 28%. Românii au încredere în brand - îl văd peste tot online."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-netopia-teal to-netopia-mint"></div>
+            <div>
+              <div class="font-semibold text-white">Andrei M.</div>
+              <div class="text-white/50">Event Manager, SAGA Festival</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-netopia-teal/20 via-transparent to-romania-blue/20"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,169,157,0.3) 0%, rgba(0,43,127,0.2) 100%);"></div>
+    
+    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">🇷🇴</div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Conectează<br><span class="text-gradient-netopia">Netopia</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Procesatorul de încredere pentru milioane de români. Carduri locale, 3D Secure, decontare rapidă.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-light text-white hover:scale-105 hover:shadow-glow-netopia transition-all duration-300">
+          Conectează Netopia
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+          Întrebări? Contactează-ne
+        </a>
+      </div>
+      
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">15+ ani experiență • 3D Secure obligatoriu • Decontare 1-3 zile</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/netopia" class="text-netopia-teal hover:text-netopia-mint transition-colors">Netopia</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Plăți</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati/stripe" class="text-white/40 hover:text-white transition-colors">Stripe</a></li>
+            <li><a href="/functionalitati/payu" class="text-white/40 hover:text-white transition-colors">PayU</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🇷🇴</span>
+          <span class="text-white/30 text-sm">Netopia Payments Partner</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+    });
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) { header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); } 
+      else { header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`); card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`); });
+    });
+  </script>
+</body>
+</html>

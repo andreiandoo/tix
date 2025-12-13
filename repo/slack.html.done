@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrare Slack - Notificări în Timp Real | Tixello</title>
+  <meta name="description" content="Notificări comenzi, alerte VIP și sumare zilnice direct în Slack. Ține echipa la curent fără a părăsi workspace-ul.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536', 500: '#32324a' },
+            brand: { violet: '#7c3aed', cyan: '#06b6d4', rose: '#f43f5e', amber: '#f59e0b', green: '#10b981' },
+            slack: {
+              aubergine: '#4A154B',
+              blue: '#36C5F0',
+              green: '#2EB67D',
+              yellow: '#ECB22E',
+              pink: '#E01E5A',
+              dark: '#1A1D21',
+              sidebar: '#3F0E40',
+              hover: '#350D36',
+              active: '#1164A3',
+              text: '#D1D2D3',
+              muted: '#ABABAD'
+            }
+          },
+          fontFamily: { display: ['Clash Display', 'sans-serif'], body: ['Outfit', 'sans-serif'], slack: ['Lato', 'sans-serif'] },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+            'message-in': 'messageIn 0.3s ease-out forwards',
+            'typing': 'typing 1.5s ease-in-out infinite',
+            'notification-pop': 'notificationPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards',
+            'channel-pulse': 'channelPulse 2s ease-in-out infinite',
+            'dot-bounce': 'dotBounce 1.4s ease-in-out infinite',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+            shimmer: { '0%': { backgroundPosition: '0% center' }, '100%': { backgroundPosition: '200% center' } },
+            messageIn: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            typing: { '0%, 100%': { opacity: '0.3' }, '50%': { opacity: '1' } },
+            notificationPop: { '0%': { transform: 'scale(0)', opacity: '0' }, '50%': { transform: 'scale(1.2)' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            channelPulse: { '0%, 100%': { backgroundColor: 'rgba(46, 182, 125, 0.1)' }, '50%': { backgroundColor: 'rgba(46, 182, 125, 0.2)' } },
+            dotBounce: { '0%, 80%, 100%': { transform: 'translateY(0)' }, '40%': { transform: 'translateY(-6px)' } },
+          },
+          boxShadow: {
+            'glow-slack': '0 0 60px rgba(74, 21, 75, 0.4)',
+            'glow-green': '0 0 60px rgba(46, 182, 125, 0.4)',
+            'message': '0 1px 2px rgba(0,0,0,0.1)',
+          },
+          backgroundSize: { '200': '200% auto' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    ::selection { background: #4A154B; color: white; }
+    
+    .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .text-gradient-slack { background: linear-gradient(135deg, #E01E5A 0%, #ECB22E 25%, #2EB67D 50%, #36C5F0 75%, #4A154B 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+    
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .feature-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(74, 21, 75, 0.15), transparent 50%); opacity: 0; transition: opacity 0.5s; border-radius: inherit; }
+    .feature-card:hover::before { opacity: 1; }
+    
+    /* Slack UI Styles */
+    .slack-window { background: #1A1D21; border-radius: 12px; overflow: hidden; }
+    .slack-sidebar { background: #3F0E40; }
+    .slack-channel { transition: all 0.2s; }
+    .slack-channel:hover { background: rgba(255,255,255,0.05); }
+    .slack-channel.active { background: #1164A3; }
+    .slack-channel.unread::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 8px; background: white; border-radius: 0 4px 4px 0; }
+    
+    /* Message styles */
+    .slack-message { transition: background 0.2s; }
+    .slack-message:hover { background: rgba(255,255,255,0.02); }
+    .slack-avatar { width: 36px; height: 36px; border-radius: 4px; flex-shrink: 0; }
+    .slack-username { color: #D1D2D3; font-weight: 700; }
+    .slack-time { color: #ABABAD; font-size: 12px; }
+    .slack-text { color: #D1D2D3; line-height: 1.5; }
+    
+    /* Block Kit styles */
+    .block-header { color: white; font-weight: 900; font-size: 16px; }
+    .block-section { background: rgba(255,255,255,0.03); border-left: 4px solid; padding: 8px 12px; border-radius: 0 4px 4px 0; }
+    .block-field-label { color: #ABABAD; font-size: 12px; font-weight: 700; }
+    .block-field-value { color: #D1D2D3; }
+    .block-button { background: #007A5A; color: white; padding: 4px 12px; border-radius: 4px; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+    .block-button:hover { background: #148567; }
+    .block-button.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.2); }
+    .block-button.secondary:hover { background: rgba(255,255,255,0.05); }
+    
+    /* Notification badge */
+    .notification-badge { background: #E01E5A; color: white; font-size: 11px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    
+    /* Typing indicator */
+    .typing-dot { width: 6px; height: 6px; background: #ABABAD; border-radius: 50%; }
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    /* Emoji reactions */
+    .slack-reaction { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 4px; font-size: 12px; transition: all 0.2s; }
+    .slack-reaction:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+    .slack-reaction.active { background: rgba(46, 182, 125, 0.2); border-color: #2EB67D; }
+    
+    /* Channel routing */
+    .routing-line { position: relative; }
+    .routing-line::after { content: ''; position: absolute; top: 50%; left: 100%; width: 40px; height: 2px; background: linear-gradient(90deg, #4A154B, #2EB67D); }
+  </style>
+</head>
+
+<body class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+  <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #E01E5A, #ECB22E, #2EB67D, #36C5F0);"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="inline-flex items-center gap-2 font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-slack-aubergine to-slack-pink text-white text-sm hover:scale-105 hover:shadow-glow-slack transition-all duration-300">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/signup" class="block w-full text-center font-semibold px-5 py-2.5 rounded-full bg-gradient-to-r from-slack-aubergine to-slack-pink text-white mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute w-[800px] h-[800px] bg-slack-aubergine/30 rounded-full -top-60 -left-60 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[600px] h-[600px] bg-slack-green/15 rounded-full bottom-0 -right-40 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] bg-slack-blue/10 rounded-full top-1/2 left-1/2 blur-[150px] pointer-events-none"></div>
+    
+    <!-- Floating Slack elements -->
+    <div class="absolute top-32 left-16 opacity-20 animate-float text-2xl">#️⃣</div>
+    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">🔔</div>
+    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">💬</div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Hero Content -->
+        <div class="reveal">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-slack-aubergine/20 border border-slack-aubergine/30 mb-6">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+              <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#E01E5A"/>
+              <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z" fill="#E01E5A"/>
+              <path d="M6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/>
+              <path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834z" fill="#36C5F0"/>
+              <path d="M8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/>
+              <path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834z" fill="#2EB67D"/>
+              <path d="M17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" fill="#2EB67D"/>
+              <path d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52z" fill="#ECB22E"/>
+              <path d="M15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#ECB22E"/>
+            </svg>
+            <span class="text-white/70 text-sm font-medium">Notificări în Timp Real</span>
+          </div>
+          
+          <!-- Heading -->
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Echipa ta,<br><span class="text-gradient-slack">mereu la curent</span>
+          </h1>
+          
+          <!-- Description -->
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            Comenzi noi, achiziții VIP, sumare zilnice - <strong class="text-white">direct în Slack</strong>. Echipa răspunde mai rapid, nu ratează nimic. Fără a părăsi workspace-ul.
+          </p>
+          
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-slack-aubergine text-white hover:bg-slack-sidebar hover:scale-105 hover:shadow-glow-slack transition-all duration-300">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z"/></svg>
+              Conectează Slack
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#notificari" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+              Vezi notificările
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6">
+            <div>
+              <div class="text-3xl font-display font-bold text-slack-green">Instant</div>
+              <div class="text-white/40 text-sm">Notificări real-time</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-white">OAuth</div>
+              <div class="text-white/40 text-sm">Conexiune securizată</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-slack-blue">∞</div>
+              <div class="text-white/40 text-sm">Canale & workspace-uri</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Slack Window Mockup -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative" x-data="{ 
+            messages: [
+              { id: 1, visible: true },
+              { id: 2, visible: true },
+              { id: 3, visible: false }
+            ],
+            showNew: false
+          }" x-init="setTimeout(() => { messages[2].visible = true; showNew = true; }, 2000)">
+            
+            <!-- Slack Window -->
+            <div class="slack-window shadow-2xl border border-white/10">
+              <!-- Title Bar -->
+              <div class="flex items-center justify-between px-4 py-3 bg-slack-sidebar border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="text-white/40 text-sm font-slack">Tixello Events</div>
+                <div class="w-16"></div>
+              </div>
+              
+              <div class="flex" style="height: 380px;">
+                <!-- Sidebar -->
+                <div class="w-56 slack-sidebar p-3 border-r border-white/10 flex-shrink-0">
+                  <!-- Workspace -->
+                  <div class="flex items-center gap-2 mb-4 px-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-slack-pink to-slack-yellow flex items-center justify-center text-white font-bold text-sm">TE</div>
+                    <div>
+                      <div class="text-white font-bold text-sm font-slack">Tixello Events</div>
+                      <div class="text-slack-muted text-xs flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-slack-green"></span>
+                        Online
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Channels -->
+                  <div class="mb-4">
+                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2">Canale</div>
+                    <div class="space-y-0.5">
+                      <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
+                        <span class="text-slack-muted">#</span>
+                        <span class="text-slack-text text-sm">general</span>
+                      </div>
+                      <div class="slack-channel active relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
+                        <span class="text-white">#</span>
+                        <span class="text-white text-sm font-bold">sales</span>
+                        <span class="notification-badge ml-auto" x-show="showNew" x-transition>3</span>
+                      </div>
+                      <div class="slack-channel unread relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
+                        <span class="text-white">#</span>
+                        <span class="text-white text-sm font-bold">vip-alerts</span>
+                      </div>
+                      <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
+                        <span class="text-slack-muted">#</span>
+                        <span class="text-slack-text text-sm">support</span>
+                      </div>
+                      <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
+                        <span class="text-slack-muted">#</span>
+                        <span class="text-slack-text text-sm">marketing</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Apps -->
+                  <div>
+                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2">Aplicații</div>
+                    <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer animate-channel-pulse">
+                      <div class="w-5 h-5 rounded bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+                        <span class="text-white text-xs font-bold">T</span>
+                      </div>
+                      <span class="text-slack-text text-sm">Tixello</span>
+                      <span class="w-2 h-2 rounded-full bg-slack-green ml-auto"></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="flex-1 flex flex-col bg-slack-dark">
+                  <!-- Channel Header -->
+                  <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="text-white font-bold font-slack"># sales</span>
+                      <span class="text-slack-muted text-sm">|</span>
+                      <span class="text-slack-muted text-sm">Notificări comenzi noi</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-slack-muted text-sm">👥 12</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Messages -->
+                  <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Message 1 -->
+                    <div class="slack-message px-2 py-1 rounded" x-show="messages[0].visible">
+                      <div class="flex gap-3">
+                        <div class="slack-avatar bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+                          <span class="text-white text-xs font-bold">T</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center gap-2 mb-1">
+                            <span class="slack-username font-slack">Tixello</span>
+                            <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
+                            <span class="slack-time">10:23</span>
+                          </div>
+                          <div class="block-section border-slack-green mb-2">
+                            <div class="block-header mb-2">🎫 Comandă Nouă #1847</div>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                              <div><span class="block-field-label">Client:</span><br><span class="block-field-value">Maria Ionescu</span></div>
+                              <div><span class="block-field-label">Total:</span><br><span class="block-field-value text-slack-green font-bold">€75.00</span></div>
+                            </div>
+                          </div>
+                          <div class="flex gap-2">
+                            <button class="block-button">Vezi Comanda</button>
+                            <button class="block-button secondary">Contactează</button>
+                          </div>
+                          <div class="flex gap-2 mt-2">
+                            <span class="slack-reaction active">✅ <span class="text-slack-text">2</span></span>
+                            <span class="slack-reaction">👀 <span class="text-slack-text">1</span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Message 2 -->
+                    <div class="slack-message px-2 py-1 rounded" x-show="messages[1].visible">
+                      <div class="flex gap-3">
+                        <div class="slack-avatar bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+                          <span class="text-white text-xs font-bold">T</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center gap-2 mb-1">
+                            <span class="slack-username font-slack">Tixello</span>
+                            <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
+                            <span class="slack-time">10:45</span>
+                          </div>
+                          <div class="block-section border-slack-yellow mb-2">
+                            <div class="block-header mb-2">👑 Achiziție VIP #1848</div>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                              <div><span class="block-field-label">Client:</span><br><span class="block-field-value">Alexandru Popa</span></div>
+                              <div><span class="block-field-label">Total:</span><br><span class="block-field-value text-slack-yellow font-bold">€450.00</span></div>
+                            </div>
+                            <div class="mt-2 text-sm"><span class="block-field-label">Bilete:</span> 3x VIP Pass - Summer Fest</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Message 3 - New -->
+                    <div class="slack-message px-2 py-1 rounded animate-message-in" x-show="messages[2].visible" x-transition>
+                      <div class="flex gap-3">
+                        <div class="slack-avatar bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
+                          <span class="text-white text-xs font-bold">T</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center gap-2 mb-1">
+                            <span class="slack-username font-slack">Tixello</span>
+                            <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
+                            <span class="slack-time">acum</span>
+                            <span class="px-1.5 py-0.5 rounded bg-slack-pink/20 text-slack-pink text-xs animate-pulse">NOU</span>
+                          </div>
+                          <div class="block-section border-slack-blue mb-2">
+                            <div class="block-header mb-2">🎉 Sold Out Alert!</div>
+                            <div class="text-sm text-slack-text">
+                              <strong>Summer Fest 2025</strong> - Early Bird tickets sunt acum sold out! 🔥
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Typing indicator -->
+                  <div class="px-4 py-2 border-t border-white/10">
+                    <div class="flex items-center gap-2 text-slack-muted text-sm">
+                      <div class="flex gap-1">
+                        <span class="typing-dot animate-dot-bounce"></span>
+                        <span class="typing-dot animate-dot-bounce"></span>
+                        <span class="typing-dot animate-dot-bounce"></span>
+                      </div>
+                      <span>Tixello pregătește raportul zilnic...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating OAuth Badge -->
+            <div class="absolute -top-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-slack-green/30 shadow-xl animate-float z-10">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-slack-green/20 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-slack-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div>
+                  <div class="text-slack-green text-sm font-medium">OAuth 2.0</div>
+                  <div class="text-white/40 text-xs">Conectat securizat</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Channel Badge -->
+            <div class="absolute -bottom-4 -right-4 bg-dark-800 rounded-xl px-4 py-3 border border-slack-aubergine/30 shadow-xl animate-float [animation-delay:1s] z-10">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">#️⃣</span>
+                <div>
+                  <div class="text-white text-sm font-medium">15 canale</div>
+                  <div class="text-white/40 text-xs">conectate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NOTIFICATION TYPES ==================== -->
+  <section class="py-24 relative overflow-hidden" id="notificari">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-slack-green text-sm font-medium uppercase tracking-widest">Tipuri de Notificări</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tot ce contează,<br><span class="text-gradient-slack">într-un singur loc</span></h2>
+        <p class="text-lg text-white/60">De la comenzi noi până la sumare zilnice. Fiecare eveniment important ajunge la echipă.</p>
+      </div>
+      
+      <!-- Notification Types Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Order Created -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-green/30 transition-all duration-500 reveal">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-slack-green/20 flex items-center justify-center">
+              <span class="text-2xl">🎫</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Comandă Nouă</h3>
+              <div class="text-slack-green text-xs font-mono">order_created</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Detalii complete: client, articole, total, link direct la comandă.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#sales</span>
+            <span class="px-2 py-1 rounded bg-white/5">#orders</span>
+          </div>
+        </div>
+        
+        <!-- VIP Purchase -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-yellow/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-slack-yellow/20 flex items-center justify-center">
+              <span class="text-2xl">👑</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Achiziție VIP</h3>
+              <div class="text-slack-yellow text-xs font-mono">vip_purchase</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Alertă specială pentru comenzi de mare valoare. Priorități highlight.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#vip-alerts</span>
+          </div>
+        </div>
+        
+        <!-- Refund Issued -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-pink/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-slack-pink/20 flex items-center justify-center">
+              <span class="text-2xl">↩️</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Rambursare</h3>
+              <div class="text-slack-pink text-xs font-mono">refund_issued</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Sumă, motiv, detalii client. Echipa de suport știe imediat.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#support</span>
+            <span class="px-2 py-1 rounded bg-white/5">#finance</span>
+          </div>
+        </div>
+        
+        <!-- Event Published -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-blue/30 transition-all duration-500 reveal">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-slack-blue/20 flex items-center justify-center">
+              <span class="text-2xl">🚀</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Eveniment Publicat</h3>
+              <div class="text-slack-blue text-xs font-mono">event_published</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Anunță marketing-ul când un eveniment nou e live. Link direct la pagina de bilete.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#marketing</span>
+          </div>
+        </div>
+        
+        <!-- Low Inventory -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-brand-amber/20 flex items-center justify-center">
+              <span class="text-2xl">⚠️</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Inventar Scăzut</h3>
+              <div class="text-brand-amber text-xs font-mono">low_inventory</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Avertisment când biletele se apropie de sold out. Timp să reacționezi.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#operations</span>
+          </div>
+        </div>
+        
+        <!-- Daily Summary -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center">
+              <span class="text-2xl">📊</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white">Sumar Zilnic</h3>
+              <div class="text-brand-violet text-xs font-mono">daily_summary</div>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm mb-4">Recapitulare vânzări, numere participare, top evenimente. Fiecare dimineață.</p>
+          <div class="flex items-center gap-2 text-white/30 text-xs">
+            <span class="px-2 py-1 rounded bg-white/5">#leadership</span>
+            <span class="px-2 py-1 rounded bg-white/5">#general</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CHANNEL ROUTING ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="text-slack-blue text-sm font-medium uppercase tracking-widest">Rutare Canale</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Mesajul potrivit,<br><span class="text-gradient-slack">în canalul potrivit</span></h2>
+          <p class="text-lg text-white/60 mb-8">Configurează ce notificări ajung unde. Vânzări în #sales, suport în #support, sărbătoriri în #general.</p>
+          
+          <div class="space-y-4">
+            <!-- Sales Route -->
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-10 h-10 rounded-lg bg-slack-green/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-lg">🎫</span>
+              </div>
+              <div class="flex-1">
+                <span class="text-white font-medium">Comenzi noi</span>
+              </div>
+              <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># sales</span>
+            </div>
+            
+            <!-- VIP Route -->
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-10 h-10 rounded-lg bg-slack-yellow/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-lg">👑</span>
+              </div>
+              <div class="flex-1">
+                <span class="text-white font-medium">Achiziții VIP</span>
+              </div>
+              <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># vip-alerts</span>
+            </div>
+            
+            <!-- Support Route -->
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-10 h-10 rounded-lg bg-slack-pink/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-lg">↩️</span>
+              </div>
+              <div class="flex-1">
+                <span class="text-white font-medium">Rambursări</span>
+              </div>
+              <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># support</span>
+            </div>
+            
+            <!-- Marketing Route -->
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-10 h-10 rounded-lg bg-slack-blue/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-lg">🚀</span>
+              </div>
+              <div class="flex-1">
+                <span class="text-white font-medium">Evenimente publicate</span>
+              </div>
+              <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># marketing</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Visual - Config Preview -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-slack-aubergine/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-slack-aubergine" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-semibold">Configurare Rutare</div>
+                <div class="text-white/40 text-xs">slack_routing.php</div>
+              </div>
+            </div>
+            
+            <div class="bg-dark-900 rounded-xl p-4 font-mono text-sm overflow-x-auto">
+              <div class="text-slack-pink">'slack_routing'</div>
+              <div class="text-white/50 ml-4">=&gt; [</div>
+              <div class="ml-8">
+                <span class="text-slack-green">'order_created'</span>
+                <span class="text-white/50"> =&gt; [</span>
+                <span class="text-slack-yellow">'#sales'</span>
+                <span class="text-white/50">],</span>
+              </div>
+              <div class="ml-8">
+                <span class="text-slack-green">'vip_purchase'</span>
+                <span class="text-white/50"> =&gt; [</span>
+                <span class="text-slack-yellow">'#vip-alerts'</span>
+                <span class="text-white/50">],</span>
+              </div>
+              <div class="ml-8">
+                <span class="text-slack-green">'refund_issued'</span>
+                <span class="text-white/50"> =&gt; [</span>
+                <span class="text-slack-yellow">'#support'</span>
+                <span class="text-white/50">,</span>
+                <span class="text-slack-yellow">'#finance'</span>
+                <span class="text-white/50">],</span>
+              </div>
+              <div class="ml-8">
+                <span class="text-slack-green">'event_published'</span>
+                <span class="text-white/50"> =&gt; [</span>
+                <span class="text-slack-yellow">'#marketing'</span>
+                <span class="text-white/50">],</span>
+              </div>
+              <div class="ml-8">
+                <span class="text-slack-green">'daily_summary'</span>
+                <span class="text-white/50"> =&gt; [</span>
+                <span class="text-slack-yellow">'#leadership'</span>
+                <span class="text-white/50">],</span>
+              </div>
+              <div class="text-white/50 ml-4">]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BLOCK KIT ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-slack-aubergine text-sm font-medium uppercase tracking-widest">Block Kit</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Mesaje<br><span class="text-gradient-slack">acționabile</span></h2>
+        <p class="text-lg text-white/60">Formatare avansată cu Block Kit. Headers, butoane, câmpuri - totul nativ Slack.</p>
+      </div>
+      
+      <!-- Block Kit Examples -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Order Notification -->
+        <div class="reveal">
+          <div class="bg-slack-dark rounded-xl p-4 border border-white/10">
+            <div class="flex gap-3">
+              <div class="slack-avatar bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center flex-shrink-0">
+                <span class="text-white text-xs font-bold">T</span>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="slack-username font-slack">Tixello</span>
+                  <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
+                  <span class="slack-time">14:32</span>
+                </div>
+                
+                <!-- Block: Header -->
+                <div class="block-header mb-3">🎫 Comandă Nouă #1847</div>
+                
+                <!-- Block: Divider -->
+                <div class="border-t border-white/10 my-3"></div>
+                
+                <!-- Block: Section with fields -->
+                <div class="grid grid-cols-2 gap-4 mb-3">
+                  <div>
+                    <div class="block-field-label">Client</div>
+                    <div class="block-field-value">Maria Ionescu</div>
+                  </div>
+                  <div>
+                    <div class="block-field-label">Total</div>
+                    <div class="block-field-value text-slack-green font-bold">€75.00</div>
+                  </div>
+                  <div>
+                    <div class="block-field-label">Eveniment</div>
+                    <div class="block-field-value">Summer Fest 2025</div>
+                  </div>
+                  <div>
+                    <div class="block-field-label">Bilete</div>
+                    <div class="block-field-value">2x General Admission</div>
+                  </div>
+                </div>
+                
+                <!-- Block: Actions -->
+                <div class="flex gap-2">
+                  <button class="block-button">Vezi Comanda</button>
+                  <button class="block-button secondary">Contactează Clientul</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3 text-white/40 text-sm">Notificare comandă standard</div>
+        </div>
+        
+        <!-- Daily Summary -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-slack-dark rounded-xl p-4 border border-white/10">
+            <div class="flex gap-3">
+              <div class="slack-avatar bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center flex-shrink-0">
+                <span class="text-white text-xs font-bold">T</span>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="slack-username font-slack">Tixello</span>
+                  <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
+                  <span class="slack-time">09:00</span>
+                </div>
+                
+                <!-- Block: Header -->
+                <div class="block-header mb-3">📊 Sumar Zilnic - 14 Dec 2025</div>
+                
+                <!-- Block: Section -->
+                <div class="block-section border-brand-violet mb-3">
+                  <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div class="text-2xl font-bold text-white">47</div>
+                      <div class="block-field-label">Comenzi</div>
+                    </div>
+                    <div>
+                      <div class="text-2xl font-bold text-slack-green">€3,420</div>
+                      <div class="block-field-label">Venituri</div>
+                    </div>
+                    <div>
+                      <div class="text-2xl font-bold text-slack-blue">156</div>
+                      <div class="block-field-label">Bilete vândute</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Block: Context -->
+                <div class="text-slack-muted text-sm mb-3">
+                  📈 +12% vs. ieri | Top: Summer Fest (89 bilete)
+                </div>
+                
+                <!-- Block: Actions -->
+                <div class="flex gap-2">
+                  <button class="block-button">Vezi Raport Complet</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3 text-white/40 text-sm">Sumar zilnic automat</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== USE CASES ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Pentru<br><span class="text-gradient animate-shimmer">fiecare echipă</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-green/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-slack-green/20 flex items-center justify-center mb-4"><span class="text-2xl">💰</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Alerte Vânzări</h3>
+          <p class="text-white/50 text-sm">Notificări instant când intră comenzi. Achizițiile VIP alertează echipa de vânzări.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-blue/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-slack-blue/20 flex items-center justify-center mb-4"><span class="text-2xl">⚙️</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Coordonare Operațiuni</h3>
+          <p class="text-white/50 text-sm">Actualizări în timp real în ziua evenimentului. Scanări, participare, capacitate.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-pink/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-slack-pink/20 flex items-center justify-center mb-4"><span class="text-2xl">🎧</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Serviciu Clienți</h3>
+          <p class="text-white/50 text-sm">Notificări rambursări și probleme clienți direct în canalele de suport.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mb-4"><span class="text-2xl">📈</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Vizibilitate Executivi</h3>
+          <p class="text-white/50 text-sm">Sumare în canalele de leadership. Milestone-uri sărbătorite company-wide.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-yellow/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-slack-yellow/20 flex items-center justify-center mb-4"><span class="text-2xl">👥</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Echipă</h3>
+          <p class="text-white/50 text-sm">Marketing, Finance, Ops - fiecare echipă primește informații relevante în canalele lor.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-brand-cyan/20 flex items-center justify-center mb-4"><span class="text-2xl">🌍</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Echipă Remote</h3>
+          <p class="text-white/50 text-sm">Echipe distribuite rămân conectate. Awareness asincron prin mesaje persistente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIAL ==================== -->
+  <section class="py-24 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="bg-gradient-to-br from-slack-aubergine/20 to-slack-green/10 rounded-3xl p-8 md:p-12 border border-slack-aubergine/20">
+          <div class="flex items-center gap-1 mb-6">
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Înainte verificam dashboard-ul de 20 de ori pe zi. Acum <span class="text-gradient-slack font-semibold">totul vine în Slack</span>. Echipa reacționează instant la comenzi VIP, iar sumarul de dimineață ne aliniază pe toți."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-slack-aubergine to-slack-green"></div>
+            <div>
+              <div class="font-semibold text-white">Cristina B.</div>
+              <div class="text-white/50">Head of Operations, Neversea</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-slack-aubergine/20 via-transparent to-slack-green/20"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(74,21,75,0.3) 0%, rgba(46,182,125,0.2) 100%);"></div>
+    
+    <div class="absolute top-20 left-20 opacity-10 animate-float">
+      <svg class="w-16 h-16" viewBox="0 0 24 24" fill="#4A154B"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z"/></svg>
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Conectează<br><span class="text-gradient-slack">Slack</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Notificări în timp real. Rutare inteligentă. Echipa ta, mereu la curent.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-slack-aubergine text-white hover:bg-slack-sidebar hover:scale-105 hover:shadow-glow-slack transition-all duration-300">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z"/></svg>
+          Adaugă la Slack
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+          Întrebări? Contactează-ne
+        </a>
+      </div>
+      
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">OAuth 2.0 securizat. Multi-workspace. Configurare în minute.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/slack" class="text-slack-aubergine hover:text-slack-pink transition-colors">Slack</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Integrări</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati/zapier" class="text-white/40 hover:text-white transition-colors">Zapier</a></li>
+            <li><a href="/functionalitati/whatsapp" class="text-white/40 hover:text-white transition-colors">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#4A154B"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z"/></svg>
+          <span class="text-white/30 text-sm">Works with Slack</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+    });
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) { header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); } 
+      else { header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`); card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog & Articole - Sistem CMS pentru Evenimente | Tixello</title>
+  <meta name="description" content="Spune-ți povestea evenimentelor. CMS complet cu editor rich text, SEO, multi-autor, comentarii și analize. Transformă cititorii în cumpărători de bilete.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536', 500: '#32324a' },
+            brand: { violet: '#7c3aed', cyan: '#06b6d4', rose: '#f43f5e', amber: '#f59e0b', green: '#10b981' },
+            blog: {
+              primary: '#6366F1',     // Indigo
+              secondary: '#8B5CF6',   // Violet
+              accent: '#EC4899',      // Pink
+              text: '#F1F5F9',        // Slate
+              muted: '#94A3B8'
+            },
+            editor: {
+              bg: '#1E1E2E',
+              toolbar: '#2D2D3F',
+              selection: 'rgba(99, 102, 241, 0.3)'
+            },
+            status: {
+              draft: '#6B7280',
+              scheduled: '#F59E0B',
+              published: '#10B981',
+              private: '#8B5CF6'
+            }
+          },
+          fontFamily: { display: ['Clash Display', 'sans-serif'], body: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+            'blog-pulse': 'blogPulse 2s ease-in-out infinite',
+            'typing': 'typing 3s steps(30) infinite',
+            'cursor-blink': 'cursorBlink 1s infinite',
+            'article-slide': 'articleSlide 0.5s ease-out forwards',
+            'stat-count': 'statCount 0.3s ease-out',
+            'tag-pop': 'tagPop 0.3s ease-out forwards',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+            shimmer: { '0%': { backgroundPosition: '0% center' }, '100%': { backgroundPosition: '200% center' } },
+            blogPulse: { '0%, 100%': { boxShadow: '0 0 0 0 rgba(99, 102, 241, 0.4)' }, '50%': { boxShadow: '0 0 0 15px rgba(99, 102, 241, 0)' } },
+            typing: { '0%': { width: '0' }, '50%': { width: '100%' }, '100%': { width: '0' } },
+            cursorBlink: { '0%, 50%': { opacity: '1' }, '51%, 100%': { opacity: '0' } },
+            articleSlide: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            statCount: { '0%': { transform: 'scale(0.8)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            tagPop: { '0%': { transform: 'scale(0)' }, '100%': { transform: 'scale(1)' } },
+          },
+          boxShadow: {
+            'glow-blog': '0 0 60px rgba(99, 102, 241, 0.4)',
+            'glow-pink': '0 0 40px rgba(236, 72, 153, 0.3)',
+            'glow-violet': '0 0 40px rgba(139, 92, 246, 0.3)',
+          },
+          backgroundSize: { '200': '200% auto' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    ::selection { background: #6366F1; color: white; }
+    
+    .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .text-gradient-blog { background: linear-gradient(135deg, #6366F1 0%, #EC4899 50%, #6366F1 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+    
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .feature-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.15), transparent 50%); opacity: 0; transition: opacity 0.5s; border-radius: inherit; }
+    .feature-card:hover::before { opacity: 1; }
+    
+    /* Rich text editor style */
+    .editor-container {
+      background: #1E1E2E;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .editor-toolbar {
+      background: #2D2D3F;
+      padding: 8px 12px;
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .editor-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.2s;
+    }
+    .editor-btn:hover, .editor-btn.active {
+      background: rgba(99, 102, 241, 0.3);
+      color: white;
+    }
+    .editor-content {
+      padding: 20px;
+      min-height: 200px;
+      color: #F1F5F9;
+      line-height: 1.8;
+    }
+    .editor-content h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: white;
+    }
+    .editor-content p {
+      margin-bottom: 16px;
+      color: rgba(255,255,255,0.7);
+    }
+    
+    /* Article card */
+    .article-card {
+      transition: all 0.3s;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+    }
+    .article-card:hover .article-image {
+      transform: scale(1.05);
+    }
+    .article-image {
+      transition: transform 0.5s;
+    }
+    
+    /* Status badge */
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-badge.draft { background: rgba(107, 114, 128, 0.2); color: #9CA3AF; }
+    .status-badge.scheduled { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+    .status-badge.published { background: rgba(16, 185, 129, 0.2); color: #34D399; }
+    .status-badge.private { background: rgba(139, 92, 246, 0.2); color: #A78BFA; }
+    
+    /* Category/tag pill */
+    .category-pill {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(99, 102, 241, 0.2);
+      color: #818CF8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .tag-pill {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      background: rgba(236, 72, 153, 0.15);
+      color: #F472B6;
+    }
+    
+    /* Author avatar */
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #EC4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    /* Reading time badge */
+    .reading-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    /* Comment bubble */
+    .comment-bubble {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+    }
+    .comment-bubble::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: -8px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid rgba(99, 102, 241, 0.2);
+    }
+    
+    /* SEO score */
+    .seo-score {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .seo-score.good { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 2px solid #34D399; }
+    .seo-score.medium { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 2px solid #FBBF24; }
+  </style>
+</head>
+
+<body class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+  <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #6366F1, #EC4899);"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="inline-flex items-center gap-2 font-semibold px-5 py-2.5 rounded-full bg-blog-primary text-white text-sm hover:bg-blog-secondary hover:scale-105 hover:shadow-glow-blog transition-all duration-300">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/signup" class="block w-full text-center font-semibold px-5 py-2.5 rounded-full bg-blog-primary text-white mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute w-[800px] h-[800px] bg-blog-primary/10 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[600px] h-[600px] bg-blog-accent/10 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
+    
+    <!-- Floating elements -->
+    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">✍️</div>
+    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">📝</div>
+    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">📰</div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Hero Content -->
+        <div class="reveal">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blog-primary/10 border border-blog-primary/20 mb-6">
+            <svg class="w-5 h-5 text-blog-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+            <span class="text-blog-primary text-sm font-medium">Content Management</span>
+          </div>
+          
+          <!-- Heading -->
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Blog &<br><span class="text-gradient-blog">Articole</span>
+          </h1>
+          
+          <!-- Description -->
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            Spune-ți povestea. <strong class="text-white">Editor rich text</strong>, SEO, multi-autor, comentarii. Transformă cititorii în cumpărători de bilete.
+          </p>
+          
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-blog-primary text-white hover:bg-blog-secondary hover:scale-105 hover:shadow-glow-blog transition-all duration-300">
+              Începe să Scrii
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#functionalitati" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+              Vezi Funcționalități
+            </a>
+          </div>
+          
+          <!-- Quick stats -->
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-blog-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              <span class="text-white/60 text-sm">Rich Editor</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-blog-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span class="text-white/60 text-sm">SEO Tools</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
+              <span class="text-white/60 text-sm">Comentarii</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Rich Text Editor -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative" x-data="{ activeTab: 'edit' }">
+            
+            <!-- Editor Container -->
+            <div class="editor-container shadow-2xl">
+              <!-- Toolbar -->
+              <div class="editor-toolbar">
+                <button class="editor-btn active" title="Bold"><strong>B</strong></button>
+                <button class="editor-btn" title="Italic"><em>I</em></button>
+                <button class="editor-btn" title="Underline"><u>U</u></button>
+                <div class="w-px h-6 bg-white/10 mx-1"></div>
+                <button class="editor-btn" title="Heading">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+                </button>
+                <button class="editor-btn" title="List">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                </button>
+                <button class="editor-btn" title="Image">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </button>
+                <button class="editor-btn" title="Video">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                </button>
+                <div class="w-px h-6 bg-white/10 mx-1"></div>
+                <button class="editor-btn" title="Link">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                </button>
+              </div>
+              
+              <!-- Editor Content -->
+              <div class="editor-content">
+                <h2>🎵 Lineup-ul Festivalului de Vară 2025</h2>
+                <p>Pregătiți-vă pentru cel mai mare festival al anului! Am pregătit un lineup extraordinar cu artiști de top din întreaga lume...</p>
+                <p class="text-blog-primary">📸 <em>Galerie foto din culisele pregătirilor...</em></p>
+              </div>
+              
+              <!-- Footer -->
+              <div class="px-4 py-3 border-t border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="status-badge draft">Draft</span>
+                  <span class="reading-time">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    5 min citire
+                  </span>
+                </div>
+                <button class="px-4 py-1.5 rounded-lg bg-blog-primary text-white text-sm font-medium hover:bg-blog-secondary transition-colors">
+                  Salvează
+                </button>
+              </div>
+            </div>
+            
+            <!-- Floating Category Badge -->
+            <div class="absolute -top-4 -right-4 bg-dark-800 rounded-xl px-4 py-3 border border-blog-primary/30 shadow-xl animate-float z-10">
+              <div class="flex items-center gap-2">
+                <span class="category-pill">Știri</span>
+                <span class="tag-pill">festival</span>
+              </div>
+            </div>
+            
+            <!-- Floating Author Badge -->
+            <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-blog-accent/30 shadow-xl animate-float [animation-delay:1s] z-10">
+              <div class="flex items-center gap-3">
+                <div class="author-avatar">AI</div>
+                <div>
+                  <div class="text-white text-sm font-medium">Ana I.</div>
+                  <div class="text-white/40 text-xs">Editor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTENT ORGANIZATION ==================== -->
+  <section class="py-24 relative overflow-hidden" id="functionalitati">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-blog-accent text-sm font-medium uppercase tracking-widest">Organizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Conținut<br><span class="text-gradient-blog">structurat</span></h2>
+        <p class="text-lg text-white/60">Categorii, taguri, serii. Organizează conținutul în felul tău.</p>
+      </div>
+      
+      <!-- Organization Visual -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Categories & Tags Demo -->
+        <div class="reveal">
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-blog-primary/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blog-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-semibold">Categorii & Taguri</div>
+                <div class="text-white/40 text-xs">Organizare flexibilă</div>
+              </div>
+            </div>
+            
+            <!-- Categories -->
+            <div class="mb-6">
+              <div class="text-white/40 text-xs uppercase mb-3">Categorii</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="category-pill">📰 Știri</span>
+                <span class="category-pill">🎤 Interviuri</span>
+                <span class="category-pill">📷 Galerii</span>
+                <span class="category-pill">✍️ Recenzii</span>
+                <span class="category-pill">🎬 Din Culise</span>
+              </div>
+            </div>
+            
+            <!-- Tags -->
+            <div>
+              <div class="text-white/40 text-xs uppercase mb-3">Taguri populare</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag-pill">festival</span>
+                <span class="tag-pill">lineup</span>
+                <span class="tag-pill">concert</span>
+                <span class="tag-pill">artiști</span>
+                <span class="tag-pill">bilete</span>
+                <span class="tag-pill">backstage</span>
+                <span class="tag-pill">muzică</span>
+                <span class="tag-pill">experiențe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Series Demo -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800/50 rounded-2xl p-6 border border-blog-accent/20">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-blog-accent/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blog-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-semibold">Serii de Articole</div>
+                <div class="text-white/40 text-xs">Grupează conținutul</div>
+              </div>
+            </div>
+            
+            <!-- Series Example -->
+            <div class="p-4 rounded-xl bg-dark-900/50 mb-4">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-blog-accent font-medium">🎪 Numărătoare Festival 2025</span>
+                <span class="text-white/40 text-xs">5 articole</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-blog-primary/10">
+                  <span class="w-6 h-6 rounded-full bg-blog-primary/30 flex items-center justify-center text-xs text-blog-primary font-bold">1</span>
+                  <span class="text-white/70 text-sm">Anunțul lineup-ului</span>
+                  <span class="status-badge published ml-auto">Live</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-blog-primary/10">
+                  <span class="w-6 h-6 rounded-full bg-blog-primary/30 flex items-center justify-center text-xs text-blog-primary font-bold">2</span>
+                  <span class="text-white/70 text-sm">Interviu headliner</span>
+                  <span class="status-badge published ml-auto">Live</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-status-scheduled/10">
+                  <span class="w-6 h-6 rounded-full bg-status-scheduled/30 flex items-center justify-center text-xs text-status-scheduled font-bold">3</span>
+                  <span class="text-white/70 text-sm">Ghidul participantului</span>
+                  <span class="status-badge scheduled ml-auto">Programat</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 rounded-lg bg-dark-900/30 opacity-60">
+                  <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs text-white/50 font-bold">4</span>
+                  <span class="text-white/50 text-sm">Rezumatul zilei 1</span>
+                  <span class="status-badge draft ml-auto">Draft</span>
+                </div>
+              </div>
+            </div>
+            
+            <p class="text-white/40 text-sm">Fanii pot urmări seria completă, de la anunț până la rezumat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PUBLISHING WORKFLOW ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-status-published text-sm font-medium uppercase tracking-widest">Flux Publicare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">De la idee la<br><span class="text-gradient animate-shimmer">articol live</span></h2>
+        <p class="text-lg text-white/60">Workflow clar cu draft, programare și publicare.</p>
+      </div>
+      
+      <!-- Workflow Steps -->
+      <div class="max-w-4xl mx-auto reveal">
+        <div class="grid md:grid-cols-4 gap-6">
+          <!-- Draft -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-status-draft/20 border border-status-draft/30 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-status-draft" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            </div>
+            <div class="status-badge draft mb-2">Draft</div>
+            <p class="text-white/50 text-sm">Lucru în progres. Nevizibil publicului.</p>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex items-center justify-center">
+            <svg class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+          
+          <!-- Scheduled -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-status-scheduled/20 border border-status-scheduled/30 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-status-scheduled" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="status-badge scheduled mb-2">Programat</div>
+            <p class="text-white/50 text-sm">Gata pentru publicare la data setată.</p>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex items-center justify-center">
+            <svg class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+          
+          <!-- Published -->
+          <div class="text-center md:col-start-1 lg:col-start-auto">
+            <div class="w-20 h-20 rounded-2xl bg-status-published/20 border border-status-published/30 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-status-published" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="status-badge published mb-2">Publicat</div>
+            <p class="text-white/50 text-sm">Live și vizibil tuturor cititorilor.</p>
+          </div>
+        </div>
+        
+        <!-- Additional status -->
+        <div class="mt-8 p-4 rounded-xl bg-status-private/10 border border-status-private/30 max-w-md mx-auto">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-status-private/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-status-private" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <div>
+              <span class="text-status-private font-medium">Privat / Protejat cu parolă</span>
+              <p class="text-white/50 text-sm">Acces restricționat pentru conținut exclusiv.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SEO TOOLS ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="text-brand-green text-sm font-medium uppercase tracking-widest">SEO</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Optimizare pentru<br><span class="text-gradient-blog">motoare de căutare</span></h2>
+          <p class="text-lg text-white/60 mb-8">Fii descoperit. Titluri meta, descrieri, cuvinte cheie și Open Graph pentru partajare socială.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-brand-green/10 border border-brand-green/30">
+              <div class="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">Meta Tags</span>
+                <p class="text-white/50 text-sm">Titlu, descriere, cuvinte cheie personalizate</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-blog-primary/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blog-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">Open Graph</span>
+                <p class="text-white/50 text-sm">Preview perfect la partajare pe social media</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-blog-accent/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blog-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">URL-uri Friendly</span>
+                <p class="text-white/50 text-sm">Slug-uri automate sau personalizate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Visual - SEO Preview -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="seo-score good">92</div>
+              <div>
+                <div class="text-white font-semibold">Scor SEO</div>
+                <div class="text-brand-green text-sm">Excelent</div>
+              </div>
+            </div>
+            
+            <!-- Google Preview -->
+            <div class="p-4 rounded-xl bg-white mb-6">
+              <div class="text-xs text-gray-500 mb-1">blog.tixello.ro › stiri › lineup-festival-vara-2025</div>
+              <div class="text-blue-700 text-lg font-medium mb-1 hover:underline cursor-pointer">Lineup Festival Vară 2025 Anunțat | Tixello Blog</div>
+              <div class="text-gray-600 text-sm">Pregătiți-vă pentru cel mai mare festival al anului! Vezi lineup-ul complet cu artiști de top din întreaga lume...</div>
+            </div>
+            
+            <!-- SEO Checklist -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-white/70">Titlu meta: 52 caractere (max 60)</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-white/70">Descriere meta: 145 caractere (max 160)</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-white/70">Cuvânt cheie în titlu</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-white/70">Imagine featured setată</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span class="text-white/70">Adaugă mai multe link-uri interne</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ENGAGEMENT ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-blog-accent text-sm font-medium uppercase tracking-widest">Engagement</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Conectează-te cu<br><span class="text-gradient-blog">audiența</span></h2>
+        <p class="text-lg text-white/60">Comentarii, vizualizări, newsletter. Transformă cititorii în comunitate.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Comments -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-blog-primary/20 hover:border-blog-primary/50 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-blog-primary/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-blog-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Comentarii</h3>
+          <p class="text-white/50 text-sm mb-4">Sistem complet cu coadă de moderare. Aprobă sau respinge comentariile.</p>
+          
+          <!-- Mini comment preview -->
+          <div class="comment-bubble mt-4">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-full bg-blog-accent/30 flex items-center justify-center text-xs text-white">M</div>
+              <span class="text-white text-sm font-medium">Maria</span>
+              <span class="text-white/40 text-xs">• acum 2h</span>
+            </div>
+            <p class="text-white/60 text-sm">Super lineup! Abia aștept! 🎉</p>
+          </div>
+        </div>
+        
+        <!-- Analytics -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-cyan/20 hover:border-brand-cyan/50 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Analize</h3>
+          <p class="text-white/50 text-sm mb-4">Vizualizări, timp pe pagină, articole populare. Date pentru decizii.</p>
+          
+          <!-- Mini stats -->
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <div class="p-3 rounded-lg bg-dark-900/50">
+              <div class="text-brand-cyan font-bold text-xl">1.2K</div>
+              <div class="text-white/40 text-xs">Vizualizări azi</div>
+            </div>
+            <div class="p-3 rounded-lg bg-dark-900/50">
+              <div class="text-brand-cyan font-bold text-xl">3:42</div>
+              <div class="text-white/40 text-xs">Timp mediu</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-blog-accent/20 hover:border-blog-accent/50 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-blog-accent/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-blog-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Newsletter</h3>
+          <p class="text-white/50 text-sm mb-4">Colectează abonați direct din blog. Construiește lista de email-uri.</p>
+          
+          <!-- Mini subscribe form -->
+          <div class="mt-4 p-3 rounded-lg bg-dark-900/50 flex items-center gap-2">
+            <input type="email" placeholder="email@exemplu.ro" class="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30">
+            <button class="px-3 py-1.5 rounded-lg bg-blog-accent text-white text-xs font-medium">Abonare</button>
+          </div>
+        </div>
+        
+        <!-- Social Share -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-violet/20 hover:border-brand-violet/50 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-brand-violet/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Partajare Socială</h3>
+          <p class="text-white/50 text-sm">Butoane de share pentru Facebook, Twitter, LinkedIn, WhatsApp.</p>
+        </div>
+        
+        <!-- Related Articles -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-amber/20 hover:border-brand-amber/50 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-brand-amber/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Articole Conexe</h3>
+          <p class="text-white/50 text-sm">Sugestii automate bazate pe categorie și taguri. Ține cititorii pe site.</p>
+        </div>
+        
+        <!-- Multi-Author -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-green/20 hover:border-brand-green/50 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Autor</h3>
+          <p class="text-white/50 text-sm">Întreaga echipă poate contribui. Profiluri autori și istoric revizii.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== USE CASES ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Povești care<br><span class="text-gradient animate-shimmer">vând bilete</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-blog-primary/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blog-primary/20 to-blog-primary/10 flex items-center justify-center mb-4"><span class="text-2xl">🎉</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Promovare Evenimente</h3>
+          <p class="text-white/50 text-sm">Articole de prezentare, spotlight artiști, preview-uri care generează vânzări de bilete.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-blog-accent/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blog-accent/20 to-blog-accent/10 flex items-center justify-center mb-4"><span class="text-2xl">🎤</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Interviuri Artiști</h3>
+          <p class="text-white/50 text-sm">Povești exclusive cu performerii. Conexiuni mai profunde cu audiența.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">📷</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Rezumate & Galerii</h3>
+          <p class="text-white/50 text-sm">Foto-galerii, highlight-uri video, rezumate care extind experiența evenimentului.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎬</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Din Culise</h3>
+          <p class="text-white/50 text-sm">Pregătirea locației, prezentări echipă, poveștile care fac evenimentele speciale.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">📰</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Știri Industrie</h3>
+          <p class="text-white/50 text-sm">Poziționează-te ca autoritate. Acoperă tendințe și perspective din industrie.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-rose/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">💬</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Povești Clienți</h3>
+          <p class="text-white/50 text-sm">Testimoniale și experiențe. Dovadă socială care construiește încredere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIAL ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="bg-gradient-to-br from-blog-primary/10 to-blog-accent/10 rounded-3xl p-8 md:p-12 border border-blog-primary/20">
+          <div class="flex items-center gap-1 mb-6">
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Blogul a devenit arma noastră secretă. Seria de articole despre lineup a generat <span class="text-gradient-blog font-semibold">40% din traficul organic</span>. Fiecare articol converttește cititori în cumpărători."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="author-avatar text-lg">RP</div>
+            <div>
+              <div class="font-semibold text-white">Radu P.</div>
+              <div class="text-white/50">Marketing Director, Untold Festival</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blog-primary/10 via-transparent to-blog-accent/10"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(236,72,153,0.1) 100%);"></div>
+    
+    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">✍️</div>
+    <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">📰</div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Blog &<br><span class="text-gradient-blog">Articole</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Evenimentele tale au povești. E timpul să le spui. Editor rich text, SEO, multi-autor, comentarii.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-blog-primary text-white hover:bg-blog-secondary hover:scale-105 hover:shadow-glow-blog transition-all duration-300">
+          Începe să Scrii
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+          Întrebări? Contactează-ne
+        </a>
+      </div>
+      
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Rich Editor • SEO Tools • Multi-Autor • Comentarii • Newsletter • Analize</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/blog" class="text-blog-primary hover:text-blog-secondary transition-colors">Blog & Articole</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Conținut</h4>
+          <ul class="space-y-3 text-sm">
+            <li><span class="text-white/40">Rich Editor</span></li>
+            <li><span class="text-white/40">SEO Tools</span></li>
+            <li><span class="text-white/40">Multi-Autor</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-2">
+          <span class="text-blog-primary">✍️</span>
+          <span class="text-white/30 text-sm">Content Management System</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+    });
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) { header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); } 
+      else { header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`); card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`); });
+    });
+  </script>
+</body>
+</html>

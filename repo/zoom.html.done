@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrare Zoom - Evenimente Virtuale Automatizate | Tixello</title>
+  <meta name="description" content="Adu-ți evenimentele în virtual fără bătăi de cap. Creare automată întâlniri, sincronizare participanți, urmărire prezență. Tot ce ai nevoie pentru evenimente online profesionale.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536' },
+            zoom: { 500: '#2D8CFF', 600: '#0B5CFF', 400: '#5CA4FF' }
+          }
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    
+    :root { --violet: #7c3aed; --cyan: #06b6d4; --rose: #f43f5e; --amber: #f59e0b; --green: #10b981; --dark: #0a0a0f; --zoom: #2D8CFF; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--dark); color: #e4e4e7; overflow-x: hidden; }
+    .font-display { font-family: 'Clash Display', sans-serif; }
+    ::selection { background: var(--zoom); color: white; }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    .text-gradient-zoom {
+      background: linear-gradient(135deg, #2D8CFF 0%, #5CA4FF 50%, #2D8CFF 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+    
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; padding: 1rem 2rem; border-radius: 100px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none; position: relative; overflow: hidden; }
+    .btn-primary { background: linear-gradient(135deg, var(--violet), var(--cyan)); color: white; }
+    .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(124, 58, 237, 0.4); }
+    .btn-zoom { background: linear-gradient(135deg, #2D8CFF, #0B5CFF); color: white; }
+    .btn-zoom:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(45, 140, 255, 0.4); }
+    .btn-ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; } .reveal-delay-5 { transition-delay: 0.5s; }
+    
+    .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; }
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #2D8CFF, #5CA4FF); z-index: 1001; width: 0%; }
+    
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    
+    /* Video Call Mockup */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .video-tile {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, rgba(45, 140, 255, 0.2), rgba(45, 140, 255, 0.05));
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .video-tile::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.5));
+    }
+    
+    /* Participant Avatar */
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: white;
+    }
+    
+    /* Sync Animation */
+    .sync-line {
+      position: relative;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .sync-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 40%;
+      background: linear-gradient(90deg, transparent, var(--zoom), transparent);
+      animation: syncFlow 2s ease-in-out infinite;
+    }
+    @keyframes syncFlow {
+      0% { left: -40%; }
+      100% { left: 100%; }
+    }
+    
+    /* Participant Joining Animation */
+    .participant-join {
+      animation: joinPop 0.5s ease-out forwards;
+    }
+    @keyframes joinPop {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Live Indicator */
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+      background: linear-gradient(135deg, rgba(45, 140, 255, 0.08) 0%, rgba(45, 140, 255, 0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 140, 255, 0.15), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover { border-color: rgba(45, 140, 255, 0.3); transform: translateY(-4px); }
+    
+    /* Attendance Chart */
+    .attendance-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .attendance-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease-out;
+    }
+    
+    /* Zoom Window Mockup */
+    .zoom-window {
+      background: #1a1a27;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+    }
+    .zoom-header {
+      background: #232323;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .zoom-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .zoom-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    /* Recording Badge */
+    .recording-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 100px;
+      font-size: 12px;
+      color: #ef4444;
+    }
+    .recording-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: livePulse 1s infinite;
+    }
+    
+    /* Webinar Stage */
+    .webinar-stage {
+      background: linear-gradient(135deg, rgba(45, 140, 255, 0.1), rgba(124, 58, 237, 0.1));
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+    }
+    
+    /* Connection Arrow */
+    .connection-arrow {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .connection-arrow::before {
+      content: '';
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--zoom), transparent);
+      animation: arrowFlow 1.5s ease-in-out infinite;
+    }
+    @keyframes arrowFlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    /* Use Case Card */
+    .use-case-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .use-case-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(45, 140, 255, 0.3);
+      transform: translateY(-4px);
+    }
+    
+    /* Capacity Badge */
+    .capacity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 100px;
+      font-size: 12px;
+      color: #10b981;
+    }
+    
+    /* Pulse Ring */
+    .pulse-ring {
+      position: absolute;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      animation: pulseRing 2s ease-out infinite;
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    
+    /* Participant List Animation */
+    .participant-list-item {
+      animation: slideInLeft 0.4s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Stats Counter Animation */
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+
+<body class="noise" x-data="{ mobileMenu: false }">
+  <div class="scroll-progress" id="scroll-progress"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+            <span class="text-white font-display font-bold text-sm">T</span>
+          </div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/pentru-artisti" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Artiști</a>
+          <a href="/pentru-locatii" class="text-sm text-white/70 hover:text-white transition-colors">Pentru Locații</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="btn btn-primary text-sm py-2.5 px-5">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/preturi" class="block py-2 text-white/70">Prețuri</a>
+        <a href="/despre" class="block py-2 text-white/70">Despre</a>
+        <a href="/signup" class="btn btn-primary w-full justify-center mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <div class="orb w-[600px] h-[600px] bg-[#2D8CFF]/20 -top-40 -right-40"></div>
+    <div class="orb w-[400px] h-[400px] bg-violet-500/15 bottom-20 -left-20"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#2D8CFF]/10 border border-[#2D8CFF]/20 mb-6">
+            <svg class="w-5 h-5 text-[#2D8CFF]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7v2H6v2h12v-2h-5v-2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4zm0 2h16v10H4V5zm4.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM15 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-6.5 5a4 4 0 0 1 7 0h-7z"/>
+            </svg>
+            <span class="text-[#2D8CFF] text-sm font-medium">Integrare Oficială Zoom</span>
+          </div>
+          
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            Evenimente<br><span class="text-gradient-zoom">virtuale</span>
+          </h1>
+          
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            Publici evenimentul, întâlnirea Zoom se creează singură. Vinzi bilete, participanții se adaugă automat. <strong class="text-white">Zero configurare manuală.</strong>
+          </p>
+          
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="btn btn-zoom">
+              Conectează Zoom
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#cum-functioneaza" class="btn btn-ghost">Vezi cum funcționează</a>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-6 text-sm text-white/50">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Meetings & Webinars
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Până la 50.000 participanți
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Urmărire prezență
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Zoom Meeting Mockup -->
+        <div class="reveal reveal-delay-1">
+          <div class="zoom-window">
+            <div class="zoom-header">
+              <div class="zoom-controls">
+                <div class="zoom-dot bg-rose-500"></div>
+                <div class="zoom-dot bg-amber-500"></div>
+                <div class="zoom-dot bg-green-500"></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="recording-badge">REC</div>
+                <div class="flex items-center gap-2 text-white/60 text-sm">
+                  <div class="live-dot"></div>
+                  <span>Live</span>
+                </div>
+              </div>
+              <div class="text-white/40 text-sm">Workshop de Vară 2025</div>
+            </div>
+            
+            <!-- Video Grid -->
+            <div class="p-4">
+              <div class="video-grid mb-4">
+                <!-- Main Speaker -->
+                <div class="video-tile col-span-2 row-span-2 relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-3xl font-bold text-white">AM</div>
+                  </div>
+                  <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                    <span class="text-white text-sm font-medium">Ana Maria (Host)</span>
+                  </div>
+                </div>
+                
+                <!-- Participants -->
+                <div class="video-tile relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-lg font-bold text-white">IP</div>
+                  </div>
+                  <div class="absolute bottom-2 left-2 text-white text-xs">Ion P.</div>
+                </div>
+                <div class="video-tile relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-lg font-bold text-white">MD</div>
+                  </div>
+                  <div class="absolute bottom-2 left-2 text-white text-xs">Maria D.</div>
+                </div>
+                <div class="video-tile relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-lg font-bold text-white">AT</div>
+                  </div>
+                  <div class="absolute bottom-2 left-2 text-white text-xs">Andrei T.</div>
+                </div>
+                <div class="video-tile relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#2D8CFF] to-blue-500 flex items-center justify-center text-lg font-bold text-white">+42</div>
+                  </div>
+                  <div class="absolute bottom-2 left-2 text-white text-xs">Mai mulți...</div>
+                </div>
+              </div>
+              
+              <!-- Bottom Controls -->
+              <div class="flex items-center justify-center gap-4 py-3">
+                <button class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                </button>
+                <button class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                </button>
+                <button class="w-12 h-12 rounded-full bg-rose-500 flex items-center justify-center text-white hover:bg-rose-600 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/></svg>
+                </button>
+                <button class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </button>
+                <button class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating participant count -->
+          <div class="absolute -bottom-4 -right-4 bg-dark-800 rounded-2xl p-4 border border-white/10 shadow-xl float">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-full bg-[#2D8CFF]/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[#2D8CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div class="pulse-ring w-12 h-12 text-[#2D8CFF] absolute inset-0"></div>
+              </div>
+              <div>
+                <div class="text-white/50 text-xs">Participanți online</div>
+                <div class="text-[#2D8CFF] font-bold text-xl" x-data="{ count: 0 }" x-init="
+                  let interval = setInterval(() => { if(count < 247) count += 5; else { count = 247; clearInterval(interval); } }, 50);
+                " x-text="count">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEETING TYPES -->
+  <section class="py-16 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Meeting -->
+        <div class="bg-gradient-to-br from-[#2D8CFF]/10 to-[#2D8CFF]/5 rounded-2xl p-6 border border-[#2D8CFF]/20 reveal">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-[#2D8CFF]/20 flex items-center justify-center">
+              <svg class="w-7 h-7 text-[#2D8CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div class="capacity-badge">Până la 1.000</div>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">Zoom Meeting</h3>
+          <p class="text-white/50 mb-4">Ideal pentru workshop-uri interactive, sesiuni Q&A și evenimente unde toți participanții pot interveni.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Video participanți</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Screen sharing</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Breakout rooms</span>
+          </div>
+        </div>
+        
+        <!-- Webinar -->
+        <div class="bg-gradient-to-br from-violet-500/10 to-violet-500/5 rounded-2xl p-6 border border-violet-500/20 reveal reveal-delay-1">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center">
+              <svg class="w-7 h-7 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="capacity-badge">Până la 50.000</div>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">Zoom Webinar</h3>
+          <p class="text-white/50 mb-4">Perfect pentru conferințe mari, prezentări și evenimente cu audiență largă. Speakeri și participanți separați.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Q&A moderat</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Sondaje live</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/60 text-sm">Panelisti</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTOMATION FLOW -->
+  <section class="py-24 relative overflow-hidden" id="cum-functioneaza">
+    <div class="orb w-[500px] h-[500px] bg-[#2D8CFF]/20 top-1/2 -left-60"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-[#2D8CFF] text-sm font-medium uppercase tracking-widest">Automatizare Completă</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tu publici.<br><span class="text-gradient-zoom">Noi facem restul.</span></h2>
+        <p class="text-lg text-white/60">Fără configurare manuală, fără liste de email-uri, fără bătăi de cap tehnice.</p>
+      </div>
+      
+      <!-- Automation Steps -->
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <!-- Step 1 -->
+        <div class="text-center reveal">
+          <div class="relative inline-block mb-6">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2D8CFF] to-[#0B5CFF] flex items-center justify-center text-white shadow-lg shadow-[#2D8CFF]/30">
+              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-dark-900 border-2 border-[#2D8CFF] flex items-center justify-center text-[#2D8CFF] font-bold text-sm">1</div>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Creezi evenimentul</h3>
+          <p class="text-white/50">Publici evenimentul virtual în Tixello. Selectezi tip Meeting sau Webinar.</p>
+          
+          <!-- Visual -->
+          <div class="mt-6 bg-dark-800 rounded-xl p-4 border border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="text-left">
+                <div class="text-white text-sm font-medium">Workshop Design</div>
+                <div class="text-white/40 text-xs">15 Iulie, 14:00</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-green-400 text-xs">
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Eveniment creat
+            </div>
+          </div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+          <div class="sync-line w-full"></div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="text-center reveal reveal-delay-1">
+          <div class="relative inline-block mb-6">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2D8CFF] to-[#0B5CFF] flex items-center justify-center text-white shadow-lg shadow-[#2D8CFF]/30">
+              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-dark-900 border-2 border-[#2D8CFF] flex items-center justify-center text-[#2D8CFF] font-bold text-sm">2</div>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Zoom se configurează</h3>
+          <p class="text-white/50">Întâlnirea se creează automat cu toate setările. Link, parolă, waiting room - gata.</p>
+          
+          <!-- Visual -->
+          <div class="mt-6 bg-dark-800 rounded-xl p-4 border border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-lg bg-[#2D8CFF]/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-[#2D8CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="text-left">
+                <div class="text-white text-sm font-medium">Zoom Meeting</div>
+                <div class="text-white/40 text-xs">ID: 847 2941 0123</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-[#2D8CFF] text-xs">
+              <div class="w-2 h-2 rounded-full bg-[#2D8CFF] animate-pulse"></div>
+              Configurat automat
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Second Row -->
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Step 3 -->
+        <div class="text-center reveal reveal-delay-2">
+          <div class="relative inline-block mb-6">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-green-500/30">
+              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-dark-900 border-2 border-green-500 flex items-center justify-center text-green-400 font-bold text-sm">3</div>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Cineva cumpără bilet</h3>
+          <p class="text-white/50">Clientul finalizează plata pe pagina ta de ticketing.</p>
+          
+          <!-- Visual -->
+          <div class="mt-6 bg-dark-800 rounded-xl p-4 border border-white/10">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm">IP</div>
+              <div class="text-left flex-1">
+                <div class="text-white text-sm font-medium">Ion Popescu</div>
+                <div class="text-white/40 text-xs">ion@email.com</div>
+              </div>
+              <div class="text-green-400 text-sm font-medium">+€49</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+          <div class="sync-line w-full"></div>
+        </div>
+        
+        <!-- Step 4 -->
+        <div class="text-center reveal reveal-delay-3">
+          <div class="relative inline-block mb-6">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-violet-500/30">
+              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-dark-900 border-2 border-violet-500 flex items-center justify-center text-violet-400 font-bold text-sm">4</div>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Participant adăugat</h3>
+          <p class="text-white/50">Cumpărătorul devine automat participant înregistrat în Zoom. Primește link-ul pe email.</p>
+          
+          <!-- Visual -->
+          <div class="mt-6 bg-dark-800 rounded-xl p-4 border border-white/10">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold text-xs">IP</div>
+              <span class="text-white text-sm">Ion Popescu</span>
+              <span class="text-green-400 text-xs ml-auto">✓ Înregistrat</span>
+            </div>
+            <div class="text-white/40 text-xs truncate">zoom.us/j/84729410123?pwd=...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATTENDANCE TRACKING -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="reveal">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium mb-6">📊 Urmărire Prezență</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Știi exact<br><span class="text-gradient">cine a participat</span></h2>
+          <p class="text-lg text-white/60 mb-8 leading-relaxed">După eveniment, ai raportul complet de prezență. Cine s-a conectat, cât a stat, când a plecat. Totul sincronizat în CRM.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Timp join/leave</strong>
+                <p class="text-sm text-white/50">Vezi exact când s-a conectat și deconectat fiecare participant</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Durată participare</strong>
+                <p class="text-sm text-white/50">Calculare automată a timpului petrecut în întâlnire</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">Export & CRM sync</strong>
+                <p class="text-sm text-white/50">Datele se sincronizează automat în profilul clientului</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Attendance Report Mockup -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl border border-white/10 overflow-hidden">
+            <div class="p-4 border-b border-white/10 flex items-center justify-between">
+              <div>
+                <div class="text-white font-medium">Raport Prezență</div>
+                <div class="text-white/40 text-sm">Workshop Design - 15 Iulie 2025</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-green-400 text-sm font-medium">89%</span>
+                <span class="text-white/40 text-sm">rată participare</span>
+              </div>
+            </div>
+            
+            <div class="p-4 space-y-3">
+              <!-- Participant 1 -->
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 participant-list-item" style="animation-delay: 0.1s;">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm">AM</div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <span class="text-white text-sm font-medium">Ana Maria</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs">Host</span>
+                  </div>
+                  <div class="text-white/40 text-xs">13:55 - 16:02</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-medium">2h 07m</div>
+                  <div class="text-green-400 text-xs">100%</div>
+                </div>
+              </div>
+              
+              <!-- Participant 2 -->
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 participant-list-item" style="animation-delay: 0.2s;">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm">IP</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-medium">Ion Popescu</div>
+                  <div class="text-white/40 text-xs">14:02 - 16:00</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-medium">1h 58m</div>
+                  <div class="text-green-400 text-xs">98%</div>
+                </div>
+              </div>
+              
+              <!-- Participant 3 -->
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 participant-list-item" style="animation-delay: 0.3s;">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white font-bold text-sm">MD</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-medium">Maria Dumitrescu</div>
+                  <div class="text-white/40 text-xs">14:05 - 15:30</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-medium">1h 25m</div>
+                  <div class="text-amber-400 text-xs">71%</div>
+                </div>
+              </div>
+              
+              <!-- Participant 4 -->
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 participant-list-item" style="animation-delay: 0.4s;">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">AT</div>
+                <div class="flex-1">
+                  <div class="text-white text-sm font-medium">Andrei Toma</div>
+                  <div class="text-white/40 text-xs">14:00 - 16:02</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-medium">2h 02m</div>
+                  <div class="text-green-400 text-xs">100%</div>
+                </div>
+              </div>
+              
+              <!-- Summary -->
+              <div class="mt-4 pt-4 border-t border-white/10">
+                <div class="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div class="text-2xl font-bold text-white">247</div>
+                    <div class="text-white/40 text-xs">Înregistrați</div>
+                  </div>
+                  <div>
+                    <div class="text-2xl font-bold text-green-400">219</div>
+                    <div class="text-white/40 text-xs">Participat</div>
+                  </div>
+                  <div>
+                    <div class="text-2xl font-bold text-[#2D8CFF]">1h 42m</div>
+                    <div class="text-white/40 text-xs">Durată medie</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECORDINGS -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="orb w-[500px] h-[500px] bg-violet-600/20 top-1/2 -right-60"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Recording Preview -->
+        <div class="order-2 lg:order-1 reveal">
+          <div class="bg-dark-800 rounded-2xl border border-white/10 overflow-hidden">
+            <!-- Video Preview -->
+            <div class="relative aspect-video bg-gradient-to-br from-violet-500/20 to-[#2D8CFF]/20">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
+                  <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="absolute top-4 left-4 recording-badge">REC • 2:07:34</div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <div class="h-1 bg-white/20 rounded-full overflow-hidden">
+                  <div class="h-full w-1/3 bg-[#2D8CFF] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recording Info -->
+            <div class="p-4">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <h4 class="text-white font-medium">Workshop Design - Sesiunea 1</h4>
+                  <p class="text-white/40 text-sm">15 Iulie 2025 • 2h 07m</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="p-2 rounded-lg bg-white/5 text-white/60 hover:bg-white/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  </button>
+                  <button class="p-2 rounded-lg bg-white/5 text-white/60 hover:bg-white/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 text-sm">
+                <span class="flex items-center gap-1 text-white/50">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  156 vizualizări
+                </span>
+                <span class="flex items-center gap-1 text-white/50">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+                  Cloud Zoom
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="order-1 lg:order-2 reveal reveal-delay-1">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-violet-500/10 text-violet-400 text-sm font-medium mb-6">🎬 Înregistrări</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Conținut care<br><span class="text-gradient">trăiește mai departe</span></h2>
+          <p class="text-lg text-white/60 mb-8 leading-relaxed">Înregistrările se salvează automat în cloud. Partajează cu participanții sau reutilizează pentru marketing. Evenimentele tale nu se termină niciodată.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-[#2D8CFF]/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#2D8CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-medium">Cloud automat</div>
+                <div class="text-white/50 text-sm">Înregistrările se salvează direct în Zoom Cloud</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-medium">Partajare ușoară</div>
+                <div class="text-white/50 text-sm">Trimite link-ul participanților cu un click</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              </div>
+              <div>
+                <div class="text-white font-medium">Download & arhivare</div>
+                <div class="text-white/50 text-sm">Descarcă pentru backup sau editare ulterioară</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-amber-400 text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Pentru orice tip<br><span class="text-gradient">de eveniment virtual</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="use-case-card reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Conferințe Virtuale</h3>
+              <p class="text-white/50 mb-4">Conferințe multi-sesiune cu breakout rooms. Urmărirea participanților între sesiuni. Experiență profesională completă.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs">Multi-track</span>
+                <span class="px-2 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs">Breakout rooms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="use-case-card reveal reveal-delay-1">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-[#2D8CFF]/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-[#2D8CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Workshop-uri Online</h3>
+              <p class="text-white/50 mb-4">Sesiuni interactive cu engagement maxim. Partajare ecran, colaborare în timp real. Certificate de participare bazate pe prezență.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded-full bg-[#2D8CFF]/10 text-[#2D8CFF] text-xs">Interactive</span>
+                <span class="px-2 py-1 rounded-full bg-[#2D8CFF]/10 text-[#2D8CFF] text-xs">Certificate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="use-case-card reveal reveal-delay-2">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Serii de Webinare</h3>
+              <p class="text-white/50 mb-4">Conținut educațional la scară. Înregistrările extind valoarea evenimentelor. Audiențe mari cu Q&A moderat.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded-full bg-green-500/10 text-green-400 text-xs">Educațional</span>
+                <span class="px-2 py-1 rounded-full bg-green-500/10 text-green-400 text-xs">Scalabil</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="use-case-card reveal reveal-delay-3">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Evenimente Hibride</h3>
+              <p class="text-white/50 mb-4">Combină fizic cu virtual. Același eveniment, două modalități de participare. Reach extins fără limitele locației.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs">Fizic + Virtual</span>
+                <span class="px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs">Reach extins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-green-400 text-sm font-medium uppercase tracking-widest">Conectare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Setup în<br><span class="text-gradient-zoom">60 de secunde</span></h2>
+        <p class="text-lg text-white/60">Conectezi contul Zoom o singură dată. De acolo, totul e automat.</p>
+      </div>
+      
+      <div class="max-w-2xl mx-auto">
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center gap-6 reveal">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#2D8CFF] to-[#0B5CFF] flex items-center justify-center text-white font-display font-bold text-2xl shadow-lg shadow-[#2D8CFF]/30 flex-shrink-0">1</div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-white mb-1">Conectează contul Zoom</h3>
+              <p class="text-white/50">Click pe "Conectează Zoom" și autentifică-te cu contul tău.</p>
+            </div>
+            <div class="hidden md:block">
+              <svg class="w-6 h-6 text-[#2D8CFF]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7v2H6v2h12v-2h-5v-2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-6 reveal reveal-delay-1">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white font-display font-bold text-2xl shadow-lg shadow-violet-500/30 flex-shrink-0">2</div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-white mb-1">Creează eveniment virtual</h3>
+              <p class="text-white/50">Alege tipul (Meeting/Webinar) când publici un eveniment nou.</p>
+            </div>
+            <div class="hidden md:block">
+              <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-6 reveal reveal-delay-2">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white font-display font-bold text-2xl shadow-lg shadow-green-500/30 flex-shrink-0">3</div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-white mb-1">Gata! Funcționează automat</h3>
+              <p class="text-white/50">Întâlniri create automat, participanți sincronizați, prezență urmărită.</p>
+            </div>
+            <div class="hidden md:block">
+              <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-12 text-center reveal reveal-delay-3">
+          <a href="/signup" class="btn btn-zoom text-lg px-8 py-4">
+            Conectează Zoom acum
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <p class="text-white/30 text-sm mt-4">OAuth 2.0 securizat • Inclus în toate planurile</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="bg-gradient-to-br from-[#2D8CFF]/10 to-violet-500/10 rounded-3xl p-8 md:p-12 border border-white/10">
+          <div class="flex items-center gap-1 mb-6">
+            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Înainte petreceam <span class="text-[#2D8CFF] font-semibold">2 ore</span> configurând fiecare webinar și adăugând participanții manual. Acum creez evenimentul și gata - totul se face singur. Am câștigat zile întregi."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#2D8CFF] to-violet-500"></div>
+            <div>
+              <div class="font-semibold text-white">Elena V.</div>
+              <div class="text-white/50">Training Manager, Academie Online</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#2D8CFF]/20 via-transparent to-violet-500/20"></div>
+    <div class="orb w-[800px] h-[800px] bg-[#2D8CFF]/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Evenimente virtuale<br><span class="text-gradient-zoom">fără bătăi de cap</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Conectează Zoom în 60 de secunde. Întâlniri create automat, participanți sincronizați, prezență urmărită. Totul inclus gratuit.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="btn btn-zoom text-lg px-10 py-4">
+          Conectează Zoom
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="btn btn-ghost text-lg px-10 py-4">Programează o demonstrație</a>
+      </div>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Meetings • Webinars • Cloud Recordings • Attendance Reports</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
+        <div class="col-span-2 md:col-span-3 lg:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+              <span class="text-white font-display font-bold text-sm">T</span>
+            </div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm mb-6 max-w-xs">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/preturi" class="text-white/40 hover:text-white transition-colors">Prețuri</a></li>
+            <li><a href="/white-label" class="text-white/40 hover:text-white transition-colors">White-label</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Integrări</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati/zoom" class="text-[#2D8CFF] hover:text-[#2D8CFF]/80 transition-colors">Zoom</a></li>
+            <li><a href="/functionalitati/google-ads" class="text-white/40 hover:text-white transition-colors">Google Ads</a></li>
+            <li><a href="/functionalitati/facebook-conversions-api" class="text-white/40 hover:text-white transition-colors">Facebook CAPI</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Companie</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/despre" class="text-white/40 hover:text-white transition-colors">Despre noi</a></li>
+            <li><a href="/blog" class="text-white/40 hover:text-white transition-colors">Blog</a></li>
+            <li><a href="/contact" class="text-white/40 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/confidentialitate" class="text-white/40 hover:text-white transition-colors">Confidențialitate</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-4">
+          <span class="text-white/30 text-sm">Partener oficial</span>
+          <svg class="w-16 h-6 text-[#2D8CFF]" viewBox="0 0 100 30" fill="currentColor">
+            <text x="0" y="22" font-family="Arial, sans-serif" font-weight="bold" font-size="24">zoom</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = progress + '%';
+    });
+
+    // Header background on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      } else {
+        header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/20');
+      }
+    });
+
+    // Intersection Observer for reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Feature card hover effect
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

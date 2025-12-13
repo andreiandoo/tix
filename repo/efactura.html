@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eFactura România - Conformitate ANAF Automatizată | Tixello</title>
+  <meta name="description" content="Trimitere automată eFactura la ANAF SPV. Transformare XML, semnătură digitală, monitorizare status. Conformitate fiscală fără bătăi de cap.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 950: '#030305', 900: '#0a0a0f', 850: '#0f0f16', 800: '#13131c', 700: '#1a1a27', 600: '#252536', 500: '#32324a' },
+            brand: { violet: '#7c3aed', cyan: '#06b6d4', rose: '#f43f5e', amber: '#f59e0b', green: '#10b981' },
+            anaf: {
+              primary: '#003366',      // ANAF navy blue
+              secondary: '#0055A4',    // Lighter blue
+              gold: '#CFB53B',         // Official gold
+              accent: '#1E4D8C',
+              light: '#E6EEF5'
+            },
+            ro: {
+              blue: '#002B7F',         // Romanian flag blue
+              yellow: '#FCD116',       // Romanian flag yellow
+              red: '#CE1126'           // Romanian flag red
+            },
+            status: {
+              queued: '#6366F1',       // Indigo
+              submitted: '#F59E0B',    // Amber
+              accepted: '#10B981',     // Green
+              rejected: '#EF4444',     // Red
+              error: '#F97316'         // Orange
+            }
+          },
+          fontFamily: { display: ['Clash Display', 'sans-serif'], body: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+            'anaf-pulse': 'anafPulse 2s ease-in-out infinite',
+            'queue-progress': 'queueProgress 3s ease-in-out infinite',
+            'xml-scroll': 'xmlScroll 10s linear infinite',
+            'status-flow': 'statusFlow 4s ease-in-out infinite',
+            'check-pop': 'checkPop 0.4s ease-out forwards',
+            'doc-slide': 'docSlide 0.5s ease-out forwards',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+            shimmer: { '0%': { backgroundPosition: '0% center' }, '100%': { backgroundPosition: '200% center' } },
+            anafPulse: { '0%, 100%': { boxShadow: '0 0 0 0 rgba(0, 51, 102, 0.4)' }, '50%': { boxShadow: '0 0 0 15px rgba(0, 51, 102, 0)' } },
+            queueProgress: { '0%': { width: '0%' }, '50%': { width: '100%' }, '100%': { width: '0%' } },
+            xmlScroll: { '0%': { transform: 'translateY(0)' }, '100%': { transform: 'translateY(-50%)' } },
+            statusFlow: { '0%, 100%': { opacity: '0.5' }, '50%': { opacity: '1' } },
+            checkPop: { '0%': { transform: 'scale(0)' }, '100%': { transform: 'scale(1)' } },
+            docSlide: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+          },
+          boxShadow: {
+            'glow-anaf': '0 0 60px rgba(0, 51, 102, 0.4)',
+            'glow-gold': '0 0 40px rgba(207, 181, 59, 0.3)',
+            'glow-green': '0 0 40px rgba(16, 185, 129, 0.3)',
+          },
+          backgroundSize: { '200': '200% auto' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face { font-family: 'Clash Display'; font-weight: 700; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/OQXUGCSMN5FDQHSB5A2IJYJZPJADRSHT/WNWQBZ4ITG3XF2BDWDNQTTQBRCJXJCHQ.woff2') format('woff2'); }
+    @font-face { font-family: 'Clash Display'; font-weight: 600; src: url('https://cdn.fontshare.com/wf/HPKQULBQV4VUPCVHBBIW4C7HQ5TXSZDE/Y2DBBSGTUEQYMJ5V2HSIIHVRW5SJA6AR/LLRFWXOASBSTY3YPTCYJ7Q2E5NVLR42Y.woff2') format('woff2'); }
+    ::selection { background: #003366; color: white; }
+    
+    .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .text-gradient-anaf { background: linear-gradient(135deg, #003366 0%, #CFB53B 50%, #003366 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+    .text-gradient-ro { background: linear-gradient(135deg, #002B7F 0%, #FCD116 50%, #CE1126 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+    
+    .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
+    
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .feature-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 51, 102, 0.15), transparent 50%); opacity: 0; transition: opacity 0.5s; border-radius: inherit; }
+    .feature-card:hover::before { opacity: 1; }
+    
+    /* ANAF official badge */
+    .anaf-badge {
+      background: linear-gradient(135deg, #003366, #0055A4);
+      border: 2px solid #CFB53B;
+      border-radius: 8px;
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Romanian flag stripe */
+    .ro-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, #002B7F 33.33%, #FCD116 33.33% 66.66%, #CE1126 66.66%);
+      border-radius: 2px;
+    }
+    
+    /* XML code block */
+    .xml-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      overflow: hidden;
+    }
+    .xml-tag { color: #7dd3fc; }
+    .xml-attr { color: #fcd34d; }
+    .xml-value { color: #86efac; }
+    .xml-comment { color: #6b7280; }
+    
+    /* Status badge */
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-badge.queued { background: rgba(99, 102, 241, 0.2); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.3); }
+    .status-badge.submitted { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-badge.accepted { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-badge.rejected { background: rgba(239, 68, 68, 0.2); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-badge.error { background: rgba(249, 115, 22, 0.2); color: #FB923C; border: 1px solid rgba(249, 115, 22, 0.3); }
+    
+    /* Queue item */
+    .queue-item {
+      transition: all 0.3s;
+    }
+    .queue-item:hover {
+      transform: translateX(4px);
+    }
+    
+    /* Certificate badge */
+    .cert-badge {
+      background: linear-gradient(135deg, rgba(207, 181, 59, 0.2), rgba(207, 181, 59, 0.1));
+      border: 1px solid rgba(207, 181, 59, 0.3);
+    }
+    
+    /* Flow connector */
+    .flow-connector {
+      height: 2px;
+      background: linear-gradient(90deg, currentColor, transparent);
+    }
+  </style>
+</head>
+
+<body class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+  <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #002B7F, #FCD116, #CE1126);"></div>
+  
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+          <span class="font-display font-bold text-xl text-white">Tixello</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/functionalitati" class="text-sm text-white/70 hover:text-white transition-colors">Funcționalități</a>
+          <a href="/preturi" class="text-sm text-white/70 hover:text-white transition-colors">Prețuri</a>
+          <a href="/despre" class="text-sm text-white/70 hover:text-white transition-colors">Despre</a>
+        </div>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="/login" class="text-sm text-white/70 hover:text-white transition-colors">Conectare</a>
+          <a href="/signup" class="inline-flex items-center gap-2 font-semibold px-5 py-2.5 rounded-full bg-anaf-primary text-white text-sm hover:bg-anaf-secondary hover:scale-105 hover:shadow-glow-anaf transition-all duration-300">Începe Gratuit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-white p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </nav>
+    </div>
+    <div x-show="mobileMenu" x-transition class="lg:hidden bg-dark-800 border-t border-white/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/functionalitati" class="block py-2 text-white/70">Funcționalități</a>
+        <a href="/signup" class="block w-full text-center font-semibold px-5 py-2.5 rounded-full bg-anaf-primary text-white mt-4">Începe Gratuit</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute w-[800px] h-[800px] bg-anaf-primary/10 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
+    <div class="absolute w-[600px] h-[600px] bg-anaf-gold/10 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
+    
+    <!-- Floating elements -->
+    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">📄</div>
+    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">✓</div>
+    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">🏛️</div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <!-- Hero Content -->
+        <div class="reveal">
+          <!-- Romanian stripe -->
+          <div class="ro-stripe w-32 mb-6"></div>
+          
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-anaf-primary/10 border border-anaf-primary/20 mb-6">
+            <svg class="w-5 h-5 text-anaf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span class="text-anaf-gold text-sm font-medium">Conformitate ANAF</span>
+          </div>
+          
+          <!-- Heading -->
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            <span class="text-gradient-ro">eFactura</span>
+          </h1>
+          
+          <!-- Description -->
+          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+            Trimitere automată la <strong class="text-white">ANAF SPV</strong>. Transformare XML, semnătură digitală, monitorizare status. Conformitate fiscală fără bătăi de cap.
+          </p>
+          
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="/signup" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-anaf-primary text-white hover:bg-anaf-secondary hover:scale-105 hover:shadow-glow-anaf transition-all duration-300">
+              Activează eFactura
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#cum-functioneaza" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+              Cum funcționează
+            </a>
+          </div>
+          
+          <!-- Trust badges -->
+          <div class="flex items-center gap-4">
+            <div class="anaf-badge">
+              <svg class="w-5 h-5 text-anaf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span class="text-white text-sm font-medium">ANAF SPV</span>
+            </div>
+            <div class="px-3 py-1.5 rounded bg-anaf-gold/20 border border-anaf-gold/30">
+              <span class="text-anaf-gold text-sm font-medium">UBL 2.1 / CII</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hero Visual - Queue & Status -->
+        <div class="reveal reveal-delay-1">
+          <div class="relative" x-data="{ 
+            activeInvoice: 0,
+            invoices: [
+              { id: 'INV-2025-001', company: 'TechCorp SRL', amount: '2,450', status: 'accepted' },
+              { id: 'INV-2025-002', company: 'Events Pro', amount: '1,875', status: 'submitted' },
+              { id: 'INV-2025-003', company: 'Festival Mgmt', amount: '5,200', status: 'queued' }
+            ]
+          }" x-init="setInterval(() => { 
+            activeInvoice = (activeInvoice + 1) % invoices.length;
+          }, 3000)">
+            
+            <!-- Main Queue Card -->
+            <div class="bg-dark-800/80 backdrop-blur-xl rounded-2xl border border-anaf-primary/20 shadow-2xl overflow-hidden">
+              <!-- Header -->
+              <div class="px-6 py-4 border-b border-white/10 bg-anaf-primary/10">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-anaf-primary flex items-center justify-center">
+                      <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <div>
+                      <div class="text-white font-semibold">Coadă eFactura</div>
+                      <div class="text-white/40 text-xs">ANAF SPV Integration</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                    <span class="text-brand-green text-xs">Conectat</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Queue Items -->
+              <div class="p-4 space-y-3">
+                <template x-for="(invoice, index) in invoices" :key="invoice.id">
+                  <div 
+                    class="queue-item p-4 rounded-xl transition-all duration-300"
+                    :class="activeInvoice === index ? 'bg-anaf-primary/20 border border-anaf-primary/30' : 'bg-dark-900/50 border border-transparent'"
+                  >
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                          :class="{
+                            'bg-status-accepted/20': invoice.status === 'accepted',
+                            'bg-status-submitted/20': invoice.status === 'submitted',
+                            'bg-status-queued/20': invoice.status === 'queued'
+                          }">
+                          <svg x-show="invoice.status === 'accepted'" class="w-4 h-4 text-status-accepted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                          <svg x-show="invoice.status === 'submitted'" class="w-4 h-4 text-status-submitted animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                          <svg x-show="invoice.status === 'queued'" class="w-4 h-4 text-status-queued" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        </div>
+                        <div>
+                          <div class="text-white text-sm font-medium" x-text="invoice.id"></div>
+                          <div class="text-white/40 text-xs" x-text="invoice.company"></div>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-white font-medium" x-text="invoice.amount + ' RON'"></div>
+                        <span 
+                          class="status-badge"
+                          :class="invoice.status"
+                          x-text="invoice.status === 'accepted' ? 'Acceptată' : invoice.status === 'submitted' ? 'Trimisă' : 'În coadă'"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              
+              <!-- Footer Stats -->
+              <div class="px-4 py-3 border-t border-white/10 bg-dark-900/30">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-status-accepted"></span>
+                      <span class="text-white/40 text-xs">147 acceptate</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-status-submitted"></span>
+                      <span class="text-white/40 text-xs">3 în așteptare</span>
+                    </div>
+                  </div>
+                  <span class="text-anaf-gold text-xs font-medium">98.5% rată succes</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating XML Badge -->
+            <div class="absolute -top-4 -right-4 bg-dark-800 rounded-xl px-4 py-3 border border-anaf-gold/30 shadow-xl animate-float z-10">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-anaf-gold/20 flex items-center justify-center">
+                  <span class="text-anaf-gold font-mono text-xs font-bold">&lt;/&gt;</span>
+                </div>
+                <div>
+                  <div class="text-anaf-gold text-sm font-medium">UBL 2.1</div>
+                  <div class="text-white/40 text-xs">XML Valid</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Certificate Badge -->
+            <div class="absolute -bottom-4 -left-4 cert-badge rounded-xl px-4 py-3 shadow-xl animate-float [animation-delay:1s] z-10">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-anaf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <div>
+                  <div class="text-anaf-gold text-sm font-medium">Semnătură Digitală</div>
+                  <div class="text-white/40 text-xs">XMLDSig</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STATUS FLOW ==================== -->
+  <section class="py-24 relative overflow-hidden" id="cum-functioneaza">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-anaf-gold text-sm font-medium uppercase tracking-widest">Flux Automat</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">De la factură la<br><span class="text-gradient-anaf">confirmare ANAF</span></h2>
+        <p class="text-lg text-white/60">Procesare complet automată. Tu generezi factura, noi ne ocupăm de rest.</p>
+      </div>
+      
+      <!-- Flow Visualization -->
+      <div class="max-w-5xl mx-auto reveal">
+        <div class="grid md:grid-cols-5 gap-4 items-center">
+          <!-- Step 1: Invoice -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-brand-violet/20 border border-brand-violet/30 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-10 h-10 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div class="text-white font-semibold mb-1">Factură</div>
+            <div class="text-white/40 text-xs">Generată în platformă</div>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex items-center justify-center">
+            <div class="w-full h-0.5 bg-gradient-to-r from-brand-violet to-status-queued"></div>
+            <svg class="w-4 h-4 text-status-queued -ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+          </div>
+          
+          <!-- Step 2: XML Transform -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-status-queued/20 border border-status-queued/30 flex items-center justify-center mx-auto mb-3">
+              <span class="text-status-queued font-mono text-xl font-bold">&lt;/&gt;</span>
+            </div>
+            <div class="text-white font-semibold mb-1">XML UBL</div>
+            <div class="text-white/40 text-xs">Transformare automată</div>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="hidden md:flex items-center justify-center">
+            <div class="w-full h-0.5 bg-gradient-to-r from-status-queued to-status-submitted"></div>
+            <svg class="w-4 h-4 text-status-submitted -ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+          </div>
+          
+          <!-- Step 3: Submit -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-status-submitted/20 border border-status-submitted/30 flex items-center justify-center mx-auto mb-3 relative">
+              <svg class="w-10 h-10 text-status-submitted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            </div>
+            <div class="text-white font-semibold mb-1">ANAF SPV</div>
+            <div class="text-white/40 text-xs">Trimitere securizată</div>
+          </div>
+        </div>
+        
+        <!-- Second Row -->
+        <div class="grid md:grid-cols-5 gap-4 items-center mt-8">
+          <!-- Empty space -->
+          <div class="hidden md:block"></div>
+          <div class="hidden md:block"></div>
+          
+          <!-- Step 4: Processing -->
+          <div class="text-center md:col-start-3">
+            <div class="w-20 h-20 rounded-2xl bg-anaf-primary/20 border border-anaf-primary/30 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-10 h-10 text-anaf-secondary animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </div>
+            <div class="text-white font-semibold mb-1">Validare</div>
+            <div class="text-white/40 text-xs">ANAF procesează</div>
+          </div>
+          
+          <!-- Arrow down-right -->
+          <div class="hidden md:flex items-center justify-center">
+            <div class="w-full h-0.5 bg-gradient-to-r from-anaf-primary to-status-accepted"></div>
+            <svg class="w-4 h-4 text-status-accepted -ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+          </div>
+          
+          <!-- Step 5: Accepted -->
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-2xl bg-status-accepted/20 border border-status-accepted/30 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-10 h-10 text-status-accepted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="text-white font-semibold mb-1">Acceptată</div>
+            <div class="text-white/40 text-xs">Confirmare ANAF</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Retry Note -->
+      <div class="max-w-2xl mx-auto mt-12 reveal reveal-delay-1">
+        <div class="p-4 rounded-xl bg-status-error/10 border border-status-error/30 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-status-error/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-status-error" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <div>
+            <div class="text-status-error font-medium">Reîncercare Automată</div>
+            <div class="text-white/60 text-sm">La erori tranzitorii, sistemul reîncearcă automat cu backoff exponențial: 5min → 15min → 30min → 1h → 2h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURES ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest">Funcționalități</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Totul pentru<br><span class="text-gradient animate-shimmer">conformitate</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- XML Transform -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-anaf-primary/20 hover:border-anaf-primary/50 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-anaf-primary/10 flex items-center justify-center mb-4">
+            <span class="text-anaf-gold font-mono text-xl font-bold">&lt;/&gt;</span>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Transformare XML</h3>
+          <p class="text-white/50 text-sm mb-4">Conversie automată în format UBL 2.1 sau CII conform specificațiilor ANAF.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-anaf-primary/20 text-anaf-gold text-xs">UBL 2.1</span>
+            <span class="px-2 py-1 rounded bg-anaf-primary/20 text-anaf-gold text-xs">CII</span>
+          </div>
+        </div>
+        
+        <!-- Digital Signature -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-anaf-gold/20 hover:border-anaf-gold/50 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-anaf-gold/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-anaf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Semnătură Digitală</h3>
+          <p class="text-white/50 text-sm mb-4">Semnare automată XMLDSig sau PKCS#7. Certificate stocate criptat.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-anaf-gold/20 text-anaf-gold text-xs">XMLDSig</span>
+            <span class="px-2 py-1 rounded bg-anaf-gold/20 text-anaf-gold text-xs">PKCS#7</span>
+          </div>
+        </div>
+        
+        <!-- Smart Queue -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-status-queued/20 hover:border-status-queued/50 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-status-queued/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-status-queued" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Coadă Inteligentă</h3>
+          <p class="text-white/50 text-sm mb-4">Gestionare automată cu reîncercare. Fallback când ANAF e indisponibil.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-status-queued/20 text-status-queued text-xs">Auto-retry</span>
+            <span class="px-2 py-1 rounded bg-status-queued/20 text-status-queued text-xs">Fallback</span>
+          </div>
+        </div>
+        
+        <!-- Idempotent -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-cyan/20 hover:border-brand-cyan/50 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Idempotent</h3>
+          <p class="text-white/50 text-sm mb-4">Hash XML previne duplicatele. Aceeași factură nu se trimite de două ori.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-brand-cyan/20 text-brand-cyan text-xs">SHA-256</span>
+            <span class="px-2 py-1 rounded bg-brand-cyan/20 text-brand-cyan text-xs">Deduplicare</span>
+          </div>
+        </div>
+        
+        <!-- Multi-tenant -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-violet/20 hover:border-brand-violet/50 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-brand-violet/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Entitate</h3>
+          <p class="text-white/50 text-sm mb-4">Gestionează mai multe entități legale. Certificate și credențiale izolate.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-brand-violet/20 text-brand-violet text-xs">Multi-tenant</span>
+            <span class="px-2 py-1 rounded bg-brand-violet/20 text-brand-violet text-xs">Izolare</span>
+          </div>
+        </div>
+        
+        <!-- Audit -->
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-green/20 hover:border-brand-green/50 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">Audit Complet</h3>
+          <p class="text-white/50 text-sm mb-4">Jurnale complete, trasabilitate. Export rapoarte CSV pentru verificări.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-brand-green/20 text-brand-green text-xs">Logs</span>
+            <span class="px-2 py-1 rounded bg-brand-green/20 text-brand-green text-xs">Export CSV</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DASHBOARD PREVIEW ==================== -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div class="reveal">
+          <span class="text-status-accepted text-sm font-medium uppercase tracking-widest">Monitorizare</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Dashboard<br><span class="text-gradient-anaf">în timp real</span></h2>
+          <p class="text-lg text-white/60 mb-8">Urmărește totul dintr-un singur loc. Status trimiteri, rate de succes, diagnostice erori.</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-status-accepted/10 border border-status-accepted/30">
+              <div class="w-12 h-12 rounded-xl bg-status-accepted/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-status-accepted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">Statistici Live</span>
+                <p class="text-white/50 text-sm">Rate acceptare, timp procesare, erori pe tip</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-anaf-gold/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-anaf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">Download Confirmări</span>
+                <p class="text-white/50 text-sm">Chitanțe și confirmări ANAF descărcabile</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
+              <div class="w-12 h-12 rounded-xl bg-status-rejected/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-status-rejected" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              </div>
+              <div>
+                <span class="text-white font-medium">Diagnostice Erori</span>
+                <p class="text-white/50 text-sm">Mesaje detaliate ANAF pentru rezolvare rapidă</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Visual - Stats Dashboard -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-anaf-primary flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div>
+                  <div class="text-white font-semibold">Statistici eFactura</div>
+                  <div class="text-white/40 text-xs">Ultima lună</div>
+                </div>
+              </div>
+              <select class="bg-dark-900/50 border border-white/10 rounded-lg px-3 py-1.5 text-white text-sm">
+                <option>Ultima lună</option>
+                <option>Ultimele 7 zile</option>
+                <option>Azi</option>
+              </select>
+            </div>
+            
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="p-4 rounded-xl bg-status-accepted/10 border border-status-accepted/30">
+                <div class="text-status-accepted text-xs uppercase mb-1">Acceptate</div>
+                <div class="text-white font-bold text-3xl">147</div>
+                <div class="text-status-accepted text-xs mt-1">↑ 12% vs luna trecută</div>
+              </div>
+              <div class="p-4 rounded-xl bg-status-rejected/10 border border-status-rejected/30">
+                <div class="text-status-rejected text-xs uppercase mb-1">Respinse</div>
+                <div class="text-white font-bold text-3xl">3</div>
+                <div class="text-status-rejected text-xs mt-1">↓ 2 vs luna trecută</div>
+              </div>
+            </div>
+            
+            <!-- Success Rate -->
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-white/60 text-sm">Rată de succes</span>
+                <span class="text-status-accepted font-bold">98.0%</span>
+              </div>
+              <div class="h-3 bg-dark-900/50 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-status-accepted to-brand-green rounded-full" style="width: 98%;"></div>
+              </div>
+            </div>
+            
+            <!-- Error Types -->
+            <div class="space-y-2">
+              <div class="text-white/40 text-xs uppercase mb-2">Erori frecvente</div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-900/30">
+                <span class="text-white/70 text-sm">INVALID_VAT</span>
+                <span class="text-status-rejected text-sm">2</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-900/30">
+                <span class="text-white/70 text-sm">MISSING_FIELD</span>
+                <span class="text-status-rejected text-sm">1</span>
+              </div>
+            </div>
+            
+            <!-- Processing Time -->
+            <div class="mt-6 p-3 rounded-lg bg-anaf-primary/10 border border-anaf-primary/30 flex items-center justify-between">
+              <span class="text-white/60 text-sm">Timp mediu procesare</span>
+              <span class="text-anaf-gold font-bold">2.3 sec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== USE CASES ==================== -->
+  <section class="py-24 bg-dark-850 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Pentru orice<br><span class="text-gradient animate-shimmer">tip de eveniment</span></h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-anaf-primary/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-anaf-primary/20 to-anaf-primary/10 flex items-center justify-center mb-4"><span class="text-2xl">🎫</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Platforme Ticketing</h3>
+          <p class="text-white/50 text-sm">Trimite automat toate facturile de vânzare bilete. Conformitate 100% la volume mari.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎪</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Eveniment</h3>
+          <p class="text-white/50 text-sm">Gestionează eFactura pentru mai multe evenimente. Numerotare separată, conformitate centralizată.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Vânzări B2B</h3>
+          <p class="text-white/50 text-sm">Facturi conforme pentru clienți corporate. Toate câmpurile B2B cerute, automat.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🔄</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Abonamente</h3>
+          <p class="text-white/50 text-sm">Facturi recurente pentru abonamente de sezon. Trimiteri lunare automate.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-rose/30 transition-all duration-500 reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">↩️</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Returnări</h3>
+          <p class="text-white/50 text-sm">Note de creditare generate și trimise automat la ANAF pentru stornări.</p>
+        </div>
+        
+        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-anaf-gold/30 transition-all duration-500 reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-anaf-gold/20 to-anaf-gold/10 flex items-center justify-center mb-4"><span class="text-2xl">🏛️</span></div>
+          <h3 class="text-xl font-semibold text-white mb-2">Multi-Entitate</h3>
+          <p class="text-white/50 text-sm">Mai multe firme, o singură platformă. Certificate și credențiale separate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIAL ==================== -->
+  <section class="py-24 relative">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="relative reveal">
+        <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
+        <div class="bg-gradient-to-br from-anaf-primary/10 to-anaf-gold/10 rounded-3xl p-8 md:p-12 border border-anaf-primary/20">
+          <!-- Romanian stripe -->
+          <div class="ro-stripe w-24 mb-6"></div>
+          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+            "Obligația <span class="text-gradient-ro font-semibold">eFactura</span> părea o povară. Cu Tixello, nici nu observăm că există. 500+ facturi pe lună, toate conforme, zero intervenție manuală."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-anaf-primary to-anaf-secondary flex items-center justify-center">
+              <span class="text-white font-bold">CP</span>
+            </div>
+            <div>
+              <div class="font-semibold text-white">Cristina P.</div>
+              <div class="text-white/50">CFO, Artmania Festival</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-anaf-primary/10 via-transparent to-anaf-gold/10"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,51,102,0.2) 0%, rgba(207,181,59,0.1) 100%);"></div>
+    
+    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">📄</div>
+    <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">✓</div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <!-- Romanian stripe -->
+      <div class="ro-stripe w-32 mx-auto mb-8 reveal"></div>
+      
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><span class="text-gradient-ro">eFactura</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Conformitate ANAF fără bătăi de cap. XML automat, semnătură digitală, monitorizare în timp real.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
+        <a href="/signup" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-anaf-primary text-white hover:bg-anaf-secondary hover:scale-105 hover:shadow-glow-anaf transition-all duration-300">
+          Activează eFactura
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+          Întrebări? Contactează-ne
+        </a>
+      </div>
+      
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">ANAF SPV • UBL 2.1 • XMLDSig • Multi-tenant • Audit Complet</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark-950 border-t border-white/5 pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center"><span class="text-white font-display font-bold text-sm">T</span></div>
+            <span class="font-display font-bold text-xl text-white">Tixello</span>
+          </a>
+          <p class="text-white/40 text-sm">Platforma de ticketing pentru organizatorii care vor să-și păstreze brandul, datele și profitul.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Produs</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/functionalitati" class="text-white/40 hover:text-white transition-colors">Funcționalități</a></li>
+            <li><a href="/efactura" class="text-anaf-gold hover:text-anaf-primary transition-colors">eFactura</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Conformitate</h4>
+          <ul class="space-y-3 text-sm">
+            <li><span class="text-white/40">ANAF SPV</span></li>
+            <li><span class="text-white/40">UBL 2.1</span></li>
+            <li><span class="text-white/40">CII</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/termeni" class="text-white/40 hover:text-white transition-colors">Termeni</a></li>
+            <li><a href="/gdpr" class="text-white/40 hover:text-white transition-colors">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 Tixello. Toate drepturile rezervate.</p>
+        <div class="flex items-center gap-3">
+          <div class="ro-stripe w-16"></div>
+          <span class="text-white/30 text-sm">Conformitate România</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scroll-progress');
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+    });
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) { header.classList.add('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); } 
+      else { header.classList.remove('bg-dark-900/95', 'backdrop-blur-xl', 'shadow-lg'); }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`); card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`); });
+    });
+  </script>
+</body>
+</html>

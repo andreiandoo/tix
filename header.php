@@ -33,10 +33,11 @@
 
 	<?php do_action( 'tailpress_header' ); ?>
 
-	<header id="masthead" class="site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300" 
-			x-data="{ mobileMenu: false, scrolled: false }" 
-			x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
-			:class="scrolled ? 'bg-dark-900/95 backdrop-blur-xl shadow-lg shadow-black/20' : 'bg-transparent'">
+	<header id="masthead" 
+            class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" 
+            x-data="{ mobileMenu: false, scrolled: false }" 
+            x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
+            :class="scrolled ? 'bg-zinc-950/95 backdrop-blur-xl shadow-lg shadow-black/20' : 'bg-transparent'">
 		
 		<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
 			<nav class="flex items-center justify-between h-20">
@@ -49,12 +50,10 @@
 						</div>
 					<?php else : ?>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2.5 group" rel="home">
-							<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center shadow-lg shadow-brand-violet/20 group-hover:shadow-brand-violet/40 transition-shadow">
-								<span class="text-white font-display font-bold text-base">T</span>
+							<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
+								<span class="text-white font-bold text-base">tx</span>
 							</div>
-							<span class="font-display font-bold text-xl text-white">
-								<?php bloginfo( 'name' ); ?>
-							</span>
+							<span class="font-bold text-xl text-white">Tixello</span>
 						</a>
 					<?php endif; ?>
 				</div>
@@ -79,6 +78,40 @@
 
 				<!-- ====== RIGHT SIDE ACTIONS ====== -->
 				<div class="flex items-center gap-3">
+
+					<?php 
+					if ( function_exists('pll_the_languages') ) :
+						$langs = pll_the_languages([
+							'raw'           => 1,
+							'echo'          => 0,
+							'hide_current'  => 0,
+							'hide_if_empty' => 0, // show all languages even if a page translation is missing
+						]);
+
+						if ( ! empty($langs) && count($langs) > 1 ) :?>
+							<!-- Language Switcher -->
+							<div class="flex items-center gap-1 ml-2 px-1 py-1 rounded-lg bg-white/5">
+								<?php foreach ( $langs as $lang ) :
+									$is_current = ! empty($lang['current_lang']);
+
+									$classes = $is_current
+										? 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors bg-violet-600 text-white'
+										: 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors text-white/60 hover:text-white hover:bg-white/10';
+
+									$label = strtoupper($lang['slug']); // RO / EN if your slugs are ro/en
+								?>
+									<a
+										href="<?php echo esc_url($lang['url']); ?>"
+										class="<?php echo esc_attr($classes); ?>"
+										hreflang="<?php echo esc_attr($lang['slug']); ?>"
+										lang="<?php echo esc_attr($lang['slug']); ?>"
+									>
+										<?php echo esc_html($label); ?>
+									</a>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; 
+					endif; ?>
 					
 					<!-- Search Button -->
 					<a href="<?php echo esc_url( home_url( '/cauta/' ) ); ?>" 
@@ -90,13 +123,13 @@
 					</a>
 					
 					<!-- Conectare (Desktop) -->
-					<a href="<?php echo esc_url( home_url( '/login/' ) ); ?>" 
+					<a href="https://core.tixello.com/tenant/login" target="_blank"
 					   class="hidden xl:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">
 						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
 					</a>
 					
 					<!-- CTA: Începe Gratuit (Desktop) -->
-					<a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" 
+					<a href="https://core.tixello.com/register" target="_blank"
 					   class="hidden xl:inline-flex cta-button items-center gap-2 px-5 py-2.5 rounded-full bg-brand-violet text-white text-sm font-semibold hover:bg-brand-violet/90 hover:shadow-lg hover:shadow-brand-violet/30 transition-all duration-300">
 						<?php esc_html_e( 'Începe Gratuit', 'tixello' ); ?>
 						<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,7 +140,7 @@
 					<!-- Mobile Menu Toggle -->
 					<button @click="mobileMenu = true" 
 							class="xl:hidden p-2 text-white/80 hover:text-white transition-colors"
-							aria-label="<?php esc_attr_e( 'Deschide meniul', 'tixello' ); ?>">
+							aria-label="Deschide meniul">
 						<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
 						</svg>
@@ -117,58 +150,59 @@
 			</nav>
 		</div>
 		
-		<!-- ====== MOBILE MENU ====== -->
-		<div class="mobile-overlay fixed inset-0 bg-black/60 z-[100] transition-opacity duration-300"
-			 x-show="mobileMenu"
-			 x-transition:enter="ease-out"
-			 x-transition:enter-start="opacity-0"
-			 x-transition:enter-end="opacity-100"
-			 x-transition:leave="ease-in"
-			 x-transition:leave-start="opacity-100"
-			 x-transition:leave-end="opacity-0"
-			 @click="mobileMenu = false"
-			 style="display: none;"></div>
-		
-		<div class="mobile-menu fixed top-0 right-0 w-full max-w-[400px] h-full bg-dark-900/98 backdrop-blur-xl z-[101] transform transition-transform duration-300 overflow-y-auto"
-			 x-show="mobileMenu"
-			 x-transition:enter="ease-out"
-			 x-transition:enter-start="translate-x-full"
-			 x-transition:enter-end="translate-x-0"
-			 x-transition:leave="ease-in"
-			 x-transition:leave-start="translate-x-0"
-			 x-transition:leave-end="translate-x-full"
-			 style="display: none;">
-			
-			<div class="p-6">
+		<!-- MOBILE MENU OVERLAY -->
+        <div class="fixed inset-0 bg-black/60 z-[100] transition-opacity duration-300"
+             x-show="mobileMenu"
+             x-transition:enter="ease-out"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="ease-in"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="mobileMenu = false"
+             style="display: none;"></div>
+        
+        <!-- MOBILE MENU PANEL -->
+        <div class="fixed top-0 right-0 w-full max-w-sm h-full bg-zinc-900/98 backdrop-blur-xl z-[101] transform transition-transform duration-300 overflow-y-auto"
+             x-show="mobileMenu"
+             x-transition:enter="ease-out"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="ease-in"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full"
+             style="display: none;">
+            
+            <div class="p-6">
 				<!-- Mobile Header -->
-				<div class="flex items-center justify-between mb-8">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2">
-						<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
-							<span class="text-white font-display font-bold text-sm">T</span>
-						</div>
-						<span class="font-display font-bold text-lg text-white"><?php bloginfo( 'name' ); ?></span>
-					</a>
-					<button @click="mobileMenu = false" class="p-2 text-white/60 hover:text-white transition-colors">
-						<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-						</svg>
-					</button>
-				</div>
+                <div class="flex items-center justify-between mb-6">
+                    <a href="/" class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">T</span>
+                        </div>
+                        <span class="font-bold text-lg text-white">Tixello</span>
+                    </a>
+                    <button @click="mobileMenu = false" class="p-2 text-white/60 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
 				
 				<!-- Mobile CTAs -->
 				<div class="flex gap-3 mb-8">
-					<a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" 
+					<a href="https://core.tixello.com/register" target="_blank"
 					   class="flex-1 text-center px-4 py-3 rounded-xl bg-brand-violet text-white text-sm font-semibold hover:bg-brand-violet/80 transition-colors">
 						<?php esc_html_e( 'Începe Gratuit', 'tixello' ); ?>
 					</a>
-					<a href="<?php echo esc_url( home_url( '/login/' ) ); ?>" 
+					<a href="https://core.tixello.com/login" target="_blank"
 					   class="flex-1 text-center px-4 py-3 rounded-xl bg-white/10 text-white text-sm font-medium border border-white/10 hover:bg-white/20 transition-colors">
 						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
 					</a>
 				</div>
 				
 				<!-- Mobile Navigation -->
-				<div class="mobile-nav" x-data="{ activeSubmenu: null }">
+				<div class="mobile-nav space-y-1" x-data="{ activeSubmenu: null }">
 					<?php
 					wp_nav_menu( array(
 						'theme_location'  => 'mobile',
@@ -180,6 +214,40 @@
 					) );
 					?>
 				</div>
+
+				<?php 
+				if ( function_exists('pll_the_languages') ) :
+					$langs = pll_the_languages([
+						'raw'           => 1,
+						'echo'          => 0,
+						'hide_current'  => 0,
+						'hide_if_empty' => 0, // show all languages even if a page translation is missing
+					]);
+
+					if ( ! empty($langs) && count($langs) > 1 ) :?>
+						<!-- Language Switcher -->
+						<div class="flex items-center gap-1 ml-2 px-1 py-1 rounded-lg bg-white/5">
+							<?php foreach ( $langs as $lang ) :
+								$is_current = ! empty($lang['current_lang']);
+
+								$classes = $is_current
+									? 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors bg-violet-600 text-white'
+									: 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors text-white/60 hover:text-white hover:bg-white/10';
+
+								$label = strtoupper($lang['slug']); // RO / EN if your slugs are ro/en
+							?>
+								<a
+									href="<?php echo esc_url($lang['url']); ?>"
+									class="<?php echo esc_attr($classes); ?>"
+									hreflang="<?php echo esc_attr($lang['slug']); ?>"
+									lang="<?php echo esc_attr($lang['slug']); ?>"
+								>
+									<?php echo esc_html($label); ?>
+								</a>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; 
+				endif; ?>
 			</div>
 		</div>
 		

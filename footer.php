@@ -11,110 +11,170 @@
 
 </div>
 
-<footer id="colophon" class="site-footer bg-slate-100" role="contentinfo">
+<footer id="colophon" class="site-footer relative bg-zinc-950 border-t border-white/5" role="contentinfo">
 	<?php do_action( 'tailpress_footer' ); ?>
 
-	<div class="bg-white">
-		<div class="container py-6 mx-auto border-t border-slate-200">
-			<div class="grid grid-cols-6 gap-x-8">
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Company</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-company',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2 text-base',
-							'theme_location'  => 'footer_company',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
+	<!-- Gradient accent line -->
+	<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+
+	<!-- Newsletter Section -->
+	<div class="border-b border-white/5">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+			<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+				<div class="max-w-xl">
+					<h3 class="text-2xl lg:text-3xl font-bold text-white mb-2">
+						Rămâi la curent cu noutățile
+					</h3>
+					<p class="text-white/60">
+						Abonează-te la newsletter pentru tips, updates și oferte exclusive.
+					</p>
 				</div>
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Resources</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-resources',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2',
-							'theme_location'  => 'footer_resources',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
+				<div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+					<input type="email" 
+							placeholder="adresa@email.com" 
+							class="flex-1 lg:w-72 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
+					<button class="px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300 whitespace-nowrap">
+						Abonează-te
+					</button>
 				</div>
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Quick Links</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-quicklinks',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2',
-							'theme_location'  => 'footer_quicklinks',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
-				</div>
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Legal</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-legal',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2',
-							'theme_location'  => 'footer_legal',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
-				</div>
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Resources</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-resources-2',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2',
-							'theme_location'  => 'footer_resources',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
-				</div>
-				<div class="fmenu">
-					<h4 class="mb-4 text-xl font-bold">Company</h4>
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-company-2',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-col gap-y-2 text-base',
-							'theme_location'  => 'footer_company',
-							'li_class'        => '',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
-					<div class="">
-						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/GDPR.svg" alt="GDPR icon" class="inline w-24 h-16">
-						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/ISO.svg" alt="ISO icon" class="inline w-24 h-16 ml-1">
+			</div>
+		</div>
+	</div>
+
+	<div class="container-site mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
+			<!-- Brand Column -->
+			<div class="col-span-2 md:col-span-3 lg:col-span-2">
+				<!-- Logo -->
+				<a href="/" class="inline-flex items-center gap-2.5 mb-6 group">
+					<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
+						<span class="text-white font-bold text-lg">T</span>
 					</div>
+					<span class="font-bold text-2xl text-white">Tixello</span>
+				</a>
+				
+				<p class="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
+					Platforma completă de ticketing pentru organizatori de evenimente din România și Europa.
+				</p>
+				
+				<!-- Trust Badges -->
+				<div class="flex items-center gap-4 mb-6">
+					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
+						<svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+						</svg>
+						<span class="text-xs font-semibold text-white/70">GDPR</span>
+					</div>
+					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
+						<svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+						</svg>
+						<span class="text-xs font-semibold text-white/70">ISO 27001</span>
+					</div>
+				</div>
+				
+				<!-- Social Links -->
+				<div class="flex items-center gap-3">
+					<a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+					</a>
+					<a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+					</a>
+					<a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+					</a>
+					<a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+					</a>
 				</div>
 			</div>
 
-			<div class="flex items-center justify-between pt-6 mt-6 border-t gap-x-8 border-slate-200">
-				<span class="font-bold uppercase">Compare Tixello with:</span>
+			<div class="fmenu">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+				<?php
+				wp_nav_menu(
+					array(
+						'container_id'    => 'footer-company',
+						'container_class' => '',
+						'menu_class'      => 'flex flex-col gap-y-2 text-base',
+						'theme_location'  => 'footer_company',
+						'li_class'        => '',
+						'fallback_cb'     => false,
+					)
+				);
+				?>
+			</div>
+			<div class="fmenu">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+				<?php
+				wp_nav_menu(
+					array(
+						'container_id'    => 'footer-resources',
+						'container_class' => '',
+						'menu_class'      => 'flex flex-col gap-y-2',
+						'theme_location'  => 'footer_resources',
+						'li_class'        => '',
+						'fallback_cb'     => false,
+					)
+				);
+				?>
+			</div>
+			<div class="fmenu">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Quick Links</h4>
+				<?php
+				wp_nav_menu(
+					array(
+						'container_id'    => 'footer-quicklinks',
+						'container_class' => '',
+						'menu_class'      => 'flex flex-col gap-y-2',
+						'theme_location'  => 'footer_quicklinks',
+						'li_class'        => '',
+						'fallback_cb'     => false,
+					)
+				);
+				?>
+			</div>
+			<div class="fmenu">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+				<?php
+				wp_nav_menu(
+					array(
+						'container_id'    => 'footer-resources-2',
+						'container_class' => '',
+						'menu_class'      => 'flex flex-col gap-y-2',
+						'theme_location'  => 'footer_resources',
+						'li_class'        => '',
+						'fallback_cb'     => false,
+					)
+				);
+				?>
+			</div>
+			<div class="fmenu">
+				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+				<?php
+				wp_nav_menu(
+					array(
+						'container_id'    => 'footer-company-2',
+						'container_class' => '',
+						'menu_class'      => 'flex flex-col gap-y-2 text-base',
+						'theme_location'  => 'footer_company',
+						'li_class'        => '',
+						'fallback_cb'     => false,
+					)
+				);
+				?>
+				<div class="">
+					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/GDPR.svg" alt="GDPR icon" class="inline w-24 h-16">
+					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/ISO.svg" alt="ISO icon" class="inline w-24 h-16 ml-1">
+				</div>
+			</div>
+		</div>
+
+		<!-- Compare Section -->
+		<div class="mt-12 pt-8 border-t border-white/5">
+			<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Compare Tixello with</h4>
+			<div class="flex flex-wrap gap-2">
 				<?php
 				wp_nav_menu(
 					array(
@@ -122,75 +182,47 @@
 						'container_class' => '',
 						'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 font-semibold text-slate-800 hover:text-slate-900',
 						'theme_location'  => 'footer_alternatives',
-						'li_class'        => '',
+						'li_class'        => 'px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/10 hover:border-violet-500/30 transition-all',
 						'fallback_cb'     => false,
 					)
 				);
 				?>
 			</div>
-			
-			<div class="flex items-center justify-between pt-6 mt-6 border-t border-slate-200">
-				<div class="flex items-center gap-x-4">
-					<a href="<?php echo get_bloginfo( 'url' ); ?>" class="text-lg font-extrabold text-gray-900 uppercase">
-						<?php echo get_bloginfo( 'name' ); ?>
-					</a>
+		</div>
+		
+		<div class="border-t border-white/5 bg-zinc-950/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+					<div class="flex items-center gap-x-4">
+						<a href="<?php echo get_bloginfo( 'url' ); ?>" class="text-lg font-extrabold text-gray-900 uppercase">
+							<?php echo get_bloginfo( 'name' ); ?>
+						</a>
+						<div class="">
+							<span class="">
+								Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
+							</span>
+							<span class="">Copyright &copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
+						</div>
+					</div>
 					<div class="">
-						<span class="">
-							Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
-						</span>
-						<span class="">Copyright &copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
+						<span class="text-sm text-white/40">© 2025 Tixello. All rights reserved.</span>
+						<div class="fmenu">
+							<?php
+							wp_nav_menu(
+								array(
+									'container_id'    => 'footer-legal',
+									'container_class' => '',
+									'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-600 text-sm',
+									'theme_location'  => 'footer_legal',
+									'li_class'        => 'hover:text-slate-800',
+									'fallback_cb'     => false,
+								)
+							);
+							?>
+						</div>
 					</div>
 				</div>
-				<div class=""></div>
 			</div>
-		</div>
-	</div>
-
-	<div class="container py-6 mx-auto">
-		<div class="flex items-center justify-between">
-			<div class="">
-				<div class="fmenu">
-					<?php
-					wp_nav_menu(
-						array(
-							'container_id'    => 'footer-legal',
-							'container_class' => '',
-							'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-600 text-sm',
-							'theme_location'  => 'footer_legal',
-							'li_class'        => 'hover:text-slate-800',
-							'fallback_cb'     => false,
-						)
-					);
-					?>
-				</div>
-			</div>
-			<ul class="">
-				<li>
-					<a href="" class="">
-
-					</a>
-				</li>
-				<li>
-					<a href="" class="">
-						
-					</a>
-				</li>
-				<li>
-					<a href="" class="">
-						
-					</a>
-				</li>
-				<li>
-					<a href="" class="">
-						
-					</a>
-				</li>
-				<li>
-					<a href="" class="">
-						
-					</a>
-				</li>
-			</ul>
 		</div>
 	</div>
 </footer>

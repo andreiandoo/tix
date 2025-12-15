@@ -10,3 +10,11 @@
 .container-lg {
     max-width: 95%;
 }
+.container-site {
+    width:1440px;
+    max-width: 100%;
+}
+.container-block {
+    width:1200px;
+    max-width: 100%;
+}

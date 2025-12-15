@@ -59,18 +59,8 @@
 				
 				<!-- Trust Badges -->
 				<div class="flex items-center gap-4 mb-6">
-					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
-						<svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-						</svg>
-						<span class="text-xs font-semibold text-white/70">GDPR</span>
-					</div>
-					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
-						<svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-						</svg>
-						<span class="text-xs font-semibold text-white/70">ISO 27001</span>
-					</div>
+					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/GDPR.svg" alt="GDPR icon" class="inline w-24 h-16">
+					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/ISO.svg" alt="ISO icon" class="inline w-24 h-16 ml-1">
 				</div>
 				
 				<!-- Social Links -->
@@ -150,25 +140,6 @@
 				);
 				?>
 			</div>
-			<div class="fmenu">
-				<h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
-				<?php
-				wp_nav_menu(
-					array(
-						'container_id'    => 'footer-company-2',
-						'container_class' => '',
-						'menu_class'      => 'flex flex-col gap-y-2 text-base',
-						'theme_location'  => 'footer_company',
-						'li_class'        => '',
-						'fallback_cb'     => false,
-					)
-				);
-				?>
-				<div class="">
-					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/GDPR.svg" alt="GDPR icon" class="inline w-24 h-16">
-					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/ISO.svg" alt="ISO icon" class="inline w-24 h-16 ml-1">
-				</div>
-			</div>
 		</div>
 
 		<!-- Compare Section -->
@@ -189,37 +160,36 @@
 				?>
 			</div>
 		</div>
-		
-		<div class="border-t border-white/5 bg-zinc-950/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-					<div class="flex items-center gap-x-4">
-						<a href="<?php echo get_bloginfo( 'url' ); ?>" class="text-lg font-extrabold text-gray-900 uppercase">
-							<?php echo get_bloginfo( 'name' ); ?>
-						</a>
-						<div class="">
-							<span class="">
-								Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
-							</span>
-							<span class="">Copyright &copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
-						</div>
-					</div>
+	</div>		
+	
+	<div class="border-t border-white/5 bg-zinc-950/50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+			<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+				<div class="flex items-center gap-x-4">
+					<a href="<?php echo get_bloginfo( 'url' ); ?>" class="text-lg font-extrabold text-gray-900 uppercase">
+						<?php echo get_bloginfo( 'name' ); ?>
+					</a>
 					<div class="">
-						<span class="text-sm text-white/40">© 2025 Tixello. All rights reserved.</span>
-						<div class="fmenu">
-							<?php
-							wp_nav_menu(
-								array(
-									'container_id'    => 'footer-legal',
-									'container_class' => '',
-									'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-600 text-sm',
-									'theme_location'  => 'footer_legal',
-									'li_class'        => 'hover:text-slate-800',
-									'fallback_cb'     => false,
-								)
-							);
-							?>
-						</div>
+						<span class="">
+							Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
+						</span>
+					</div>
+				</div>
+				<div class="flex flex-col sm:flex-row sm:items-center gap-4">
+					<span class="text-sm text-white/40">Copyright &copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
+					<div class="fmenu">
+						<?php
+						wp_nav_menu(
+							array(
+								'container_id'    => 'footer-legal',
+								'container_class' => '',
+								'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-600 text-sm',
+								'theme_location'  => 'footer_legal',
+								'li_class'        => 'hover:text-slate-800',
+								'fallback_cb'     => false,
+							)
+						);
+						?>
 					</div>
 				</div>
 			</div>

@@ -46,11 +46,8 @@
 			<!-- Brand Column -->
 			<div class="col-span-2 md:col-span-3 lg:col-span-2">
 				<!-- Logo -->
-				<a href="/" class="inline-flex items-center gap-2.5 mb-6 group">
-					<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
-						<span class="text-white font-bold text-lg">T</span>
-					</div>
-					<span class="font-bold text-2xl text-white">Tixello</span>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
+					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tixello-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-32 h-auto group-hover:opacity-90 transition-opacity duration-300">
 				</a>
 				
 				<p class="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
@@ -166,11 +163,11 @@
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 			<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 				<div class="flex items-center gap-x-4">
-					<a href="<?php echo get_bloginfo( 'url' ); ?>" class="text-lg font-extrabold text-gray-900 uppercase">
-						<?php echo get_bloginfo( 'name' ); ?>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
+						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tx-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-32 h-auto group-hover:opacity-90 transition-opacity duration-300">
 					</a>
 					<div class="">
-						<span class="">
+						<span class="text-slate-500">
 							Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
 						</span>
 					</div>

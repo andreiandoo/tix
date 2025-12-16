@@ -825,6 +825,9 @@
 .h-40 {
     height: 10rem
 }
+.h-auto {
+    height: auto
+}
 .max-h-\[420px\] {
     max-height: 420px
 }
@@ -2476,6 +2479,15 @@
     --tw-border-opacity: 1;
     border-color: rgb(9 9 11 / var(--tw-border-opacity))
 }
+.border-cyan-500\/20 {
+    border-color: rgb(6 182 212 / 0.2)
+}
+.border-cyan-500\/30 {
+    border-color: rgb(6 182 212 / 0.3)
+}
+.border-emerald-500\/20 {
+    border-color: rgb(16 185 129 / 0.2)
+}
 .bg-\[\#00A1E0\] {
     --tw-bg-opacity: 1;
     background-color: rgb(0 161 224 / var(--tw-bg-opacity))
@@ -4007,6 +4019,9 @@
 .bg-pink-600\/20 {
     background-color: rgb(219 39 119 / 0.2)
 }
+.bg-emerald-600\/10 {
+    background-color: rgb(5 150 105 / 0.1)
+}
 .bg-\[radial-gradient\(circle_at_top\2c _rgba\(56\2c 189\2c 248\2c 0\.2\)\2c _transparent_60\%\)\2c _radial-gradient\(circle_at_bottom\2c _rgba\(16\2c 185\2c 129\2c 0\.18\)\2c _transparent_55\%\)\] {
     background-image: radial-gradient(circle at top, rgba(56,189,248,0.2), transparent 60%), radial-gradient(circle at bottom, rgba(16,185,129,0.18), transparent 55%)
 }
@@ -5170,6 +5185,56 @@
     --tw-gradient-to: rgb(46 16 101 / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
 }
+.from-amber-600\/20 {
+    --tw-gradient-from: rgb(217 119 6 / 0.2) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(217 119 6 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-blue-600\/20 {
+    --tw-gradient-from: rgb(37 99 235 / 0.2) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-cyan-500\/50 {
+    --tw-gradient-from: rgb(6 182 212 / 0.5) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(6 182 212 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-cyan-600\/20 {
+    --tw-gradient-from: rgb(8 145 178 / 0.2) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(8 145 178 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-emerald-600\/20 {
+    --tw-gradient-from: rgb(5 150 105 / 0.2) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(5 150 105 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-pink-500\/50 {
+    --tw-gradient-from: rgb(236 72 153 / 0.5) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(236 72 153 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-violet-400 {
+    --tw-gradient-from: #a78bfa var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(167 139 250 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-violet-500\/50 {
+    --tw-gradient-from: rgb(139 92 246 / 0.5) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(139 92 246 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-violet-600\/10 {
+    --tw-gradient-from: rgb(124 58 237 / 0.1) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(124 58 237 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+.from-violet-950\/40 {
+    --tw-gradient-from: rgb(46 16 101 / 0.4) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(46 16 101 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
 .via-accounting-primary {
     --tw-gradient-to: rgb(79 70 229 / 0)  var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), #4F46E5 var(--tw-gradient-via-position), var(--tw-gradient-to)
@@ -5341,6 +5406,14 @@
 .via-pink-600\/10 {
     --tw-gradient-to: rgb(219 39 119 / 0)  var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), rgb(219 39 119 / 0.1) var(--tw-gradient-via-position), var(--tw-gradient-to)
+}
+.via-pink-400 {
+    --tw-gradient-to: rgb(244 114 182 / 0)  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #f472b6 var(--tw-gradient-via-position), var(--tw-gradient-to)
+}
+.via-pink-600\/5 {
+    --tw-gradient-to: rgb(219 39 119 / 0)  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), rgb(219 39 119 / 0.05) var(--tw-gradient-via-position), var(--tw-gradient-to)
 }
 .to-\[\#CC0000\]\/20 {
     --tw-gradient-to: rgb(204 0 0 / 0.2) var(--tw-gradient-to-position)
@@ -6091,6 +6164,27 @@
 }
 .to-zinc-950\/80 {
     --tw-gradient-to: rgb(9 9 11 / 0.8) var(--tw-gradient-to-position)
+}
+.to-amber-600\/5 {
+    --tw-gradient-to: rgb(217 119 6 / 0.05) var(--tw-gradient-to-position)
+}
+.to-blue-600\/5 {
+    --tw-gradient-to: rgb(37 99 235 / 0.05) var(--tw-gradient-to-position)
+}
+.to-cyan-600\/10 {
+    --tw-gradient-to: rgb(8 145 178 / 0.1) var(--tw-gradient-to-position)
+}
+.to-cyan-600\/5 {
+    --tw-gradient-to: rgb(8 145 178 / 0.05) var(--tw-gradient-to-position)
+}
+.to-emerald-600\/5 {
+    --tw-gradient-to: rgb(5 150 105 / 0.05) var(--tw-gradient-to-position)
+}
+.to-pink-600\/5 {
+    --tw-gradient-to: rgb(219 39 119 / 0.05) var(--tw-gradient-to-position)
+}
+.to-violet-600\/5 {
+    --tw-gradient-to: rgb(124 58 237 / 0.05) var(--tw-gradient-to-position)
 }
 .bg-\[length\:200\%_auto\] {
     background-size: 200% auto
@@ -8134,6 +8228,18 @@ body {
 .hover\:border-orange-500\/30:hover {
     border-color: rgb(249 115 22 / 0.3)
 }
+.hover\:border-amber-500\/30:hover {
+    border-color: rgb(245 158 11 / 0.3)
+}
+.hover\:border-cyan-500\/30:hover {
+    border-color: rgb(6 182 212 / 0.3)
+}
+.hover\:border-emerald-500\/30:hover {
+    border-color: rgb(16 185 129 / 0.3)
+}
+.hover\:border-pink-500\/30:hover {
+    border-color: rgb(236 72 153 / 0.3)
+}
 .hover\:bg-\[\#1ed760\]:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(30 215 96 / var(--tw-bg-opacity))
@@ -8724,6 +8830,9 @@ body {
 .group:hover .group-hover\:opacity-20 {
     opacity: 0.2
 }
+.group:hover .group-hover\:opacity-90 {
+    opacity: 0.9
+}
 .group:hover .group-hover\:shadow-brand-violet\/40 {
     --tw-shadow-color: rgb(124 58 237 / 0.4);
     --tw-shadow: var(--tw-shadow-colored)
@@ -8807,6 +8916,10 @@ body {
     .sm\:py-16 {
         padding-top: 4rem;
         padding-bottom: 4rem
+    }
+    .sm\:py-28 {
+        padding-top: 7rem;
+        padding-bottom: 7rem
     }
     .sm\:text-5xl {
         font-size: 3rem;

@@ -45,7 +45,7 @@
 				<!-- ====== LOGO ====== -->
 				<div class="site-branding flex-shrink-0 flex items-center gap-x-4">
 					<?php if ( has_custom_logo() ) : ?>
-						<div class="custom-logo-link">
+						<div class="custom-logo-link w-8 block">
 							<?php the_custom_logo(); ?>
 						</div>
 					<?php else : ?>
@@ -177,12 +177,18 @@
             <div class="p-6">
 				<!-- Mobile Header -->
                 <div class="flex items-center justify-between mb-6">
-                    <a href="/" class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">T</span>
-                        </div>
-                        <span class="font-bold text-lg text-white">Tixello</span>
-                    </a>
+                    <?php if ( has_custom_logo() ) : ?>
+						<div class="custom-logo-link w-8 block">
+							<?php the_custom_logo(); ?>
+						</div>
+					<?php else : ?>
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2.5 group" rel="home">
+							<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
+								<span class="text-white font-bold text-base">tx</span>
+							</div>
+							<span class="font-bold text-xl text-white">Tixello</span>
+						</a>
+					<?php endif; ?>
                     <button @click="mobileMenu = false" class="p-2 text-white/60 hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

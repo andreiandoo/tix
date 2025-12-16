@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala Palatului - Locații - Tixello</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/ro/artisti" class="text-sm text-white/60 hover:text-white transition-colors">Artiști</a>
+                    <a href="/ro/evenimente" class="text-sm text-white/60 hover:text-white transition-colors">Evenimente</a>
+                    <a href="/ro/locatii" class="text-sm text-white font-medium">Locații</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Conectare</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Începe Gratuit</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- ==================== HERO IMAGE ==================== -->
+    <section class="relative h-[50vh] min-h-[400px] max-h-[600px] overflow-hidden" x-data="{ activeImage: 0 }">
+        <!-- Main Image -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1600&h=900&fit=crop" 
+                 alt="Sala Palatului" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
+        </div>
+        
+        <!-- Breadcrumb overlay -->
+        <div class="absolute top-8 left-0 right-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex items-center gap-2 text-sm">
+                    <a href="/" class="text-white/60 hover:text-white transition-colors">Acasă</a>
+                    <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <a href="/ro/locatii" class="text-white/60 hover:text-white transition-colors">Locații</a>
+                    <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <span class="text-white">Sala Palatului</span>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Gallery thumbnails -->
+        <div class="absolute bottom-8 left-0 right-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-end justify-between">
+                    <!-- Thumbnails -->
+                    <div class="hidden sm:flex items-center gap-2">
+                        <button class="w-16 h-12 rounded-lg overflow-hidden border-2 border-white ring-2 ring-violet-500">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=150&fit=crop" class="w-full h-full object-cover">
+                        </button>
+                        <button class="w-16 h-12 rounded-lg overflow-hidden border-2 border-white/30 hover:border-white/60 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=200&h=150&fit=crop" class="w-full h-full object-cover">
+                        </button>
+                        <button class="w-16 h-12 rounded-lg overflow-hidden border-2 border-white/30 hover:border-white/60 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=200&h=150&fit=crop" class="w-full h-full object-cover">
+                        </button>
+                        <button class="w-16 h-12 rounded-lg overflow-hidden border-2 border-white/30 hover:border-white/60 transition-colors relative">
+                            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=200&h=150&fit=crop" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                <span class="text-white text-xs font-semibold">+12</span>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <!-- View all photos button -->
+                    <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/50 backdrop-blur-sm border border-white/20 text-white text-sm font-medium hover:bg-black/70 transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Vezi toate fotografiile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <section class="py-8 lg:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                
+                <!-- Left Column - Main Info -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Title & Basic Info -->
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="px-3 py-1 rounded-lg bg-violet-600/20 border border-violet-500/30 text-sm font-medium text-violet-400">
+                                🎭 Sală de spectacole
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-emerald-600/20 border border-emerald-500/30 text-sm font-medium text-emerald-400">
+                                ✓ Verificată
+                            </span>
+                        </div>
+                        
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                            Sala Palatului
+                        </h1>
+                        
+                        <div class="flex flex-wrap items-center gap-4 text-white/60">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span>București, România</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <span>4,000 locuri</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.8 (324 recenzii)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                            <div class="text-2xl font-bold text-white">4,000</div>
+                            <div class="text-sm text-white/50">Capacitate</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                            <div class="text-2xl font-bold text-white">52</div>
+                            <div class="text-sm text-white/50">Evenimente/an</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                            <div class="text-2xl font-bold text-white">1960</div>
+                            <div class="text-sm text-white/50">Anul construcției</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                            <div class="text-2xl font-bold text-white">3,200</div>
+                            <div class="text-sm text-white/50">m² suprafață</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="prose prose-invert max-w-none">
+                        <h2 class="text-xl font-bold text-white mb-4">Despre locație</h2>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Sala Palatului este una dintre cele mai prestigioase săli de spectacole din România, găzduind o varietate de evenimente culturale, concerte, conferințe și spectacole de teatru. Construită în 1960, sala a fost martora unor momente istorice și culturale importante.
+                        </p>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Cu o capacitate de aproximativ 4,000 de locuri, Sala Palatului oferă o acustică excepțională și facilități moderne pentru organizarea evenimentelor de mare anvergură. Locația centrală, în imediata apropiere a Pieței Constituției, o face ușor accesibilă atât cu transportul public, cât și cu mașina personală.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            Printre artiștii care au concertat aici se numără nume legendare precum Luciano Pavarotti, José Carreras, Andrea Bocelli, dar și formații internaționale de rock și pop.
+                        </p>
+                    </div>
+                    
+                    <!-- Facilities -->
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-4">Facilități</h2>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">🅿️</span>
+                                <span class="text-sm text-white/70">Parcare</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">♿</span>
+                                <span class="text-sm text-white/70">Acces persoane cu dizabilități</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">🍽️</span>
+                                <span class="text-sm text-white/70">Restaurant</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">🎵</span>
+                                <span class="text-sm text-white/70">Sistem audio profesional</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">💡</span>
+                                <span class="text-sm text-white/70">Iluminat scenă</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">❄️</span>
+                                <span class="text-sm text-white/70">Climatizare</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">🎭</span>
+                                <span class="text-sm text-white/70">Cabine artiști</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">📶</span>
+                                <span class="text-sm text-white/70">WiFi gratuit</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <span class="text-xl">🛡️</span>
+                                <span class="text-sm text-white/70">Securitate 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Maps -->
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-4">Localizare</h2>
+                        <div class="rounded-2xl overflow-hidden border border-white/10">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.8444388854997!2d26.08676431559453!3d44.42761647910199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff472f47f047%3A0x493684c937d3e2c2!2sSala%20Palatului!5e0!3m2!1sen!2sro!4v1620000000000!5m2!1sen!2sro"
+                                width="100%" 
+                                height="400" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="w-full">
+                            </iframe>
+                        </div>
+                        <div class="mt-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <div>
+                                    <p class="text-white font-medium">Strada Ion Câmpineanu 28</p>
+                                    <p class="text-white/50 text-sm">Sector 1, 010031 București, România</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-3 mt-4">
+                                <a href="https://maps.google.com/?q=Sala+Palatului+Bucuresti" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                    </svg>
+                                    Deschide în Google Maps
+                                </a>
+                                <button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                    Copiază adresa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transportation -->
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-4">Cum ajungi</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xl">🚇</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Metrou</h4>
+                                    <p class="text-sm text-white/50">Stația Izvor (M3) - 5 minute pe jos</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-green-600/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xl">🚌</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Autobuz</h4>
+                                    <p class="text-sm text-white/50">Liniile 104, 116, 117, 123 - Stația "Sala Palatului"</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-yellow-600/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xl">🚗</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Mașina personală</h4>
+                                    <p class="text-sm text-white/50">Parcare subterană disponibilă - 200 locuri</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right Column - Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-28 space-y-6">
+                        
+                        <!-- Action Card -->
+                        <div class="p-6 rounded-2xl bg-zinc-900/80 border border-white/10">
+                            <h3 class="text-lg font-bold text-white mb-4">Organizezi un eveniment?</h3>
+                            <p class="text-sm text-white/60 mb-6">
+                                Contactează locația pentru disponibilitate și prețuri.
+                            </p>
+                            <div class="space-y-3">
+                                <a href="#" class="flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                    Solicită ofertă
+                                </a>
+                                <a href="tel:+40212345678" class="flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                    Sună acum
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact Info -->
+                        <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                            <h3 class="text-lg font-bold text-white mb-4">Contact</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-white/40">Telefon</p>
+                                        <a href="tel:+40212345678" class="text-sm text-white hover:text-violet-400 transition-colors">+40 21 234 5678</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-white/40">Email</p>
+                                        <a href="mailto:contact@salapalatului.ro" class="text-sm text-white hover:text-violet-400 transition-colors">contact@salapalatului.ro</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-white/40">Website</p>
+                                        <a href="https://salapalatului.ro" target="_blank" class="text-sm text-white hover:text-violet-400 transition-colors">salapalatului.ro</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="mt-6 pt-4 border-t border-white/5">
+                                <p class="text-xs text-white/40 mb-3">Social Media</p>
+                                <div class="flex items-center gap-2">
+                                    <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 transition-all">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 transition-all">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 transition-all">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Share -->
+                        <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-white/60">Distribuie locația</span>
+                                <div class="flex items-center gap-2">
+                                    <button class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                        </svg>
+                                    </button>
+                                    <button class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== UPCOMING EVENTS ==================== -->
+    <section class="py-12 lg:py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-white">Evenimente la această locație</h2>
+                    <p class="text-white/60 mt-1">12 evenimente programate</p>
+                </div>
+                <a href="/ro/evenimente?venue=sala-palatului" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                    Vezi toate
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Event Card 1 -->
+                <a href="/ro/evenimente/concert-iris" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[16/10] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&h=375&fit=crop" 
+                             alt="Concert IRIS" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        
+                        <!-- Date badge -->
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Ian</span>
+                            <span class="text-xl font-bold leading-none">24</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-2">
+                            Concert IRIS - 35 de ani
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>20:00</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">de la</span>
+                            <span class="text-lg font-bold text-white">89 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Event Card 2 -->
+                <a href="/ro/evenimente/opera-traviata" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[16/10] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&h=375&fit=crop" 
+                             alt="Opera La Traviata" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Feb</span>
+                            <span class="text-xl font-bold leading-none">08</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-2">
+                            Opera "La Traviata"
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>19:00</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">de la</span>
+                            <span class="text-lg font-bold text-white">150 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Event Card 3 -->
+                <a href="/ro/evenimente/stand-up-comedy" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[16/10] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=600&h=375&fit=crop" 
+                             alt="Stand-up Comedy Show" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Feb</span>
+                            <span class="text-xl font-bold leading-none">14</span>
+                        </div>
+                        <!-- Sold out badge -->
+                        <div class="absolute top-3 right-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-red-600 text-xs font-semibold text-white">
+                                Sold Out
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-2">
+                            Stand-up Comedy Show
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>21:00</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">de la</span>
+                            <span class="text-lg font-bold text-white line-through opacity-50">75 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+            
+            <!-- Mobile see all link -->
+            <div class="mt-6 sm:hidden text-center">
+                <a href="/ro/evenimente?venue=sala-palatului" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium">
+                    Vezi toate evenimentele
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SIMILAR VENUES ==================== -->
+    <section class="py-12 lg:py-16 border-t border-white/5 bg-zinc-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8">Locații similare</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Similar Venue 1 -->
+                <a href="/ro/locatii/arenele-romane" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=300&fit=crop" 
+                             alt="Arenele Romane" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Arenele Romane</h3>
+                        <p class="text-sm text-white/50">5,000 locuri</p>
+                    </div>
+                </a>
+                
+                <!-- Similar Venue 2 -->
+                <a href="/ro/locatii/tnb" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=400&h=300&fit=crop" 
+                             alt="Teatrul Național București" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Teatrul Național</h3>
+                        <p class="text-sm text-white/50">1,200 locuri</p>
+                    </div>
+                </a>
+                
+                <!-- Similar Venue 3 -->
+                <a href="/ro/locatii/opera-nationala" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=400&h=300&fit=crop" 
+                             alt="Opera Națională" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Opera Națională</h3>
+                        <p class="text-sm text-white/50">950 locuri</p>
+                    </div>
+                </a>
+                
+                <!-- Similar Venue 4 -->
+                <a href="/ro/locatii/ateneul-roman" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519683109079-d5f539e1542f?w=400&h=300&fit=crop" 
+                             alt="Ateneul Român" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Ateneul Român</h3>
+                        <p class="text-sm text-white/50">600 locuri</p>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="relative bg-zinc-950 border-t border-white/5">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-4 lg:col-span-2">
+                    <a href="/" class="inline-flex items-center gap-2.5 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">T</span>
+                        </div>
+                        <span class="font-bold text-2xl text-white">Tixello</span>
+                    </a>
+                    <p class="text-white/50 text-sm mb-6 max-w-xs">Platforma completă de ticketing pentru organizatori de evenimente din România și Europa.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/our-story" class="text-sm text-white/60 hover:text-white transition-colors">Our story</a></li>
+                        <li><a href="/careers" class="text-sm text-white/60 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/pricing" class="text-sm text-white/60 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="/developers" class="text-sm text-white/60 hover:text-white transition-colors">Developers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/terms" class="text-sm text-white/60 hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="/gdpr" class="text-sm text-white/60 hover:text-white transition-colors">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center gap-2 text-sm text-white/50">
+                        <span>Made with</span>
+                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>for events, in the EU 🇪🇺</span>
+                    </div>
+                    <span class="text-sm text-white/40">© 2025 Tixello</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

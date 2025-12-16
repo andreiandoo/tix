@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Tixello</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white/60 hover:text-white transition-colors">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                    <a href="/blog" class="text-sm text-white font-medium">Blog</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 sm:py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-violet-950/30 via-transparent to-transparent"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
+                    <span>📚</span>
+                    Tixello Blog
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    Insights & Updates
+                </h1>
+                <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto">
+                    Tips, guides, and industry insights to help you create unforgettable events.
+                </p>
+            </div>
+            
+            <!-- Search & Categories -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
+                <div class="relative flex-1 w-full sm:max-w-md">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" placeholder="Search articles..." class="w-full pl-12 pr-4 py-3 rounded-xl bg-zinc-900/80 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 transition-all">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-6 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                <button class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-medium whitespace-nowrap">All Posts</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">Product Updates</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">Industry Insights</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">Event Tips</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">Case Studies</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">Company News</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="/blog/future-of-event-ticketing-2025" class="group block">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-6 sm:p-8 rounded-3xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[16/10] rounded-2xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop" alt="Featured Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="px-3 py-1 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-400 text-xs font-medium">Featured</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">Industry Insights</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-violet-400 transition-colors mb-4">
+                            The Future of Event Ticketing: Trends to Watch in 2025
+                        </h2>
+                        <p class="text-white/60 mb-6 line-clamp-3">
+                            From NFT tickets to AI-powered fraud detection, discover the innovations that are reshaping how we buy, sell, and experience live events. We explore the technologies and trends that will define the next era of ticketing.
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Author" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <p class="font-medium text-white">Alexandru Popescu</p>
+                                <p class="text-sm text-white/50">Dec 10, 2025 · 8 min read</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold text-white">Latest Articles</h2>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-white/50">Sort by:</span>
+                    <select class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-violet-500/50">
+                        <option>Most Recent</option>
+                        <option>Most Popular</option>
+                        <option>Oldest First</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Article 1 -->
+                <a href="/blog/how-to-sell-out-your-first-event" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium mb-4">Event Tips</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                How to Sell Out Your First Event: A Complete Guide
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                Learn the proven strategies that successful event organizers use to fill venues and create buzz.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Dec 8, 2025</span>
+                                <span class="text-white/40">5 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+                <!-- Article 2 -->
+                <a href="/blog/tixello-analytics-dashboard-launch" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-violet-600/20 text-violet-400 text-xs font-medium mb-4">Product Updates</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                Introducing the New Tixello Analytics Dashboard
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                Real-time insights, custom reports, and AI-powered predictions to help you make data-driven decisions.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Dec 5, 2025</span>
+                                <span class="text-white/40">4 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+                <!-- Article 3 -->
+                <a href="/blog/untold-case-study" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-cyan-600/20 text-cyan-400 text-xs font-medium mb-4">Case Studies</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                How UNTOLD Sold 100,000 Tickets in 48 Hours
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                Behind the scenes of Romania's biggest festival and the technology that powers their ticket sales.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Dec 2, 2025</span>
+                                <span class="text-white/40">7 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+                <!-- Article 4 -->
+                <a href="/blog/pricing-strategies-for-events" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium mb-4">Event Tips</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                Dynamic Pricing Strategies That Actually Work
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                Maximize revenue without alienating your audience using these proven pricing techniques.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Nov 28, 2025</span>
+                                <span class="text-white/40">6 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+                <!-- Article 5 -->
+                <a href="/blog/sustainability-in-live-events" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-amber-600/20 text-amber-400 text-xs font-medium mb-4">Industry Insights</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                The Rise of Sustainable Events: A New Standard
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                How eco-conscious practices are becoming essential for modern event organizers.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Nov 24, 2025</span>
+                                <span class="text-white/40">5 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+                <!-- Article 6 -->
+                <a href="/blog/tixello-series-a-announcement" class="group block">
+                    <article class="h-full flex flex-col rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-1 p-6 flex flex-col">
+                            <span class="self-start px-3 py-1 rounded-full bg-pink-600/20 text-pink-400 text-xs font-medium mb-4">Company News</span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-3">
+                                Tixello Raises €15M Series A to Expand Across Europe
+                            </h3>
+                            <p class="text-sm text-white/50 flex-1 line-clamp-2 mb-4">
+                                We're excited to announce our latest funding round led by Index Ventures.
+                            </p>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-white/40">Nov 20, 2025</span>
+                                <span class="text-white/40">3 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+                
+            </div>
+            
+            <!-- Load More -->
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 hover:border-white/20 transition-all">
+                    Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-violet-600/20 via-pink-600/10 to-cyan-600/20 border border-violet-500/20 overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-violet-600/20 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyan-600/20 rounded-full blur-3xl"></div>
+                
+                <div class="relative text-center max-w-2xl mx-auto">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+                        Stay in the Loop
+                    </h2>
+                    <p class="text-white/60 mb-8">
+                        Get the latest articles, product updates, and industry insights delivered to your inbox weekly.
+                    </p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-colors whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </form>
+                    
+                    <p class="text-xs text-white/40 mt-4">No spam, unsubscribe anytime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-zinc-950 border-t border-white/5">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm text-white/50">
+                    <span>Made with</span>
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>for events, in the EU 🇪🇺</span>
+                </div>
+                <span class="text-sm text-white/40">© 2025 Tixello</span>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+    </style>
+
+</body>
+</html>

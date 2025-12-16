@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bairam la Oache - Tixello</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white font-medium">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- ==================== HERO IMAGE ==================== -->
+    <section class="relative h-[60vh] min-h-[500px] max-h-[700px] overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop" 
+                 alt="Bairam la Oache" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-zinc-950/30"></div>
+        </div>
+        
+        <!-- Breadcrumb -->
+        <div class="absolute top-8 left-0 right-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex items-center gap-2 text-sm">
+                    <a href="/" class="text-white/60 hover:text-white transition-colors">Home</a>
+                    <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <a href="/events" class="text-white/60 hover:text-white transition-colors">Events</a>
+                    <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <span class="text-white">Bairam la Oache</span>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <!-- Badges -->
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                    <span class="px-3 py-1 rounded-lg bg-violet-600 text-white text-xs font-semibold">
+                        🎵 Music & Concerts
+                    </span>
+                    <span class="px-3 py-1 rounded-lg bg-emerald-600/80 text-white text-xs font-semibold">
+                        🎗️ Charity Event
+                    </span>
+                    <span class="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-sm text-white text-xs font-medium">
+                        Music for Autism
+                    </span>
+                </div>
+                
+                <!-- Title -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+                    Bairam la Oache
+                </h1>
+                
+                <!-- Quick Info -->
+                <div class="flex flex-wrap items-center gap-6 text-white/80">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span class="font-medium">24 December 2025</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>18:00</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Sala Palatului, București</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Share buttons -->
+        <div class="absolute top-8 right-4 sm:right-8 flex items-center gap-2">
+            <button class="w-10 h-10 rounded-xl bg-black/30 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/50 transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+            </button>
+            <button class="w-10 h-10 rounded-xl bg-black/30 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/50 transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <section class="py-8 lg:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                
+                <!-- Left Column - Main Content -->
+                <div class="lg:col-span-2 space-y-10">
+                    
+                    <!-- Date & Time Card -->
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/50 border border-white/5 flex-1 min-w-[200px]">
+                            <div class="w-16 h-16 rounded-xl bg-violet-600 flex flex-col items-center justify-center text-white">
+                                <span class="text-xs font-semibold uppercase">Dec</span>
+                                <span class="text-2xl font-bold leading-none">24</span>
+                            </div>
+                            <div>
+                                <p class="text-sm text-white/50">Date</p>
+                                <p class="text-lg font-semibold text-white">Wednesday, 24 Dec 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/50 border border-white/5 flex-1 min-w-[200px]">
+                            <div class="w-16 h-16 rounded-xl bg-cyan-600 flex items-center justify-center text-white">
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm text-white/50">Show Time</p>
+                                <p class="text-lg font-semibold text-white">18:00</p>
+                                <p class="text-sm text-white/40">Doors open: 17:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-6">About this event</h2>
+                        <div class="prose prose-invert max-w-none">
+                            <p class="text-white/70 leading-relaxed mb-4">
+                                Bosquito revine la Constanța, pentru un eveniment de excepție organizat în Club Doors Constanța, în cadrul campaniei „Music for Autism".
+                            </p>
+                            <p class="text-white/70 leading-relaxed mb-4">
+                                Bosquito este o formație românească de muzică, fondată de Radu Almășan. Trupa abordează un fusion de rock latin cu o gamă largă de influențe care variază de la muzică țigănească, balcanică, până la elemente simfonice și de rock alternativ.
+                            </p>
+                            <p class="text-white/70 leading-relaxed mb-4">
+                                Concertul va veni în sprijinul campaniei „Music for Autism". 13 ani de campanie, peste 90 de concerte susținute de artiști români, 5 beneficiari, 8 inaugurări, mai multe dotări și achiziții de materiale didactice și terapeutice.
+                            </p>
+                            
+                            <!-- Highlighted box -->
+                            <div class="p-6 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 my-6">
+                                <h3 class="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                                    <span>🎗️</span> MUSIC FOR AUTISM
+                                </h3>
+                                <p class="text-white/70 text-sm leading-relaxed">
+                                    Music for Autism înseamnă muzică, solidaritate și speranță. Misiunea noastră este de a oferi copiilor din școlile speciale de stat șanse reale de a deveni adulți dependenți și funcționali. Toate fondurile strânse se vor îndrepta către campania „Music for Autism".
+                                </p>
+                            </div>
+                            
+                            <p class="text-white/70 leading-relaxed">
+                                Timp de treisprezece ani, nume mari din industria autohtonă de muzică rock-folk-pop s-au implicat pentru a duce la destinație scopul campaniei. "Music For Autism" a fost sprijinită prin concertele caritabile susținute de Cargo, Vama, Loredana Groza & Nadir, Vița de Vie, Timpuri Noi, Florin Chilian, Ada Milea, Mihai Mărgineanu, Proconsul, Bucovina, Phoenix, Alexandru Andrieș și mulți alții.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Artists Section -->
+                    <div id="artists">
+                        <h2 class="text-2xl font-bold text-white mb-6">Artists</h2>
+                        
+                        <div class="space-y-6">
+                            
+                            <!-- Artist 1 - Bosquito -->
+                            <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                                <div class="flex flex-col sm:flex-row gap-6">
+                                    <!-- Artist Image -->
+                                    <div class="flex-shrink-0">
+                                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop" 
+                                             alt="Bosquito" 
+                                             class="w-32 h-32 rounded-2xl object-cover">
+                                    </div>
+                                    
+                                    <!-- Artist Info -->
+                                    <div class="flex-1">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <div>
+                                                <h3 class="text-xl font-bold text-white">Bosquito</h3>
+                                                <p class="text-sm text-violet-400">Headliner</p>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
+                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
+                                                </a>
+                                                <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
+                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <p class="text-white/60 text-sm mb-4">
+                                            Rock latin cu influențe balcanice, țigănești și simfonice. Una dintre cele mai apreciate trupe din România.
+                                        </p>
+                                        
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 rounded-md bg-white/5 text-xs text-white/50">Rock</span>
+                                            <span class="px-2 py-1 rounded-md bg-white/5 text-xs text-white/50">Latin</span>
+                                            <span class="px-2 py-1 rounded-md bg-white/5 text-xs text-white/50">Balkan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Artist Video -->
+                                <div class="mt-6">
+                                    <p class="text-sm text-white/50 mb-3">Featured Video</p>
+                                    <div class="aspect-video rounded-xl overflow-hidden bg-zinc-800">
+                                        <iframe 
+                                            width="100%" 
+                                            height="100%" 
+                                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                            title="Bosquito - Live Performance"
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen
+                                            class="w-full h-full">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Artist 2 - Supporting Act -->
+                            <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                                <div class="flex flex-col sm:flex-row gap-6">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=200&h=200&fit=crop" 
+                                             alt="Subcarpați" 
+                                             class="w-32 h-32 rounded-2xl object-cover">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <div>
+                                                <h3 class="text-xl font-bold text-white">Subcarpați</h3>
+                                                <p class="text-sm text-cyan-400">Special Guest</p>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
+                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <p class="text-white/60 text-sm mb-4">
+                                            Hip-hop românesc autentic cu elemente folclorice și mesaje sociale puternice.
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 rounded-md bg-white/5 text-xs text-white/50">Hip-Hop</span>
+                                            <span class="px-2 py-1 rounded-md bg-white/5 text-xs text-white/50">Folk</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Video -->
+                                <div class="mt-6">
+                                    <p class="text-sm text-white/50 mb-3">Featured Video</p>
+                                    <div class="aspect-video rounded-xl overflow-hidden bg-zinc-800">
+                                        <iframe 
+                                            width="100%" 
+                                            height="100%" 
+                                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                            title="Subcarpați - Live"
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen
+                                            class="w-full h-full">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Venue Section -->
+                    <div id="venue">
+                        <h2 class="text-2xl font-bold text-white mb-6">Venue</h2>
+                        
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <!-- Venue Header -->
+                            <div class="p-6">
+                                <div class="flex flex-col sm:flex-row gap-6">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop" 
+                                             alt="Sala Palatului" 
+                                             class="w-32 h-32 rounded-2xl object-cover">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <div>
+                                                <a href="/venues/sala-palatului" class="text-xl font-bold text-white hover:text-violet-400 transition-colors">
+                                                    Sala Palatului
+                                                </a>
+                                                <p class="text-sm text-white/50">Sală de spectacole</p>
+                                            </div>
+                                            <a href="/venues/sala-palatului" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                                                View Venue →
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="flex items-center gap-2 text-white/60 text-sm mb-3">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            </svg>
+                                            <span>Strada Ion Câmpineanu 28, Sector 1, București</span>
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-4 text-sm">
+                                            <div class="flex items-center gap-1.5 text-white/50">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                </svg>
+                                                <span>4,000 capacity</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 text-white/50">
+                                                <span>🅿️</span>
+                                                <span>Parking</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 text-white/50">
+                                                <span>♿</span>
+                                                <span>Accessible</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Venue Gallery -->
+                            <div class="px-6 pb-4">
+                                <p class="text-sm text-white/50 mb-3">Venue Gallery</p>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <div class="aspect-square rounded-xl overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                    </div>
+                                    <div class="aspect-square rounded-xl overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                    </div>
+                                    <div class="aspect-square rounded-xl overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer">
+                                    </div>
+                                    <div class="aspect-square rounded-xl overflow-hidden relative cursor-pointer group">
+                                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=300&h=300&fit=crop" class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center group-hover:bg-black/70 transition-colors">
+                                            <span class="text-white font-semibold">+8</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Google Map -->
+                            <div class="h-64">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.8444388854997!2d26.08676431559453!3d44.42761647910199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff472f47f047%3A0x493684c937d3e2c2!2sSala%20Palatului!5e0!3m2!1sen!2sro!4v1620000000000!5m2!1sen!2sro"
+                                    width="100%" 
+                                    height="100%" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy"
+                                    class="w-full h-full">
+                                </iframe>
+                            </div>
+                            
+                            <!-- Directions -->
+                            <div class="p-4 bg-zinc-800/50 flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm text-white/60">
+                                    <span class="text-white font-medium">🚇 Metro:</span> Izvor Station (M3) - 5 min walk
+                                </div>
+                                <a href="https://maps.google.com/?q=Sala+Palatului+Bucuresti" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                    </svg>
+                                    Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- External Links -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-6">More Information</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <a href="https://eventwebsite.ro" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white/60 group-hover:bg-violet-600/20 group-hover:text-violet-400 transition-all">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Official Website</p>
+                                    <p class="text-xs text-white/40">eventwebsite.ro</p>
+                                </div>
+                            </a>
+                            <a href="https://facebook.com/events/xxx" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:border-blue-500/30 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white/60 group-hover:bg-blue-600/20 group-hover:text-blue-400 transition-all">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">Facebook Event</p>
+                                    <p class="text-xs text-white/40">View on Facebook</p>
+                                </div>
+                            </a>
+                            <a href="https://witsfits.com" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:border-orange-500/30 transition-all group">
+                                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white/60 group-hover:bg-orange-600/20 group-hover:text-orange-400 transition-all">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white group-hover:text-orange-400 transition-colors">Organizer Website</p>
+                                    <p class="text-xs text-white/40">witsfits.com</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right Column - Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-28 space-y-6">
+                        
+                        <!-- Tickets Card -->
+                        <div class="rounded-2xl bg-zinc-900/80 border border-white/10 overflow-hidden">
+                            <div class="p-6 border-b border-white/5">
+                                <h3 class="text-lg font-bold text-white mb-1">Tickets</h3>
+                                <p class="text-sm text-white/50">Select your ticket type</p>
+                            </div>
+                            
+                            <!-- Ticket Options -->
+                            <div class="p-4 space-y-3">
+                                
+                                <!-- Early Bird -->
+                                <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500/30 transition-all cursor-pointer group">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h4 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Early Birds</h4>
+                                            <p class="text-xs text-emerald-400">98 / 110 available</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-lg font-bold text-white">20 RON</p>
+                                            <p class="text-xs text-white/40 line-through">30 RON</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-white/10 rounded-full h-1.5 mt-3">
+                                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 89%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Standard -->
+                                <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500/30 transition-all cursor-pointer group">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h4 class="font-semibold text-white group-hover:text-violet-400 transition-colors">Standard</h4>
+                                            <p class="text-xs text-emerald-400">150 / 150 available</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-lg font-bold text-white">45 RON</p>
+                                            <p class="text-xs text-white/40 line-through">50 RON</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-white/10 rounded-full h-1.5 mt-3">
+                                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- VIP -->
+                                <div class="p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20 hover:border-amber-500/40 transition-all cursor-pointer group">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h4 class="font-semibold text-white group-hover:text-amber-400 transition-colors flex items-center gap-2">
+                                                VIP Package
+                                                <span class="text-xs px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400">⭐</span>
+                                            </h4>
+                                            <p class="text-xs text-amber-400">23 / 50 available</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-lg font-bold text-white">150 RON</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-white/50 mt-2">Meet & Greet + Premium seating + Drink included</p>
+                                    <div class="w-full bg-white/10 rounded-full h-1.5 mt-3">
+                                        <div class="bg-amber-500 h-1.5 rounded-full" style="width: 46%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sold Out Example -->
+                                <div class="p-4 rounded-xl bg-white/5 border border-white/10 opacity-50 cursor-not-allowed">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-semibold text-white">Invitație</h4>
+                                            <p class="text-xs text-red-400">Sold Out</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-lg font-bold text-white">0 RON</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Price Summary -->
+                            <div class="p-4 border-t border-white/5 bg-zinc-800/50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-white/60">Starting from</span>
+                                    <div class="text-right">
+                                        <span class="text-2xl font-bold text-white">20 RON</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Buy Button - Links to tenant -->
+                                <a href="https://witsfits.com/event/bairam-oache" 
+                                   target="_blank"
+                                   class="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-violet-600 text-white font-bold text-lg hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/30 transition-all duration-300">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                    </svg>
+                                    Buy Tickets
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                    </svg>
+                                </a>
+                                
+                                <p class="text-xs text-white/40 text-center mt-3">
+                                    You will be redirected to the organizer's website
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Organizer Card -->
+                        <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">Organized by</h3>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
+                                    BW
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">Barul Wits</h4>
+                                    <p class="text-sm text-white/50">Event Organizer</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 mt-4">
+                                <a href="https://witsfits.com" target="_blank" class="flex-1 text-center px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                                    Website
+                                </a>
+                                <a href="#" class="flex-1 text-center px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                                    Contact
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Share -->
+                        <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
+                            <p class="text-sm text-white/50 mb-3">Share this event</p>
+                            <div class="flex items-center gap-2">
+                                <button class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#1877F2]/20 text-[#1877F2] text-sm font-medium hover:bg-[#1877F2]/30 transition-colors">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                    Share
+                                </button>
+                                <button class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#1DA1F2]/20 text-[#1DA1F2] text-sm font-medium hover:bg-[#1DA1F2]/30 transition-colors">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                                    Tweet
+                                </button>
+                                <button class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MOBILE STICKY CTA ==================== -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 lg:hidden z-50">
+        <div class="flex items-center justify-between gap-4">
+            <div>
+                <p class="text-sm text-white/50">From</p>
+                <p class="text-xl font-bold text-white">20 RON</p>
+            </div>
+            <a href="https://witsfits.com/event/bairam-oache" 
+               target="_blank"
+               class="flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                </svg>
+                Buy Tickets
+            </a>
+        </div>
+    </div>
+
+    <!-- ==================== SIMILAR EVENTS ==================== -->
+    <section class="py-12 lg:py-16 border-t border-white/5 bg-zinc-900/30 mb-20 lg:mb-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8">You might also like</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&h=530&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Jan</span>
+                            <span class="text-xl font-bold leading-none">15</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">Rock Night Festival</h3>
+                        <p class="text-sm text-white/50 mb-3">Arenele Romane</p>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">150 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=530&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Jan</span>
+                            <span class="text-xl font-bold leading-none">22</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">Jazz Night Session</h3>
+                        <p class="text-sm text-white/50 mb-3">Green Hours</p>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">75 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=400&h=530&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Feb</span>
+                            <span class="text-xl font-bold leading-none">01</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">Electronic Beats</h3>
+                        <p class="text-sm text-white/50 mb-3">Fratelli Studios</p>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">50 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=530&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Feb</span>
+                            <span class="text-xl font-bold leading-none">14</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">Valentine's Concert</h3>
+                        <p class="text-sm text-white/50 mb-3">Sala Palatului</p>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">120 RON</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="relative bg-zinc-950 border-t border-white/5">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="/" class="inline-flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <span class="font-bold text-xl text-white">Tixello</span>
+                    </a>
+                    <p class="text-white/50 text-sm">The complete ticketing platform for event organizers.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/our-story" class="text-sm text-white/60 hover:text-white transition-colors">Our story</a></li>
+                        <li><a href="/careers" class="text-sm text-white/60 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pricing" class="text-sm text-white/60 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="/developers" class="text-sm text-white/60 hover:text-white transition-colors">Developers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/terms" class="text-sm text-white/60 hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="/gdpr" class="text-sm text-white/60 hover:text-white transition-colors">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center gap-2 text-sm text-white/50">
+                        <span>Made with</span>
+                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>for events, in the EU 🇪🇺</span>
+                    </div>
+                    <span class="text-sm text-white/40">© 2025 Tixello</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

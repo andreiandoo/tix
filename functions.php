@@ -539,16 +539,24 @@ function tixello_format_event_time( $time_string ) {
 function tixello_events_by_type_shortcode( $atts ) {
     $atts = shortcode_atts(
         [
-            'type'  => '',   // poate fi UN singur type sau o listă separată prin virgulă (ex: "Concert, Music Festival")
-            'limit' => 0,    // opțional: limită maximă de evenimente
-            'title' => ''
+            'type'     => '',      // poate fi UN singur type sau o listă separată prin virgulă (ex: "Concert, Music Festival")
+            'limit'    => 0,       // opțional: limită maximă de evenimente
+            'title'    => '',
+            'theme'    => 'light', // light|dark – tema culorilor
+            'icon'     => '',      // emoji pentru titlu (ex: "🎵")
+            'subtitle' => '',      // subtitlu sub titlu
+            'cols'     => '4',     // numărul de coloane în grid
         ],
         $atts,
         'tixello_events'
     );
 
     $filter_type_raw = trim( $atts['type'] );
-    $section_title = trim( $atts['title'] );
+    $section_title   = trim( $atts['title'] );
+    $is_dark         = strtolower( $atts['theme'] ) === 'dark';
+    $icon            = trim( $atts['icon'] );
+    $subtitle        = trim( $atts['subtitle'] );
+    $cols            = intval( $atts['cols'] );
 
     // MULTIPLE TYPES: "Concert, Music Festival, Recital"
     $filter_types = [];
@@ -571,7 +579,8 @@ function tixello_events_by_type_shortcode( $atts ) {
     $events_raw = tixello_fetch_events_core();
 
     if ( empty( $events_raw ) || ! is_array( $events_raw ) ) {
-        return '<p class="text-sm text-slate-500">No events available.</p>';
+        $no_events_class = $is_dark ? 'text-sm text-white/50' : 'text-sm text-slate-500';
+        return '<p class="' . esc_attr( $no_events_class ) . '">No events available.</p>';
     }
 
     $STORAGE_BASE = 'https://core.tixello.com/storage/';
@@ -625,6 +634,28 @@ function tixello_events_by_type_shortcode( $atts ) {
     }
 
     if ( empty( $filtered_events ) ) {
+        // Empty state pentru dark theme
+        if ( $is_dark ) {
+            $empty_icon = $icon ? $icon : '📅';
+            ob_start();
+            ?>
+            <div class="flex flex-col items-center justify-center py-16 text-center">
+                <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
+                    <span class="text-4xl opacity-50"><?php echo esc_html( $empty_icon ); ?></span>
+                </div>
+                <h3 class="text-lg font-medium text-white/70 mb-2">No events found</h3>
+                <p class="text-sm text-white/40 max-w-md">
+                    <?php if ( $has_type_filter ) : ?>
+                        There are no <?php echo esc_html( $section_title ? $section_title : implode( ', ', $filter_types ) ); ?> events scheduled at the moment. Check back soon or explore other categories.
+                    <?php else : ?>
+                        There are no events scheduled at the moment. Check back soon!
+                    <?php endif; ?>
+                </p>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
         if ( $has_type_filter ) {
             return '<p class="text-sm text-slate-500">No events found for type <strong>' . esc_html( implode( ', ', $filter_types ) ) . '</strong>.</p>';
         }
@@ -680,7 +711,138 @@ function tixello_events_by_type_shortcode( $atts ) {
         ? add_query_arg( 'type', $search_type_param, $search_base )
         : $search_base;
 
+    // Grid classes based on cols parameter
+    $grid_cols_class = 'grid-cols-' . ( $cols > 0 ? $cols : 4 );
+    if ( ! $is_dark ) {
+        $grid_cols_class = 'grid-cols-8';
+    }
+
     ob_start();
+
+    if ( $is_dark ) :
+    // ===== DARK THEME OUTPUT =====
+    ?>
+    <section class="tixello-events-by-type-dark">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <?php if ( $icon ) : ?>
+                    <span class="text-3xl"><?php echo esc_html( $icon ); ?></span>
+                <?php endif; ?>
+                <div>
+                    <h2 class="text-xl lg:text-2xl font-bold text-white"><?php echo esc_html( $section_title !== '' ? $section_title : 'Events' ); ?></h2>
+                    <?php if ( $subtitle ) : ?>
+                        <p class="text-sm text-white/50"><?php echo esc_html( $subtitle ); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php if ( $single_type && $search_type_param !== '' ) : ?>
+                <a href="<?php echo esc_url( $type_url ); ?>" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                    View all →
+                </a>
+            <?php endif; ?>
+        </div>
+
+        <!-- Genre Tags -->
+        <?php if ( ! empty( $genre_counts ) ) : ?>
+            <div class="flex flex-wrap gap-2 mb-6">
+                <?php foreach ( $genre_counts as $genre_name => $count ) : ?>
+                    <?php
+                    $genre_args = [ 'genre' => $genre_name ];
+                    if ( $single_type && $search_type_param !== '' ) {
+                        $genre_args['type'] = $search_type_param;
+                    }
+                    $genre_url = add_query_arg( $genre_args, $search_base );
+                    ?>
+                    <a href="<?php echo esc_url( $genre_url ); ?>"
+                       class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+                        <?php echo esc_html( $genre_name ); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Events Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:<?php echo esc_attr( $grid_cols_class ); ?> gap-6">
+            <?php foreach ( $filtered_events as $ev ) : ?>
+                <?php
+                $poster_url   = $full_storage_url( isset( $ev['poster_url'] ) ? $ev['poster_url'] : '' );
+                $start_date   = isset( $ev['start_date'] ) ? $ev['start_date'] : '';
+                $title        = isset( $ev['title'] ) ? $ev['title'] : '';
+                $price_from   = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                $venue_name   = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
+
+                // Parse date for badge
+                $date_obj = $start_date ? DateTime::createFromFormat( 'Y-m-d', $start_date ) : null;
+                $date_month = $date_obj ? $date_obj->format( 'M' ) : '';
+                $date_day = $date_obj ? $date_obj->format( 'd' ) : '';
+
+                // Link preferat
+                $event_url = '';
+                if ( ! empty( $ev['slug'] ) ) {
+                    $event_url = home_url( '/events/' . $ev['slug'] . '/' );
+                } elseif ( isset( $ev['tenant']['event_url'] ) && ! empty( $ev['tenant']['event_url'] ) ) {
+                    $event_url = $ev['tenant']['event_url'];
+                } elseif ( ! empty( $ev['event_website_url'] ) ) {
+                    $event_url = $ev['event_website_url'];
+                } elseif ( ! empty( $ev['website_url'] ) ) {
+                    $event_url = $ev['website_url'];
+                } elseif ( ! empty( $ev['facebook_url'] ) ) {
+                    $event_url = $ev['facebook_url'];
+                }
+                $event_url = $event_url ? esc_url( $event_url ) : '';
+                ?>
+                <a href="<?php echo $event_url; ?>" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <?php if ( $poster_url ) : ?>
+                            <img src="<?php echo $poster_url; ?>"
+                                 alt="<?php echo esc_attr( $title ); ?>"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        <?php else : ?>
+                            <div class="w-full h-full bg-zinc-800"></div>
+                        <?php endif; ?>
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+
+                        <!-- Date badge -->
+                        <?php if ( $date_month && $date_day ) : ?>
+                            <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                                <span class="text-xs font-medium uppercase"><?php echo esc_html( $date_month ); ?></span>
+                                <span class="text-xl font-bold leading-none"><?php echo esc_html( $date_day ); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1 line-clamp-2">
+                            <?php echo esc_html( $title ); ?>
+                        </h3>
+                        <?php if ( $venue_name ) : ?>
+                            <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="truncate"><?php echo esc_html( $venue_name ); ?></span>
+                            </div>
+                        <?php endif; ?>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">
+                                <?php if ( is_null( $price_from ) || $price_from == 0 ) : ?>
+                                    FREE
+                                <?php else : ?>
+                                    <?php echo esc_html( $price_from ); ?> RON
+                                <?php endif; ?>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </section>
+    <?php
+    else :
+    // ===== LIGHT THEME OUTPUT (original) =====
     ?>
     <section class="tixello-events-by-type my-8">
         <!-- Titlu tip eveniment + count + View all -->
@@ -856,7 +1018,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                                             </div>
                                         <?php endif; ?>
                                     </div>
-                                <?php endif; ?>                                
+                                <?php endif; ?>
                             </div>
 
                         <?php if ( $event_url ) : ?>
@@ -868,10 +1030,124 @@ function tixello_events_by_type_shortcode( $atts ) {
         </div>
     </section>
     <?php
+    endif;
 
     return ob_get_clean();
 }
 add_shortcode( 'tixello_events', 'tixello_events_by_type_shortcode' );
+
+
+// =========================================================================
+// TIXELLO EVENTS - AJAX SEARCH
+// =========================================================================
+
+/**
+ * AJAX handler for searching events
+ */
+function tixello_search_events_ajax() {
+    // Verify nonce
+    if ( ! wp_verify_nonce( $_POST['nonce'] ?? '', 'tixello_search_nonce' ) ) {
+        wp_send_json_error( 'Invalid nonce' );
+        return;
+    }
+
+    $query = sanitize_text_field( $_POST['query'] ?? '' );
+
+    if ( strlen( $query ) < 2 ) {
+        wp_send_json_success( [] );
+        return;
+    }
+
+    // Get all events
+    $events_raw = tixello_fetch_events_core();
+
+    if ( empty( $events_raw ) || ! is_array( $events_raw ) ) {
+        wp_send_json_success( [] );
+        return;
+    }
+
+    $STORAGE_BASE = 'https://core.tixello.com/storage/';
+
+    $full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
+        if ( empty( $path ) ) return '';
+        if ( preg_match( '#^https?://#i', $path ) ) return esc_url( $path );
+        return esc_url( $STORAGE_BASE . ltrim( $path, '/' ) );
+    };
+
+    $results = [];
+    $query_lower = strtolower( $query );
+
+    foreach ( $events_raw as $ev ) {
+        if ( ! is_array( $ev ) ) continue;
+
+        $title = isset( $ev['title'] ) ? $ev['title'] : '';
+        $venue_name = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
+
+        // Search in title and venue
+        $match = false;
+        if ( stripos( $title, $query ) !== false ) {
+            $match = true;
+        } elseif ( stripos( $venue_name, $query ) !== false ) {
+            $match = true;
+        }
+
+        // Also search in event types and genres
+        if ( ! $match && ! empty( $ev['event_types'] ) ) {
+            foreach ( $ev['event_types'] as $type ) {
+                if ( isset( $type['name'] ) && stripos( $type['name'], $query ) !== false ) {
+                    $match = true;
+                    break;
+                }
+            }
+        }
+
+        if ( ! $match && ! empty( $ev['event_genres'] ) ) {
+            foreach ( $ev['event_genres'] as $genre ) {
+                if ( isset( $genre['name'] ) && stripos( $genre['name'], $query ) !== false ) {
+                    $match = true;
+                    break;
+                }
+            }
+        }
+
+        if ( $match ) {
+            $poster_url = $full_storage_url( isset( $ev['poster_url'] ) ? $ev['poster_url'] : '' );
+            $start_date = isset( $ev['start_date'] ) ? $ev['start_date'] : '';
+            $price_from = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+
+            // Parse date
+            $date_obj = $start_date ? DateTime::createFromFormat( 'Y-m-d', $start_date ) : null;
+            $date_month = $date_obj ? $date_obj->format( 'M' ) : '';
+            $date_day = $date_obj ? $date_obj->format( 'd' ) : '';
+
+            // Build event URL
+            $event_url = ! empty( $ev['slug'] ) ? home_url( '/events/' . $ev['slug'] . '/' ) : '#';
+
+            // Format price
+            $price_display = ( is_null( $price_from ) || $price_from == 0 ) ? 'FREE' : $price_from . ' RON';
+
+            $results[] = [
+                'id'         => isset( $ev['id'] ) ? $ev['id'] : uniqid(),
+                'title'      => $title,
+                'poster'     => $poster_url,
+                'url'        => $event_url,
+                'venue'      => $venue_name,
+                'date_month' => $date_month,
+                'date_day'   => $date_day,
+                'price'      => $price_display,
+            ];
+
+            // Limit to 12 results
+            if ( count( $results ) >= 12 ) {
+                break;
+            }
+        }
+    }
+
+    wp_send_json_success( $results );
+}
+add_action( 'wp_ajax_tixello_search_events', 'tixello_search_events_ajax' );
+add_action( 'wp_ajax_nopriv_tixello_search_events', 'tixello_search_events_ajax' );
 
 
 /**
@@ -1455,12 +1731,14 @@ function tixello_stats_cards_shortcode( $atts ) {
     $atts = shortcode_atts(
         [
             'show_caption' => 'yes', // yes|no – dacă să arate și descrieri sub numere
+            'theme'        => 'light', // light|dark – tema culorilor
         ],
         $atts,
         'tixello_stats_cards'
     );
 
     $show_caption = strtolower( $atts['show_caption'] ) !== 'no';
+    $is_dark      = strtolower( $atts['theme'] ) === 'dark';
 
     // Luăm toate valorile
     $tickets_sold = tixello_get_stat_value( 'tickets_sold' );
@@ -1470,98 +1748,157 @@ function tixello_stats_cards_shortcode( $atts ) {
     $events       = tixello_get_stat_value( 'events' );
     $artists      = tixello_get_stat_value( 'artists' );
 
+    // Classes based on theme
+    $card_class  = $is_dark
+        ? 'p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center'
+        : 'flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm';
+    $label_class = $is_dark
+        ? 'text-xs text-white/50'
+        : 'text-xs font-medium uppercase tracking-wide text-slate-500';
+    $value_class = $is_dark
+        ? 'text-2xl font-bold text-white'
+        : 'mt-2 text-2xl font-semibold tabular-nums';
+    $caption_class = $is_dark
+        ? 'mt-1 text-xs text-white/40'
+        : 'mt-1 text-xs text-slate-500';
+    $grid_class  = $is_dark
+        ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4'
+        : 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6';
+
     ob_start();
     ?>
-    <section class="tixello-stats my-12">
-        <div class="mx-auto max-w-6xl">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+    <section class="tixello-stats <?php echo $is_dark ? '' : 'my-12'; ?>">
+        <div class="<?php echo $is_dark ? '' : 'mx-auto max-w-6xl'; ?>">
+            <div class="<?php echo esc_attr( $grid_class ); ?>">
                 <!-- Tickets sold -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Tickets sold
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $tickets_sold ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Issued directly by our tenants.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $tickets_sold ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Tickets Sold</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Tickets sold
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $tickets_sold ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                Issued directly by our tenants.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
                 <!-- Customers -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Customers
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $customers ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Unique buyers who trusted Tixello-powered events.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $customers ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Happy Customers</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Customers
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $customers ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                Unique buyers who trusted Tixello-powered events.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
                 <!-- Tenants -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Tenants
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $tenants ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Independent organizers using Tixello as their core.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $tenants ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Tenants</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Tenants
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $tenants ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                Independent organizers using Tixello as their core.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
                 <!-- Venues -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Venues
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $venues ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Clubs, theatres and arenas mapped in our ecosystem.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $venues ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Venues</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Venues
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $venues ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                Clubs, theatres and arenas mapped in our ecosystem.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
                 <!-- Events -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Events
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $events ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            From intimate shows to large-scale festivals.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="text-2xl font-bold text-violet-400">
+                            <?php echo esc_html( $events ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Events</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Events
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $events ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                From intimate shows to large-scale festivals.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
                 <!-- Artists -->
-                <div class="flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-4 text-slate-900 shadow-sm backdrop-blur-sm">
-                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
-                        Artists
-                    </dt>
-                    <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                        <?php echo esc_html( $artists ); ?>
-                    </dd>
-                    <?php if ( $show_caption ) : ?>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Profiles ready to plug into any Tixello tenant.
-                        </p>
+                <div class="<?php echo esc_attr( $card_class ); ?>">
+                    <?php if ( $is_dark ) : ?>
+                        <div class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $artists ); ?>
+                        </div>
+                        <div class="<?php echo esc_attr( $label_class ); ?>">Artists</div>
+                    <?php else : ?>
+                        <dt class="<?php echo esc_attr( $label_class ); ?>">
+                            Artists
+                        </dt>
+                        <dd class="<?php echo esc_attr( $value_class ); ?>">
+                            <?php echo esc_html( $artists ); ?>
+                        </dd>
+                        <?php if ( $show_caption ) : ?>
+                            <p class="<?php echo esc_attr( $caption_class ); ?>">
+                                Profiles ready to plug into any Tixello tenant.
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

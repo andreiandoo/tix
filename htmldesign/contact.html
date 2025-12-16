@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Tixello</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white/60 hover:text-white transition-colors">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 sm:py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-violet-950/30 via-transparent to-transparent"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
+                <span>💬</span>
+                We're here to help
+            </span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                Get in Touch
+            </h1>
+            <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto">
+                Have a question about Tixello? Want to partner with us? We'd love to hear from you.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                
+                <!-- Sales -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600/20 to-violet-600/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Sales</h3>
+                    <p class="text-white/50 mb-6">Ready to get started? Talk to our sales team about pricing and plans.</p>
+                    <a href="mailto:sales@tixello.com" class="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 font-medium transition-colors">
+                        sales@tixello.com
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Support -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-cyan-500/30 transition-all text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600/20 to-cyan-600/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Support</h3>
+                    <p class="text-white/50 mb-6">Need help with your account? Our support team is available 24/7.</p>
+                    <a href="mailto:support@tixello.com" class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                        support@tixello.com
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Press -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-pink-500/30 transition-all text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-600/20 to-pink-600/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Press & Media</h3>
+                    <p class="text-white/50 mb-6">Media inquiries? Download our press kit or reach out directly.</p>
+                    <a href="mailto:press@tixello.com" class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 font-medium transition-colors">
+                        press@tixello.com
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form + Info -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                
+                <!-- Contact Form -->
+                <div class="lg:col-span-3">
+                    <div class="p-8 sm:p-10 rounded-3xl bg-zinc-900/50 border border-white/5">
+                        <h2 class="text-2xl font-bold text-white mb-2">Send us a message</h2>
+                        <p class="text-white/50 mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
+                        
+                        <form x-data="{ loading: false, success: false }" @submit.prevent="loading = true; setTimeout(() => { loading = false; success = true; }, 1500)">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-white/70 mb-2">First Name *</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-white/70 mb-2">Last Name *</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Email *</label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Company (optional)</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Subject *</label>
+                                <select required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                                    <option value="" class="bg-zinc-900">Select a topic</option>
+                                    <option value="sales" class="bg-zinc-900">Sales inquiry</option>
+                                    <option value="support" class="bg-zinc-900">Technical support</option>
+                                    <option value="partnership" class="bg-zinc-900">Partnership opportunity</option>
+                                    <option value="billing" class="bg-zinc-900">Billing question</option>
+                                    <option value="feedback" class="bg-zinc-900">Product feedback</option>
+                                    <option value="other" class="bg-zinc-900">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Message *</label>
+                                <textarea required rows="5" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all resize-none" placeholder="Tell us how we can help..."></textarea>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 mb-8">
+                                <input type="checkbox" required id="privacy" class="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0">
+                                <label for="privacy" class="text-sm text-white/50">
+                                    I agree to the <a href="/privacy" class="text-violet-400 hover:text-violet-300">Privacy Policy</a> and consent to being contacted about my inquiry.
+                                </label>
+                            </div>
+                            
+                            <!-- Success Message -->
+                            <div x-show="success" x-transition class="mb-6 p-4 rounded-xl bg-emerald-600/20 border border-emerald-500/30">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-emerald-400">Message sent successfully!</p>
+                                        <p class="text-sm text-emerald-400/70">We'll get back to you within 24 hours.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                :disabled="loading"
+                                class="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span x-show="!loading">Send Message</span>
+                                <span x-show="loading" class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Sending...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Contact Info Sidebar -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Office Locations -->
+                    <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                        <h3 class="text-lg font-bold text-white mb-6">Our Offices</h3>
+                        
+                        <!-- Bucharest -->
+                        <div class="mb-6 pb-6 border-b border-white/5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🇷🇴</span>
+                                <div>
+                                    <h4 class="font-semibold text-white">Bucharest, Romania</h4>
+                                    <span class="text-xs text-violet-400">Headquarters</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-white/50 mb-3">
+                                Str. Calea Victoriei 155<br>
+                                Sector 1, București 010072
+                            </p>
+                            <div class="flex items-center gap-4 text-sm">
+                                <a href="tel:+40212345678" class="text-white/60 hover:text-white transition-colors">+40 21 234 5678</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Berlin -->
+                        <div class="mb-6 pb-6 border-b border-white/5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🇩🇪</span>
+                                <div>
+                                    <h4 class="font-semibold text-white">Berlin, Germany</h4>
+                                    <span class="text-xs text-white/40">EU Operations</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-white/50 mb-3">
+                                Friedrichstraße 123<br>
+                                10117 Berlin
+                            </p>
+                            <div class="flex items-center gap-4 text-sm">
+                                <a href="tel:+4930123456" class="text-white/60 hover:text-white transition-colors">+49 30 123 456</a>
+                            </div>
+                        </div>
+                        
+                        <!-- London -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🇬🇧</span>
+                                <div>
+                                    <h4 class="font-semibold text-white">London, UK</h4>
+                                    <span class="text-xs text-white/40">UK & Ireland</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-white/50 mb-3">
+                                71-75 Shelton Street<br>
+                                London WC2H 9JQ
+                            </p>
+                            <div class="flex items-center gap-4 text-sm">
+                                <a href="tel:+442012345678" class="text-white/60 hover:text-white transition-colors">+44 20 1234 5678</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
+                        <h3 class="text-lg font-bold text-white mb-4">Follow Us</h3>
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </a>
+                            <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Link -->
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-violet-600/10 to-cyan-600/10 border border-violet-500/20">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-violet-600/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white mb-1">Looking for answers?</h3>
+                                <p class="text-sm text-white/50 mb-3">Check our FAQ for quick answers to common questions.</p>
+                                <a href="/faq" class="inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 font-medium transition-colors">
+                                    Visit Help Center
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl overflow-hidden border border-white/5">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.8444388087937!2d26.0969863!3d44.4378258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff472f47f047%3A0x493b79e27b100018!2sCalea%20Victoriei%20155%2C%20Bucure%C8%99ti!5e0!3m2!1sen!2sro!4v1703158800000!5m2!1sen!2sro"
+                    width="100%" 
+                    height="400" 
+                    style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-zinc-950 border-t border-white/5 mt-12">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm text-white/50">
+                    <span>Made with</span>
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>for events, in the EU 🇪🇺</span>
+                </div>
+                <span class="text-sm text-white/40">© 2025 Tixello</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

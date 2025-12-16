@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Tixello</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white font-medium">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-1 px-1 py-1 rounded-lg bg-white/5">
+                        <a href="/events" class="px-2.5 py-1 text-xs font-semibold rounded-md bg-violet-600 text-white">EN</a>
+                        <a href="/ro/evenimente" class="px-2.5 py-1 text-xs font-semibold rounded-md text-white/60 hover:text-white hover:bg-white/10 transition-colors">RO</a>
+                    </div>
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden">
+        <!-- Background effects -->
+        <div class="absolute inset-0 bg-gradient-to-b from-violet-600/5 via-transparent to-transparent"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+            <!-- Title -->
+            <div class="max-w-3xl mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
+                    <span class="text-lg">🎫</span>
+                    <span class="text-sm font-medium text-pink-400">Discover Events</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    Events
+                </h1>
+                
+                <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
+                    Discover concerts, festivals, theater shows, and more. Find your next unforgettable experience.
+                </p>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-white">17</div>
+                    <div class="text-xs text-white/50">Tickets Sold</div>
+                </div>
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-white">7</div>
+                    <div class="text-xs text-white/50">Happy Customers</div>
+                </div>
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-white">1</div>
+                    <div class="text-xs text-white/50">Tenants</div>
+                </div>
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-white">430</div>
+                    <div class="text-xs text-white/50">Venues</div>
+                </div>
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-violet-400">2</div>
+                    <div class="text-xs text-white/50">Events</div>
+                </div>
+                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                    <div class="text-2xl font-bold text-white">12,538</div>
+                    <div class="text-xs text-white/50">Artists</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SEARCH & FILTERS BAR ==================== -->
+    <section class="sticky top-20 z-40 bg-zinc-950/95 backdrop-blur-xl border-y border-white/5" x-data="{ showFilters: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col lg:flex-row gap-4">
+                
+                <!-- Search -->
+                <div class="relative flex-1">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" 
+                           placeholder="Search events, artists, venues..." 
+                           class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
+                </div>
+                
+                <!-- Date Range -->
+                <div class="flex items-center gap-2">
+                    <button class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Any Date</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Location -->
+                <div class="flex items-center gap-2">
+                    <button class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Any Location</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- More Filters -->
+                <button @click="showFilters = !showFilters" 
+                        class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                        :class="showFilters && 'bg-violet-600/20 border-violet-500/30 text-violet-400'">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Filters</span>
+                </button>
+                
+                <!-- View Toggle -->
+                <div class="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
+                    <button class="p-2 rounded-md bg-violet-600 text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                        </svg>
+                    </button>
+                    <button class="p-2 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                    <button class="p-2 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Extended Filters Panel -->
+            <div x-show="showFilters" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
+                 class="mt-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5"
+                 style="display: none;">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Price Range -->
+                    <div>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2">Price Range</label>
+                        <select class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
+                            <option>Any Price</option>
+                            <option>Free</option>
+                            <option>Under 50 RON</option>
+                            <option>50 - 100 RON</option>
+                            <option>100 - 200 RON</option>
+                            <option>200+ RON</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Category -->
+                    <div>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2">Category</label>
+                        <select class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
+                            <option>All Categories</option>
+                            <option>🎵 Music & Concerts</option>
+                            <option>🎭 Theater & Dance</option>
+                            <option>😂 Comedy</option>
+                            <option>🎬 Film & Cinema</option>
+                            <option>📚 Literature</option>
+                            <option>🎨 Visual Arts</option>
+                            <option>💼 Conferences</option>
+                            <option>📖 Education</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Genre -->
+                    <div>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2">Genre</label>
+                        <select class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
+                            <option>All Genres</option>
+                            <option>Rock</option>
+                            <option>Pop</option>
+                            <option>Electronic</option>
+                            <option>Classical</option>
+                            <option>Jazz</option>
+                            <option>Hip Hop</option>
+                            <option>Metal</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Sort By -->
+                    <div>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2">Sort By</label>
+                        <select class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
+                            <option>Date (Soonest)</option>
+                            <option>Date (Latest)</option>
+                            <option>Price (Low to High)</option>
+                            <option>Price (High to Low)</option>
+                            <option>Popularity</option>
+                            <option>Recently Added</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+                    <button class="text-sm text-white/50 hover:text-white transition-colors">
+                        Clear all filters
+                    </button>
+                    <button class="px-6 py-2 rounded-lg bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CATEGORY TABS ==================== -->
+    <section class="border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-medium">
+                    All Events
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    🎵 Music & Concerts
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    🎭 Theater & Dance
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    😂 Comedy
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    🎬 Film & Cinema
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    📚 Literature
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    🎨 Visual Arts
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    💼 Conferences
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/5 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white transition-colors">
+                    📖 Education
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED EVENTS ==================== -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-white">Featured Events</h2>
+                    <p class="text-white/50 mt-1">Don't miss these popular events</p>
+                </div>
+                <a href="#all-events" class="hidden sm:inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                    View all
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Featured Grid - Large cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Featured Event 1 - Large -->
+                <a href="/events/bairam-oache" class="group relative rounded-2xl overflow-hidden aspect-[16/9] lg:aspect-[4/3]">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=600&fit=crop" 
+                         alt="Bairam la Oache" 
+                         class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    
+                    <!-- Badges -->
+                    <div class="absolute top-4 left-4 flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-violet-600 text-white text-xs font-semibold">
+                            ⭐ Featured
+                        </span>
+                        <span class="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
+                            🎵 Music
+                        </span>
+                    </div>
+                    
+                    <!-- Date Badge -->
+                    <div class="absolute top-4 right-4 flex flex-col items-center px-3 py-2 rounded-xl bg-white text-zinc-900">
+                        <span class="text-xs font-semibold uppercase">Dec</span>
+                        <span class="text-2xl font-bold leading-none">24</span>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-2xl lg:text-3xl font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                            Bairam la Oache
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-4 text-white/80 mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm">18:00</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="text-sm">Sala Palatului, București</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-sm text-white/50">From</span>
+                                <span class="text-xl font-bold text-white ml-2">FREE</span>
+                            </div>
+                            <span class="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white text-sm font-medium group-hover:bg-violet-600 transition-colors">
+                                Get Tickets →
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Featured Event 2 - Large -->
+                <a href="/events/evenimentul-meu-de-test" class="group relative rounded-2xl overflow-hidden aspect-[16/9] lg:aspect-[4/3]">
+                    <img src="https://images.unsplash.com/photo-1561489413-985b06da5bee?w=800&h=600&fit=crop" 
+                         alt="Visual Arts Event" 
+                         class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    
+                    <!-- Badges -->
+                    <div class="absolute top-4 left-4 flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-pink-600 text-white text-xs font-semibold">
+                            🔥 Hot
+                        </span>
+                        <span class="px-3 py-1 rounded-lg bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
+                            🎨 Visual Arts
+                        </span>
+                    </div>
+                    
+                    <!-- Date Badge -->
+                    <div class="absolute top-4 right-4 flex flex-col items-center px-3 py-2 rounded-xl bg-white text-zinc-900">
+                        <span class="text-xs font-semibold uppercase">Dec</span>
+                        <span class="text-2xl font-bold leading-none">26</span>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-2xl lg:text-3xl font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                            Digital Art Exhibition
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-4 text-white/80 mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm">18:00</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="text-sm">Quantic, București</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-sm text-white/50">From</span>
+                                <span class="text-xl font-bold text-white ml-2">100 RON</span>
+                            </div>
+                            <span class="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white text-sm font-medium group-hover:bg-violet-600 transition-colors">
+                                Get Tickets →
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MUSIC & CONCERTS ==================== -->
+    <section class="py-12 border-t border-white/5" id="music">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🎵</span>
+                    <div>
+                        <h2 class="text-xl lg:text-2xl font-bold text-white">Music & Concerts</h2>
+                        <p class="text-sm text-white/50">Concert, Festival, Club Night, Open Air</p>
+                    </div>
+                </div>
+                <a href="/events?category=music" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                    View all →
+                </a>
+            </div>
+            
+            <!-- Genre Tags -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <a href="/search?genre=Ambient" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Ambient</a>
+                <a href="/search?genre=Blues" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Blues</a>
+                <a href="/search?genre=Chamber" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Chamber</a>
+                <a href="/search?genre=Classical" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Classical</a>
+                <a href="/search?genre=Interactive" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Interactive</a>
+            </div>
+            
+            <!-- Events Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Event Card -->
+                <a href="/events/bairam-oache" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=530&fit=crop" 
+                             alt="Bairam la Oache" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        
+                        <!-- Date badge -->
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Dec</span>
+                            <span class="text-xl font-bold leading-none">24</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1 line-clamp-2">
+                            Bairam la Oache
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="truncate">Sala Palatului</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">FREE</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Placeholder cards for demo -->
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&h=530&fit=crop" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Jan</span>
+                            <span class="text-xl font-bold leading-none">15</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Rock Night Festival
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Arenele Romane</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">150 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=530&fit=crop" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Jan</span>
+                            <span class="text-xl font-bold leading-none">22</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-2 py-1 rounded-lg bg-amber-500 text-xs font-semibold text-black">Few left</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Jazz Night Session
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Green Hours</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">75 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=400&h=530&fit=crop" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <span class="text-xs font-medium uppercase">Feb</span>
+                            <span class="text-xl font-bold leading-none">01</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Electronic Beats
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Fratelli Studios</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">50 RON</span>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== THEATER & DANCE ==================== -->
+    <section class="py-12 border-t border-white/5" id="theater">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🎭</span>
+                    <div>
+                        <h2 class="text-xl lg:text-2xl font-bold text-white">Theater & Dance</h2>
+                        <p class="text-sm text-white/50">Theater Play, Musical, Opera, Ballet</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="flex flex-col items-center justify-center py-16 text-center">
+                <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
+                    <span class="text-4xl opacity-50">🎭</span>
+                </div>
+                <h3 class="text-lg font-medium text-white/70 mb-2">No events found</h3>
+                <p class="text-sm text-white/40 max-w-md">
+                    There are no Theater & Dance events scheduled at the moment. Check back soon or explore other categories.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VISUAL ARTS ==================== -->
+    <section class="py-12 border-t border-white/5" id="visual-arts">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🎨</span>
+                    <div>
+                        <h2 class="text-xl lg:text-2xl font-bold text-white">Visual Arts</h2>
+                        <p class="text-sm text-white/50">Exhibition, Art Installation, Performance Art, Digital Art</p>
+                    </div>
+                </div>
+                <a href="/events?category=visual-arts" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                    View all →
+                </a>
+            </div>
+            
+            <!-- Genre Tags -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <a href="/search?genre=Country" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Digital Art</a>
+                <a href="/search?genre=Installation" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Installation</a>
+                <a href="/search?genre=Mixed%20Media" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">Mixed Media</a>
+            </div>
+            
+            <!-- Events Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="/events/evenimentul-meu-de-test" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561489413-985b06da5bee?w=400&h=530&fit=crop" 
+                             alt="Digital Art Exhibition" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-pink-600 text-white">
+                            <span class="text-xs font-medium uppercase">Dec</span>
+                            <span class="text-xl font-bold leading-none">26</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Digital Art Exhibition
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Quantic, București</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">100 RON</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONFERENCES & BUSINESS ==================== -->
+    <section class="py-12 border-t border-white/5" id="conferences">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">💼</span>
+                    <div>
+                        <h2 class="text-xl lg:text-2xl font-bold text-white">Conferences & Business</h2>
+                        <p class="text-sm text-white/50">Conference, Summit, Expo, Networking</p>
+                    </div>
+                </div>
+                <a href="/events?category=conferences" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                    View all →
+                </a>
+            </div>
+            
+            <!-- Events Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="/events/bairam-oache" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=530&fit=crop" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-cyan-600 text-white">
+                            <span class="text-xs font-medium uppercase">Dec</span>
+                            <span class="text-xl font-bold leading-none">24</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Tech Summit 2025
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Sala Palatului</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">FREE</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="/events/evenimentul-meu-de-test" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=530&fit=crop" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-cyan-600 text-white">
+                            <span class="text-xs font-medium uppercase">Dec</span>
+                            <span class="text-xl font-bold leading-none">26</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1">
+                            Business Networking
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <span class="truncate">Quantic, București</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-sm text-white/40">from</span>
+                            <span class="text-lg font-bold text-white">100 RON</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600/20 via-pink-600/20 to-cyan-600/20 border border-white/10 p-8 lg:p-12">
+                <div class="absolute inset-0 opacity-30">
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"></div>
+                </div>
+                
+                <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    <div class="max-w-xl">
+                        <h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">
+                            Can't find what you're looking for?
+                        </h2>
+                        <p class="text-white/60 text-lg">
+                            Subscribe to our newsletter and be the first to know about new events in your area.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="your@email.com" class="px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 transition-all">
+                        <button class="px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300 whitespace-nowrap">
+                            Notify Me
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="relative bg-zinc-950 border-t border-white/5">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-4 lg:col-span-2">
+                    <a href="/" class="inline-flex items-center gap-2.5 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">T</span>
+                        </div>
+                        <span class="font-bold text-2xl text-white">Tixello</span>
+                    </a>
+                    <p class="text-white/50 text-sm mb-6 max-w-xs">The complete ticketing platform for event organizers in Romania and Europe.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
+                            <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            <span class="text-xs font-semibold text-white/70">GDPR</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10">
+                            <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span class="text-xs font-semibold text-white/70">ISO 27001</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/our-story" class="text-sm text-white/60 hover:text-white transition-colors">Our story</a></li>
+                        <li><a href="/careers" class="text-sm text-white/60 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact-us" class="text-sm text-white/60 hover:text-white transition-colors">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/pricing" class="text-sm text-white/60 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="/info-for-ticket-buyers" class="text-sm text-white/60 hover:text-white transition-colors">Info for buyers</a></li>
+                        <li><a href="/developers" class="text-sm text-white/60 hover:text-white transition-colors">Developers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Compare</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/compare/eventim" class="text-sm text-white/60 hover:text-white transition-colors">vs Eventim</a></li>
+                        <li><a href="/compare/iticket" class="text-sm text-white/60 hover:text-white transition-colors">vs iTicket</a></li>
+                        <li><a href="/compare/oveit" class="text-sm text-white/60 hover:text-white transition-colors">vs Oveit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center gap-2 text-sm text-white/50">
+                        <span>Made with</span>
+                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>for events, in the EU 🇪🇺</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <a href="/terms-and-conditions" class="text-xs text-white/40 hover:text-white/70 transition-colors">Terms</a>
+                        <a href="/gdpr-compliance" class="text-xs text-white/40 hover:text-white/70 transition-colors">GDPR</a>
+                        <span class="text-sm text-white/40">© 2025 Tixello</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

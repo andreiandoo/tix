@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Join Tixello</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white/60 hover:text-white transition-colors">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 sm:py-28 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-violet-950/40 via-transparent to-transparent"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-violet-600/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
+                    <span>🚀</span>
+                    We're hiring!
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Help Us Build the Future of<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-pink-400 to-cyan-400">Live Events</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+                    Join a passionate team of 85+ people across 12 countries, working to revolutionize how the world experiences live entertainment.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#positions" class="px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-all shadow-lg shadow-violet-600/20">
+                        View Open Positions
+                    </a>
+                    <a href="#culture" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
+                        Our Culture
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-12 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-2">85+</p>
+                    <p class="text-white/50">Team Members</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-2">12</p>
+                    <p class="text-white/50">Countries</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-2">60%</p>
+                    <p class="text-white/50">Remote Team</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-2">€15M</p>
+                    <p class="text-white/50">Series A Funding</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Tixello -->
+    <section id="culture" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-600/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-6">
+                    <span>💜</span>
+                    Why Tixello?
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    More Than Just a Job
+                </h2>
+                <p class="text-lg text-white/60 max-w-2xl mx-auto">
+                    We're building something special, and we want you to be part of it.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Benefit 1 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600/20 to-violet-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🌍</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Remote-First Culture</h3>
+                    <p class="text-white/50">
+                        Work from anywhere in the world. We've been remote-first since day one, with async communication and flexible hours.
+                    </p>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-cyan-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-600/20 to-cyan-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Competitive Compensation</h3>
+                    <p class="text-white/50">
+                        Top-market salaries, equity options, and performance bonuses. We believe in sharing our success with everyone.
+                    </p>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-pink-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-600/20 to-pink-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🏖️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Unlimited PTO</h3>
+                    <p class="text-white/50">
+                        Take the time you need. We trust you to manage your work-life balance. Minimum 25 days recommended.
+                    </p>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-emerald-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600/20 to-emerald-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">📚</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Learning Budget</h3>
+                    <p class="text-white/50">
+                        €2,000 annual budget for courses, conferences, and books. Never stop growing.
+                    </p>
+                </div>
+                
+                <!-- Benefit 5 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-amber-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-600/20 to-amber-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🎫</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Event Perks</h3>
+                    <p class="text-white/50">
+                        Free tickets to events on our platform. Experience what you're building, live.
+                    </p>
+                </div>
+                
+                <!-- Benefit 6 -->
+                <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-blue-500/30 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600/20 to-blue-600/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">💻</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Best-in-Class Equipment</h3>
+                    <p class="text-white/50">
+                        MacBook Pro, external monitor, ergonomic chair—whatever you need to do your best work.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Photos -->
+    <section class="py-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Life at Tixello</h2>
+                <p class="text-white/60">Team retreats, hackathons, and everything in between.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="aspect-square rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=400&fit=crop" alt="Team" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&h=400&fit=crop" alt="Team" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=400&fit=crop" alt="Team" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop" alt="Team" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section id="positions" class="py-20 bg-zinc-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-6">
+                    <span>💼</span>
+                    Open Positions
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Find Your Next Role
+                </h2>
+                <p class="text-lg text-white/60 max-w-2xl mx-auto">
+                    We're looking for talented people to join our team. Check out our open positions below.
+                </p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
+                <button class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-medium">All Departments</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Engineering</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Product</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Design</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Marketing</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Sales</button>
+                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium transition-all">Operations</button>
+            </div>
+            
+            <!-- Job Listings -->
+            <div class="space-y-4 max-w-4xl mx-auto">
+                
+                <!-- Engineering -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white/50 mb-4 flex items-center gap-2">
+                        <span class="text-violet-400">⚡</span>
+                        Engineering
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <a href="/careers/senior-backend-engineer" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Senior Backend Engineer</h4>
+                                <p class="text-sm text-white/50">PHP, Laravel, PostgreSQL • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€80-100k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="/careers/frontend-engineer" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Frontend Engineer</h4>
+                                <p class="text-sm text-white/50">React, TypeScript, Tailwind • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€60-80k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="/careers/devops-engineer" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">DevOps Engineer</h4>
+                                <p class="text-sm text-white/50">AWS, Kubernetes, Terraform • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€70-90k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Product & Design -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white/50 mb-4 flex items-center gap-2">
+                        <span class="text-pink-400">🎨</span>
+                        Product & Design
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <a href="/careers/senior-product-designer" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Senior Product Designer</h4>
+                                <p class="text-sm text-white/50">Figma, Design Systems, User Research • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€65-85k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="/careers/product-manager" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Product Manager</h4>
+                                <p class="text-sm text-white/50">B2B SaaS, Analytics, Roadmap Planning • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-cyan-600/20 text-cyan-400 text-xs font-medium">Bucharest</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€70-90k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Marketing & Sales -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white/50 mb-4 flex items-center gap-2">
+                        <span class="text-cyan-400">📈</span>
+                        Marketing & Sales
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <a href="/careers/growth-marketing-manager" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Growth Marketing Manager</h4>
+                                <p class="text-sm text-white/50">SEO, Paid Ads, Analytics • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€55-70k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="/careers/account-executive" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Account Executive - DACH Region</h4>
+                                <p class="text-sm text-white/50">B2B Sales, German fluency required • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-cyan-600/20 text-cyan-400 text-xs font-medium">Berlin</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€50-65k + Commission</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="/careers/content-writer" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Content Writer</h4>
+                                <p class="text-sm text-white/50">Blog, Case Studies, Documentation • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 text-xs font-medium">Remote</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€40-55k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Operations -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white/50 mb-4 flex items-center gap-2">
+                        <span class="text-amber-400">⚙️</span>
+                        Operations
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <a href="/careers/customer-success-manager" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                            <div>
+                                <h4 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-1">Customer Success Manager</h4>
+                                <p class="text-sm text-white/50">Enterprise Clients, Romanian required • Full-time</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="px-3 py-1 rounded-full bg-cyan-600/20 text-cyan-400 text-xs font-medium">Bucharest</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium">€45-60k</span>
+                                <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Don't see a fit? -->
+            <div class="mt-12 p-8 rounded-3xl bg-gradient-to-br from-violet-600/10 via-pink-600/5 to-cyan-600/10 border border-violet-500/20 text-center max-w-4xl mx-auto">
+                <h3 class="text-xl font-bold text-white mb-3">Don't see a perfect fit?</h3>
+                <p class="text-white/60 mb-6">We're always looking for talented people. Send us your CV and tell us how you can contribute.</p>
+                <a href="mailto:careers@tixello.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-colors">
+                    Send Open Application
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hiring Process -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Our Hiring Process</h2>
+                <p class="text-lg text-white/60 max-w-2xl mx-auto">
+                    Transparent, efficient, and respectful of your time.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                
+                <div class="relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-400 font-bold">1</div>
+                        <div class="hidden md:block flex-1 h-px bg-gradient-to-r from-violet-500/50 to-transparent"></div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Application Review</h3>
+                    <p class="text-sm text-white/50">We review every application within 48 hours and get back to you with feedback.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-pink-600/20 border border-pink-500/30 flex items-center justify-center text-pink-400 font-bold">2</div>
+                        <div class="hidden md:block flex-1 h-px bg-gradient-to-r from-pink-500/50 to-transparent"></div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Intro Call</h3>
+                    <p class="text-sm text-white/50">30-minute video call with our recruiter to learn about your experience and goals.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold">3</div>
+                        <div class="hidden md:block flex-1 h-px bg-gradient-to-r from-cyan-500/50 to-transparent"></div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Technical/Skills Assessment</h3>
+                    <p class="text-sm text-white/50">Practical task or case study relevant to the role. We respect your time—max 2-3 hours.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold">4</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Final Interview & Offer</h3>
+                    <p class="text-sm text-white/50">Meet the team, ask questions, and receive a decision within 5 business days.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-zinc-950 border-t border-white/5">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm text-white/50">
+                    <span>Made with</span>
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>for events, in the EU 🇪🇺</span>
+                </div>
+                <span class="text-sm text-white/40">© 2025 Tixello</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

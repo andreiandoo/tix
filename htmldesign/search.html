@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Tixello</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Outfit', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Custom scrollbar for filters */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased" x-data="searchApp()">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2.5 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20">
+                        <span class="text-white font-bold text-base">T</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Tixello</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/artists" class="text-sm text-white/60 hover:text-white transition-colors">Artists</a>
+                    <a href="/events" class="text-sm text-white/60 hover:text-white transition-colors">Events</a>
+                    <a href="/venues" class="text-sm text-white/60 hover:text-white transition-colors">Venues</a>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">Login</a>
+                    <a href="/signup" class="px-4 py-2 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- ==================== SEARCH HERO ==================== -->
+    <section class="relative py-8 sm:py-12 border-b border-white/5 bg-gradient-to-b from-violet-950/20 to-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Title -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold text-white mb-2">Find Your Next Event</h1>
+                <p class="text-white/60">Discover concerts, festivals, theater, and more</p>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="max-w-3xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        x-model="searchQuery"
+                        @input="filterEvents()"
+                        placeholder="Search events, artists, venues..."
+                        class="w-full pl-14 pr-32 py-4 sm:py-5 rounded-2xl bg-zinc-900/80 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 text-lg transition-all"
+                    >
+                    <div class="absolute inset-y-0 right-2 flex items-center gap-2">
+                        <button 
+                            @click="showFilters = !showFilters"
+                            class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all"
+                            :class="activeFiltersCount > 0 ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'"
+                        >
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                            </svg>
+                            <span class="hidden sm:inline">Filters</span>
+                            <span x-show="activeFiltersCount > 0" class="w-5 h-5 rounded-full bg-white/20 text-xs flex items-center justify-center" x-text="activeFiltersCount"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <section class="py-6 sm:py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+                
+                <!-- ==================== SIDEBAR (Filters + Calendar) ==================== -->
+                <aside class="lg:w-80 flex-shrink-0" :class="{ 'hidden lg:block': !showFilters }">
+                    <div class="lg:sticky lg:top-28 space-y-6">
+                        
+                        <!-- Mobile Close Button -->
+                        <div class="lg:hidden flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-white">Filters</h3>
+                            <button @click="showFilters = false" class="p-2 rounded-lg bg-white/5 text-white/70 hover:text-white">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Calendar -->
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <div class="p-4 border-b border-white/5">
+                                <div class="flex items-center justify-between">
+                                    <button @click="prevMonth()" class="p-2 rounded-lg hover:bg-white/5 text-white/60 hover:text-white transition-colors">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                        </svg>
+                                    </button>
+                                    <h3 class="font-semibold text-white" x-text="monthYearLabel"></h3>
+                                    <button @click="nextMonth()" class="p-2 rounded-lg hover:bg-white/5 text-white/60 hover:text-white transition-colors">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4">
+                                <!-- Weekday Headers -->
+                                <div class="grid grid-cols-7 gap-1 mb-2">
+                                    <template x-for="day in ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']">
+                                        <div class="text-center text-xs font-medium text-white/40 py-1" x-text="day"></div>
+                                    </template>
+                                </div>
+                                
+                                <!-- Calendar Days -->
+                                <div class="grid grid-cols-7 gap-1">
+                                    <template x-for="day in calendarDays" :key="day.date">
+                                        <button 
+                                            @click="day.currentMonth && toggleDate(day.date)"
+                                            class="aspect-square rounded-lg text-sm font-medium transition-all relative"
+                                            :class="{
+                                                'text-white/20 cursor-default': !day.currentMonth,
+                                                'text-white/60 hover:bg-white/5 hover:text-white': day.currentMonth && !isDateSelected(day.date) && !day.isToday,
+                                                'bg-violet-600 text-white': isDateSelected(day.date),
+                                                'ring-2 ring-violet-500 ring-offset-2 ring-offset-zinc-900': day.isToday && !isDateSelected(day.date),
+                                                'text-violet-400': day.isToday && !isDateSelected(day.date)
+                                            }"
+                                        >
+                                            <span x-text="day.day"></span>
+                                            <!-- Event indicator -->
+                                            <span 
+                                                x-show="day.hasEvents && day.currentMonth" 
+                                                class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+                                                :class="isDateSelected(day.date) ? 'bg-white' : 'bg-violet-500'"
+                                            ></span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Date Filters -->
+                            <div class="p-4 border-t border-white/5 space-y-2">
+                                <button 
+                                    @click="setQuickDate('all')" 
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all"
+                                    :class="quickDateFilter === 'all' ? 'bg-violet-600/20 text-violet-400' : 'text-white/60 hover:bg-white/5 hover:text-white'"
+                                >
+                                    All dates
+                                </button>
+                                <button 
+                                    @click="setQuickDate('today')" 
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all"
+                                    :class="quickDateFilter === 'today' ? 'bg-violet-600/20 text-violet-400' : 'text-white/60 hover:bg-white/5 hover:text-white'"
+                                >
+                                    Today
+                                </button>
+                                <button 
+                                    @click="setQuickDate('tomorrow')" 
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all"
+                                    :class="quickDateFilter === 'tomorrow' ? 'bg-violet-600/20 text-violet-400' : 'text-white/60 hover:bg-white/5 hover:text-white'"
+                                >
+                                    Tomorrow
+                                </button>
+                                <button 
+                                    @click="setQuickDate('week')" 
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all"
+                                    :class="quickDateFilter === 'week' ? 'bg-violet-600/20 text-violet-400' : 'text-white/60 hover:bg-white/5 hover:text-white'"
+                                >
+                                    Next 7 days
+                                </button>
+                                <button 
+                                    @click="setQuickDate('month')" 
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all"
+                                    :class="quickDateFilter === 'month' ? 'bg-violet-600/20 text-violet-400' : 'text-white/60 hover:bg-white/5 hover:text-white'"
+                                >
+                                    Next 30 days
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Categories Filter -->
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <button 
+                                @click="categoriesOpen = !categoriesOpen"
+                                class="w-full p-4 flex items-center justify-between text-left"
+                            >
+                                <span class="font-semibold text-white">Categories</span>
+                                <svg class="w-5 h-5 text-white/50 transition-transform" :class="{ 'rotate-180': categoriesOpen }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="categoriesOpen" x-collapse class="px-4 pb-4 space-y-2">
+                                <template x-for="category in categories" :key="category.slug">
+                                    <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                        <input 
+                                            type="checkbox" 
+                                            :value="category.slug"
+                                            x-model="selectedCategories"
+                                            @change="filterEvents()"
+                                            class="w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                        >
+                                        <span class="text-lg" x-text="category.emoji"></span>
+                                        <span class="text-sm text-white/70" x-text="category.name"></span>
+                                        <span class="ml-auto text-xs text-white/40" x-text="category.count"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+                        
+                        <!-- Location Filter -->
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <button 
+                                @click="locationOpen = !locationOpen"
+                                class="w-full p-4 flex items-center justify-between text-left"
+                            >
+                                <span class="font-semibold text-white">Location</span>
+                                <svg class="w-5 h-5 text-white/50 transition-transform" :class="{ 'rotate-180': locationOpen }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="locationOpen" x-collapse class="px-4 pb-4 space-y-2">
+                                <div class="relative mb-3">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search city..."
+                                        class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50"
+                                    >
+                                </div>
+                                <template x-for="city in cities" :key="city.slug">
+                                    <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                        <input 
+                                            type="checkbox" 
+                                            :value="city.slug"
+                                            x-model="selectedCities"
+                                            @change="filterEvents()"
+                                            class="w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                        >
+                                        <span class="text-sm text-white/70" x-text="city.name"></span>
+                                        <span class="ml-auto text-xs text-white/40" x-text="city.count"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Filter -->
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <button 
+                                @click="priceOpen = !priceOpen"
+                                class="w-full p-4 flex items-center justify-between text-left"
+                            >
+                                <span class="font-semibold text-white">Price</span>
+                                <svg class="w-5 h-5 text-white/50 transition-transform" :class="{ 'rotate-180': priceOpen }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="priceOpen" x-collapse class="px-4 pb-4 space-y-2">
+                                <template x-for="price in priceRanges" :key="price.value">
+                                    <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                        <input 
+                                            type="radio" 
+                                            name="price"
+                                            :value="price.value"
+                                            x-model="selectedPrice"
+                                            @change="filterEvents()"
+                                            class="w-4 h-4 border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                        >
+                                        <span class="text-sm text-white/70" x-text="price.label"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+                        
+                        <!-- Event Status -->
+                        <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                            <button 
+                                @click="statusOpen = !statusOpen"
+                                class="w-full p-4 flex items-center justify-between text-left"
+                            >
+                                <span class="font-semibold text-white">Event Status</span>
+                                <svg class="w-5 h-5 text-white/50 transition-transform" :class="{ 'rotate-180': statusOpen }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="statusOpen" x-collapse class="px-4 pb-4 space-y-2">
+                                <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                    <input 
+                                        type="checkbox" 
+                                        x-model="showAvailable"
+                                        @change="filterEvents()"
+                                        class="w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                    >
+                                    <span class="text-sm text-white/70">Available tickets</span>
+                                </label>
+                                <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                    <input 
+                                        type="checkbox" 
+                                        x-model="showFree"
+                                        @change="filterEvents()"
+                                        class="w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                    >
+                                    <span class="text-sm text-white/70">Free events only</span>
+                                </label>
+                                <label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                    <input 
+                                        type="checkbox" 
+                                        x-model="showOnline"
+                                        @change="filterEvents()"
+                                        class="w-4 h-4 rounded border-white/20 bg-white/5 text-violet-600 focus:ring-violet-500 focus:ring-offset-0"
+                                    >
+                                    <span class="text-sm text-white/70">Online events</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Clear Filters -->
+                        <button 
+                            x-show="activeFiltersCount > 0"
+                            @click="clearAllFilters()"
+                            class="w-full py-3 rounded-xl border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-all text-sm font-medium"
+                        >
+                            Clear all filters
+                        </button>
+                        
+                    </div>
+                </aside>
+                
+                <!-- ==================== RESULTS AREA ==================== -->
+                <main class="flex-1 min-w-0">
+                    
+                    <!-- Results Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-white/60 text-sm">
+                                <span x-text="filteredEvents.length"></span> events found
+                                <span x-show="searchQuery" class="text-white/40">
+                                    for "<span x-text="searchQuery" class="text-violet-400"></span>"
+                                </span>
+                            </p>
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <!-- Sort -->
+                            <div class="relative" x-data="{ open: false }">
+                                <button 
+                                    @click="open = !open"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900/50 border border-white/10 text-sm text-white/70 hover:text-white transition-colors"
+                                >
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
+                                    </svg>
+                                    <span x-text="sortOptions.find(s => s.value === sortBy)?.label || 'Sort'"></span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div 
+                                    x-show="open" 
+                                    @click.away="open = false"
+                                    x-transition
+                                    class="absolute right-0 mt-2 w-48 rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-20 overflow-hidden"
+                                >
+                                    <template x-for="option in sortOptions" :key="option.value">
+                                        <button 
+                                            @click="sortBy = option.value; filterEvents(); open = false"
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-white/5 transition-colors"
+                                            :class="sortBy === option.value ? 'text-violet-400 bg-violet-600/10' : 'text-white/70'"
+                                            x-text="option.label"
+                                        ></button>
+                                    </template>
+                                </div>
+                            </div>
+                            
+                            <!-- View Toggle -->
+                            <div class="flex items-center rounded-xl bg-zinc-900/50 border border-white/10 p-1">
+                                <button 
+                                    @click="viewMode = 'grid'"
+                                    class="p-2 rounded-lg transition-colors"
+                                    :class="viewMode === 'grid' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white'"
+                                >
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                    </svg>
+                                </button>
+                                <button 
+                                    @click="viewMode = 'list'"
+                                    class="p-2 rounded-lg transition-colors"
+                                    :class="viewMode === 'list' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white'"
+                                >
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                                    </svg>
+                                </button>
+                                <button 
+                                    @click="viewMode = 'map'"
+                                    class="p-2 rounded-lg transition-colors"
+                                    :class="viewMode === 'map' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white'"
+                                >
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Filters Pills -->
+                    <div x-show="activeFiltersCount > 0" class="flex flex-wrap gap-2 mb-6">
+                        <template x-for="category in selectedCategories" :key="category">
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-600/20 border border-violet-500/30 text-sm text-violet-400">
+                                <span x-text="categories.find(c => c.slug === category)?.name"></span>
+                                <button @click="selectedCategories = selectedCategories.filter(c => c !== category); filterEvents()" class="hover:text-white">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </span>
+                        </template>
+                        <template x-for="city in selectedCities" :key="city">
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-600/20 border border-cyan-500/30 text-sm text-cyan-400">
+                                <span x-text="cities.find(c => c.slug === city)?.name"></span>
+                                <button @click="selectedCities = selectedCities.filter(c => c !== city); filterEvents()" class="hover:text-white">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </span>
+                        </template>
+                        <span x-show="selectedDates.length > 0" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-600/20 border border-pink-500/30 text-sm text-pink-400">
+                            <span x-text="selectedDates.length + ' date(s) selected'"></span>
+                            <button @click="selectedDates = []; quickDateFilter = 'all'; filterEvents()" class="hover:text-white">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                    
+                    <!-- Grid View -->
+                    <div x-show="viewMode === 'grid' && filteredEvents.length > 0" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <template x-for="event in filteredEvents" :key="event.id">
+                            <a :href="'/events/' + event.slug" class="group block rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                                <div class="relative aspect-[16/10] overflow-hidden">
+                                    <img :src="event.image" :alt="event.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Date Badge -->
+                                    <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20">
+                                        <span class="text-xs font-medium text-white/70 uppercase" x-text="formatMonth(event.date)"></span>
+                                        <span class="text-xl font-bold text-white" x-text="formatDay(event.date)"></span>
+                                    </div>
+                                    
+                                    <!-- Status Badges -->
+                                    <div class="absolute top-3 right-3 flex flex-col gap-2">
+                                        <span x-show="event.isSoldOut" class="px-2 py-1 rounded-lg bg-red-600 text-white text-xs font-bold">SOLD OUT</span>
+                                        <span x-show="event.isFree" class="px-2 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold">FREE</span>
+                                        <span x-show="event.isPostponed" class="px-2 py-1 rounded-lg bg-amber-600 text-white text-xs font-bold">POSTPONED</span>
+                                    </div>
+                                    
+                                    <!-- Category -->
+                                    <div class="absolute bottom-3 left-3">
+                                        <span class="px-2 py-1 rounded-lg bg-violet-600/80 backdrop-blur-sm text-white text-xs font-medium" x-text="event.category"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4">
+                                    <h3 class="font-bold text-white group-hover:text-violet-400 transition-colors mb-2 line-clamp-2" x-text="event.title"></h3>
+                                    
+                                    <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                                        <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        </svg>
+                                        <span class="truncate" x-text="event.venue + ', ' + event.city"></span>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="text-xs text-white/40">from</span>
+                                            <span class="ml-1 text-lg font-bold text-white" x-text="event.isFree ? 'FREE' : event.price + ' RON'"></span>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-sm text-white/40">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span x-text="event.time"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                    
+                    <!-- List View -->
+                    <div x-show="viewMode === 'list' && filteredEvents.length > 0" class="space-y-4">
+                        <template x-for="event in filteredEvents" :key="event.id">
+                            <a :href="'/events/' + event.slug" class="group flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all">
+                                <div class="w-full sm:w-48 aspect-video sm:aspect-square rounded-xl overflow-hidden flex-shrink-0">
+                                    <img :src="event.image" :alt="event.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                                        <span class="px-2 py-1 rounded-md bg-violet-600/20 text-violet-400 text-xs font-medium" x-text="event.category"></span>
+                                        <span x-show="event.isSoldOut" class="px-2 py-1 rounded-md bg-red-600/20 text-red-400 text-xs font-medium">Sold Out</span>
+                                        <span x-show="event.isFree" class="px-2 py-1 rounded-md bg-emerald-600/20 text-emerald-400 text-xs font-medium">Free</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white group-hover:text-violet-400 transition-colors mb-2" x-text="event.title"></h3>
+                                    <div class="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-4">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span x-text="formatFullDate(event.date) + ' • ' + event.time"></span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            </svg>
+                                            <span x-text="event.venue + ', ' + event.city"></span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="text-sm text-white/40">from</span>
+                                            <span class="ml-2 text-xl font-bold text-white" x-text="event.isFree ? 'FREE' : event.price + ' RON'"></span>
+                                        </div>
+                                        <span class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Get Tickets</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                    
+                    <!-- Map View -->
+                    <div x-show="viewMode === 'map'" class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
+                        <div class="aspect-[16/9] lg:aspect-[21/9] bg-zinc-800 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-violet-600/20 flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white/60 mb-2">Map View</p>
+                                <p class="text-sm text-white/40">Interactive map would be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div x-show="filteredEvents.length === 0" class="py-16 text-center">
+                        <div class="w-24 h-24 rounded-full bg-zinc-900/50 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">No events found</h3>
+                        <p class="text-white/50 mb-6 max-w-md mx-auto">We couldn't find any events matching your filters. Try adjusting your search criteria or browse all events.</p>
+                        <button @click="clearAllFilters()" class="px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-colors">
+                            Clear all filters
+                        </button>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div x-show="filteredEvents.length > 0" class="flex items-center justify-between mt-8 pt-8 border-t border-white/5">
+                        <p class="text-sm text-white/50">
+                            Showing <span class="text-white" x-text="Math.min(filteredEvents.length, 12)"></span> of <span class="text-white" x-text="filteredEvents.length"></span> events
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/50 cursor-not-allowed" disabled>
+                                Previous
+                            </button>
+                            <button class="px-4 py-2 rounded-lg bg-violet-600 text-white font-medium">1</button>
+                            <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 transition-colors">2</button>
+                            <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 transition-colors">3</button>
+                            <span class="px-2 text-white/30">...</span>
+                            <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 transition-colors">12</button>
+                            <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 transition-colors">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                    
+                </main>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="relative bg-zinc-950 border-t border-white/5 mt-12">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="/" class="inline-flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <span class="font-bold text-xl text-white">Tixello</span>
+                    </a>
+                    <p class="text-white/50 text-sm">The complete ticketing platform for event organizers.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/our-story" class="text-sm text-white/60 hover:text-white transition-colors">Our story</a></li>
+                        <li><a href="/careers" class="text-sm text-white/60 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="/blog" class="text-sm text-white/60 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pricing" class="text-sm text-white/60 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="/developers" class="text-sm text-white/60 hover:text-white transition-colors">Developers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/terms" class="text-sm text-white/60 hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="/gdpr" class="text-sm text-white/60 hover:text-white transition-colors">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center gap-2 text-sm text-white/50">
+                        <span>Made with</span>
+                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>for events, in the EU 🇪🇺</span>
+                    </div>
+                    <span class="text-sm text-white/40">© 2025 Tixello</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Filter Toggle (Fixed Bottom) -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 z-40" x-show="!showFilters">
+        <button 
+            @click="showFilters = true"
+            class="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-violet-600 text-white font-semibold"
+        >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            Filters & Calendar
+            <span x-show="activeFiltersCount > 0" class="w-6 h-6 rounded-full bg-white/20 text-sm flex items-center justify-center" x-text="activeFiltersCount"></span>
+        </button>
+    </div>
+
+    <script>
+        function searchApp() {
+            return {
+                // View state
+                showFilters: false,
+                viewMode: 'grid',
+                
+                // Search
+                searchQuery: '',
+                
+                // Calendar state
+                currentMonth: new Date().getMonth(),
+                currentYear: new Date().getFullYear(),
+                selectedDates: [],
+                quickDateFilter: 'all',
+                
+                // Filter states
+                categoriesOpen: true,
+                locationOpen: true,
+                priceOpen: false,
+                statusOpen: false,
+                
+                // Selected filters
+                selectedCategories: [],
+                selectedCities: [],
+                selectedPrice: 'all',
+                showAvailable: false,
+                showFree: false,
+                showOnline: false,
+                
+                // Sort
+                sortBy: 'date-asc',
+                sortOptions: [
+                    { value: 'date-asc', label: 'Date (soonest)' },
+                    { value: 'date-desc', label: 'Date (latest)' },
+                    { value: 'price-asc', label: 'Price (low to high)' },
+                    { value: 'price-desc', label: 'Price (high to low)' },
+                    { value: 'name-asc', label: 'Name (A-Z)' },
+                ],
+                
+                // Data
+                categories: [
+                    { slug: 'concerts', name: 'Concerts & Music', emoji: '🎵', count: 156 },
+                    { slug: 'festivals', name: 'Festivals', emoji: '🎪', count: 42 },
+                    { slug: 'theater', name: 'Theater & Shows', emoji: '🎭', count: 89 },
+                    { slug: 'sports', name: 'Sports', emoji: '⚽', count: 67 },
+                    { slug: 'comedy', name: 'Comedy', emoji: '😂', count: 34 },
+                    { slug: 'conferences', name: 'Conferences', emoji: '💼', count: 28 },
+                    { slug: 'workshops', name: 'Workshops', emoji: '🎓', count: 45 },
+                    { slug: 'parties', name: 'Parties & Clubbing', emoji: '🎉', count: 112 },
+                ],
+                
+                cities: [
+                    { slug: 'bucuresti', name: 'București', count: 234 },
+                    { slug: 'cluj', name: 'Cluj-Napoca', count: 89 },
+                    { slug: 'timisoara', name: 'Timișoara', count: 67 },
+                    { slug: 'iasi', name: 'Iași', count: 45 },
+                    { slug: 'brasov', name: 'Brașov', count: 38 },
+                    { slug: 'constanta', name: 'Constanța', count: 52 },
+                    { slug: 'sibiu', name: 'Sibiu', count: 29 },
+                    { slug: 'craiova', name: 'Craiova', count: 23 },
+                ],
+                
+                priceRanges: [
+                    { value: 'all', label: 'All prices' },
+                    { value: 'free', label: 'Free' },
+                    { value: '0-50', label: 'Under 50 RON' },
+                    { value: '50-100', label: '50 - 100 RON' },
+                    { value: '100-200', label: '100 - 200 RON' },
+                    { value: '200+', label: 'Over 200 RON' },
+                ],
+                
+                // Sample events
+                allEvents: [
+                    { id: 1, slug: 'untold-festival-2025', title: 'UNTOLD Festival 2025', category: 'Festival', date: '2025-08-07', time: '18:00', venue: 'Cluj Arena', city: 'Cluj-Napoca', price: 350, image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 2, slug: 'inna-concert-bucuresti', title: 'INNA - Live in Concert', category: 'Concert', date: '2025-12-20', time: '20:00', venue: 'Sala Palatului', city: 'București', price: 120, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 3, slug: 'stand-up-comedy-night', title: 'Stand-up Comedy Night', category: 'Comedy', date: '2025-12-18', time: '19:30', venue: 'The Pub', city: 'București', price: 45, image: 'https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 4, slug: 'electric-castle-2025', title: 'Electric Castle 2025', category: 'Festival', date: '2025-07-16', time: '14:00', venue: 'Castelul Bánffy', city: 'Cluj-Napoca', price: 400, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=400&fit=crop', isFree: false, isSoldOut: true, isPostponed: false },
+                    { id: 5, slug: 'opera-nationala', title: 'La Traviata - Opera Națională', category: 'Theater', date: '2025-12-22', time: '19:00', venue: 'Opera Națională', city: 'București', price: 150, image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 6, slug: 'christmas-market-sibiu', title: 'Christmas Market Concert', category: 'Concert', date: '2025-12-24', time: '18:00', venue: 'Piața Mare', city: 'Sibiu', price: 0, image: 'https://images.unsplash.com/photo-1512389142860-9c449e58a814?w=600&h=400&fit=crop', isFree: true, isSoldOut: false, isPostponed: false },
+                    { id: 7, slug: 'tech-conference-2025', title: 'TechCon Romania 2025', category: 'Conference', date: '2025-03-15', time: '09:00', venue: 'Romexpo', city: 'București', price: 200, image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 8, slug: 'neversea-2025', title: 'Neversea Festival 2025', category: 'Festival', date: '2025-07-03', time: '16:00', venue: 'Beach Area', city: 'Constanța', price: 320, image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 9, slug: 'jazz-night-timisoara', title: 'Jazz Night Under the Stars', category: 'Concert', date: '2025-12-28', time: '21:00', venue: 'Piața Victoriei', city: 'Timișoara', price: 60, image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 10, slug: 'football-fcsb-cfr', title: 'FCSB vs CFR Cluj', category: 'Sports', date: '2025-12-21', time: '20:30', venue: 'Arena Națională', city: 'București', price: 80, image: 'https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 11, slug: 'new-years-eve-party', title: 'New Year\'s Eve Gala', category: 'Party', date: '2025-12-31', time: '21:00', venue: 'JW Marriott', city: 'București', price: 500, image: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=600&h=400&fit=crop', isFree: false, isSoldOut: false, isPostponed: false },
+                    { id: 12, slug: 'dj-workshop', title: 'DJ Workshop for Beginners', category: 'Workshop', date: '2025-12-19', time: '14:00', venue: 'Music Hub', city: 'Cluj-Napoca', price: 0, image: 'https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=600&h=400&fit=crop', isFree: true, isSoldOut: false, isPostponed: false },
+                ],
+                
+                filteredEvents: [],
+                
+                // Computed
+                get monthYearLabel() {
+                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    return months[this.currentMonth] + ' ' + this.currentYear;
+                },
+                
+                get calendarDays() {
+                    const days = [];
+                    const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+                    const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+                    const startPadding = (firstDay.getDay() + 6) % 7; // Monday = 0
+                    
+                    // Previous month days
+                    const prevMonthLastDay = new Date(this.currentYear, this.currentMonth, 0).getDate();
+                    for (let i = startPadding - 1; i >= 0; i--) {
+                        const day = prevMonthLastDay - i;
+                        const date = new Date(this.currentYear, this.currentMonth - 1, day);
+                        days.push({
+                            day,
+                            date: date.toISOString().split('T')[0],
+                            currentMonth: false,
+                            isToday: false,
+                            hasEvents: false
+                        });
+                    }
+                    
+                    // Current month days
+                    const today = new Date().toISOString().split('T')[0];
+                    const eventDates = this.allEvents.map(e => e.date);
+                    
+                    for (let day = 1; day <= lastDay.getDate(); day++) {
+                        const date = new Date(this.currentYear, this.currentMonth, day);
+                        const dateStr = date.toISOString().split('T')[0];
+                        days.push({
+                            day,
+                            date: dateStr,
+                            currentMonth: true,
+                            isToday: dateStr === today,
+                            hasEvents: eventDates.includes(dateStr)
+                        });
+                    }
+                    
+                    // Next month days
+                    const remaining = 42 - days.length;
+                    for (let day = 1; day <= remaining; day++) {
+                        const date = new Date(this.currentYear, this.currentMonth + 1, day);
+                        days.push({
+                            day,
+                            date: date.toISOString().split('T')[0],
+                            currentMonth: false,
+                            isToday: false,
+                            hasEvents: false
+                        });
+                    }
+                    
+                    return days;
+                },
+                
+                get activeFiltersCount() {
+                    let count = 0;
+                    count += this.selectedCategories.length;
+                    count += this.selectedCities.length;
+                    count += this.selectedDates.length > 0 ? 1 : 0;
+                    count += this.selectedPrice !== 'all' ? 1 : 0;
+                    count += this.showAvailable ? 1 : 0;
+                    count += this.showFree ? 1 : 0;
+                    count += this.showOnline ? 1 : 0;
+                    return count;
+                },
+                
+                // Methods
+                init() {
+                    this.filterEvents();
+                },
+                
+                prevMonth() {
+                    if (this.currentMonth === 0) {
+                        this.currentMonth = 11;
+                        this.currentYear--;
+                    } else {
+                        this.currentMonth--;
+                    }
+                },
+                
+                nextMonth() {
+                    if (this.currentMonth === 11) {
+                        this.currentMonth = 0;
+                        this.currentYear++;
+                    } else {
+                        this.currentMonth++;
+                    }
+                },
+                
+                isDateSelected(date) {
+                    return this.selectedDates.includes(date);
+                },
+                
+                toggleDate(date) {
+                    this.quickDateFilter = 'custom';
+                    const index = this.selectedDates.indexOf(date);
+                    if (index === -1) {
+                        this.selectedDates.push(date);
+                    } else {
+                        this.selectedDates.splice(index, 1);
+                    }
+                    this.filterEvents();
+                },
+                
+                setQuickDate(filter) {
+                    this.quickDateFilter = filter;
+                    this.selectedDates = [];
+                    
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (filter === 'today') {
+                        this.selectedDates = [today.toISOString().split('T')[0]];
+                    } else if (filter === 'tomorrow') {
+                        const tomorrow = new Date(today);
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        this.selectedDates = [tomorrow.toISOString().split('T')[0]];
+                    } else if (filter === 'week') {
+                        for (let i = 0; i < 7; i++) {
+                            const date = new Date(today);
+                            date.setDate(date.getDate() + i);
+                            this.selectedDates.push(date.toISOString().split('T')[0]);
+                        }
+                    } else if (filter === 'month') {
+                        for (let i = 0; i < 30; i++) {
+                            const date = new Date(today);
+                            date.setDate(date.getDate() + i);
+                            this.selectedDates.push(date.toISOString().split('T')[0]);
+                        }
+                    }
+                    
+                    this.filterEvents();
+                },
+                
+                filterEvents() {
+                    let events = [...this.allEvents];
+                    
+                    // Search query
+                    if (this.searchQuery) {
+                        const query = this.searchQuery.toLowerCase();
+                        events = events.filter(e => 
+                            e.title.toLowerCase().includes(query) ||
+                            e.venue.toLowerCase().includes(query) ||
+                            e.city.toLowerCase().includes(query) ||
+                            e.category.toLowerCase().includes(query)
+                        );
+                    }
+                    
+                    // Date filter
+                    if (this.selectedDates.length > 0) {
+                        events = events.filter(e => this.selectedDates.includes(e.date));
+                    }
+                    
+                    // Free filter
+                    if (this.showFree) {
+                        events = events.filter(e => e.isFree);
+                    }
+                    
+                    // Available filter
+                    if (this.showAvailable) {
+                        events = events.filter(e => !e.isSoldOut);
+                    }
+                    
+                    // Sort
+                    events.sort((a, b) => {
+                        switch(this.sortBy) {
+                            case 'date-asc': return new Date(a.date) - new Date(b.date);
+                            case 'date-desc': return new Date(b.date) - new Date(a.date);
+                            case 'price-asc': return a.price - b.price;
+                            case 'price-desc': return b.price - a.price;
+                            case 'name-asc': return a.title.localeCompare(b.title);
+                            default: return 0;
+                        }
+                    });
+                    
+                    this.filteredEvents = events;
+                },
+                
+                clearAllFilters() {
+                    this.searchQuery = '';
+                    this.selectedCategories = [];
+                    this.selectedCities = [];
+                    this.selectedDates = [];
+                    this.quickDateFilter = 'all';
+                    this.selectedPrice = 'all';
+                    this.showAvailable = false;
+                    this.showFree = false;
+                    this.showOnline = false;
+                    this.filterEvents();
+                },
+                
+                formatMonth(dateStr) {
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const date = new Date(dateStr);
+                    return months[date.getMonth()];
+                },
+                
+                formatDay(dateStr) {
+                    return new Date(dateStr).getDate();
+                },
+                
+                formatFullDate(dateStr) {
+                    const date = new Date(dateStr);
+                    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

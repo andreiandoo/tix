@@ -43,7 +43,7 @@
 			<nav class="flex items-center justify-between h-20">
 				
 				<!-- ====== LOGO ====== -->
-				<div class="site-branding flex-shrink-0">
+				<div class="site-branding flex-shrink-0 flex items-center gap-x-4">
 					<?php if ( has_custom_logo() ) : ?>
 						<div class="custom-logo-link">
 							<?php the_custom_logo(); ?>
@@ -56,29 +56,7 @@
 							<span class="font-bold text-xl text-white">Tixello</span>
 						</a>
 					<?php endif; ?>
-				</div>
 
-				<!-- ====== MAIN NAVIGATION (Desktop) ====== -->
-				<div id="site-navigation" class="main-navigation hidden xl:flex items-center gap-1">
-					<?php
-					wp_nav_menu( array(
-						'theme_location'  => 'primary',
-					) );
-					?>
-					
-					<!-- Separator -->
-					<div class="w-px h-5 bg-white/10 mx-3"></div>
-					
-					<?php
-					wp_nav_menu( array(
-						'theme_location'  => 'secondary',
-					) );
-					?>
-				</div>
-
-				<!-- ====== RIGHT SIDE ACTIONS ====== -->
-				<div class="flex items-center gap-3">
-					<?php //include get_template_directory() . '/bits/top-search.php'; ?>
 					<?php 
 					if ( function_exists('pll_the_languages') ) :
 						$langs = pll_the_languages([
@@ -112,6 +90,29 @@
 							</div>
 						<?php endif; 
 					endif; ?>
+				</div>
+
+				<!-- ====== MAIN NAVIGATION (Desktop) ====== -->
+				<div id="site-navigation" class="main-navigation hidden xl:flex items-center gap-1">
+					<?php
+					wp_nav_menu( array(
+						'theme_location'  => 'primary',
+					) );
+					?>
+					
+					<!-- Separator -->
+					<div class="w-px h-5 bg-white/10 mx-3"></div>
+					
+					<?php
+					wp_nav_menu( array(
+						'theme_location'  => 'secondary',
+					) );
+					?>
+				</div>
+
+				<!-- ====== RIGHT SIDE ACTIONS ====== -->
+				<div class="flex items-center gap-3">
+					<?php //include get_template_directory() . '/bits/top-search.php'; ?>
 					
 					<!-- Search Button -->
 					<a class="hidden" href="<?php echo esc_url( home_url( '/cauta/' ) ); ?>" 

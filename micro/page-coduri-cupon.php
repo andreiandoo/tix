@@ -8,146 +8,29 @@ get_header();
 ?>
 
 <style>
-  /* Page-specific styles */
-  .text-gradient-coupon {
-    background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .text-gradient-amber {
-    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #fbbf24 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
+  /* Page-specific overrides for coupon page (amber theme) */
+  .scroll-progress-amber {
+    background: linear-gradient(90deg, #f59e0b, #f43f5e) !important;
   }
 
-  .btn-coupon {
-    @apply inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full transition-all duration-500 ease-bounce-in relative overflow-hidden;
-  }
-  .btn-primary-coupon {
-    background: linear-gradient(135deg, #7c3aed, #06b6d4);
-    @apply text-white;
-  }
-  .btn-primary-coupon:hover {
-    @apply scale-105;
-    box-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
-  }
-  .btn-amber {
-    background: linear-gradient(135deg, #f59e0b, #ea580c);
-    @apply text-white;
-  }
-  .btn-amber:hover {
-    @apply scale-105;
-    box-shadow: 0 0 60px rgba(245, 158, 11, 0.4);
-  }
-  .btn-ghost-coupon {
-    @apply bg-transparent text-white border border-white/20;
-  }
-  .btn-ghost-coupon:hover {
-    @apply bg-white/10 border-white/40;
-  }
-
-  .feature-card-coupon {
+  .feature-card-amber {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(234, 88, 12, 0.04) 100%);
-    @apply border border-white/[0.06] rounded-[20px] p-8 relative overflow-hidden transition-all duration-500 ease-bounce-in;
   }
-  .feature-card-coupon::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+  .feature-card-amber::before {
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.15), transparent 50%);
   }
-  .feature-card-coupon:hover::before { @apply opacity-100; }
-  .feature-card-coupon:hover {
+  .feature-card-amber:hover {
     border-color: rgba(245, 158, 11, 0.3);
-    @apply -translate-y-1;
-  }
-
-  .discount-card {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
-    @apply border border-white/[0.06] rounded-[20px] p-8 relative overflow-hidden transition-all duration-500 ease-bounce-in;
-  }
-  .discount-card:hover {
-    border-color: rgba(124, 58, 237, 0.3);
-    @apply -translate-y-1;
-    box-shadow: 0 20px 40px rgba(124, 58, 237, 0.1);
-  }
-
-  .orb-coupon {
-    @apply absolute rounded-full pointer-events-none;
-    filter: blur(120px);
-  }
-
-  .scroll-progress-coupon {
-    @apply fixed top-0 left-0 h-0.5 z-[1001];
-    background: linear-gradient(90deg, #f59e0b, #f43f5e);
-    width: 0%;
-  }
-
-  .code-block-coupon {
-    @apply bg-dark-800 rounded-xl overflow-hidden border border-white/10;
-  }
-  .code-header-coupon {
-    @apply bg-dark-900 px-4 py-3 flex items-center gap-2 border-b border-white/[0.05];
-  }
-  .code-dot {
-    @apply w-3 h-3 rounded-full;
-  }
-  .code-content-coupon {
-    @apply p-6 overflow-x-auto;
-  }
-  .code-content-coupon pre {
-    @apply font-mono text-[13px] leading-relaxed;
-  }
-
-  .coupon-code {
-    @apply font-mono tracking-widest;
-  }
-
-  .use-case-card-coupon {
-    @apply bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 transition-all duration-300;
-  }
-  .use-case-card-coupon:hover {
-    @apply bg-white/[0.05] border-white/10 -translate-y-0.5;
-  }
-
-  .api-endpoint-coupon {
-    @apply bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 font-mono text-[13px];
-  }
-  .method-get { @apply text-brand-green; }
-  .method-post { @apply text-blue-500; }
-  .method-put { @apply text-brand-amber; }
-  .method-delete { @apply text-red-500; }
-
-  .stat-card-coupon {
-    @apply text-center p-8;
-  }
-  .stat-value-coupon {
-    @apply font-display text-5xl font-bold leading-none;
-  }
-  .stat-label-coupon {
-    @apply text-white/50 mt-2 text-sm;
-  }
-
-  .pulse-glow-amber {
-    animation: pulseGlowAmber 2s ease-in-out infinite;
-  }
-  @keyframes pulseGlowAmber {
-    0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
   }
 </style>
 
-<main x-data="{ activeTab: 'campanii' }">
-  <div class="scroll-progress-coupon" id="scroll-progress"></div>
+<main class="noise" x-data="{ activeTab: 'campanii' }">
+  <div class="scroll-progress scroll-progress-amber" id="scroll-progress"></div>
 
   <!-- HERO -->
   <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
-    <div class="orb-coupon w-[600px] h-[600px] bg-brand-amber/20 -top-40 -right-40"></div>
-    <div class="orb-coupon w-[400px] h-[400px] bg-brand-rose/20 bottom-20 -left-20"></div>
+    <div class="orb w-[600px] h-[600px] bg-brand-amber/20 -top-40 -right-40"></div>
+    <div class="orb w-[400px] h-[400px] bg-brand-rose/20 bottom-20 -left-20"></div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -166,11 +49,11 @@ get_header();
           </p>
 
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn-coupon btn-amber">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn btn-amber">
               Creează prima campanie
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#demo" class="btn-coupon btn-ghost-coupon">Vezi în acțiune</a>
+            <a href="#demo" class="btn btn-ghost">Vezi în acțiune</a>
           </div>
 
           <div class="flex flex-wrap gap-6 text-sm">
@@ -251,21 +134,21 @@ get_header();
   <section class="py-16 border-y border-white/5">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="stat-card-coupon reveal">
-          <div class="stat-value-coupon text-gradient-amber">10K+</div>
-          <div class="stat-label-coupon">Coduri per batch</div>
+        <div class="stat-card reveal">
+          <div class="stat-value text-gradient-amber">10K+</div>
+          <div class="stat-label">Coduri per batch</div>
         </div>
-        <div class="stat-card-coupon reveal reveal-delay-1">
-          <div class="stat-value-coupon text-gradient-amber">&lt;50ms</div>
-          <div class="stat-label-coupon">Validare</div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-value text-gradient-amber">&lt;50ms</div>
+          <div class="stat-label">Validare</div>
         </div>
-        <div class="stat-card-coupon reveal reveal-delay-2">
-          <div class="stat-value-coupon text-gradient-amber">100%</div>
-          <div class="stat-label-coupon">Urmăribile</div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-value text-gradient-amber">100%</div>
+          <div class="stat-label">Urmăribile</div>
         </div>
-        <div class="stat-card-coupon reveal reveal-delay-3">
-          <div class="stat-value-coupon text-gradient-amber">∞</div>
-          <div class="stat-label-coupon">Campanii</div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-value text-gradient-amber">∞</div>
+          <div class="stat-label">Campanii</div>
         </div>
       </div>
     </div>
@@ -273,11 +156,11 @@ get_header();
 
   <!-- DISCOUNT TYPES -->
   <section class="py-24 relative overflow-hidden">
-    <div class="orb-coupon w-[500px] h-[500px] bg-brand-violet/20 top-1/2 -left-60"></div>
+    <div class="orb w-[500px] h-[500px] bg-brand-violet/20 top-1/2 -left-60"></div>
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
         <span class="text-brand-amber text-sm font-medium uppercase tracking-widest">Tipuri de Reduceri</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Orice tip de<br><span class="text-gradient-coupon">promoție îți dorești</span></h2>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Orice tip de<br><span class="text-gradient">promoție îți dorești</span></h2>
         <p class="text-lg text-white/60">De la reduceri procentuale simple la oferte complexe cumpără-X-primești-Y. Sistemul se adaptează strategiei tale.</p>
       </div>
 
@@ -339,14 +222,14 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <!-- Code Preview -->
         <div class="order-2 lg:order-1 reveal">
-          <div class="code-block-coupon">
-            <div class="code-header-coupon">
+          <div class="code-block">
+            <div class="code-header">
               <div class="code-dot bg-brand-rose"></div>
               <div class="code-dot bg-brand-amber"></div>
               <div class="code-dot bg-brand-green"></div>
               <span class="text-xs text-white/30 ml-2">generate-codes.json</span>
             </div>
-            <div class="code-content-coupon">
+            <div class="code-content">
               <pre class="text-white/70"><code><span class="text-brand-violet">POST</span> /api/coupons/campaigns/<span class="text-brand-cyan">camp_123</span>/generate
 
 {
@@ -420,52 +303,52 @@ get_header();
 
   <!-- VALIDATION RULES -->
   <section class="py-24 relative overflow-hidden">
-    <div class="orb-coupon w-[500px] h-[500px] bg-brand-cyan/20 top-1/2 -right-60"></div>
+    <div class="orb w-[500px] h-[500px] bg-brand-cyan/20 top-1/2 -right-60"></div>
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <!-- Content -->
         <div class="reveal">
           <span class="inline-block px-4 py-1.5 rounded-full bg-brand-violet/10 text-brand-violet text-sm font-medium mb-6">🎯 Control Total</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Reguli de validare<br><span class="text-gradient-coupon">precise</span></h2>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Reguli de validare<br><span class="text-gradient">precise</span></h2>
           <p class="text-lg text-white/60 mb-8 leading-relaxed">Controlează fiecare aspect al promoțiilor. Validarea în timp real asigură că doar codurile valide sunt acceptate.</p>
 
           <div class="grid sm:grid-cols-2 gap-4">
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span class="text-white font-medium">Limite per utilizator</span>
               </div>
               <p class="text-white/40 text-sm">O dată per client sau nelimitat</p>
             </div>
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                 <span class="text-white font-medium">Limite utilizări totale</span>
               </div>
               <p class="text-white/40 text-sm">Ex: primele 100 comenzi</p>
             </div>
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span class="text-white font-medium">Valoare minimă</span>
               </div>
               <p class="text-white/40 text-sm">Comenzi de min. 50€</p>
             </div>
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 <span class="text-white font-medium">Interval de date</span>
               </div>
               <p class="text-white/40 text-sm">Programare automată</p>
             </div>
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                 <span class="text-white font-medium">Produse specifice</span>
               </div>
               <p class="text-white/40 text-sm">Sau excluderi categorii</p>
             </div>
-            <div class="feature-card-coupon p-4">
+            <div class="feature-card feature-card-amber p-4">
               <div class="flex items-center gap-3 mb-2">
                 <svg class="w-5 h-5 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span class="text-white font-medium">Restricții geografice</span>
@@ -477,14 +360,14 @@ get_header();
 
         <!-- Validation Response Preview -->
         <div class="reveal reveal-delay-1">
-          <div class="code-block-coupon">
-            <div class="code-header-coupon">
+          <div class="code-block">
+            <div class="code-header">
               <div class="code-dot bg-brand-rose"></div>
               <div class="code-dot bg-brand-amber"></div>
               <div class="code-dot bg-brand-green"></div>
               <span class="text-xs text-white/30 ml-2">validation-response.json</span>
             </div>
-            <div class="code-content-coupon">
+            <div class="code-content">
               <pre class="text-white/70"><code>{
   <span class="text-brand-amber">"valid"</span>: <span class="text-brand-green">true</span>,
   <span class="text-brand-amber">"code"</span>: <span class="text-brand-cyan">"VARA20ABC"</span>,
@@ -524,12 +407,12 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
         <span class="text-brand-rose text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Strategii care<br><span class="text-gradient-coupon">funcționează</span></h2>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Strategii care<br><span class="text-gradient">funcționează</span></h2>
         <p class="text-lg text-white/60">De la early bird la flash sales. Găsește strategia potrivită pentru evenimentul tău.</p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="use-case-card-coupon reveal">
+        <div class="use-case-card reveal">
           <div class="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -537,7 +420,7 @@ get_header();
           <p class="text-white/50 text-sm">Răsplătește clienții care rezervă devreme cu reduceri procentuale. Conduce impulsul de vânzări timpuriu și prezice mai bine participarea.</p>
         </div>
 
-        <div class="use-case-card-coupon reveal reveal-delay-1">
+        <div class="use-case-card reveal reveal-delay-1">
           <div class="w-12 h-12 rounded-xl bg-brand-rose/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
@@ -545,7 +428,7 @@ get_header();
           <p class="text-white/50 text-sm">Ocupă locurile goale cu coduri de vânzare flash distribuite prin email sau social media. Urgența limitată în timp conduce decizii rapide.</p>
         </div>
 
-        <div class="use-case-card-coupon reveal reveal-delay-2">
+        <div class="use-case-card reveal reveal-delay-2">
           <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           </div>
@@ -553,7 +436,7 @@ get_header();
           <p class="text-white/50 text-sm">Creează coduri unice pentru parteneri, influenceri sau afiliați. Urmărește exact care parteneriate conduc vânzări.</p>
         </div>
 
-        <div class="use-case-card-coupon reveal reveal-delay-3">
+        <div class="use-case-card reveal reveal-delay-3">
           <div class="w-12 h-12 rounded-xl bg-brand-amber/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
           </div>
@@ -561,7 +444,7 @@ get_header();
           <p class="text-white/50 text-sm">Răsplătește clienții repetiți cu coduri exclusive. Trimite reduceri personalizate bazate pe istoricul de achiziții.</p>
         </div>
 
-        <div class="use-case-card-coupon reveal reveal-delay-4">
+        <div class="use-case-card reveal reveal-delay-4">
           <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
@@ -569,7 +452,7 @@ get_header();
           <p class="text-white/50 text-sm">Oferă coduri specifice companiei pentru clienți B2B. Urmărește achizițiile corporate și oferă reduceri de volum.</p>
         </div>
 
-        <div class="use-case-card-coupon reveal reveal-delay-5">
+        <div class="use-case-card reveal reveal-delay-5">
           <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
           </div>
@@ -585,12 +468,12 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
         <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest">Funcționalități</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tot ce ai nevoie<br><span class="text-gradient-coupon">într-un singur loc</span></h2>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tot ce ai nevoie<br><span class="text-gradient">într-un singur loc</span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Campaign Management -->
-        <div class="feature-card-coupon reveal">
+        <div class="feature-card feature-card-amber reveal">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-brand-violet/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -606,7 +489,7 @@ get_header();
         </div>
 
         <!-- Usage Controls -->
-        <div class="feature-card-coupon reveal reveal-delay-1">
+        <div class="feature-card feature-card-amber reveal reveal-delay-1">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-brand-amber/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -622,7 +505,7 @@ get_header();
         </div>
 
         <!-- Targeting -->
-        <div class="feature-card-coupon reveal reveal-delay-2">
+        <div class="feature-card feature-card-amber reveal reveal-delay-2">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-brand-rose/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -638,7 +521,7 @@ get_header();
         </div>
 
         <!-- Validation -->
-        <div class="feature-card-coupon reveal reveal-delay-3">
+        <div class="feature-card feature-card-amber reveal reveal-delay-3">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-brand-green/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -654,7 +537,7 @@ get_header();
         </div>
 
         <!-- Analytics -->
-        <div class="feature-card-coupon reveal reveal-delay-4">
+        <div class="feature-card feature-card-amber reveal reveal-delay-4">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-brand-cyan/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
@@ -670,7 +553,7 @@ get_header();
         </div>
 
         <!-- API -->
-        <div class="feature-card-coupon reveal reveal-delay-5">
+        <div class="feature-card feature-card-amber reveal reveal-delay-5">
           <h4 class="text-lg font-semibold text-white mb-4 flex items-center gap-3">
             <span class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
               <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
@@ -695,33 +578,33 @@ get_header();
         <!-- Content -->
         <div class="reveal lg:sticky lg:top-32">
           <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-sm font-medium mb-6">🔌 API Documentation</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Integrare<br><span class="text-gradient-coupon">simplă</span></h2>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Integrare<br><span class="text-gradient">simplă</span></h2>
           <p class="text-lg text-white/60 mb-8 leading-relaxed">API RESTful complet documentat. Integrează sistemul de cupoane în orice platformă în câteva minute.</p>
 
           <div class="space-y-3 mb-8">
-            <div class="api-endpoint-coupon flex items-center gap-3">
+            <div class="api-endpoint flex items-center gap-3">
               <span class="method-get font-semibold">GET</span>
               <span class="text-white/70">/api/coupons/campaigns</span>
             </div>
-            <div class="api-endpoint-coupon flex items-center gap-3">
+            <div class="api-endpoint flex items-center gap-3">
               <span class="method-post font-semibold">POST</span>
               <span class="text-white/70">/api/coupons/campaigns</span>
             </div>
-            <div class="api-endpoint-coupon flex items-center gap-3">
+            <div class="api-endpoint flex items-center gap-3">
               <span class="method-post font-semibold">POST</span>
               <span class="text-white/70">/api/coupons/validate</span>
             </div>
-            <div class="api-endpoint-coupon flex items-center gap-3">
+            <div class="api-endpoint flex items-center gap-3">
               <span class="method-post font-semibold">POST</span>
               <span class="text-white/70">/api/coupons/redeem</span>
             </div>
-            <div class="api-endpoint-coupon flex items-center gap-3">
+            <div class="api-endpoint flex items-center gap-3">
               <span class="method-get font-semibold">GET</span>
               <span class="text-white/70">/api/coupons/campaigns/{id}/stats</span>
             </div>
           </div>
 
-          <a href="<?php echo esc_url(home_url('/api/docs/coupons')); ?>" class="btn-coupon btn-ghost-coupon">
+          <a href="<?php echo esc_url(home_url('/api/docs/coupons')); ?>" class="btn btn-ghost">
             Vezi documentația completă
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
@@ -729,14 +612,14 @@ get_header();
 
         <!-- Code Example -->
         <div class="reveal reveal-delay-1">
-          <div class="code-block-coupon mb-6">
-            <div class="code-header-coupon">
+          <div class="code-block mb-6">
+            <div class="code-header">
               <div class="code-dot bg-brand-rose"></div>
               <div class="code-dot bg-brand-amber"></div>
               <div class="code-dot bg-brand-green"></div>
               <span class="text-xs text-white/30 ml-2">integration.php</span>
             </div>
-            <div class="code-content-coupon">
+            <div class="code-content">
               <pre class="text-white/70"><code><span class="text-brand-violet">use</span> App\Services\PromoCodes\<span class="text-brand-cyan">PromoCodeService</span>;
 <span class="text-brand-violet">use</span> App\Services\PromoCodes\<span class="text-brand-cyan">PromoCodeValidator</span>;
 
@@ -764,14 +647,14 @@ get_header();
           </div>
 
           <!-- Campaign Structure -->
-          <div class="code-block-coupon">
-            <div class="code-header-coupon">
+          <div class="code-block">
+            <div class="code-header">
               <div class="code-dot bg-brand-rose"></div>
               <div class="code-dot bg-brand-amber"></div>
               <div class="code-dot bg-brand-green"></div>
               <span class="text-xs text-white/30 ml-2">campaign-structure.json</span>
             </div>
-            <div class="code-content-coupon">
+            <div class="code-content">
               <pre class="text-white/70"><code>{
   <span class="text-brand-amber">"id"</span>: <span class="text-brand-cyan">"camp_123"</span>,
   <span class="text-brand-amber">"name"</span>: <span class="text-brand-cyan">"Reduceri de Vară 2025"</span>,
@@ -799,16 +682,16 @@ get_header();
   <!-- FINAL CTA -->
   <section class="py-32 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-amber/20 via-transparent to-brand-rose/20"></div>
-    <div class="orb-coupon w-[800px] h-[800px] bg-brand-amber/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="orb w-[800px] h-[800px] bg-brand-amber/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
       <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Transformă promoțiile<br><span class="text-gradient-amber">în rezultate</span></h2>
       <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Creează prima campanie în 2 minute. Generează coduri, setează reguli, urmărește performanța - totul într-un singur dashboard.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn-coupon btn-amber text-lg px-10 py-4">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn btn-amber text-lg px-10 py-4">
           Începe gratuit
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-coupon btn-ghost-coupon text-lg px-10 py-4">Vorbește cu un specialist</a>
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-ghost text-lg px-10 py-4">Vorbește cu un specialist</a>
       </div>
       <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Fără card de credit • Setup în 2 minute • Suport gratuit</p>
     </div>
@@ -845,7 +728,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Feature card mouse tracking effect
-  document.querySelectorAll('.feature-card-coupon').forEach(card => {
+  document.querySelectorAll('.feature-card feature-card-amber').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;

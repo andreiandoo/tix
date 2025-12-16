@@ -62,6 +62,9 @@ get_header();
   }
 </style>
 
+<main class="noise">
+<div class="scroll-progress" id="scroll-progress"></div>
+
 <!-- HERO -->
 <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
   <!-- Background Orbs -->
@@ -693,8 +696,21 @@ get_header();
   </div>
 </section>
 
+</main>
+
 <!-- JAVASCRIPT -->
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll Progress
+  window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (!scrollProgress) return;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = progress + '%';
+  });
+
   // Intersection Observer for Reveal Animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -715,6 +731,18 @@ get_header();
       card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
     });
   });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
 </script>
 
 <?php get_footer(); ?>

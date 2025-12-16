@@ -8,191 +8,28 @@ get_header();
 ?>
 
 <style>
-  /* Zoom Page Specific Styles */
-  .text-gradient-zoom {
-    background: linear-gradient(135deg, #2D8CFF 0%, #5CA4FF 50%, #2D8CFF 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
-  }
-
-  .btn-zoom {
-    @apply bg-gradient-to-r from-zoom-blue to-zoom-dark text-white;
-  }
-  .btn-zoom:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 60px rgba(45, 140, 255, 0.4);
-  }
-
-  /* Video Call Mockup */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  .video-tile {
-    aspect-ratio: 16/10;
-    background: linear-gradient(135deg, rgba(45, 140, 255, 0.2), rgba(45, 140, 255, 0.05));
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .video-tile::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.5));
-  }
-
-  /* Sync Animation */
-  .sync-line {
-    position: relative;
-    height: 2px;
-    background: rgba(255,255,255,0.1);
-    overflow: hidden;
-  }
-  .sync-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 40%;
-    background: linear-gradient(90deg, transparent, #2D8CFF, transparent);
-    animation: syncFlow 2s ease-in-out infinite;
-  }
-  @keyframes syncFlow {
-    0% { left: -40%; }
-    100% { left: 100%; }
-  }
-
-  /* Live Indicator */
-  .live-dot {
-    width: 8px;
-    height: 8px;
-    background: #ef4444;
-    border-radius: 50%;
-    animation: livePulse 1.5s ease-in-out infinite;
-  }
-  @keyframes livePulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-  }
-
-  /* Feature Cards */
-  .feature-card {
+  /* Zoom Page Specific Styles - Overrides for blue theme */
+  .feature-card-zoom {
     background: linear-gradient(135deg, rgba(45, 140, 255, 0.08) 0%, rgba(45, 140, 255, 0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 20px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+  .feature-card-zoom::before {
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 140, 255, 0.15), transparent 50%);
-    opacity: 0;
-    transition: opacity 0.5s;
   }
-  .feature-card:hover::before { opacity: 1; }
-  .feature-card:hover { border-color: rgba(45, 140, 255, 0.3); transform: translateY(-4px); }
-
-  /* Zoom Window Mockup */
-  .zoom-window {
-    background: #1a1a27;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-  }
-  .zoom-header {
-    background: #232323;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .zoom-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-
-  /* Recording Badge */
-  .recording-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 100px;
-    font-size: 12px;
-    color: #ef4444;
-  }
-  .recording-badge::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: #ef4444;
-    border-radius: 50%;
-    animation: livePulse 1s infinite;
-  }
-
-  /* Use Case Card */
-  .use-case-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 20px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-  }
-  .use-case-card:hover {
-    background: rgba(255,255,255,0.05);
+  .feature-card-zoom:hover {
     border-color: rgba(45, 140, 255, 0.3);
-    transform: translateY(-4px);
   }
 
-  /* Capacity Badge */
-  .capacity-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 100px;
-    font-size: 12px;
-    color: #10b981;
+  .use-case-card-zoom:hover {
+    border-color: rgba(45, 140, 255, 0.3);
   }
 
-  /* Pulse Ring */
-  .pulse-ring {
-    position: absolute;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-    animation: pulseRing 2s ease-out infinite;
-  }
-  @keyframes pulseRing {
-    0% { transform: scale(0.8); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
-  }
-
-  /* Participant List Animation */
-  .participant-list-item {
-    animation: slideInLeft 0.4s ease-out forwards;
-    opacity: 0;
-  }
-  @keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+  .scroll-progress-zoom {
+    background: linear-gradient(90deg, #2D8CFF, #5CA4FF) !important;
   }
 </style>
+
+<main class="noise">
+<div class="scroll-progress scroll-progress-zoom" id="scroll-progress"></div>
 
 <!-- HERO -->
 <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
@@ -733,9 +570,22 @@ get_header();
   </div>
 </section>
 
+</main>
+
 <!-- JAVASCRIPT -->
 <script>
-  // Intersection Observer for reveals
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll Progress
+  window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (!scrollProgress) return;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = progress + '%';
+  });
+
+  // Intersection Observer for Reveal Animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -747,16 +597,26 @@ get_header();
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Feature card hover effect
+  // Feature Card Mouse Tracking
   document.querySelectorAll('.feature-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
     });
   });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
 </script>
 
 <?php get_footer(); ?>

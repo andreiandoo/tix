@@ -468,6 +468,7 @@ module.exports = {
             animation: {
                 // Floating/movement
                 'float': 'float 6s ease-in-out infinite',
+                'float-delayed': 'float 6s ease-in-out 2s infinite',
                 'float-slow': 'float 8s ease-in-out infinite',
                 'float-fast': 'float 4s ease-in-out infinite',
                 'bounce-slow': 'bounce 3s ease-in-out infinite',
@@ -488,9 +489,11 @@ module.exports = {
                 'fade-in': 'fadeIn 0.5s ease-out forwards',
                 'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
                 'fade-in-down': 'fadeInDown 0.5s ease-out forwards',
+                'slide-up': 'fadeInUp 0.5s ease-out forwards',
                 'slide-in-left': 'slideInLeft 0.5s ease-out forwards',
                 'slide-in-right': 'slideInRight 0.5s ease-out forwards',
                 'scale-in': 'scaleIn 0.5s ease-out forwards',
+                'gradient': 'gradientShift 8s linear infinite',
                 
                 // Special effects
                 'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',

@@ -5,6 +5,151 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'                  => $current_lang === 'ro' ? 'Oaspeți VIP & Acreditări' : 'VIP Guests & Accreditations',
+	'hero_title'             => $current_lang === 'ro' ? 'Invitații' : 'Exclusive',
+	'hero_title2'            => $current_lang === 'ro' ? 'exclusive' : 'invitations',
+	'hero_desc'              => $current_lang === 'ro'
+		? 'Gestionează <strong class="text-white">oaspeți VIP</strong>, acreditări de presă și bilete gratuite. Import CSV, QR unic cu protecție anti-replay, urmărire completă de la generare la check-in.'
+		: 'Manage <strong class="text-white">VIP guests</strong>, press accreditations and free tickets. CSV import, unique QR with anti-replay protection, complete tracking from generation to check-in.',
+	'cta_create'             => $current_lang === 'ro' ? 'Creează Invitații' : 'Create Invitations',
+	'cta_csv'                => $current_lang === 'ro' ? 'Vezi importul CSV' : 'See CSV import',
+	'stat_csv'               => $current_lang === 'ro' ? 'Import instant' : 'Instant import',
+	'stat_qr'                => $current_lang === 'ro' ? 'Anti-replay' : 'Anti-replay',
+	'stat_tracking'          => $current_lang === 'ro' ? 'Tracking' : 'Tracking',
+	'exclusive_invitation'   => $current_lang === 'ro' ? 'Invitație Exclusivă' : 'Exclusive Invitation',
+	'new_year_gala'          => $current_lang === 'ro' ? 'Gala de Anul Nou 2025' : 'New Year Gala 2025',
+	'status_created'         => $current_lang === 'ro' ? 'Creat' : 'Created',
+	'status_rendered'        => $current_lang === 'ro' ? 'Generat' : 'Rendered',
+	'status_emailed'         => $current_lang === 'ro' ? 'Trimis' : 'Sent',
+	'status_downloaded'      => $current_lang === 'ro' ? 'Descărcat' : 'Downloaded',
+	'status_checkedin'       => $current_lang === 'ro' ? 'Check-in ✓' : 'Check-in ✓',
+	'guest'                  => $current_lang === 'ro' ? 'Invitat' : 'Guest',
+	'company'                => $current_lang === 'ro' ? 'Companie' : 'Company',
+	'title_label'            => $current_lang === 'ro' ? 'Titlu' : 'Title',
+	'seat'                   => $current_lang === 'ro' ? 'Loc' : 'Seat',
+	'date_label'             => $current_lang === 'ro' ? 'Data' : 'Date',
+	'time_label'             => $current_lang === 'ro' ? 'Ora' : 'Time',
+	'batch_label'            => $current_lang === 'ro' ? 'Lot' : 'Batch',
+	'invitations'            => $current_lang === 'ro' ? 'invitații' : 'invitations',
+	'delivered'              => $current_lang === 'ro' ? 'Livrat' : 'Delivered',
+	'ago_2min'               => $current_lang === 'ro' ? 'acum 2 min' : '2 min ago',
+
+	// CSV Import
+	'csv_label'              => $current_lang === 'ro' ? 'Import Rapid' : 'Quick Import',
+	'csv_title'              => $current_lang === 'ro' ? 'Import CSV' : 'CSV Import',
+	'csv_title2'             => $current_lang === 'ro' ? 'inteligent' : 'smart',
+	'csv_desc'               => $current_lang === 'ro'
+		? 'Trage și plasează foaia ta de calcul. Mapare automată a coloanelor, generare în masă, personalizare pentru fiecare invitat.'
+		: 'Drag and drop your spreadsheet. Automatic column mapping, bulk generation, personalization for each guest.',
+	'drag_drop'              => $current_lang === 'ro' ? 'Drag & Drop' : 'Drag & Drop',
+	'drag_drop_desc'         => $current_lang === 'ro' ? 'Trage fișierul CSV direct în browser' : 'Drag the CSV file directly into the browser',
+	'field_mapping'          => $current_lang === 'ro' ? 'Mapare Câmpuri' : 'Field Mapping',
+	'field_mapping_desc'     => $current_lang === 'ro' ? 'Conectează coloanele CSV la datele invitației' : 'Connect CSV columns to invitation data',
+	'batch_gen'              => $current_lang === 'ro' ? 'Generare în Lot' : 'Batch Generation',
+	'batch_gen_desc'         => $current_lang === 'ro' ? 'Sute de invitații generate în secunde' : 'Hundreds of invitations generated in seconds',
+	'rows_detected'          => $current_lang === 'ro' ? 'rânduri detectate' : 'rows detected',
+	'uploaded_success'       => $current_lang === 'ro' ? 'Încărcat cu succes' : 'Uploaded successfully',
+	'name_field'             => $current_lang === 'ro' ? 'Nume' : 'Name',
+	'generate_btn'           => $current_lang === 'ro' ? 'Generează 250 Invitații' : 'Generate 250 Invitations',
+
+	// Status Flow
+	'tracking_label'         => $current_lang === 'ro' ? 'Urmărire Completă' : 'Complete Tracking',
+	'tracking_title'         => $current_lang === 'ro' ? 'Știi totul despre' : 'Know everything about',
+	'tracking_title2'        => $current_lang === 'ro' ? 'fiecare invitație' : 'each invitation',
+	'tracking_desc'          => $current_lang === 'ro' ? 'De la creare până la check-in, urmărești fiecare pas. Niciun oaspete pierdut.' : 'From creation to check-in, you track every step. No guest lost.',
+	'inv_in_system'          => $current_lang === 'ro' ? 'Invitație în sistem' : 'Invitation in system',
+	'pdf_created'            => $current_lang === 'ro' ? 'PDF creat' : 'PDF created',
+	'email_delivered'        => $current_lang === 'ro' ? 'Email livrat' : 'Email delivered',
+	'pdf_saved'              => $current_lang === 'ro' ? 'PDF salvat' : 'PDF saved',
+	'viewed'                 => $current_lang === 'ro' ? 'Vizualizat' : 'Viewed',
+	'guest_entered'          => $current_lang === 'ro' ? 'Oaspete intrat' : 'Guest entered',
+	'voided_note'            => $current_lang === 'ro' ? 'Invitațiile anulate sunt blocate automat la check-in' : 'Voided invitations are automatically blocked at check-in',
+
+	// Batch Management
+	'batch_mgmt_label'       => $current_lang === 'ro' ? 'Gestionare Loturi' : 'Batch Management',
+	'batch_mgmt_title'       => $current_lang === 'ro' ? 'Organizează' : 'Organize',
+	'batch_mgmt_title2'      => $current_lang === 'ro' ? 'pe categorii' : 'by categories',
+	'batch_mgmt_desc'        => $current_lang === 'ro'
+		? 'Grupează invitațiile în loturi: presă, sponsori, VIP, artiști. Urmărește progresul fiecărui lot separat.'
+		: 'Group invitations into batches: press, sponsors, VIP, artists. Track progress of each batch separately.',
+	'inv_batches'            => $current_lang === 'ro' ? 'Loturi Invitații' : 'Invitation Batches',
+	'active_batches'         => $current_lang === 'ro' ? 'loturi active' : 'active batches',
+	'new_batch'              => $current_lang === 'ro' ? '+ Lot Nou' : '+ New Batch',
+	'press_media'            => $current_lang === 'ro' ? 'Presă & Media' : 'Press & Media',
+	'completed'              => $current_lang === 'ro' ? 'Completat' : 'Completed',
+	'checkin'                => $current_lang === 'ro' ? 'check-in' : 'check-in',
+	'sponsors_vip'           => $current_lang === 'ro' ? 'Sponsori VIP' : 'VIP Sponsors',
+	'in_sending'             => $current_lang === 'ro' ? 'În trimitere' : 'Sending',
+	'artists_team'           => $current_lang === 'ro' ? 'Artiști & Echipă' : 'Artists & Team',
+	'generating'             => $current_lang === 'ro' ? 'Generare...' : 'Generating...',
+	'export_csv'             => $current_lang === 'ro' ? '📥 Export CSV' : '📥 Export CSV',
+	'reminder'               => $current_lang === 'ro' ? '📧 Reminder' : '📧 Reminder',
+	'multiple_batches'       => $current_lang === 'ro' ? 'Loturi Multiple' : 'Multiple Batches',
+	'multiple_batches_desc'  => $current_lang === 'ro' ? 'Creează loturi separate pentru diferite categorii de oaspeți' : 'Create separate batches for different guest categories',
+	'stats_per_batch'        => $current_lang === 'ro' ? 'Statistici per Lot' : 'Stats per Batch',
+	'stats_per_batch_desc'   => $current_lang === 'ro' ? 'Vezi rata de livrare, descărcare și check-in pentru fiecare' : 'See delivery, download and check-in rate for each',
+	'bulk_zip'               => $current_lang === 'ro' ? 'ZIP în Masă' : 'Bulk ZIP',
+	'bulk_zip_desc'          => $current_lang === 'ro' ? 'Descarcă toate PDF-urile unui lot într-o singură arhivă' : 'Download all PDFs of a batch in a single archive',
+
+	// QR Security
+	'security_label'         => $current_lang === 'ro' ? 'Securitate' : 'Security',
+	'security_title'         => $current_lang === 'ro' ? 'QR cu protecție' : 'QR with',
+	'security_title2'        => $current_lang === 'ro' ? 'anti-replay' : 'anti-replay protection',
+	'security_desc'          => $current_lang === 'ro'
+		? 'Fiecare cod QR conține checksum unic. Odată scanat, invitația este marcată și nu poate fi refolosită. Zero intrări duplicate.'
+		: 'Each QR code contains a unique checksum. Once scanned, the invitation is marked and cannot be reused. Zero duplicate entries.',
+	'unique_checksum'        => $current_lang === 'ro' ? 'Checksum Unic' : 'Unique Checksum',
+	'unique_checksum_desc'   => $current_lang === 'ro' ? 'Fiecare QR include hash verificabil server-side' : 'Each QR includes server-side verifiable hash',
+	'replay_block'           => $current_lang === 'ro' ? 'Blocare Replay' : 'Replay Block',
+	'replay_block_desc'      => $current_lang === 'ro' ? 'A doua scanare este respinsă automat' : 'Second scan is automatically rejected',
+	'signed_urls'            => $current_lang === 'ro' ? 'URL-uri Semnate' : 'Signed URLs',
+	'signed_urls_desc'       => $current_lang === 'ro' ? 'Link-uri de descărcare cu expirare automată' : 'Download links with automatic expiration',
+	'valid_scan'             => $current_lang === 'ro' ? 'Scanare Validă' : 'Valid Scan',
+	'replay_blocked'         => $current_lang === 'ro' ? 'Replay Blocat!' : 'Replay Blocked!',
+	'same_code'              => $current_lang === 'ro' ? 'Același cod' : 'Same code',
+	'already_used'           => $current_lang === 'ro' ? 'Deja folosit la' : 'Already used at',
+	'gate'                   => $current_lang === 'ro' ? 'Poartă' : 'Gate',
+	'scans_logged'           => $current_lang === 'ro' ? '🔒 Toate scanările sunt logate cu timestamp, IP și poartă' : '🔒 All scans are logged with timestamp, IP and gate',
+
+	// Use Cases
+	'usecases_label'         => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'         => $current_lang === 'ro' ? 'Pentru evenimente' : 'For events',
+	'usecases_title2'        => $current_lang === 'ro' ? 'unde listele contează' : 'where lists matter',
+	'uc_gala'                => $current_lang === 'ro' ? 'Gale & Dineuri' : 'Galas & Dinners',
+	'uc_gala_desc'           => $current_lang === 'ro' ? 'Invitații personalizate cu locuri pre-atribuite la mese. Import lista de oaspeți din Excel.' : 'Personalized invitations with pre-assigned table seats. Import guest list from Excel.',
+	'uc_premiere'            => $current_lang === 'ro' ? 'Premiere Film' : 'Film Premieres',
+	'uc_premiere_desc'       => $current_lang === 'ro' ? 'Acreditări pentru presă, actori și echipa de producție. Categorii diferite de acces.' : 'Accreditations for press, actors and production team. Different access categories.',
+	'uc_launch'              => $current_lang === 'ro' ? 'Lansări Produse' : 'Product Launches',
+	'uc_launch_desc'         => $current_lang === 'ro' ? 'Invită parteneri, influenceri și presă. Urmărește cine confirmă participarea.' : 'Invite partners, influencers and press. Track who confirms attendance.',
+	'uc_press'               => $current_lang === 'ro' ? 'Acreditări Presă' : 'Press Accreditations',
+	'uc_press_desc'          => $current_lang === 'ro' ? 'Lot separat pentru jurnaliști cu acces special la zonele de presă și backstage.' : 'Separate batch for journalists with special access to press areas and backstage.',
+	'uc_sponsors'            => $current_lang === 'ro' ? 'Sponsori & Parteneri' : 'Sponsors & Partners',
+	'uc_sponsors_desc'       => $current_lang === 'ro' ? 'Invitații brandate pentru sponsorii evenimentului. Include note personalizate.' : 'Branded invitations for event sponsors. Includes personalized notes.',
+	'uc_artists'             => $current_lang === 'ro' ? 'Artiști & Crew' : 'Artists & Crew',
+	'uc_artists_desc'        => $current_lang === 'ro' ? 'Acces all-areas pentru echipa de producție, artiști și staff tehnic.' : 'All-areas access for production team, artists and technical staff.',
+
+	// Testimonial
+	'testimonial_quote'      => $current_lang === 'ro'
+		? 'Am trimis <span class="text-gradient-gold font-semibold">500 de invitații</span> în 10 minute. Import CSV, un click pe Send, gata. Știam exact cine și-a descărcat invitația și cine avea nevoie de reminder.'
+		: 'I sent <span class="text-gradient-gold font-semibold">500 invitations</span> in 10 minutes. CSV import, one click on Send, done. I knew exactly who downloaded their invitation and who needed a reminder.',
+	'testimonial_author'     => 'Alexandru P.',
+	'testimonial_role'       => $current_lang === 'ro' ? 'Event Director, Gala Premiilor ANIS' : 'Event Director, ANIS Awards Gala',
+
+	// Final CTA
+	'cta_title'              => $current_lang === 'ro' ? 'Invitații' : 'VIP',
+	'cta_title2'             => 'VIP',
+	'cta_desc'               => $current_lang === 'ro'
+		? 'Import CSV, QR anti-replay, urmărire completă. Gestionează oaspeții speciali ca un profesionist.'
+		: 'CSV import, anti-replay QR, complete tracking. Manage special guests like a professional.',
+	'cta_contact'            => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'cta_footer'             => $current_lang === 'ro'
+		? 'Import CSV • QR Anti-Replay • Urmărire Completă • Export Rapoarte'
+		: 'CSV Import • Anti-Replay QR • Complete Tracking • Report Export',
+];
 ?>
 
 <style>
@@ -160,27 +305,27 @@ get_header();
           <!-- Badge -->
           <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-vip-gold/10 border border-vip-gold/20 mb-6">
             <span class="text-vip-gold">👑</span>
-            <span class="text-vip-gold text-sm font-medium">Oaspeți VIP & Acreditări</span>
+            <span class="text-vip-gold text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Invitații<br><span class="text-gradient-gold">exclusive</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-gold"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Gestionează <strong class="text-white">oaspeți VIP</strong>, acreditări de presă și bilete gratuite. Import CSV, QR unic cu protecție anti-replay, urmărire completă de la generare la check-in.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-vip-gold to-vip-accent text-vip-dark hover:scale-105 hover:shadow-glow-gold transition-all duration-300">
-              Creează Invitații
+              <?php echo esc_html( $t['cta_create'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#import" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi importul CSV
+              <?php echo esc_html( $t['cta_csv'] ); ?>
             </a>
           </div>
 
@@ -188,15 +333,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-vip-gold">CSV</div>
-              <div class="text-white/40 text-sm">Import instant</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_csv'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">QR</div>
-              <div class="text-white/40 text-sm">Anti-replay</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_qr'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-brand-green">100%</div>
-              <div class="text-white/40 text-sm">Tracking</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_tracking'] ); ?></div>
             </div>
           </div>
         </div>
@@ -221,8 +366,8 @@ get_header();
                     <span class="text-vip-dark font-bold text-sm">VIP</span>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">Invitație Exclusivă</div>
-                    <div class="text-white/40 text-xs">Gala de Anul Nou 2025</div>
+                    <div class="text-white font-semibold"><?php echo esc_html( $t['exclusive_invitation'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['new_year_gala'] ); ?></div>
                   </div>
                 </div>
                 <div
@@ -245,19 +390,19 @@ get_header();
               <div class="bg-dark-900/50 rounded-xl p-4 mb-6 relative z-10">
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider">Invitat</div>
+                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider"><?php echo esc_html( $t['guest'] ); ?></div>
                     <div class="text-white font-semibold">Maria Ionescu</div>
                   </div>
                   <div>
-                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider">Companie</div>
+                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider"><?php echo esc_html( $t['company'] ); ?></div>
                     <div class="text-white font-semibold">Antena Group</div>
                   </div>
                   <div>
-                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider">Titlu</div>
+                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider"><?php echo esc_html( $t['title_label'] ); ?></div>
                     <div class="text-white/80 text-sm">Editor Șef</div>
                   </div>
                   <div>
-                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider">Loc</div>
+                    <div class="text-vip-gold/60 text-xs uppercase tracking-wider"><?php echo esc_html( $t['seat'] ); ?></div>
                     <div class="text-white/80 text-sm">Masa VIP-3</div>
                   </div>
                 </div>
@@ -266,11 +411,11 @@ get_header();
               <!-- Event Details -->
               <div class="flex items-center justify-between mb-6 relative z-10">
                 <div>
-                  <div class="text-vip-gold/60 text-xs uppercase">Data</div>
+                  <div class="text-vip-gold/60 text-xs uppercase"><?php echo esc_html( $t['date_label'] ); ?></div>
                   <div class="text-white font-medium">31 Decembrie 2025</div>
                 </div>
                 <div class="text-right">
-                  <div class="text-vip-gold/60 text-xs uppercase">Ora</div>
+                  <div class="text-vip-gold/60 text-xs uppercase"><?php echo esc_html( $t['time_label'] ); ?></div>
                   <div class="text-white font-medium">20:00</div>
                 </div>
               </div>
@@ -299,8 +444,8 @@ get_header();
                   <svg class="w-4 h-4 text-vip-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 </div>
                 <div>
-                  <div class="text-vip-gold text-sm font-medium">Lot #47</div>
-                  <div class="text-white/40 text-xs">250 invitații</div>
+                  <div class="text-vip-gold text-sm font-medium"><?php echo esc_html( $t['batch_label'] ); ?> #47</div>
+                  <div class="text-white/40 text-xs">250 <?php echo esc_html( $t['invitations'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -312,8 +457,8 @@ get_header();
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
-                  <div class="text-brand-green text-sm font-medium">Livrat</div>
-                  <div class="text-white/40 text-xs">acum 2 min</div>
+                  <div class="text-brand-green text-sm font-medium"><?php echo esc_html( $t['delivered'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['ago_2min'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -329,9 +474,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-vip-gold text-sm font-medium uppercase tracking-widest">Import Rapid</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Import CSV<br><span class="text-gradient-gold">inteligent</span></h2>
-          <p class="text-lg text-white/60 mb-8">Trage și plasează foaia ta de calcul. Mapare automată a coloanelor, generare în masă, personalizare pentru fiecare invitat.</p>
+          <span class="text-vip-gold text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['csv_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['csv_title'] ); ?><br><span class="text-gradient-gold"><?php echo esc_html( $t['csv_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['csv_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
@@ -339,8 +484,8 @@ get_header();
                 <svg class="w-6 h-6 text-vip-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Drag & Drop</span>
-                <p class="text-white/50 text-sm">Trage fișierul CSV direct în browser</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['drag_drop'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['drag_drop_desc'] ); ?></p>
               </div>
             </div>
 
@@ -349,8 +494,8 @@ get_header();
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Mapare Câmpuri</span>
-                <p class="text-white/50 text-sm">Conectează coloanele CSV la datele invitației</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['field_mapping'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['field_mapping_desc'] ); ?></p>
               </div>
             </div>
 
@@ -359,8 +504,8 @@ get_header();
                 <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Generare în Lot</span>
-                <p class="text-white/50 text-sm">Sute de invitații generate în secunde</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['batch_gen'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['batch_gen_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -375,15 +520,15 @@ get_header();
                 <svg class="w-8 h-8 text-vip-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <div class="text-white font-medium mb-1">invitati_gala_2025.csv</div>
-              <div class="text-white/40 text-sm">250 rânduri detectate</div>
+              <div class="text-white/40 text-sm">250 <?php echo esc_html( $t['rows_detected'] ); ?></div>
               <div class="mt-3 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-brand-green/20 text-brand-green text-xs">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                Încărcat cu succes
+                <?php echo esc_html( $t['uploaded_success'] ); ?>
               </div>
             </div>
 
             <!-- Field Mapping -->
-            <div class="text-white/40 text-xs uppercase tracking-wider mb-3">Mapare Câmpuri</div>
+            <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['field_mapping'] ); ?></div>
             <div class="space-y-2 mb-6">
               <div class="flex items-center gap-4">
                 <div class="flex-1 bg-dark-900/50 rounded-lg px-3 py-2 text-sm">
@@ -392,8 +537,8 @@ get_header();
                 </div>
                 <svg class="w-5 h-5 text-vip-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 <div class="flex-1 bg-vip-gold/10 rounded-lg px-3 py-2 text-sm border border-vip-gold/20">
-                  <span class="text-vip-gold/60 text-xs">Invitație</span>
-                  <div class="text-vip-gold font-medium text-sm">Nume</div>
+                  <span class="text-vip-gold/60 text-xs"><?php echo esc_html( $t['exclusive_invitation'] ); ?></span>
+                  <div class="text-vip-gold font-medium text-sm"><?php echo esc_html( $t['name_field'] ); ?></div>
                 </div>
               </div>
 
@@ -404,7 +549,7 @@ get_header();
                 </div>
                 <svg class="w-5 h-5 text-vip-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 <div class="flex-1 bg-vip-gold/10 rounded-lg px-3 py-2 text-sm border border-vip-gold/20">
-                  <span class="text-vip-gold/60 text-xs">Invitație</span>
+                  <span class="text-vip-gold/60 text-xs"><?php echo esc_html( $t['exclusive_invitation'] ); ?></span>
                   <div class="text-vip-gold font-medium text-sm">Email</div>
                 </div>
               </div>
@@ -416,15 +561,15 @@ get_header();
                 </div>
                 <svg class="w-5 h-5 text-vip-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 <div class="flex-1 bg-vip-gold/10 rounded-lg px-3 py-2 text-sm border border-vip-gold/20">
-                  <span class="text-vip-gold/60 text-xs">Invitație</span>
-                  <div class="text-vip-gold font-medium text-sm">Companie</div>
+                  <span class="text-vip-gold/60 text-xs"><?php echo esc_html( $t['exclusive_invitation'] ); ?></span>
+                  <div class="text-vip-gold font-medium text-sm"><?php echo esc_html( $t['company'] ); ?></div>
                 </div>
               </div>
             </div>
 
             <!-- Generate Button -->
             <button class="w-full py-3 rounded-xl bg-gradient-to-r from-vip-gold to-vip-accent text-vip-dark font-semibold hover:scale-[1.02] transition-transform">
-              Generează 250 Invitații
+              <?php echo esc_html( $t['generate_btn'] ); ?>
             </button>
           </div>
         </div>

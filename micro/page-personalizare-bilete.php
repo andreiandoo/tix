@@ -774,8 +774,8 @@ $t = [
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Designuri pentru<br><span class="text-gradient animate-shimmer">orice ocazie</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -784,8 +784,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">🎨</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Bilete Brandate</h3>
-          <p class="text-white/50 text-sm">Culorile, fonturile și imaginile tale. Bilete care se simt ca parte din experiență.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_branded'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_branded_desc'] ); ?></p>
         </div>
 
         <!-- VIP Tickets -->
@@ -793,8 +793,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">👑</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Bilete VIP Premium</h3>
-          <p class="text-white/50 text-sm">Designuri distinctive cu accente aurii și layout-uri unice pentru experiențe premium.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_vip'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_vip_desc'] ); ?></p>
         </div>
 
         <!-- Conference Badges -->
@@ -802,8 +802,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">🏷️</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Ecusoane Conferință</h3>
-          <p class="text-white/50 text-sm">Informații participant, logo companie și indicatori acces într-un format printabil.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_badges'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_badges_desc'] ); ?></p>
         </div>
 
         <!-- Multi-Day Passes -->
@@ -811,8 +811,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">📅</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Abonamente Multi-Zi</h3>
-          <p class="text-white/50 text-sm">Layout-uri cu spațiu pentru mai multe date sau stil punch-card pentru acces multi-sesiune.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_multiday'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_multiday_desc'] ); ?></p>
         </div>
 
         <!-- Promo Tickets -->
@@ -820,8 +820,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">📢</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Bilete Promoționale</h3>
-          <p class="text-white/50 text-sm">Logo-uri sponsori, mesaje promoționale și coduri QR pentru oferte speciale.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_promo'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_promo_desc'] ); ?></p>
         </div>
 
         <!-- Collectible Tickets -->
@@ -829,8 +829,8 @@ $t = [
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-4">
             <span class="text-2xl">⭐</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Bilete Colecționabile</h3>
-          <p class="text-white/50 text-sm">Design memorabil pentru concerte sau evenimente speciale - bilete care merită păstrate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_collectible'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_collectible_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -852,14 +852,14 @@ $t = [
           </div>
           <!-- Quote -->
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "În sfârșit pot să fac bilete care <span class="text-gradient-canvas font-semibold">arată exact cum vreau</span>. Nu mai trebuie să rog pe nimeni să-mi facă design-ul. Drag-and-drop, salvez template-ul și gata. Clienții chiar le păstrează ca amintire!"
+            "<?php echo $t['testimonial_quote']; ?>"
           </blockquote>
           <!-- Author -->
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-canvas-purple to-canvas-pink"></div>
             <div>
-              <div class="font-semibold text-white">Ioana M.</div>
-              <div class="text-white/50">Event Manager, Club Control</div>
+              <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+              <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
             </div>
           </div>
         </div>
@@ -881,21 +881,21 @@ $t = [
     </div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Start<br><span class="text-gradient-canvas">designing</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Editor vizual intuitiv. Template-uri salvate. Variabile dinamice. Bilete profesionale în minute.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-canvas-purple to-canvas-pink text-white hover:scale-105 hover:shadow-glow-purple transition-all duration-300">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-          Deschide Editorul
+          <?php echo esc_html( $t['cta_open_editor'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Achiziție unică. Creativitate nelimitată. Export PDF/PNG.</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['cta_footer'] ); ?></p>
     </div>
   </section>
 </div>

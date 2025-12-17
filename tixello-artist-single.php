@@ -6,6 +6,59 @@
 
 get_header();
 
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Array cu traduceri
+$t = [
+    // 404 / Not Found
+    'artist_not_found' => $current_lang === 'ro' ? 'Artist negasit' : 'Artist not found',
+    'no_slug_provided' => $current_lang === 'ro' ? 'Nu a fost furnizat un slug pentru artist.' : 'No artist slug was provided.',
+    'could_not_find_artist' => $current_lang === 'ro' ? 'Nu am putut gasi acest artist.' : 'Could not find this artist.',
+    'back_to_artists' => $current_lang === 'ro' ? 'Inapoi la artisti' : 'Back to artists',
+
+    // Breadcrumb
+    'home' => $current_lang === 'ro' ? 'Acasa' : 'Home',
+    'artists' => $current_lang === 'ro' ? 'Artisti' : 'Artists',
+
+    // Section Headers
+    'about' => $current_lang === 'ro' ? 'Despre' : 'About',
+    'videos' => $current_lang === 'ro' ? 'Videoclipuri' : 'Videos',
+    'view_all_youtube' => $current_lang === 'ro' ? 'Vezi toate pe YouTube' : 'View all on YouTube',
+    'upcoming_events' => $current_lang === 'ro' ? 'Evenimente viitoare' : 'Upcoming Events',
+    'events_scheduled' => $current_lang === 'ro' ? 'evenimente programate' : 'events scheduled',
+    'from' => $current_lang === 'ro' ? 'de la' : 'from',
+    'tickets' => $current_lang === 'ro' ? 'Bilete' : 'Tickets',
+
+    // Booking Sidebar
+    'hire_artist' => $current_lang === 'ro' ? 'Angajeaza acest artist' : 'Hire this artist',
+    'hire_artist_desc' => $current_lang === 'ro'
+        ? 'Interesat sa angajezi %s pentru evenimentul tau? Contacteaza echipa de booking.'
+        : 'Interested in hiring %s for your event? Contact the booking team.',
+    'request_booking' => $current_lang === 'ro' ? 'Solicita Booking' : 'Request Booking',
+    'avg_response_time' => $current_lang === 'ro' ? 'Timp mediu de raspuns: 24-48 ore' : 'Average response time: 24-48 hours',
+
+    // Contact Info
+    'contact_info' => $current_lang === 'ro' ? 'Informatii contact' : 'Contact Information',
+    'management' => 'Management',
+    'booking_agent' => 'Booking Agent',
+
+    // Stats
+    'statistics' => $current_lang === 'ro' ? 'Statistici' : 'Statistics',
+
+    // Share
+    'share_artist' => $current_lang === 'ro' ? 'Distribuie acest artist' : 'Share this artist',
+
+    // Similar Artists
+    'similar_artists' => $current_lang === 'ro' ? 'Artisti similari' : 'Similar Artists',
+
+    // Social Stats Labels
+    'monthly_listeners' => 'Monthly Listeners',
+    'subscribers' => 'Subscribers',
+    'followers' => 'Followers',
+    'total_reach' => 'Total Reach',
+];
+
 $slug = get_query_var( 'tixello_artist_slug' );
 
 if ( ! $slug ) {
@@ -13,10 +66,10 @@ if ( ! $slug ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Artist negasit</h1>
-            <p class="mt-2 text-white/60">Nu a fost furnizat un slug pentru artist.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['artist_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['no_slug_provided'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la artisti
+                <?php echo esc_html( $t['back_to_artists'] ); ?>
             </a>
         </div>
     </main>
@@ -34,10 +87,10 @@ if ( ! $artist || ! is_array( $artist ) ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Artist negasit</h1>
-            <p class="mt-2 text-white/60">Nu am putut gasi acest artist.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['artist_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['could_not_find_artist'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la artisti
+                <?php echo esc_html( $t['back_to_artists'] ); ?>
             </a>
         </div>
     </main>
@@ -60,12 +113,14 @@ $full_url = function( $path ) use ( $STORAGE_BASE ) {
 $name = $artist['name'] ?? 'Unknown Artist';
 $initial = mb_strtoupper( mb_substr( $name, 0, 1 ) );
 
-// Bio
+// Bio (use current language)
 $bio = '';
-if ( ! empty( $artist['bio_translations']['ro'] ) ) {
+if ( $current_lang === 'ro' && ! empty( $artist['bio_translations']['ro'] ) ) {
     $bio = $artist['bio_translations']['ro'];
 } elseif ( ! empty( $artist['bio_translations']['en'] ) ) {
     $bio = $artist['bio_translations']['en'];
+} elseif ( ! empty( $artist['bio_translations']['ro'] ) ) {
+    $bio = $artist['bio_translations']['ro'];
 } elseif ( ! empty( $artist['bio'] ) ) {
     $bio = $artist['bio'];
 }
@@ -252,11 +307,11 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                 <div class="flex-1 pb-4">
                     <!-- Breadcrumb -->
                     <nav class="flex items-center gap-2 text-sm mb-3">
-                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/50 hover:text-white transition-colors">Acasa</a>
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/50 hover:text-white transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
                         <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                        <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="text-white/50 hover:text-white transition-colors">Artisti</a>
+                        <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="text-white/50 hover:text-white transition-colors"><?php echo esc_html( $t['artists'] ); ?></a>
                         <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
@@ -415,7 +470,7 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                     <!-- About -->
                     <?php if ( $bio ) : ?>
                     <div>
-                        <h2 class="text-2xl font-bold text-white mb-6">Despre</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['about'] ); ?></h2>
                         <div class="prose prose-invert max-w-none">
                             <div class="text-white/70 leading-relaxed space-y-4">
                                 <?php echo wp_kses_post( $bio ); ?>
@@ -445,10 +500,10 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                     <?php if ( $yt_videos ) : ?>
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-bold text-white">Videoclipuri</h2>
+                            <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['videos'] ); ?></h2>
                             <?php if ( $social['youtube'] ) : ?>
                             <a href="<?php echo esc_url( $social['youtube'] ); ?>" target="_blank" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
-                                Vezi toate pe YouTube →
+                                <?php echo esc_html( $t['view_all_youtube'] ); ?> →
                             </a>
                             <?php endif; ?>
                         </div>
@@ -484,9 +539,9 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                     <?php if ( $upcoming ) : ?>
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-bold text-white">Evenimente viitoare</h2>
+                            <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['upcoming_events'] ); ?></h2>
                             <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-medium">
-                                <?php echo count( $upcoming ); ?> evenimente programate
+                                <?php echo count( $upcoming ); ?> <?php echo esc_html( $t['events_scheduled'] ); ?>
                             </span>
                         </div>
 
@@ -540,13 +595,13 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                                     <div class="flex items-center justify-between">
                                         <div>
                                             <?php if ( ! is_null( $ev_price ) ) : ?>
-                                                <span class="text-sm text-white/40">de la</span>
+                                                <span class="text-sm text-white/40"><?php echo esc_html( $t['from'] ); ?></span>
                                                 <span class="text-lg font-bold text-white ml-2"><?php echo esc_html( $ev_price ); ?> RON</span>
                                             <?php else : ?>
                                                 <span class="text-lg font-bold text-white">FREE</span>
                                             <?php endif; ?>
                                         </div>
-                                        <span class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium">Bilete</span>
+                                        <span class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium"><?php echo esc_html( $t['tickets'] ); ?></span>
                                     </div>
                                 </div>
                             </a>
@@ -563,31 +618,31 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
 
                         <!-- Book This Artist -->
                         <div class="p-6 rounded-2xl bg-gradient-to-br from-violet-600/20 via-pink-600/20 to-transparent border border-violet-500/20">
-                            <h3 class="text-lg font-bold text-white mb-2">Angajeaza acest artist</h3>
-                            <p class="text-sm text-white/60 mb-6">Interesat sa angajezi <?php echo esc_html( $name ); ?> pentru evenimentul tau? Contacteaza echipa de booking.</p>
+                            <h3 class="text-lg font-bold text-white mb-2"><?php echo esc_html( $t['hire_artist'] ); ?></h3>
+                            <p class="text-sm text-white/60 mb-6"><?php echo sprintf( esc_html( $t['hire_artist_desc'] ), esc_html( $name ) ); ?></p>
                             <?php if ( ! empty( $agent['email'] ) || ! empty( $manager['email'] ) ) : ?>
                             <a href="mailto:<?php echo esc_attr( $agent['email'] ?: $manager['email'] ); ?>" class="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-violet-600 text-white font-bold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/30 transition-all">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                 </svg>
-                                Solicita Booking
+                                <?php echo esc_html( $t['request_booking'] ); ?>
                             </a>
                             <?php else : ?>
                             <button class="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-violet-600 text-white font-bold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/30 transition-all">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                 </svg>
-                                Solicita Booking
+                                <?php echo esc_html( $t['request_booking'] ); ?>
                             </button>
                             <?php endif; ?>
-                            <p class="text-xs text-white/40 text-center mt-3">Timp mediu de raspuns: 24-48 ore</p>
+                            <p class="text-xs text-white/40 text-center mt-3"><?php echo esc_html( $t['avg_response_time'] ); ?></p>
                         </div>
 
                         <!-- Contact Information -->
                         <?php if ( $manager_name || $agent_name || $social['website'] ) : ?>
                         <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
                             <div class="p-4 border-b border-white/5 bg-zinc-800/50">
-                                <h3 class="font-bold text-white">Informatii contact</h3>
+                                <h3 class="font-bold text-white"><?php echo esc_html( $t['contact_info'] ); ?></h3>
                             </div>
 
                             <?php if ( $social['website'] ) : ?>
@@ -665,7 +720,7 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                         <!-- Quick Stats -->
                         <?php if ( $stats['youtube_views'] || $stats['spotify_popularity'] ) : ?>
                         <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
-                            <h3 class="font-bold text-white mb-4">Statistici</h3>
+                            <h3 class="font-bold text-white mb-4"><?php echo esc_html( $t['statistics'] ); ?></h3>
                             <div class="space-y-3">
                                 <?php if ( $stats['youtube_views'] ) : ?>
                                 <div class="flex items-center justify-between">
@@ -685,7 +740,7 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
 
                         <!-- Share -->
                         <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
-                            <p class="text-sm text-white/50 mb-3">Distribuie acest artist</p>
+                            <p class="text-sm text-white/50 mb-3"><?php echo esc_html( $t['share_artist'] ); ?></p>
                             <div class="flex items-center gap-2">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( get_permalink() ); ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#1877F2]/20 text-[#1877F2] text-sm font-medium hover:bg-[#1877F2]/30 transition-colors">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -709,7 +764,7 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
     <?php if ( ! empty( $similar_artists ) ) : ?>
     <section class="py-12 border-t border-white/5 bg-zinc-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-white mb-8">Artisti similari</h2>
+            <h2 class="text-2xl font-bold text-white mb-8"><?php echo esc_html( $t['similar_artists'] ); ?></h2>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-6">
                 <?php foreach ( $similar_artists as $sa ) :

@@ -5,6 +5,110 @@
  */
 
 get_header();
+
+// Multilingual support
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'               => $current_lang === 'ro' ? 'Notificări în Timp Real' : 'Real-Time Notifications',
+	'hero_title'          => $current_lang === 'ro' ? 'Echipa ta,' : 'Your team,',
+	'hero_title2'         => $current_lang === 'ro' ? 'mereu la curent' : 'always in sync',
+	'hero_desc'           => $current_lang === 'ro' ? 'Comenzi noi, achiziții VIP, sumare zilnice - <strong class="text-white">direct în Slack</strong>. Echipa răspunde mai rapid, nu ratează nimic. Fără a părăsi workspace-ul.' : 'New orders, VIP purchases, daily summaries - <strong class="text-white">directly in Slack</strong>. The team responds faster, misses nothing. Without leaving the workspace.',
+	'cta_connect'         => $current_lang === 'ro' ? 'Conectează Slack' : 'Connect Slack',
+	'cta_see_notif'       => $current_lang === 'ro' ? 'Vezi notificările' : 'See notifications',
+	'realtime_notif'      => $current_lang === 'ro' ? 'Notificări real-time' : 'Real-time notifications',
+	'secure_conn'         => $current_lang === 'ro' ? 'Conexiune securizată' : 'Secure connection',
+	'channels_workspaces' => $current_lang === 'ro' ? 'Canale & workspace-uri' : 'Channels & workspaces',
+
+	// Sidebar
+	'channels'            => $current_lang === 'ro' ? 'Canale' : 'Channels',
+	'apps'                => $current_lang === 'ro' ? 'Aplicații' : 'Apps',
+	'order_notif'         => $current_lang === 'ro' ? 'Notificări comenzi noi' : 'New order notifications',
+	'channels_connected'  => $current_lang === 'ro' ? 'conectate' : 'connected',
+
+	// Messages
+	'new_order'           => $current_lang === 'ro' ? 'Comandă Nouă' : 'New Order',
+	'vip_purchase'        => $current_lang === 'ro' ? 'Achiziție VIP' : 'VIP Purchase',
+	'client'              => $current_lang === 'ro' ? 'Client:' : 'Client:',
+	'total'               => $current_lang === 'ro' ? 'Total:' : 'Total:',
+	'tickets'             => $current_lang === 'ro' ? 'Bilete:' : 'Tickets:',
+	'view_order'          => $current_lang === 'ro' ? 'Vezi Comanda' : 'View Order',
+	'contact'             => $current_lang === 'ro' ? 'Contactează' : 'Contact',
+	'contact_client'      => $current_lang === 'ro' ? 'Contactează Clientul' : 'Contact Client',
+	'now'                 => $current_lang === 'ro' ? 'acum' : 'now',
+	'sold_out_alert'      => $current_lang === 'ro' ? 'Sold Out Alert!' : 'Sold Out Alert!',
+	'early_bird_sold'     => $current_lang === 'ro' ? 'Early Bird tickets sunt acum sold out!' : 'Early Bird tickets are now sold out!',
+	'preparing_report'    => $current_lang === 'ro' ? 'Tixello pregătește raportul zilnic...' : 'Tixello is preparing the daily report...',
+	'connected_secure'    => $current_lang === 'ro' ? 'Conectat securizat' : 'Securely connected',
+
+	// Notification Types
+	'notif_badge'         => $current_lang === 'ro' ? 'Tipuri de Notificări' : 'Notification Types',
+	'notif_title'         => $current_lang === 'ro' ? 'Tot ce contează,' : 'Everything that matters,',
+	'notif_title2'        => $current_lang === 'ro' ? 'într-un singur loc' : 'in one place',
+	'notif_desc'          => $current_lang === 'ro' ? 'De la comenzi noi până la sumare zilnice. Fiecare eveniment important ajunge la echipă.' : 'From new orders to daily summaries. Every important event reaches the team.',
+	'order_desc'          => $current_lang === 'ro' ? 'Detalii complete: client, articole, total, link direct la comandă.' : 'Complete details: client, items, total, direct link to order.',
+	'vip_desc'            => $current_lang === 'ro' ? 'Alertă specială pentru comenzi de mare valoare. Priorități highlight.' : 'Special alert for high-value orders. Priority highlights.',
+	'refund'              => $current_lang === 'ro' ? 'Rambursare' : 'Refund',
+	'refund_desc'         => $current_lang === 'ro' ? 'Sumă, motiv, detalii client. Echipa de suport știe imediat.' : 'Amount, reason, client details. Support team knows immediately.',
+	'event_published'     => $current_lang === 'ro' ? 'Eveniment Publicat' : 'Event Published',
+	'event_pub_desc'      => $current_lang === 'ro' ? 'Anunță marketing-ul când un eveniment nou e live. Link direct la pagina de bilete.' : 'Notify marketing when a new event is live. Direct link to ticket page.',
+	'low_inventory'       => $current_lang === 'ro' ? 'Inventar Scăzut' : 'Low Inventory',
+	'low_inv_desc'        => $current_lang === 'ro' ? 'Avertisment când biletele se apropie de sold out. Timp să reacționezi.' : 'Warning when tickets approach sold out. Time to react.',
+	'daily_summary'       => $current_lang === 'ro' ? 'Sumar Zilnic' : 'Daily Summary',
+	'daily_desc'          => $current_lang === 'ro' ? 'Recapitulare vânzări, numere participare, top evenimente. Fiecare dimineață.' : 'Sales recap, attendance numbers, top events. Every morning.',
+
+	// Channel Routing
+	'routing_badge'       => $current_lang === 'ro' ? 'Rutare Canale' : 'Channel Routing',
+	'routing_title'       => $current_lang === 'ro' ? 'Mesajul potrivit,' : 'The right message,',
+	'routing_title2'      => $current_lang === 'ro' ? 'în canalul potrivit' : 'in the right channel',
+	'routing_desc'        => $current_lang === 'ro' ? 'Configurează ce notificări ajung unde. Vânzări în #sales, suport în #support, sărbătoriri în #general.' : 'Configure which notifications go where. Sales in #sales, support in #support, celebrations in #general.',
+	'new_orders'          => $current_lang === 'ro' ? 'Comenzi noi' : 'New orders',
+	'vip_purchases'       => $current_lang === 'ro' ? 'Achiziții VIP' : 'VIP Purchases',
+	'refunds'             => $current_lang === 'ro' ? 'Rambursări' : 'Refunds',
+	'events_published'    => $current_lang === 'ro' ? 'Evenimente publicate' : 'Published events',
+	'routing_config'      => $current_lang === 'ro' ? 'Configurare Rutare' : 'Routing Configuration',
+
+	// Block Kit
+	'blockkit_badge'      => 'Block Kit',
+	'blockkit_title'      => $current_lang === 'ro' ? 'Mesaje' : 'Messages',
+	'blockkit_title2'     => $current_lang === 'ro' ? 'acționabile' : 'actionable',
+	'blockkit_desc'       => $current_lang === 'ro' ? 'Formatare avansată cu Block Kit. Headers, butoane, câmpuri - totul nativ Slack.' : 'Advanced formatting with Block Kit. Headers, buttons, fields - all native Slack.',
+	'event_label'         => $current_lang === 'ro' ? 'Eveniment' : 'Event',
+	'tickets_label'       => $current_lang === 'ro' ? 'Bilete' : 'Tickets',
+	'orders_label'        => $current_lang === 'ro' ? 'Comenzi' : 'Orders',
+	'revenue'             => $current_lang === 'ro' ? 'Venituri' : 'Revenue',
+	'tickets_sold'        => $current_lang === 'ro' ? 'Bilete vândute' : 'Tickets sold',
+	'view_full_report'    => $current_lang === 'ro' ? 'Vezi Raport Complet' : 'View Full Report',
+	'standard_notif'      => $current_lang === 'ro' ? 'Notificare comandă standard' : 'Standard order notification',
+	'auto_daily'          => $current_lang === 'ro' ? 'Sumar zilnic automat' : 'Automatic daily summary',
+
+	// Use Cases
+	'usecases_badge'      => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'      => $current_lang === 'ro' ? 'Pentru' : 'For',
+	'usecases_title2'     => $current_lang === 'ro' ? 'fiecare echipă' : 'every team',
+	'sales_alerts'        => $current_lang === 'ro' ? 'Alerte Vânzări' : 'Sales Alerts',
+	'sales_alerts_desc'   => $current_lang === 'ro' ? 'Notificări instant când intră comenzi. Achizițiile VIP alertează echipa de vânzări.' : 'Instant notifications when orders come in. VIP purchases alert the sales team.',
+	'ops_coord'           => $current_lang === 'ro' ? 'Coordonare Operațiuni' : 'Operations Coordination',
+	'ops_desc'            => $current_lang === 'ro' ? 'Actualizări în timp real în ziua evenimentului. Scanări, participare, capacitate.' : 'Real-time updates on event day. Scans, attendance, capacity.',
+	'customer_service'    => $current_lang === 'ro' ? 'Serviciu Clienți' : 'Customer Service',
+	'cs_desc'             => $current_lang === 'ro' ? 'Notificări rambursări și probleme clienți direct în canalele de suport.' : 'Refund and customer issue notifications directly in support channels.',
+	'exec_visibility'     => $current_lang === 'ro' ? 'Vizibilitate Executivi' : 'Executive Visibility',
+	'exec_desc'           => $current_lang === 'ro' ? 'Sumare în canalele de leadership. Milestone-uri sărbătorite company-wide.' : 'Summaries in leadership channels. Milestones celebrated company-wide.',
+	'multi_team'          => $current_lang === 'ro' ? 'Multi-Echipă' : 'Multi-Team',
+	'multi_team_desc'     => $current_lang === 'ro' ? 'Marketing, Finance, Ops - fiecare echipă primește informații relevante în canalele lor.' : 'Marketing, Finance, Ops - each team gets relevant information in their channels.',
+	'remote_team'         => $current_lang === 'ro' ? 'Echipă Remote' : 'Remote Team',
+	'remote_desc'         => $current_lang === 'ro' ? 'Echipe distribuite rămân conectate. Awareness asincron prin mesaje persistente.' : 'Distributed teams stay connected. Async awareness through persistent messages.',
+
+	// Testimonial
+	'testimonial'         => $current_lang === 'ro' ? 'Înainte verificam dashboard-ul de 20 de ori pe zi. Acum <span class="text-gradient-slack font-semibold">totul vine în Slack</span>. Echipa reacționează instant la comenzi VIP, iar sumarul de dimineață ne aliniază pe toți.' : 'Before I checked the dashboard 20 times a day. Now <span class="text-gradient-slack font-semibold">everything comes to Slack</span>. The team reacts instantly to VIP orders, and the morning summary aligns everyone.',
+
+	// Final CTA
+	'final_title'         => $current_lang === 'ro' ? 'Conectează' : 'Connect',
+	'final_desc'          => $current_lang === 'ro' ? 'Notificări în timp real. Rutare inteligentă. Echipa ta, mereu la curent.' : 'Real-time notifications. Smart routing. Your team, always in sync.',
+	'add_to_slack'        => $current_lang === 'ro' ? 'Adaugă la Slack' : 'Add to Slack',
+	'cta_questions'       => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'final_tagline'       => $current_lang === 'ro' ? 'OAuth 2.0 securizat. Multi-workspace. Configurare în minute.' : 'Secure OAuth 2.0. Multi-workspace. Configure in minutes.',
+];
 ?>
 
 <style>
@@ -119,28 +223,28 @@ get_header();
               <path d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52z" fill="#ECB22E"/>
               <path d="M15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="#ECB22E"/>
             </svg>
-            <span class="text-white/70 text-sm font-medium">Notificări în Timp Real</span>
+            <span class="text-white/70 text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Echipa ta,<br><span class="text-gradient-slack">mereu la curent</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-slack"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Comenzi noi, achiziții VIP, sumare zilnice - <strong class="text-white">direct în Slack</strong>. Echipa răspunde mai rapid, nu ratează nimic. Fără a părăsi workspace-ul.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-slack-aubergine text-white hover:bg-slack-sidebar hover:scale-105 hover:shadow-glow-slack transition-all duration-300">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z"/></svg>
-              Conectează Slack
+              <?php echo esc_html( $t['cta_connect'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#notificari" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi notificările
+              <?php echo esc_html( $t['cta_see_notif'] ); ?>
             </a>
           </div>
 
@@ -148,15 +252,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-slack-green">Instant</div>
-              <div class="text-white/40 text-sm">Notificări real-time</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['realtime_notif'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">OAuth</div>
-              <div class="text-white/40 text-sm">Conexiune securizată</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['secure_conn'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-slack-blue">∞</div>
-              <div class="text-white/40 text-sm">Canale & workspace-uri</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['channels_workspaces'] ); ?></div>
             </div>
           </div>
         </div>
@@ -202,7 +306,7 @@ get_header();
 
                   <!-- Channels -->
                   <div class="mb-4">
-                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2">Canale</div>
+                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2"><?php echo esc_html( $t['channels'] ); ?></div>
                     <div class="space-y-0.5">
                       <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer">
                         <span class="text-slack-muted">#</span>
@@ -230,7 +334,7 @@ get_header();
 
                   <!-- Apps -->
                   <div>
-                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2">Aplicații</div>
+                    <div class="text-slack-muted text-xs uppercase tracking-wider px-2 mb-2"><?php echo esc_html( $t['apps'] ); ?></div>
                     <div class="slack-channel relative rounded px-2 py-1 flex items-center gap-2 cursor-pointer animate-channel-pulse">
                       <div class="w-5 h-5 rounded bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
                         <span class="text-white text-xs font-bold">T</span>
@@ -248,7 +352,7 @@ get_header();
                     <div class="flex items-center gap-2">
                       <span class="text-white font-bold"># sales</span>
                       <span class="text-slack-muted text-sm">|</span>
-                      <span class="text-slack-muted text-sm">Notificări comenzi noi</span>
+                      <span class="text-slack-muted text-sm"><?php echo esc_html( $t['order_notif'] ); ?></span>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-slack-muted text-sm">👥 12</span>
@@ -270,15 +374,15 @@ get_header();
                             <span class="slack-time">10:23</span>
                           </div>
                           <div class="block-section border-slack-green mb-2">
-                            <div class="block-header mb-2">🎫 Comandă Nouă #1847</div>
+                            <div class="block-header mb-2">🎫 <?php echo esc_html( $t['new_order'] ); ?> #1847</div>
                             <div class="grid grid-cols-2 gap-2 text-sm">
-                              <div><span class="block-field-label">Client:</span><br><span class="block-field-value">Maria Ionescu</span></div>
-                              <div><span class="block-field-label">Total:</span><br><span class="block-field-value text-slack-green font-bold">€75.00</span></div>
+                              <div><span class="block-field-label"><?php echo esc_html( $t['client'] ); ?></span><br><span class="block-field-value">Maria Ionescu</span></div>
+                              <div><span class="block-field-label"><?php echo esc_html( $t['total'] ); ?></span><br><span class="block-field-value text-slack-green font-bold">€75.00</span></div>
                             </div>
                           </div>
                           <div class="flex gap-2">
-                            <button class="block-button">Vezi Comanda</button>
-                            <button class="block-button secondary">Contactează</button>
+                            <button class="block-button"><?php echo esc_html( $t['view_order'] ); ?></button>
+                            <button class="block-button secondary"><?php echo esc_html( $t['contact'] ); ?></button>
                           </div>
                           <div class="flex gap-2 mt-2">
                             <span class="slack-reaction active">✅ <span class="text-slack-text">2</span></span>
@@ -301,12 +405,12 @@ get_header();
                             <span class="slack-time">10:45</span>
                           </div>
                           <div class="block-section border-slack-yellow mb-2">
-                            <div class="block-header mb-2">👑 Achiziție VIP #1848</div>
+                            <div class="block-header mb-2">👑 <?php echo esc_html( $t['vip_purchase'] ); ?> #1848</div>
                             <div class="grid grid-cols-2 gap-2 text-sm">
-                              <div><span class="block-field-label">Client:</span><br><span class="block-field-value">Alexandru Popa</span></div>
-                              <div><span class="block-field-label">Total:</span><br><span class="block-field-value text-slack-yellow font-bold">€450.00</span></div>
+                              <div><span class="block-field-label"><?php echo esc_html( $t['client'] ); ?></span><br><span class="block-field-value">Alexandru Popa</span></div>
+                              <div><span class="block-field-label"><?php echo esc_html( $t['total'] ); ?></span><br><span class="block-field-value text-slack-yellow font-bold">€450.00</span></div>
                             </div>
-                            <div class="mt-2 text-sm"><span class="block-field-label">Bilete:</span> 3x VIP Pass - Summer Fest</div>
+                            <div class="mt-2 text-sm"><span class="block-field-label"><?php echo esc_html( $t['tickets'] ); ?></span> 3x VIP Pass - Summer Fest</div>
                           </div>
                         </div>
                       </div>
@@ -322,13 +426,13 @@ get_header();
                           <div class="flex items-center gap-2 mb-1">
                             <span class="slack-username">Tixello</span>
                             <span class="px-1.5 py-0.5 rounded bg-slack-green/20 text-slack-green text-xs">APP</span>
-                            <span class="slack-time">acum</span>
-                            <span class="px-1.5 py-0.5 rounded bg-slack-pink/20 text-slack-pink text-xs animate-pulse">NOU</span>
+                            <span class="slack-time"><?php echo esc_html( $t['now'] ); ?></span>
+                            <span class="px-1.5 py-0.5 rounded bg-slack-pink/20 text-slack-pink text-xs animate-pulse"><?php echo $current_lang === 'ro' ? 'NOU' : 'NEW'; ?></span>
                           </div>
                           <div class="block-section border-slack-blue mb-2">
-                            <div class="block-header mb-2">🎉 Sold Out Alert!</div>
+                            <div class="block-header mb-2">🎉 <?php echo esc_html( $t['sold_out_alert'] ); ?></div>
                             <div class="text-sm text-slack-text">
-                              <strong>Summer Fest 2025</strong> - Early Bird tickets sunt acum sold out! 🔥
+                              <strong>Summer Fest 2025</strong> - <?php echo esc_html( $t['early_bird_sold'] ); ?> 🔥
                             </div>
                           </div>
                         </div>
@@ -344,7 +448,7 @@ get_header();
                         <span class="typing-dot animate-dot-bounce"></span>
                         <span class="typing-dot animate-dot-bounce"></span>
                       </div>
-                      <span>Tixello pregătește raportul zilnic...</span>
+                      <span><?php echo esc_html( $t['preparing_report'] ); ?></span>
                     </div>
                   </div>
                 </div>
@@ -359,7 +463,7 @@ get_header();
                 </div>
                 <div>
                   <div class="text-slack-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs">Conectat securizat</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['connected_secure'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -369,8 +473,8 @@ get_header();
               <div class="flex items-center gap-2">
                 <span class="text-2xl">#️⃣</span>
                 <div>
-                  <div class="text-white text-sm font-medium">15 canale</div>
-                  <div class="text-white/40 text-xs">conectate</div>
+                  <div class="text-white text-sm font-medium">15 <?php echo $current_lang === 'ro' ? 'canale' : 'channels'; ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['channels_connected'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -385,9 +489,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-slack-green text-sm font-medium uppercase tracking-widest">Tipuri de Notificări</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tot ce contează,<br><span class="text-gradient-slack">într-un singur loc</span></h2>
-        <p class="text-lg text-white/60">De la comenzi noi până la sumare zilnice. Fiecare eveniment important ajunge la echipă.</p>
+        <span class="text-slack-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['notif_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['notif_title'] ); ?><br><span class="text-gradient-slack"><?php echo esc_html( $t['notif_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['notif_desc'] ); ?></p>
       </div>
 
       <!-- Notification Types Grid -->
@@ -399,11 +503,11 @@ get_header();
               <span class="text-2xl">🎫</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Comandă Nouă</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['new_order'] ); ?></h3>
               <div class="text-slack-green text-xs font-mono">order_created</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Detalii complete: client, articole, total, link direct la comandă.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['order_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#sales</span>
             <span class="px-2 py-1 rounded bg-white/5">#orders</span>
@@ -417,11 +521,11 @@ get_header();
               <span class="text-2xl">👑</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Achiziție VIP</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['vip_purchase'] ); ?></h3>
               <div class="text-slack-yellow text-xs font-mono">vip_purchase</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Alertă specială pentru comenzi de mare valoare. Priorități highlight.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['vip_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#vip-alerts</span>
           </div>
@@ -434,11 +538,11 @@ get_header();
               <span class="text-2xl">↩️</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Rambursare</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['refund'] ); ?></h3>
               <div class="text-slack-pink text-xs font-mono">refund_issued</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Sumă, motiv, detalii client. Echipa de suport știe imediat.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['refund_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#support</span>
             <span class="px-2 py-1 rounded bg-white/5">#finance</span>
@@ -452,11 +556,11 @@ get_header();
               <span class="text-2xl">🚀</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Eveniment Publicat</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['event_published'] ); ?></h3>
               <div class="text-slack-blue text-xs font-mono">event_published</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Anunță marketing-ul când un eveniment nou e live. Link direct la pagina de bilete.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['event_pub_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#marketing</span>
           </div>
@@ -469,11 +573,11 @@ get_header();
               <span class="text-2xl">⚠️</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Inventar Scăzut</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['low_inventory'] ); ?></h3>
               <div class="text-brand-amber text-xs font-mono">low_inventory</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Avertisment când biletele se apropie de sold out. Timp să reacționezi.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['low_inv_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#operations</span>
           </div>
@@ -486,11 +590,11 @@ get_header();
               <span class="text-2xl">📊</span>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Sumar Zilnic</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['daily_summary'] ); ?></h3>
               <div class="text-brand-violet text-xs font-mono">daily_summary</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Recapitulare vânzări, numere participare, top evenimente. Fiecare dimineață.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['daily_desc'] ); ?></p>
           <div class="flex items-center gap-2 text-white/30 text-xs">
             <span class="px-2 py-1 rounded bg-white/5">#leadership</span>
             <span class="px-2 py-1 rounded bg-white/5">#general</span>
@@ -506,9 +610,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-slack-blue text-sm font-medium uppercase tracking-widest">Rutare Canale</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Mesajul potrivit,<br><span class="text-gradient-slack">în canalul potrivit</span></h2>
-          <p class="text-lg text-white/60 mb-8">Configurează ce notificări ajung unde. Vânzări în #sales, suport în #support, sărbătoriri în #general.</p>
+          <span class="text-slack-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['routing_badge'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['routing_title'] ); ?><br><span class="text-gradient-slack"><?php echo esc_html( $t['routing_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['routing_desc'] ); ?></p>
 
           <div class="space-y-4">
             <!-- Sales Route -->
@@ -517,7 +621,7 @@ get_header();
                 <span class="text-lg">🎫</span>
               </div>
               <div class="flex-1">
-                <span class="text-white font-medium">Comenzi noi</span>
+                <span class="text-white font-medium"><?php echo esc_html( $t['new_orders'] ); ?></span>
               </div>
               <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># sales</span>
@@ -529,7 +633,7 @@ get_header();
                 <span class="text-lg">👑</span>
               </div>
               <div class="flex-1">
-                <span class="text-white font-medium">Achiziții VIP</span>
+                <span class="text-white font-medium"><?php echo esc_html( $t['vip_purchases'] ); ?></span>
               </div>
               <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># vip-alerts</span>
@@ -541,7 +645,7 @@ get_header();
                 <span class="text-lg">↩️</span>
               </div>
               <div class="flex-1">
-                <span class="text-white font-medium">Rambursări</span>
+                <span class="text-white font-medium"><?php echo esc_html( $t['refunds'] ); ?></span>
               </div>
               <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># support</span>
@@ -553,7 +657,7 @@ get_header();
                 <span class="text-lg">🚀</span>
               </div>
               <div class="flex-1">
-                <span class="text-white font-medium">Evenimente publicate</span>
+                <span class="text-white font-medium"><?php echo esc_html( $t['events_published'] ); ?></span>
               </div>
               <svg class="w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               <span class="px-3 py-1 rounded-full bg-slack-active text-white text-sm font-medium"># marketing</span>
@@ -569,7 +673,7 @@ get_header();
                 <svg class="w-5 h-5 text-slack-aubergine" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold">Configurare Rutare</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['routing_config'] ); ?></div>
                 <div class="text-white/40 text-xs">slack_routing.php</div>
               </div>
             </div>
@@ -622,9 +726,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-slack-aubergine text-sm font-medium uppercase tracking-widest">Block Kit</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Mesaje<br><span class="text-gradient-slack">acționabile</span></h2>
-        <p class="text-lg text-white/60">Formatare avansată cu Block Kit. Headers, butoane, câmpuri - totul nativ Slack.</p>
+        <span class="text-slack-aubergine text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['blockkit_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['blockkit_title'] ); ?><br><span class="text-gradient-slack"><?php echo esc_html( $t['blockkit_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['blockkit_desc'] ); ?></p>
       </div>
 
       <!-- Block Kit Examples -->
@@ -644,7 +748,7 @@ get_header();
                 </div>
 
                 <!-- Block: Header -->
-                <div class="block-header mb-3">🎫 Comandă Nouă #1847</div>
+                <div class="block-header mb-3">🎫 <?php echo esc_html( $t['new_order'] ); ?> #1847</div>
 
                 <!-- Block: Divider -->
                 <div class="border-t border-white/10 my-3"></div>
@@ -652,32 +756,32 @@ get_header();
                 <!-- Block: Section with fields -->
                 <div class="grid grid-cols-2 gap-4 mb-3">
                   <div>
-                    <div class="block-field-label">Client</div>
+                    <div class="block-field-label"><?php echo esc_html( $t['client'] ); ?></div>
                     <div class="block-field-value">Maria Ionescu</div>
                   </div>
                   <div>
-                    <div class="block-field-label">Total</div>
+                    <div class="block-field-label"><?php echo esc_html( $t['total'] ); ?></div>
                     <div class="block-field-value text-slack-green font-bold">€75.00</div>
                   </div>
                   <div>
-                    <div class="block-field-label">Eveniment</div>
+                    <div class="block-field-label"><?php echo esc_html( $t['event_label'] ); ?></div>
                     <div class="block-field-value">Summer Fest 2025</div>
                   </div>
                   <div>
-                    <div class="block-field-label">Bilete</div>
+                    <div class="block-field-label"><?php echo esc_html( $t['tickets_label'] ); ?></div>
                     <div class="block-field-value">2x General Admission</div>
                   </div>
                 </div>
 
                 <!-- Block: Actions -->
                 <div class="flex gap-2">
-                  <button class="block-button">Vezi Comanda</button>
-                  <button class="block-button secondary">Contactează Clientul</button>
+                  <button class="block-button"><?php echo esc_html( $t['view_order'] ); ?></button>
+                  <button class="block-button secondary"><?php echo esc_html( $t['contact_client'] ); ?></button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="text-center mt-3 text-white/40 text-sm">Notificare comandă standard</div>
+          <div class="text-center mt-3 text-white/40 text-sm"><?php echo esc_html( $t['standard_notif'] ); ?></div>
         </div>
 
         <!-- Daily Summary -->
@@ -695,39 +799,39 @@ get_header();
                 </div>
 
                 <!-- Block: Header -->
-                <div class="block-header mb-3">📊 Sumar Zilnic - 14 Dec 2025</div>
+                <div class="block-header mb-3">📊 <?php echo esc_html( $t['daily_summary'] ); ?> - 14 Dec 2025</div>
 
                 <!-- Block: Section -->
                 <div class="block-section border-brand-violet mb-3">
                   <div class="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div class="text-2xl font-bold text-white">47</div>
-                      <div class="block-field-label">Comenzi</div>
+                      <div class="block-field-label"><?php echo esc_html( $t['orders_label'] ); ?></div>
                     </div>
                     <div>
                       <div class="text-2xl font-bold text-slack-green">€3,420</div>
-                      <div class="block-field-label">Venituri</div>
+                      <div class="block-field-label"><?php echo esc_html( $t['revenue'] ); ?></div>
                     </div>
                     <div>
                       <div class="text-2xl font-bold text-slack-blue">156</div>
-                      <div class="block-field-label">Bilete vândute</div>
+                      <div class="block-field-label"><?php echo esc_html( $t['tickets_sold'] ); ?></div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Block: Context -->
                 <div class="text-slack-muted text-sm mb-3">
-                  📈 +12% vs. ieri | Top: Summer Fest (89 bilete)
+                  📈 +12% vs. <?php echo $current_lang === 'ro' ? 'ieri' : 'yesterday'; ?> | Top: Summer Fest (89 <?php echo $current_lang === 'ro' ? 'bilete' : 'tickets'; ?>)
                 </div>
 
                 <!-- Block: Actions -->
                 <div class="flex gap-2">
-                  <button class="block-button">Vezi Raport Complet</button>
+                  <button class="block-button"><?php echo esc_html( $t['view_full_report'] ); ?></button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="text-center mt-3 text-white/40 text-sm">Sumar zilnic automat</div>
+          <div class="text-center mt-3 text-white/40 text-sm"><?php echo esc_html( $t['auto_daily'] ); ?></div>
         </div>
       </div>
     </div>
@@ -737,45 +841,45 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Pentru<br><span class="text-gradient animate-shimmer">fiecare echipă</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-green/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-slack-green/20 flex items-center justify-center mb-4"><span class="text-2xl">💰</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Alerte Vânzări</h3>
-          <p class="text-white/50 text-sm">Notificări instant când intră comenzi. Achizițiile VIP alertează echipa de vânzări.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_alerts'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['sales_alerts_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-blue/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-slack-blue/20 flex items-center justify-center mb-4"><span class="text-2xl">⚙️</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Coordonare Operațiuni</h3>
-          <p class="text-white/50 text-sm">Actualizări în timp real în ziua evenimentului. Scanări, participare, capacitate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['ops_coord'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['ops_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-pink/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-slack-pink/20 flex items-center justify-center mb-4"><span class="text-2xl">🎧</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Serviciu Clienți</h3>
-          <p class="text-white/50 text-sm">Notificări rambursări și probleme clienți direct în canalele de suport.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['customer_service'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['cs_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mb-4"><span class="text-2xl">📈</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Vizibilitate Executivi</h3>
-          <p class="text-white/50 text-sm">Sumare în canalele de leadership. Milestone-uri sărbătorite company-wide.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['exec_visibility'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['exec_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-slack-yellow/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-slack-yellow/20 flex items-center justify-center mb-4"><span class="text-2xl">👥</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Multi-Echipă</h3>
-          <p class="text-white/50 text-sm">Marketing, Finance, Ops - fiecare echipă primește informații relevante în canalele lor.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['multi_team'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['multi_team_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-brand-cyan/20 flex items-center justify-center mb-4"><span class="text-2xl">🌍</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Echipă Remote</h3>
-          <p class="text-white/50 text-sm">Echipe distribuite rămân conectate. Awareness asincron prin mesaje persistente.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['remote_team'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['remote_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -795,7 +899,7 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Înainte verificam dashboard-ul de 20 de ori pe zi. Acum <span class="text-gradient-slack font-semibold">totul vine în Slack</span>. Echipa reacționează instant la comenzi VIP, iar sumarul de dimineață ne aliniază pe toți."
+            "<?php echo $t['testimonial']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-slack-aubergine to-slack-green"></div>
@@ -819,21 +923,21 @@ get_header();
     </div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Conectează<br><span class="text-gradient-slack">Slack</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Notificări în timp real. Rutare inteligentă. Echipa ta, mereu la curent.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-slack">Slack</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-slack-aubergine text-white hover:bg-slack-sidebar hover:scale-105 hover:shadow-glow-slack transition-all duration-300">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z"/></svg>
-          Adaugă la Slack
+          <?php echo esc_html( $t['add_to_slack'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_questions'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">OAuth 2.0 securizat. Multi-workspace. Configurare în minute.</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

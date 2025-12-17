@@ -5,6 +5,129 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+    // Hero
+    'badge'                    => $current_lang === 'ro' ? 'Integrare Oficială Google' : 'Official Google Integration',
+    'hero_title'               => $current_lang === 'ro' ? 'Știi exact ce' : 'Know exactly what',
+    'hero_title2'              => $current_lang === 'ro' ? 'funcționează' : 'works',
+    'hero_desc'                => $current_lang === 'ro' ? 'Nu mai ghici care reclame vând bilete. Conectezi Google Ads și vezi exact care campanii, cuvinte cheie și reclame generează <strong class="text-white">venituri reale</strong>.' : 'Stop guessing which ads sell tickets. Connect Google Ads and see exactly which campaigns, keywords, and ads generate <strong class="text-white">real revenue</strong>.',
+    'cta_connect'              => $current_lang === 'ro' ? 'Conectează Google Ads' : 'Connect Google Ads',
+    'cta_how'                  => $current_lang === 'ro' ? 'Vezi cum funcționează' : 'See how it works',
+    'roas_label'               => $current_lang === 'ro' ? 'ROAS mediu cu tracking precis' : 'Average ROAS with precise tracking',
+
+    // Dashboard mockup
+    'connected'                => $current_lang === 'ro' ? 'Conectat' : 'Connected',
+    'conversions'              => $current_lang === 'ro' ? 'Conversii' : 'Conversions',
+    'revenue'                  => $current_lang === 'ro' ? 'Venituri' : 'Revenue',
+    'purchase'                 => 'Purchase',
+    'add_to_cart'              => 'Add to Cart',
+    'now_2_min'                => $current_lang === 'ro' ? 'acum 2 min' : '2 min ago',
+    'now_5_min'                => $current_lang === 'ro' ? 'acum 5 min' : '5 min ago',
+    'now_8_min'                => $current_lang === 'ro' ? 'acum 8 min' : '8 min ago',
+    'return_investment'        => $current_lang === 'ro' ? 'Return pe investiție' : 'Return on investment',
+
+    // Platforms
+    'platforms_subtitle'       => $current_lang === 'ro' ? 'Funcționează pe toate platformele Google' : 'Works on all Google platforms',
+
+    // The Problem
+    'problem_badge'            => $current_lang === 'ro' ? 'Problema' : 'The Problem',
+    'problem_title'            => $current_lang === 'ro' ? 'Știi cât cheltuiești.' : 'You know how much you spend.',
+    'problem_title2'           => $current_lang === 'ro' ? 'Dar știi ce primești?' : 'But do you know what you get?',
+    'problem_desc'             => $current_lang === 'ro' ? 'Fără tracking precis, optimizezi pe baza ghicului. Cu tracking precis, optimizezi pe baza datelor.' : 'Without precise tracking, you optimize based on guessing. With precise tracking, you optimize based on data.',
+    'without_integration'      => $current_lang === 'ro' ? 'Fără Integrare' : 'Without Integration',
+    'with_integration'         => $current_lang === 'ro' ? 'Cu Integrare Tixello' : 'With Tixello Integration',
+    'campaign'                 => $current_lang === 'ro' ? 'Campanie' : 'Campaign',
+    'summer_festival'          => $current_lang === 'ro' ? 'Festival Vara' : 'Summer Festival',
+    'clicks'                   => $current_lang === 'ro' ? 'Click-uri' : 'Clicks',
+    'spend'                    => $current_lang === 'ro' ? 'Cheltuieli' : 'Spend',
+    'top_keywords'             => $current_lang === 'ro' ? 'Cuvinte cheie top' : 'Top keywords',
+    'keywords_with_conv'       => $current_lang === 'ro' ? 'Cuvinte cheie cu conversii' : 'Keywords with conversions',
+    'dont_know_keywords'       => $current_lang === 'ro' ? 'Nu știi care cuvinte cheie vând bilete' : "You don't know which keywords sell tickets",
+    'optimize_real_sales'      => $current_lang === 'ro' ? 'Optimizezi pe baza vânzărilor reale' : 'Optimize based on real sales',
+    'live'                     => 'Live',
+    'sales'                    => $current_lang === 'ro' ? 'vânzări' : 'sales',
+
+    // How It Works
+    'how_badge'                => $current_lang === 'ro' ? 'Cum Funcționează' : 'How It Works',
+    'how_title'                => $current_lang === 'ro' ? 'Click. Cumpără.' : 'Click. Buy.',
+    'how_title2'               => $current_lang === 'ro' ? 'Atribuie.' : 'Attribute.',
+    'how_desc'                 => $current_lang === 'ro' ? 'Fiecare vânzare este conectată la reclama care a generat-o. Automat.' : 'Every sale is connected to the ad that generated it. Automatically.',
+    'step_click'               => $current_lang === 'ro' ? 'Click pe reclamă' : 'Click on ad',
+    'step_click_desc'          => $current_lang === 'ro' ? 'Google salvează GCLID' : 'Google saves GCLID',
+    'step_browse'              => $current_lang === 'ro' ? 'Navighează site' : 'Browse site',
+    'step_browse_desc'         => $current_lang === 'ro' ? 'Tixello păstrează GCLID' : 'Tixello keeps GCLID',
+    'step_buy'                 => $current_lang === 'ro' ? 'Cumpără bilet' : 'Buy ticket',
+    'step_buy_desc'            => $current_lang === 'ro' ? 'Comandă finalizată' : 'Order completed',
+    'step_attr'                => $current_lang === 'ro' ? 'Google primește' : 'Google receives',
+    'step_attr_desc'           => $current_lang === 'ro' ? 'Conversia atribuită' : 'Conversion attributed',
+    'enhanced_conv'            => $current_lang === 'ro' ? 'Conversii Îmbunătățite' : 'Enhanced Conversions',
+    'enhanced_desc'            => $current_lang === 'ro' ? 'Când cookie-urile nu pot urmări, folosim date hash-uite (email, telefon) pentru a potrivi conversiile cu click-urile. Google nu vede datele reale - doar identificatori criptați pentru potrivire.' : "When cookies can't track, we use hashed data (email, phone) to match conversions with clicks. Google doesn't see real data - only encrypted identifiers for matching.",
+    'hashed_email'             => $current_lang === 'ro' ? 'Email hash-uit' : 'Hashed email',
+    'hashed_phone'             => $current_lang === 'ro' ? 'Telefon hash-uit' : 'Hashed phone',
+    'cross_device'             => 'Cross-device',
+    'gdpr_compliant'           => 'GDPR compliant',
+
+    // Smart Bidding
+    'smart_badge'              => 'Smart Bidding',
+    'smart_title'              => $current_lang === 'ro' ? 'Lasă AI-ul Google' : "Let Google's AI",
+    'smart_title2'             => $current_lang === 'ro' ? 'să-ți găsească clienți' : 'find you customers',
+    'smart_desc'               => $current_lang === 'ro' ? 'Cu date de conversie precise, algoritmii Google știu exact cine cumpără bilete. Licitează automat mai mult pe cine convertește și mai puțin pe cine doar dă click.' : 'With precise conversion data, Google algorithms know exactly who buys tickets. Automatically bid more on converters and less on clickers.',
+    'target_roas'              => 'Target ROAS',
+    'target_roas_desc'         => $current_lang === 'ro' ? 'Setezi return-ul dorit (ex: 4x), Google optimizează automat licitările pentru a-l atinge.' : 'Set your desired return (e.g., 4x), Google automatically optimizes bids to achieve it.',
+    'max_conv_value'           => 'Maximize Conversion Value',
+    'max_conv_desc'            => $current_lang === 'ro' ? 'Google maximizează valoarea totală a conversiilor în limita bugetului tău.' : 'Google maximizes total conversion value within your budget.',
+    'perf_max'                 => 'Performance Max',
+    'perf_max_desc'            => $current_lang === 'ro' ? 'Campaniile automatizate folosesc conversiile tale pentru a găsi clienți în Search, YouTube, Display și Discover.' : 'Automated campaigns use your conversions to find customers in Search, YouTube, Display and Discover.',
+    'smart_perf'               => $current_lang === 'ro' ? 'Performanță Smart Bidding' : 'Smart Bidding Performance',
+    'last_30_days'             => $current_lang === 'ro' ? 'Ultimele 30 zile' : 'Last 30 days',
+    'week'                     => $current_lang === 'ro' ? 'Săpt' : 'Week',
+    'cost_conv'                => $current_lang === 'ro' ? 'Cost/conversie' : 'Cost/conversion',
+    'smart_auto_opt'           => $current_lang === 'ro' ? 'Smart Bidding optimizează automat bazat pe conversiile tale' : 'Smart Bidding automatically optimizes based on your conversions',
+
+    // Audiences
+    'audiences_badge'          => $current_lang === 'ro' ? 'Audiențe' : 'Audiences',
+    'audiences_title'          => $current_lang === 'ro' ? 'Găsește mai mulți' : 'Find more',
+    'audiences_title2'         => $current_lang === 'ro' ? 'ca cei mai buni clienți' : 'like your best customers',
+    'audiences_desc'           => $current_lang === 'ro' ? 'Folosește datele tale de clienți pentru a crea audiențe puternice în Google Ads.' : 'Use your customer data to create powerful audiences in Google Ads.',
+    'customer_match'           => 'Customer Match',
+    'customer_match_desc'      => $current_lang === 'ro' ? 'Încarcă lista de cumpărători în Google Ads. Arată reclame celor care au mai cumpărat sau exclude-i pentru a găsi clienți noi.' : 'Upload your buyer list to Google Ads. Show ads to previous buyers or exclude them to find new customers.',
+    'auto_sync'                => $current_lang === 'ro' ? 'Sincronizare automată' : 'Auto sync',
+    'similar_audiences'        => 'Similar Audiences',
+    'similar_desc'             => $current_lang === 'ro' ? 'Google găsește oameni similari cu cumpărătorii tăi de bilete. Expandează reach-ul fără să pierzi relevanța.' : 'Google finds people similar to your ticket buyers. Expand reach without losing relevance.',
+    'smart_expansion'          => $current_lang === 'ro' ? 'Expansiune inteligentă' : 'Smart expansion',
+    'remarketing'              => 'Remarketing',
+    'remarketing_desc'         => $current_lang === 'ro' ? "Readucu-i pe cei care au văzut evenimente dar n-au cumpărat. Cart abandonat? Arată-le reclama." : "Bring back those who viewed events but didn't buy. Abandoned cart? Show them the ad.",
+    'track_journey'            => $current_lang === 'ro' ? 'Urmărește călătoria' : 'Track the journey',
+
+    // Setup
+    'setup_badge'              => 'Setup',
+    'setup_title'              => $current_lang === 'ro' ? 'Conectare în' : 'Connect in',
+    'setup_title2'             => $current_lang === 'ro' ? '3 pași simpli' : '3 simple steps',
+    'setup_desc'               => $current_lang === 'ro' ? 'Nu e nevoie de cunoștințe tehnice. Conectezi contul și gata.' : 'No technical knowledge needed. Connect your account and done.',
+    'step1_title'              => $current_lang === 'ro' ? 'Conectează contul Google Ads' : 'Connect Google Ads account',
+    'step1_desc'               => $current_lang === 'ro' ? 'Din dashboard-ul Tixello, mergi la Integrări → Google Ads și apasă "Conectează". Te autentifici cu Google-ul tău.' : 'From Tixello dashboard, go to Integrations → Google Ads and click "Connect". Authenticate with your Google.',
+    'oauth_secure'             => $current_lang === 'ro' ? 'OAuth securizat Google' : 'Secure Google OAuth',
+    'step2_title'              => $current_lang === 'ro' ? 'Selectează acțiunile de conversie' : 'Select conversion actions',
+    'step2_desc'               => $current_lang === 'ro' ? 'Alege ce evenimente vrei să trimiți: Purchase, Lead, Add to Cart. Sau creează acțiuni noi direct din interfață.' : 'Choose what events to send: Purchase, Lead, Add to Cart. Or create new actions directly from the interface.',
+    'step3_title'              => $current_lang === 'ro' ? 'Gata! Conversiile se trimit automat' : 'Done! Conversions sent automatically',
+    'step3_desc'               => $current_lang === 'ro' ? 'Din acest moment, fiecare vânzare este trimisă automat către Google Ads. Verifică în contul tău că apar conversiile.' : 'From now on, every sale is automatically sent to Google Ads. Check your account to see the conversions.',
+    'realtime_conv'            => $current_lang === 'ro' ? 'Conversii în timp real' : 'Real-time conversions',
+    'connect_now'              => $current_lang === 'ro' ? 'Conectează Google Ads acum' : 'Connect Google Ads now',
+    'included_free'            => $current_lang === 'ro' ? 'Inclus gratuit în toate planurile' : 'Included free in all plans',
+
+    // Testimonial
+    'testimonial_text'         => $current_lang === 'ro' ? 'Înainte cheltuiam €5000 pe Google Ads fără să știu ce funcționează. Acum văd că doar <span class="text-google-blue font-semibold">3 din 20 de cuvinte cheie</span> aduc 80% din vânzări. Am oprit restul și am dublat ROAS-ul.' : 'Before I was spending €5000 on Google Ads without knowing what works. Now I see that only <span class="text-google-blue font-semibold">3 out of 20 keywords</span> bring 80% of sales. I stopped the rest and doubled my ROAS.',
+    'testimonial_author'       => 'Mihai T.',
+    'testimonial_role'         => $current_lang === 'ro' ? 'Organizator Festivaluri, Cluj' : 'Festival Organizer, Cluj',
+
+    // Final CTA
+    'final_title'              => $current_lang === 'ro' ? 'Știi ce' : 'Know what',
+    'final_title2'             => $current_lang === 'ro' ? 'funcționează' : 'works',
+    'final_desc'               => $current_lang === 'ro' ? 'Conectează Google Ads în 2 minute. Vezi exact care campanii, cuvinte cheie și reclame vând bilete. Inclus gratuit în toate planurile Tixello.' : 'Connect Google Ads in 2 minutes. See exactly which campaigns, keywords and ads sell tickets. Included free in all Tixello plans.',
+    'want_demo'                => $current_lang === 'ro' ? 'Vreau o demonstrație' : 'I want a demo',
+];
 ?>
 
 <style>
@@ -209,23 +332,23 @@ get_header();
             <span class="w-2 h-2 rounded-full bg-google-yellow"></span>
             <span class="w-2 h-2 rounded-full bg-google-green"></span>
           </div>
-          <span class="text-white/70 text-sm font-medium">Integrare Oficială Google</span>
+          <span class="text-white/70 text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
         </div>
 
         <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-extra-tight">
-          Știi exact ce<br><span class="text-gradient-google">funcționează</span>
+          <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['hero_title2'] ); ?></span>
         </h1>
 
         <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-          Nu mai ghici care reclame vând bilete. Conectezi Google Ads și vezi exact care campanii, cuvinte cheie și reclame generează <strong class="text-white">venituri reale</strong>.
+          <?php echo $t['hero_desc']; ?>
         </p>
 
         <div class="flex flex-wrap gap-4 mb-12">
           <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn btn-google">
-            Conectează Google Ads
+            <?php echo esc_html( $t['cta_connect'] ); ?>
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
-          <a href="#cum-functioneaza" class="btn btn-ghost">Vezi cum funcționează</a>
+          <a href="#cum-functioneaza" class="btn btn-ghost"><?php echo esc_html( $t['cta_how'] ); ?></a>
         </div>
 
         <!-- Live ROAS Counter -->
@@ -234,7 +357,7 @@ get_header();
             <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
           </div>
           <div>
-            <div class="text-white/50 text-sm">ROAS mediu cu tracking precis</div>
+            <div class="text-white/50 text-sm"><?php echo esc_html( $t['roas_label'] ); ?></div>
             <div class="text-2xl font-display font-bold text-green-400 roas-counter" x-data="{ value: 0 }" x-init="
               let target = 4.2;
               let duration = 2000;
@@ -267,7 +390,7 @@ get_header();
               </div>
               <div class="flex items-center gap-2 text-green-400 text-sm">
                 <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                Conectat
+                <?php echo esc_html( $t['connected'] ); ?>
               </div>
             </div>
 
@@ -277,11 +400,11 @@ get_header();
                 <div class="text-2xl font-bold text-white" x-data="{ count: 0 }" x-init="
                   let interval = setInterval(() => { if(count < 847) count += 13; else { count = 847; clearInterval(interval); } }, 50);
                 " x-text="count">0</div>
-                <div class="text-xs text-white/40">Conversii</div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['conversions'] ); ?></div>
               </div>
               <div class="bg-white/5 rounded-xl p-3 text-center">
                 <div class="text-2xl font-bold text-green-400">€42.3K</div>
-                <div class="text-xs text-white/40">Venituri</div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['revenue'] ); ?></div>
               </div>
               <div class="bg-white/5 rounded-xl p-3 text-center">
                 <div class="text-2xl font-bold text-google-blue">4.2x</div>
@@ -303,7 +426,7 @@ get_header();
                 </div>
                 <div class="text-right">
                   <div class="text-green-400 font-medium">+€89</div>
-                  <div class="text-white/30 text-xs">acum 2 min</div>
+                  <div class="text-white/30 text-xs"><?php echo esc_html( $t['now_2_min'] ); ?></div>
                 </div>
               </div>
 
@@ -319,7 +442,7 @@ get_header();
                 </div>
                 <div class="text-right">
                   <div class="text-blue-400 font-medium">+€156</div>
-                  <div class="text-white/30 text-xs">acum 5 min</div>
+                  <div class="text-white/30 text-xs"><?php echo esc_html( $t['now_5_min'] ); ?></div>
                 </div>
               </div>
 
@@ -335,7 +458,7 @@ get_header();
                 </div>
                 <div class="text-right">
                   <div class="text-amber-400 font-medium">€75</div>
-                  <div class="text-white/30 text-xs">acum 8 min</div>
+                  <div class="text-white/30 text-xs"><?php echo esc_html( $t['now_8_min'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -351,7 +474,7 @@ get_header();
                 <div class="pulse-ring w-12 h-12 text-green-400 absolute inset-0"></div>
               </div>
               <div>
-                <div class="text-white/50 text-xs">Return pe investiție</div>
+                <div class="text-white/50 text-xs"><?php echo esc_html( $t['return_investment'] ); ?></div>
                 <div class="text-green-400 font-bold text-xl">+320%</div>
               </div>
             </div>
@@ -366,7 +489,7 @@ get_header();
 <section class="py-16 border-y border-white/5">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-8 reveal">
-      <p class="text-white/40 text-sm uppercase tracking-widest">Funcționează pe toate platformele Google</p>
+      <p class="text-white/40 text-sm uppercase tracking-widest"><?php echo esc_html( $t['platforms_subtitle'] ); ?></p>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
       <div class="platform-card text-center reveal">
@@ -418,9 +541,9 @@ get_header();
 <section class="py-24 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-amber-400 text-sm font-medium uppercase tracking-widest">Problema</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Știi cât cheltuiești.<br><span class="text-amber-400">Dar știi ce primești?</span></h2>
-      <p class="text-lg text-white/60">Fără tracking precis, optimizezi pe baza ghicului. Cu tracking precis, optimizezi pe baza datelor.</p>
+      <span class="text-amber-400 text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['problem_badge'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['problem_title'] ); ?><br><span class="text-amber-400"><?php echo esc_html( $t['problem_title2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['problem_desc'] ); ?></p>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8">
@@ -431,33 +554,33 @@ get_header();
             <div class="w-10 h-10 rounded-full bg-rose-500/20 flex items-center justify-center">
               <svg class="w-5 h-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </div>
-            <span class="text-rose-400 font-semibold">Fără Integrare</span>
+            <span class="text-rose-400 font-semibold"><?php echo esc_html( $t['without_integration'] ); ?></span>
           </div>
 
           <div class="space-y-4">
             <div class="bg-dark-900/50 rounded-xl p-4">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-white/70 text-sm">Campanie: Festival Vara</span>
+                <span class="text-white/70 text-sm"><?php echo esc_html( $t['campaign'] ); ?>: <?php echo esc_html( $t['summer_festival'] ); ?></span>
                 <span class="text-white/40 text-xs">Google Ads</span>
               </div>
               <div class="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div class="text-white font-semibold">12,450</div>
-                  <div class="text-white/40 text-xs">Click-uri</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['clicks'] ); ?></div>
                 </div>
                 <div>
                   <div class="text-white font-semibold">€3,200</div>
-                  <div class="text-white/40 text-xs">Cheltuieli</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['spend'] ); ?></div>
                 </div>
                 <div>
                   <div class="text-rose-400 font-semibold">???</div>
-                  <div class="text-white/40 text-xs">Conversii</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['conversions'] ); ?></div>
                 </div>
               </div>
             </div>
 
             <div class="bg-dark-900/50 rounded-xl p-4">
-              <div class="text-white/70 text-sm mb-2">Cuvinte cheie top</div>
+              <div class="text-white/70 text-sm mb-2"><?php echo esc_html( $t['top_keywords'] ); ?></div>
               <div class="space-y-2">
                 <div class="flex items-center justify-between">
                   <span class="text-white/60 text-sm">"bilete festival"</span>
@@ -476,7 +599,7 @@ get_header();
 
             <div class="flex items-center gap-2 text-rose-400 text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Nu știi care cuvinte cheie vând bilete
+              <?php echo esc_html( $t['dont_know_keywords'] ); ?>
             </div>
           </div>
         </div>
@@ -489,27 +612,27 @@ get_header();
             <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
               <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <span class="text-green-400 font-semibold">Cu Integrare Tixello</span>
+            <span class="text-green-400 font-semibold"><?php echo esc_html( $t['with_integration'] ); ?></span>
           </div>
 
           <div class="space-y-4">
             <div class="bg-dark-900/50 rounded-xl p-4">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-white/70 text-sm">Campanie: Festival Vara</span>
-                <span class="text-green-400 text-xs">● Live</span>
+                <span class="text-white/70 text-sm"><?php echo esc_html( $t['campaign'] ); ?>: <?php echo esc_html( $t['summer_festival'] ); ?></span>
+                <span class="text-green-400 text-xs">● <?php echo esc_html( $t['live'] ); ?></span>
               </div>
               <div class="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div class="text-white font-semibold">12,450</div>
-                  <div class="text-white/40 text-xs">Click-uri</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['clicks'] ); ?></div>
                 </div>
                 <div>
                   <div class="text-white font-semibold">€3,200</div>
-                  <div class="text-white/40 text-xs">Cheltuieli</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['spend'] ); ?></div>
                 </div>
                 <div>
                   <div class="text-green-400 font-semibold">347</div>
-                  <div class="text-white/40 text-xs">Conversii</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['conversions'] ); ?></div>
                 </div>
               </div>
               <div class="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
@@ -519,12 +642,12 @@ get_header();
             </div>
 
             <div class="bg-dark-900/50 rounded-xl p-4">
-              <div class="text-white/70 text-sm mb-3">Cuvinte cheie cu conversii</div>
+              <div class="text-white/70 text-sm mb-3"><?php echo esc_html( $t['keywords_with_conv'] ); ?></div>
               <div class="space-y-3">
                 <div>
                   <div class="flex items-center justify-between mb-1">
                     <span class="text-white text-sm">"bilete festival"</span>
-                    <span class="text-green-400 text-sm font-medium">189 vânzări</span>
+                    <span class="text-green-400 text-sm font-medium">189 <?php echo esc_html( $t['sales'] ); ?></span>
                   </div>
                   <div class="keyword-bar">
                     <div class="keyword-fill bg-gradient-to-r from-green-500 to-emerald-400" style="width: 85%;"></div>
@@ -533,7 +656,7 @@ get_header();
                 <div>
                   <div class="flex items-center justify-between mb-1">
                     <span class="text-white text-sm">"concert vara"</span>
-                    <span class="text-green-400 text-sm font-medium">98 vânzări</span>
+                    <span class="text-green-400 text-sm font-medium">98 <?php echo esc_html( $t['sales'] ); ?></span>
                   </div>
                   <div class="keyword-bar">
                     <div class="keyword-fill bg-gradient-to-r from-green-500 to-emerald-400" style="width: 55%;"></div>
@@ -542,7 +665,7 @@ get_header();
                 <div>
                   <div class="flex items-center justify-between mb-1">
                     <span class="text-white text-sm">"evenimente bucuresti"</span>
-                    <span class="text-amber-400 text-sm font-medium">12 vânzări</span>
+                    <span class="text-amber-400 text-sm font-medium">12 <?php echo esc_html( $t['sales'] ); ?></span>
                   </div>
                   <div class="keyword-bar">
                     <div class="keyword-fill bg-gradient-to-r from-amber-500 to-amber-400" style="width: 15%;"></div>
@@ -553,7 +676,7 @@ get_header();
 
             <div class="flex items-center gap-2 text-green-400 text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Optimizezi pe baza vânzărilor reale
+              <?php echo esc_html( $t['optimize_real_sales'] ); ?>
             </div>
           </div>
         </div>
@@ -566,9 +689,9 @@ get_header();
 <section class="py-24 bg-dark-850 relative" id="cum-functioneaza">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-google-blue text-sm font-medium uppercase tracking-widest">Cum Funcționează</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Click. Cumpără.<br><span class="text-gradient-google">Atribuie.</span></h2>
-      <p class="text-lg text-white/60">Fiecare vânzare este conectată la reclama care a generat-o. Automat.</p>
+      <span class="text-google-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['how_badge'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['how_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['how_title2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['how_desc'] ); ?></p>
     </div>
 
     <!-- Visual Journey -->
@@ -584,8 +707,8 @@ get_header();
             <div class="w-20 h-20 mx-auto rounded-2xl bg-google-blue/20 border border-google-blue/30 flex items-center justify-center mb-4 relative z-10">
               <svg class="w-8 h-8 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
             </div>
-            <div class="text-white font-medium mb-1">Click pe reclamă</div>
-            <div class="text-white/40 text-sm">Google salvează GCLID</div>
+            <div class="text-white font-medium mb-1"><?php echo esc_html( $t['step_click'] ); ?></div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['step_click_desc'] ); ?></div>
           </div>
 
           <!-- Step 2: Browse -->
@@ -593,8 +716,8 @@ get_header();
             <div class="w-20 h-20 mx-auto rounded-2xl bg-google-green/20 border border-google-green/30 flex items-center justify-center mb-4 relative z-10">
               <svg class="w-8 h-8 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
             </div>
-            <div class="text-white font-medium mb-1">Navighează site</div>
-            <div class="text-white/40 text-sm">Tixello păstrează GCLID</div>
+            <div class="text-white font-medium mb-1"><?php echo esc_html( $t['step_browse'] ); ?></div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['step_browse_desc'] ); ?></div>
           </div>
 
           <!-- Step 3: Purchase -->
@@ -602,8 +725,8 @@ get_header();
             <div class="w-20 h-20 mx-auto rounded-2xl bg-google-yellow/20 border border-google-yellow/30 flex items-center justify-center mb-4 relative z-10">
               <svg class="w-8 h-8 text-google-yellow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             </div>
-            <div class="text-white font-medium mb-1">Cumpără bilet</div>
-            <div class="text-white/40 text-sm">Comandă finalizată</div>
+            <div class="text-white font-medium mb-1"><?php echo esc_html( $t['step_buy'] ); ?></div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['step_buy_desc'] ); ?></div>
           </div>
 
           <!-- Step 4: Attribution -->
@@ -611,8 +734,8 @@ get_header();
             <div class="w-20 h-20 mx-auto rounded-2xl bg-google-red/20 border border-google-red/30 flex items-center justify-center mb-4 relative z-10">
               <svg class="w-8 h-8 text-google-red" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             </div>
-            <div class="text-white font-medium mb-1">Google primește</div>
-            <div class="text-white/40 text-sm">Conversia atribuită</div>
+            <div class="text-white font-medium mb-1"><?php echo esc_html( $t['step_attr'] ); ?></div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['step_attr_desc'] ); ?></div>
           </div>
         </div>
       </div>
@@ -626,13 +749,13 @@ get_header();
             <svg class="w-8 h-8 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
           <div>
-            <h3 class="text-xl font-semibold text-white mb-2">Conversii Îmbunătățite</h3>
-            <p class="text-white/60 mb-4">Când cookie-urile nu pot urmări, folosim date hash-uite (email, telefon) pentru a potrivi conversiile cu click-urile. Google nu vede datele reale - doar identificatori criptați pentru potrivire.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['enhanced_conv'] ); ?></h3>
+            <p class="text-white/60 mb-4"><?php echo esc_html( $t['enhanced_desc'] ); ?></p>
             <div class="flex flex-wrap gap-3">
-              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">Email hash-uit</span>
-              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">Telefon hash-uit</span>
-              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">Cross-device</span>
-              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">GDPR compliant</span>
+              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm"><?php echo esc_html( $t['hashed_email'] ); ?></span>
+              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm"><?php echo esc_html( $t['hashed_phone'] ); ?></span>
+              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm"><?php echo esc_html( $t['cross_device'] ); ?></span>
+              <span class="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm"><?php echo esc_html( $t['gdpr_compliant'] ); ?></span>
             </div>
           </div>
         </div>
@@ -647,9 +770,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       <div class="reveal">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium mb-6">Smart Bidding</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Lasă AI-ul Google<br><span class="text-gradient">să-ți găsească clienți</span></h2>
-        <p class="text-lg text-white/60 mb-8 leading-relaxed">Cu date de conversie precise, algoritmii Google știu exact cine cumpără bilete. Licitează automat mai mult pe cine convertește și mai puțin pe cine doar dă click.</p>
+        <span class="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium mb-6"><?php echo esc_html( $t['smart_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6"><?php echo esc_html( $t['smart_title'] ); ?><br><span class="text-gradient"><?php echo esc_html( $t['smart_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60 mb-8 leading-relaxed"><?php echo esc_html( $t['smart_desc'] ); ?></p>
 
         <div class="space-y-6">
           <div class="flex items-start gap-4">
@@ -657,8 +780,8 @@ get_header();
               <svg class="w-6 h-6 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1">Target ROAS</h4>
-              <p class="text-white/50 text-sm">Setezi return-ul dorit (ex: 4x), Google optimizează automat licitările pentru a-l atinge.</p>
+              <h4 class="text-white font-semibold mb-1"><?php echo esc_html( $t['target_roas'] ); ?></h4>
+              <p class="text-white/50 text-sm"><?php echo esc_html( $t['target_roas_desc'] ); ?></p>
             </div>
           </div>
 
@@ -667,8 +790,8 @@ get_header();
               <svg class="w-6 h-6 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1">Maximize Conversion Value</h4>
-              <p class="text-white/50 text-sm">Google maximizează valoarea totală a conversiilor în limita bugetului tău.</p>
+              <h4 class="text-white font-semibold mb-1"><?php echo esc_html( $t['max_conv_value'] ); ?></h4>
+              <p class="text-white/50 text-sm"><?php echo esc_html( $t['max_conv_desc'] ); ?></p>
             </div>
           </div>
 
@@ -677,8 +800,8 @@ get_header();
               <svg class="w-6 h-6 text-google-yellow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1">Performance Max</h4>
-              <p class="text-white/50 text-sm">Campaniile automatizate folosesc conversiile tale pentru a găsi clienți în Search, YouTube, Display și Discover.</p>
+              <h4 class="text-white font-semibold mb-1"><?php echo esc_html( $t['perf_max'] ); ?></h4>
+              <p class="text-white/50 text-sm"><?php echo esc_html( $t['perf_max_desc'] ); ?></p>
             </div>
           </div>
         </div>
@@ -688,8 +811,8 @@ get_header();
       <div class="reveal reveal-delay-1">
         <div class="bg-dark-800 rounded-3xl p-6 border border-white/10">
           <div class="flex items-center justify-between mb-6">
-            <span class="text-white font-medium">Performanță Smart Bidding</span>
-            <span class="text-green-400 text-sm">Ultimele 30 zile</span>
+            <span class="text-white font-medium"><?php echo esc_html( $t['smart_perf'] ); ?></span>
+            <span class="text-green-400 text-sm"><?php echo esc_html( $t['last_30_days'] ); ?></span>
           </div>
 
           <!-- Chart -->
@@ -698,25 +821,25 @@ get_header();
               <div class="w-full bg-white/10 rounded-t-lg graph-bar" style="height: 40%;">
                 <div class="w-full h-full bg-gradient-to-t from-white/20 to-white/5 rounded-t-lg"></div>
               </div>
-              <span class="text-white/30 text-xs">Săpt 1</span>
+              <span class="text-white/30 text-xs"><?php echo esc_html( $t['week'] ); ?> 1</span>
             </div>
             <div class="flex-1 flex flex-col items-center gap-1">
               <div class="w-full bg-white/10 rounded-t-lg graph-bar" style="height: 55%;">
                 <div class="w-full h-full bg-gradient-to-t from-google-blue/50 to-google-blue/20 rounded-t-lg"></div>
               </div>
-              <span class="text-white/30 text-xs">Săpt 2</span>
+              <span class="text-white/30 text-xs"><?php echo esc_html( $t['week'] ); ?> 2</span>
             </div>
             <div class="flex-1 flex flex-col items-center gap-1">
               <div class="w-full bg-white/10 rounded-t-lg graph-bar" style="height: 70%;">
                 <div class="w-full h-full bg-gradient-to-t from-google-green/50 to-google-green/20 rounded-t-lg"></div>
               </div>
-              <span class="text-white/30 text-xs">Săpt 3</span>
+              <span class="text-white/30 text-xs"><?php echo esc_html( $t['week'] ); ?> 3</span>
             </div>
             <div class="flex-1 flex flex-col items-center gap-1">
               <div class="w-full bg-white/10 rounded-t-lg graph-bar" style="height: 95%;">
                 <div class="w-full h-full bg-gradient-to-t from-green-500 to-green-400/50 rounded-t-lg"></div>
               </div>
-              <span class="text-white/30 text-xs">Săpt 4</span>
+              <span class="text-white/30 text-xs"><?php echo esc_html( $t['week'] ); ?> 4</span>
             </div>
           </div>
 
@@ -735,7 +858,7 @@ get_header();
             <div class="bg-white/5 rounded-xl p-4">
               <div class="flex items-center gap-2 mb-2">
                 <svg class="w-4 h-4 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span class="text-white/50 text-sm">Cost/conversie</span>
+                <span class="text-white/50 text-sm"><?php echo esc_html( $t['cost_conv'] ); ?></span>
               </div>
               <div class="flex items-baseline gap-2">
                 <span class="text-3xl font-bold text-white">€9.2</span>
@@ -747,7 +870,7 @@ get_header();
           <div class="mt-4 p-3 rounded-xl bg-green-500/10 border border-green-500/20">
             <div class="flex items-center gap-2 text-green-400 text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Smart Bidding optimizează automat bazat pe conversiile tale
+              <?php echo esc_html( $t['smart_auto_opt'] ); ?>
             </div>
           </div>
         </div>
@@ -760,9 +883,9 @@ get_header();
 <section class="py-24 bg-dark-850 relative">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-violet-400 text-sm font-medium uppercase tracking-widest">Audiențe</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Găsește mai mulți<br><span class="text-gradient">ca cei mai buni clienți</span></h2>
-      <p class="text-lg text-white/60">Folosește datele tale de clienți pentru a crea audiențe puternice în Google Ads.</p>
+      <span class="text-violet-400 text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['audiences_badge'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['audiences_title'] ); ?><br><span class="text-gradient"><?php echo esc_html( $t['audiences_title2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['audiences_desc'] ); ?></p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
@@ -770,11 +893,11 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center mb-6">
           <svg class="w-7 h-7 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Customer Match</h3>
-        <p class="text-white/50 mb-4">Încarcă lista de cumpărători în Google Ads. Arată reclame celor care au mai cumpărat sau exclude-i pentru a găsi clienți noi.</p>
+        <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['customer_match'] ); ?></h3>
+        <p class="text-white/50 mb-4"><?php echo esc_html( $t['customer_match_desc'] ); ?></p>
         <div class="flex items-center gap-2 text-violet-400 text-sm">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          Sincronizare automată
+          <?php echo esc_html( $t['auto_sync'] ); ?>
         </div>
       </div>
 
@@ -782,11 +905,11 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
           <svg class="w-7 h-7 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Similar Audiences</h3>
-        <p class="text-white/50 mb-4">Google găsește oameni similari cu cumpărătorii tăi de bilete. Expandează reach-ul fără să pierzi relevanța.</p>
+        <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['similar_audiences'] ); ?></h3>
+        <p class="text-white/50 mb-4"><?php echo esc_html( $t['similar_desc'] ); ?></p>
         <div class="flex items-center gap-2 text-cyan-400 text-sm">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-          Expansiune inteligentă
+          <?php echo esc_html( $t['smart_expansion'] ); ?>
         </div>
       </div>
 
@@ -794,11 +917,11 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center mb-6">
           <svg class="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Remarketing</h3>
-        <p class="text-white/50 mb-4">Readucu-i pe cei care au văzut evenimente dar n-au cumpărat. Cart abandonat? Arată-le reclama.</p>
+        <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['remarketing'] ); ?></h3>
+        <p class="text-white/50 mb-4"><?php echo esc_html( $t['remarketing_desc'] ); ?></p>
         <div class="flex items-center gap-2 text-amber-400 text-sm">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          Urmărește călătoria
+          <?php echo esc_html( $t['track_journey'] ); ?>
         </div>
       </div>
     </div>
@@ -810,9 +933,9 @@ get_header();
   <div class="orb w-[400px] h-[400px] bg-blue-600/20 top-1/3 -left-40"></div>
   <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-green-400 text-sm font-medium uppercase tracking-widest">Setup</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Conectare în<br><span class="text-gradient-google">3 pași simpli</span></h2>
-      <p class="text-lg text-white/60">Nu e nevoie de cunoștințe tehnice. Conectezi contul și gata.</p>
+      <span class="text-green-400 text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['setup_badge'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['setup_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['setup_title2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['setup_desc'] ); ?></p>
     </div>
 
     <div class="max-w-3xl mx-auto">
@@ -823,8 +946,8 @@ get_header();
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-blue to-google-blue/70 flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-google-blue/30">1</div>
           </div>
           <div class="flex-1 pb-8 border-b border-white/10">
-            <h3 class="text-xl font-semibold text-white mb-2">Conectează contul Google Ads</h3>
-            <p class="text-white/50 mb-4">Din dashboard-ul Tixello, mergi la Integrări → Google Ads și apasă "Conectează". Te autentifici cu Google-ul tău.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step1_title'] ); ?></h3>
+            <p class="text-white/50 mb-4"><?php echo esc_html( $t['step1_desc'] ); ?></p>
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
               <svg class="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -832,7 +955,7 @@ get_header();
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              <span class="text-white/70 text-sm">OAuth securizat Google</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['oauth_secure'] ); ?></span>
             </div>
           </div>
         </div>
@@ -843,8 +966,8 @@ get_header();
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-green to-google-green/70 flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-google-green/30">2</div>
           </div>
           <div class="flex-1 pb-8 border-b border-white/10">
-            <h3 class="text-xl font-semibold text-white mb-2">Selectează acțiunile de conversie</h3>
-            <p class="text-white/50 mb-4">Alege ce evenimente vrei să trimiți: Purchase, Lead, Add to Cart. Sau creează acțiuni noi direct din interfață.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step2_title'] ); ?></h3>
+            <p class="text-white/50 mb-4"><?php echo esc_html( $t['step2_desc'] ); ?></p>
             <div class="flex flex-wrap gap-2">
               <span class="px-3 py-1.5 rounded-lg bg-green-500/10 text-green-400 text-sm border border-green-500/20">✓ Purchase</span>
               <span class="px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 text-sm border border-blue-500/20">✓ Lead</span>
@@ -859,11 +982,11 @@ get_header();
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-yellow to-google-yellow/70 flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-google-yellow/30">3</div>
           </div>
           <div class="flex-1">
-            <h3 class="text-xl font-semibold text-white mb-2">Gata! Conversiile se trimit automat</h3>
-            <p class="text-white/50 mb-4">Din acest moment, fiecare vânzare este trimisă automat către Google Ads. Verifică în contul tău că apar conversiile.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step3_title'] ); ?></h3>
+            <p class="text-white/50 mb-4"><?php echo esc_html( $t['step3_desc'] ); ?></p>
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 text-green-400 text-sm border border-green-500/20">
               <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-              Conversii în timp real
+              <?php echo esc_html( $t['realtime_conv'] ); ?>
             </div>
           </div>
         </div>
@@ -872,10 +995,10 @@ get_header();
       <!-- CTA -->
       <div class="mt-12 text-center reveal reveal-delay-3">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn btn-google text-lg px-8 py-4">
-          Conectează Google Ads acum
+          <?php echo esc_html( $t['connect_now'] ); ?>
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <p class="text-white/30 text-sm mt-4">Inclus gratuit în toate planurile</p>
+        <p class="text-white/30 text-sm mt-4"><?php echo esc_html( $t['included_free'] ); ?></p>
       </div>
     </div>
   </div>
@@ -895,13 +1018,13 @@ get_header();
           <svg class="w-6 h-6 text-google-yellow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
         <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-          "Înainte cheltuiam €5000 pe Google Ads fără să știu ce funcționează. Acum văd că doar <span class="text-google-blue font-semibold">3 din 20 de cuvinte cheie</span> aduc 80% din vânzări. Am oprit restul și am dublat ROAS-ul."
+          "<?php echo $t['testimonial_text']; ?>"
         </blockquote>
         <div class="flex items-center gap-4">
           <div class="w-14 h-14 rounded-full bg-gradient-to-br from-google-blue to-google-green"></div>
           <div>
-            <div class="font-semibold text-white">Mihai T.</div>
-            <div class="text-white/50">Organizator Festivaluri, Cluj</div>
+            <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+            <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
           </div>
         </div>
       </div>
@@ -914,14 +1037,14 @@ get_header();
   <div class="absolute inset-0 bg-gradient-to-br from-google-blue/20 via-transparent to-google-green/20"></div>
   <div class="orb w-[800px] h-[800px] bg-google-blue/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
   <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Știi ce<br><span class="text-gradient-google">funcționează</span></h2>
-    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Conectează Google Ads în 2 minute. Vezi exact care campanii, cuvinte cheie și reclame vând bilete. Inclus gratuit în toate planurile Tixello.</p>
+    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['final_title2'] ); ?></span></h2>
+    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
       <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn btn-google text-lg px-10 py-4">
-        Conectează Google Ads
+        <?php echo esc_html( $t['cta_connect'] ); ?>
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
-      <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-ghost text-lg px-10 py-4">Vreau o demonstrație</a>
+      <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-ghost text-lg px-10 py-4"><?php echo esc_html( $t['want_demo'] ); ?></a>
     </div>
     <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm text-white/40 reveal reveal-delay-3">
       <span class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Search</span>

@@ -5,6 +5,115 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'                   => $current_lang === 'ro' ? 'Editor WYSIWYG · Drag & Drop' : 'WYSIWYG Editor · Drag & Drop',
+	'hero_title'              => $current_lang === 'ro' ? 'Designează' : 'Design',
+	'hero_title2'             => $current_lang === 'ro' ? 'bilete unice' : 'unique tickets',
+	'hero_desc'               => $current_lang === 'ro'
+		? 'Editor vizual <strong class="text-white">drag-and-drop</strong> pentru bilete profesionale. Logo, fonturi, culori, coduri QR - tot ce ai nevoie pentru bilete care reflectă <strong class="text-white">brandul tău</strong>.'
+		: 'Visual <strong class="text-white">drag-and-drop</strong> editor for professional tickets. Logo, fonts, colors, QR codes - everything you need for tickets that reflect <strong class="text-white">your brand</strong>.',
+	'cta_open_editor'         => $current_lang === 'ro' ? 'Deschide Editorul' : 'Open Editor',
+	'cta_features'            => $current_lang === 'ro' ? 'Vezi funcționalități' : 'See features',
+	'feat_mm'                 => $current_lang === 'ro' ? 'Măsurători mm precise' : 'Precise mm measurements',
+	'feat_export'             => $current_lang === 'ro' ? 'Export PDF/PNG' : 'PDF/PNG Export',
+	'feat_variables'          => $current_lang === 'ro' ? 'Variabile dinamice' : 'Dynamic variables',
+	'saved'                   => $current_lang === 'ro' ? 'Salvat' : 'Saved',
+	'layers'                  => $current_lang === 'ro' ? 'Layers' : 'Layers',
+	'layer_event_name'        => $current_lang === 'ro' ? 'Event Name' : 'Event Name',
+	'layer_qr'                => $current_lang === 'ro' ? 'QR Code' : 'QR Code',
+	'layer_date'              => $current_lang === 'ro' ? 'Date & Time' : 'Date & Time',
+	'layer_vip'               => $current_lang === 'ro' ? 'VIP Badge' : 'VIP Badge',
+	'layer_venue'             => $current_lang === 'ro' ? 'Venue' : 'Venue',
+	'layer_seat'              => $current_lang === 'ro' ? 'Seat Info' : 'Seat Info',
+
+	// Layer Types Section
+	'layer_types_label'       => $current_lang === 'ro' ? 'Tipuri de Layer-uri' : 'Layer Types',
+	'layer_types_title'       => $current_lang === 'ro' ? 'Toate uneltele de care' : 'All the tools you',
+	'layer_types_title2'      => $current_lang === 'ro' ? 'ai nevoie' : 'need',
+	'layer_types_desc'        => $current_lang === 'ro' ? 'Sistem de layer-uri ca în software-ul profesional de design.' : 'Layer system like in professional design software.',
+	'text_title'              => $current_lang === 'ro' ? 'Text' : 'Text',
+	'text_desc'               => $current_lang === 'ro' ? 'Fonturi personalizate, dimensiuni, culori și aliniere. Suport pentru text static sau variabile dinamice.' : 'Custom fonts, sizes, colors and alignment. Support for static text or dynamic variables.',
+	'images_title'            => $current_lang === 'ro' ? 'Imagini' : 'Images',
+	'images_desc'             => $current_lang === 'ro' ? 'Încarcă logo-uri, fotografii și grafice. Controlează fit, poziție și opacitate.' : 'Upload logos, photos and graphics. Control fit, position and opacity.',
+	'qr_title'                => $current_lang === 'ro' ? 'Cod QR' : 'QR Code',
+	'qr_desc'                 => $current_lang === 'ro' ? 'Coduri QR dinamice cu nivel configurabil de corecție eroare (L, M, Q, H).' : 'Dynamic QR codes with configurable error correction level (L, M, Q, H).',
+	'qr_dynamic'              => $current_lang === 'ro' ? 'Dinamic' : 'Dynamic',
+	'barcode_title'           => $current_lang === 'ro' ? 'Cod de Bare' : 'Barcode',
+	'barcode_desc'            => $current_lang === 'ro' ? 'Multiple formate suportate pentru compatibilitate maximă cu scanerele.' : 'Multiple formats supported for maximum scanner compatibility.',
+	'shapes_title'            => $current_lang === 'ro' ? 'Forme' : 'Shapes',
+	'shapes_desc'             => $current_lang === 'ro' ? 'Dreptunghiuri, cercuri și linii cu opțiuni de fill, stroke și rotație.' : 'Rectangles, circles and lines with fill, stroke and rotation options.',
+	'bg_title'                => $current_lang === 'ro' ? 'Background' : 'Background',
+	'bg_desc'                 => $current_lang === 'ro' ? 'Culoare solidă sau imagine de fundal pentru întregul bilet.' : 'Solid color or background image for the entire ticket.',
+
+	// Variables Section
+	'vars_label'              => $current_lang === 'ro' ? 'Variabile Dinamice' : 'Dynamic Variables',
+	'vars_title'              => $current_lang === 'ro' ? 'Fiecare bilet,' : 'Each ticket,',
+	'vars_title2'             => $current_lang === 'ro' ? 'unic' : 'unique',
+	'vars_desc'               => $current_lang === 'ro'
+		? 'Inserează placeholder-uri care se populează automat cu datele reale când biletele sunt generate. Nu mai e nevoie de editare manuală.'
+		: 'Insert placeholders that automatically populate with real data when tickets are generated. No more manual editing needed.',
+	'var_event'               => $current_lang === 'ro' ? 'Eveniment' : 'Event',
+	'var_venue'               => $current_lang === 'ro' ? 'Locație' : 'Venue',
+	'var_ticket'              => $current_lang === 'ro' ? 'Bilet' : 'Ticket',
+	'var_codes'               => $current_lang === 'ro' ? 'Coduri' : 'Codes',
+	'template'                => $current_lang === 'ro' ? 'Template' : 'Template',
+	'generated'               => $current_lang === 'ro' ? 'Generat' : 'Generated',
+
+	// Preset Sizes Section
+	'presets_label'           => $current_lang === 'ro' ? 'Dimensiuni Prestabilite' : 'Preset Sizes',
+	'presets_title'           => $current_lang === 'ro' ? 'Formate pentru' : 'Formats for',
+	'presets_title2'          => $current_lang === 'ro' ? 'orice nevoie' : 'every need',
+	'presets_desc'            => $current_lang === 'ro' ? 'Alege din preset-uri sau creează dimensiuni personalizate.' : 'Choose from presets or create custom dimensions.',
+	'preset_standard'         => $current_lang === 'ro' ? 'Bilet Standard' : 'Standard Ticket',
+	'preset_standard_note'    => $current_lang === 'ro' ? 'Cel mai popular format' : 'Most popular format',
+	'preset_landscape'        => $current_lang === 'ro' ? 'Bilet Landscape' : 'Landscape Ticket',
+	'preset_landscape_note'   => $current_lang === 'ro' ? 'Format vertical' : 'Vertical format',
+	'preset_a6_portrait'      => $current_lang === 'ro' ? 'A6 Portrait' : 'A6 Portrait',
+	'preset_a6_portrait_note' => $current_lang === 'ro' ? 'Format carte poștală' : 'Postcard format',
+	'preset_a6_landscape'     => $current_lang === 'ro' ? 'A6 Landscape' : 'A6 Landscape',
+	'preset_a6_land_note'     => $current_lang === 'ro' ? 'Format orizontal' : 'Horizontal format',
+	'preset_a4_portrait'      => $current_lang === 'ro' ? 'A4 Portrait' : 'A4 Portrait',
+	'preset_a4_note'          => $current_lang === 'ro' ? 'Format full-page' : 'Full-page format',
+	'preset_custom'           => $current_lang === 'ro' ? 'Personalizat' : 'Custom',
+	'preset_custom_desc'      => $current_lang === 'ro' ? 'Creează dimensiuni custom' : 'Create custom dimensions',
+	'preset_custom_note'      => $current_lang === 'ro' ? 'Orice dimensiune în mm' : 'Any dimension in mm',
+
+	// Use Cases Section
+	'usecases_label'          => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'          => $current_lang === 'ro' ? 'Designuri pentru' : 'Designs for',
+	'usecases_title2'         => $current_lang === 'ro' ? 'orice ocazie' : 'every occasion',
+	'uc_branded'              => $current_lang === 'ro' ? 'Bilete Brandate' : 'Branded Tickets',
+	'uc_branded_desc'         => $current_lang === 'ro' ? 'Culorile, fonturile și imaginile tale. Bilete care se simt ca parte din experiență.' : 'Your colors, fonts and images. Tickets that feel like part of the experience.',
+	'uc_vip'                  => $current_lang === 'ro' ? 'Bilete VIP Premium' : 'Premium VIP Tickets',
+	'uc_vip_desc'             => $current_lang === 'ro' ? 'Designuri distinctive cu accente aurii și layout-uri unice pentru experiențe premium.' : 'Distinctive designs with golden accents and unique layouts for premium experiences.',
+	'uc_badges'               => $current_lang === 'ro' ? 'Ecusoane Conferință' : 'Conference Badges',
+	'uc_badges_desc'          => $current_lang === 'ro' ? 'Informații participant, logo companie și indicatori acces într-un format printabil.' : 'Participant info, company logo and access indicators in a printable format.',
+	'uc_multiday'             => $current_lang === 'ro' ? 'Abonamente Multi-Zi' : 'Multi-Day Passes',
+	'uc_multiday_desc'        => $current_lang === 'ro' ? 'Layout-uri cu spațiu pentru mai multe date sau stil punch-card pentru acces multi-sesiune.' : 'Layouts with space for multiple dates or punch-card style for multi-session access.',
+	'uc_promo'                => $current_lang === 'ro' ? 'Bilete Promoționale' : 'Promotional Tickets',
+	'uc_promo_desc'           => $current_lang === 'ro' ? 'Logo-uri sponsori, mesaje promoționale și coduri QR pentru oferte speciale.' : 'Sponsor logos, promotional messages and QR codes for special offers.',
+	'uc_collectible'          => $current_lang === 'ro' ? 'Bilete Colecționabile' : 'Collectible Tickets',
+	'uc_collectible_desc'     => $current_lang === 'ro' ? 'Design memorabil pentru concerte sau evenimente speciale - bilete care merită păstrate.' : 'Memorable design for concerts or special events - tickets worth keeping.',
+
+	// Testimonial
+	'testimonial_quote'       => $current_lang === 'ro'
+		? 'În sfârșit pot să fac bilete care <span class="text-gradient-canvas font-semibold">arată exact cum vreau</span>. Nu mai trebuie să rog pe nimeni să-mi facă design-ul. Drag-and-drop, salvez template-ul și gata. Clienții chiar le păstrează ca amintire!'
+		: 'I can finally create tickets that <span class="text-gradient-canvas font-semibold">look exactly how I want</span>. No more asking someone to do the design. Drag-and-drop, save the template and done. Customers actually keep them as souvenirs!',
+	'testimonial_author'      => 'Ioana M.',
+	'testimonial_role'        => $current_lang === 'ro' ? 'Event Manager, Club Control' : 'Event Manager, Club Control',
+
+	// Final CTA
+	'cta_title'               => $current_lang === 'ro' ? 'Start' : 'Start',
+	'cta_title2'              => $current_lang === 'ro' ? 'designing' : 'designing',
+	'cta_desc'                => $current_lang === 'ro'
+		? 'Editor vizual intuitiv. Template-uri salvate. Variabile dinamice. Bilete profesionale în minute.'
+		: 'Intuitive visual editor. Saved templates. Dynamic variables. Professional tickets in minutes.',
+	'cta_contact'             => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'cta_footer'              => $current_lang === 'ro' ? 'Achiziție unică. Creativitate nelimitată. Export PDF/PNG.' : 'One-time purchase. Unlimited creativity. PDF/PNG export.',
+];
 ?>
 
 <style>
@@ -138,28 +247,28 @@ get_header();
           <!-- Badge -->
           <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-canvas-purple/10 border border-canvas-purple/20 mb-6">
             <svg class="w-5 h-5 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-            <span class="text-canvas-purple text-sm font-medium">Editor WYSIWYG · Drag & Drop</span>
+            <span class="text-canvas-purple text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Designează<br><span class="text-gradient-canvas">bilete unice</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Editor vizual <strong class="text-white">drag-and-drop</strong> pentru bilete profesionale. Logo, fonturi, culori, coduri QR - tot ce ai nevoie pentru bilete care reflectă <strong class="text-white">brandul tău</strong>.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-canvas-purple to-canvas-pink text-white hover:scale-105 hover:shadow-glow-purple transition-all duration-300">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-              Deschide Editorul
+              <?php echo esc_html( $t['cta_open_editor'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#functionalitati" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi funcționalități
+              <?php echo esc_html( $t['cta_features'] ); ?>
             </a>
           </div>
 
@@ -167,15 +276,15 @@ get_header();
           <div class="flex flex-wrap gap-4">
             <div class="flex items-center gap-2 text-white/50 text-sm">
               <svg class="w-4 h-4 text-canvas-purple" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Măsurători mm precise</span>
+              <span><?php echo esc_html( $t['feat_mm'] ); ?></span>
             </div>
             <div class="flex items-center gap-2 text-white/50 text-sm">
               <svg class="w-4 h-4 text-canvas-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Export PDF/PNG</span>
+              <span><?php echo esc_html( $t['feat_export'] ); ?></span>
             </div>
             <div class="flex items-center gap-2 text-white/50 text-sm">
               <svg class="w-4 h-4 text-canvas-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span>Variabile dinamice</span>
+              <span><?php echo esc_html( $t['feat_variables'] ); ?></span>
             </div>
           </div>
         </div>
@@ -194,7 +303,7 @@ get_header();
                 </div>
                 <div class="text-white/40 text-xs font-mono">summer-fest-vip.tpl</div>
                 <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs">Salvat</span>
+                  <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs"><?php echo esc_html( $t['saved'] ); ?></span>
                 </div>
               </div>
 
@@ -272,32 +381,32 @@ get_header();
 
                 <!-- Sidebar - Layers -->
                 <div class="w-48 editor-sidebar p-3">
-                  <div class="text-white/40 text-xs uppercase tracking-wider mb-3">Layers</div>
+                  <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['layers'] ); ?></div>
                   <div class="space-y-1">
                     <div class="layer-item active rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white text-xs truncate">Event Name</span>
+                      <span class="text-white text-xs truncate"><?php echo esc_html( $t['layer_event_name'] ); ?></span>
                       <svg class="w-3 h-3 text-white/30 ml-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                      <span class="text-white/70 text-xs truncate">QR Code</span>
+                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_qr'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate">Date & Time</span>
+                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_date'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                      <span class="text-white/70 text-xs truncate">VIP Badge</span>
+                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_vip'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate">Venue</span>
+                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_venue'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate">Seat Info</span>
+                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_seat'] ); ?></span>
                     </div>
                   </div>
                 </div>
@@ -334,9 +443,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-canvas-purple text-sm font-medium uppercase tracking-widest">Tipuri de Layer-uri</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Toate uneltele de care<br><span class="text-gradient-canvas">ai nevoie</span></h2>
-        <p class="text-lg text-white/60">Sistem de layer-uri ca în software-ul profesional de design.</p>
+        <span class="text-canvas-purple text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['layer_types_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['layer_types_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['layer_types_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['layer_types_desc'] ); ?></p>
       </div>
 
       <!-- Layer Types Grid -->
@@ -348,11 +457,11 @@ get_header();
               <svg class="w-7 h-7 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Text</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['text_title'] ); ?></h3>
               <div class="text-canvas-purple text-xs font-mono">layer.type: "text"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Fonturi personalizate, dimensiuni, culori și aliniere. Suport pentru text static sau variabile dinamice.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['text_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Helvetica</span>
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Arial</span>
@@ -367,11 +476,11 @@ get_header();
               <svg class="w-7 h-7 text-canvas-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Imagini</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['images_title'] ); ?></h3>
               <div class="text-canvas-pink text-xs font-mono">layer.type: "image"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Încarcă logo-uri, fotografii și grafice. Controlează fit, poziție și opacitate.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['images_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">PNG</span>
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">JPG</span>
@@ -386,13 +495,13 @@ get_header();
               <svg class="w-7 h-7 text-canvas-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Cod QR</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['qr_title'] ); ?></h3>
               <div class="text-canvas-orange text-xs font-mono">layer.type: "qrcode"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Coduri QR dinamice cu nivel configurabil de corecție eroare (L, M, Q, H).</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['qr_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-canvas-orange/10 text-canvas-orange text-xs">Dinamic</span>
+            <span class="px-2 py-1 rounded bg-canvas-orange/10 text-canvas-orange text-xs"><?php echo esc_html( $t['qr_dynamic'] ); ?></span>
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Error Correction</span>
           </div>
         </div>
@@ -404,11 +513,11 @@ get_header();
               <svg class="w-7 h-7 text-canvas-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m-4-4v4m8-8v8m-12-4v4m16-12v12M4 8h16"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Cod de Bare</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['barcode_title'] ); ?></h3>
               <div class="text-canvas-blue text-xs font-mono">layer.type: "barcode"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Multiple formate suportate pentru compatibilitate maximă cu scanerele.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['barcode_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Code128</span>
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">EAN-13</span>
@@ -423,11 +532,11 @@ get_header();
               <svg class="w-7 h-7 text-canvas-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Forme</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['shapes_title'] ); ?></h3>
               <div class="text-canvas-teal text-xs font-mono">layer.type: "shape"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Dreptunghiuri, cercuri și linii cu opțiuni de fill, stroke și rotație.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['shapes_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Rectangle</span>
             <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Circle</span>
@@ -442,11 +551,11 @@ get_header();
               <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-white">Background</h3>
+              <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['bg_title'] ); ?></h3>
               <div class="text-brand-violet text-xs font-mono">template.background</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4">Culoare solidă sau imagine de fundal pentru întregul bilet.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['bg_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="w-6 h-6 rounded bg-white border border-white/20"></span>
             <span class="w-6 h-6 rounded bg-gradient-to-r from-purple-500 to-pink-500"></span>
@@ -463,16 +572,16 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-canvas-orange text-sm font-medium uppercase tracking-widest">Variabile Dinamice</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Fiecare bilet,<br><span class="text-gradient-canvas">unic</span></h2>
-          <p class="text-lg text-white/60 mb-8">Inserează placeholder-uri care se populează automat cu datele reale când biletele sunt generate. Nu mai e nevoie de editare manuală.</p>
+          <span class="text-canvas-orange text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['vars_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['vars_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['vars_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['vars_desc'] ); ?></p>
 
           <div class="space-y-3">
             <!-- Event Variables -->
             <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-6 h-6 rounded bg-canvas-purple/20 flex items-center justify-center text-canvas-purple text-xs">📅</span>
-                <span class="text-white font-medium text-sm">Eveniment</span>
+                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_event'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
                 <code class="var-tag px-2 py-1 rounded text-xs text-canvas-purple">{{event.name}}</code>
@@ -485,7 +594,7 @@ get_header();
             <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-6 h-6 rounded bg-canvas-pink/20 flex items-center justify-center text-canvas-pink text-xs">📍</span>
-                <span class="text-white font-medium text-sm">Locație</span>
+                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_venue'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
                 <code class="var-tag px-2 py-1 rounded text-xs text-canvas-pink">{{venue.name}}</code>
@@ -498,7 +607,7 @@ get_header();
             <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-6 h-6 rounded bg-canvas-orange/20 flex items-center justify-center text-canvas-orange text-xs">🎫</span>
-                <span class="text-white font-medium text-sm">Bilet</span>
+                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_ticket'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
                 <code class="var-tag px-2 py-1 rounded text-xs text-canvas-orange">{{ticket.section}}</code>
@@ -511,7 +620,7 @@ get_header();
             <div class="p-4 rounded-xl bg-dark-800/50 border border-canvas-teal/20">
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-6 h-6 rounded bg-canvas-teal/20 flex items-center justify-center text-canvas-teal text-xs">📱</span>
-                <span class="text-white font-medium text-sm">Coduri</span>
+                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_codes'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
                 <code class="var-tag px-2 py-1 rounded text-xs text-canvas-teal">{{codes.qr}}</code>
@@ -527,7 +636,7 @@ get_header();
           <div class="space-y-6">
             <!-- Template View -->
             <div class="relative">
-              <div class="absolute -top-3 left-4 px-2 py-0.5 bg-canvas-purple rounded text-white text-xs font-medium">Template</div>
+              <div class="absolute -top-3 left-4 px-2 py-0.5 bg-canvas-purple rounded text-white text-xs font-medium"><?php echo esc_html( $t['template'] ); ?></div>
               <div class="bg-dark-800 rounded-xl p-4 border border-canvas-purple/30">
                 <div class="bg-white rounded-lg p-4" style="aspect-ratio: 2.5/1;">
                   <div class="space-y-2">
@@ -560,7 +669,7 @@ get_header();
 
             <!-- Rendered View -->
             <div class="relative">
-              <div class="absolute -top-3 left-4 px-2 py-0.5 bg-brand-green rounded text-white text-xs font-medium">Generat</div>
+              <div class="absolute -top-3 left-4 px-2 py-0.5 bg-brand-green rounded text-white text-xs font-medium"><?php echo esc_html( $t['generated'] ); ?></div>
               <div class="bg-dark-800 rounded-xl p-4 border border-brand-green/30">
                 <div class="ticket-preview rounded-lg p-4" style="aspect-ratio: 2.5/1;">
                   <div class="space-y-2">
@@ -588,9 +697,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-canvas-pink text-sm font-medium uppercase tracking-widest">Dimensiuni Prestabilite</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Formate pentru<br><span class="text-gradient animate-shimmer">orice nevoie</span></h2>
-        <p class="text-lg text-white/60">Alege din preset-uri sau creează dimensiuni personalizate.</p>
+        <span class="text-canvas-pink text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['presets_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['presets_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['presets_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['presets_desc'] ); ?></p>
       </div>
 
       <!-- Presets Grid -->
@@ -600,9 +709,9 @@ get_header();
           <div class="flex items-center justify-center mb-4 h-24">
             <div class="bg-white/10 rounded" style="width: 160px; height: 48px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">Bilet Standard</h3>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_standard'] ); ?></h3>
           <p class="text-canvas-purple text-center text-sm font-mono">200 × 80 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2">Cel mai popular format</p>
+          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_standard_note'] ); ?></p>
         </div>
 
         <!-- Ticket Landscape -->
@@ -610,9 +719,9 @@ get_header();
           <div class="flex items-center justify-center mb-4 h-24">
             <div class="bg-white/10 rounded" style="width: 48px; height: 120px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">Bilet Landscape</h3>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_landscape'] ); ?></h3>
           <p class="text-canvas-pink text-center text-sm font-mono">80 × 200 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2">Format vertical</p>
+          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_landscape_note'] ); ?></p>
         </div>
 
         <!-- A6 Portrait -->
@@ -620,9 +729,9 @@ get_header();
           <div class="flex items-center justify-center mb-4 h-24">
             <div class="bg-white/10 rounded" style="width: 63px; height: 89px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">A6 Portrait</h3>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a6_portrait'] ); ?></h3>
           <p class="text-canvas-orange text-center text-sm font-mono">105 × 148 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2">Format carte poștală</p>
+          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a6_portrait_note'] ); ?></p>
         </div>
 
         <!-- A6 Landscape -->
@@ -630,9 +739,9 @@ get_header();
           <div class="flex items-center justify-center mb-4 h-24">
             <div class="bg-white/10 rounded" style="width: 89px; height: 63px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">A6 Landscape</h3>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a6_landscape'] ); ?></h3>
           <p class="text-canvas-teal text-center text-sm font-mono">148 × 105 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2">Format orizontal</p>
+          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a6_land_note'] ); ?></p>
         </div>
 
         <!-- A4 Portrait -->
@@ -640,9 +749,9 @@ get_header();
           <div class="flex items-center justify-center mb-4 h-24">
             <div class="bg-white/10 rounded" style="width: 63px; height: 89px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">A4 Portrait</h3>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a4_portrait'] ); ?></h3>
           <p class="text-canvas-blue text-center text-sm font-mono">210 × 297 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2">Format full-page</p>
+          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a4_note'] ); ?></p>
         </div>
 
         <!-- Custom -->
@@ -652,9 +761,9 @@ get_header();
               <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
             </div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1">Personalizat</h3>
-          <p class="text-white/40 text-center text-sm">Creează dimensiuni custom</p>
-          <p class="text-white/30 text-center text-xs mt-2">Orice dimensiune în mm</p>
+          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_custom'] ); ?></h3>
+          <p class="text-white/40 text-center text-sm"><?php echo esc_html( $t['preset_custom_desc'] ); ?></p>
+          <p class="text-white/30 text-center text-xs mt-2"><?php echo esc_html( $t['preset_custom_note'] ); ?></p>
         </div>
       </div>
     </div>

@@ -6,6 +6,55 @@
 
 get_header();
 
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Array cu traduceri
+$t = [
+    // Breadcrumb
+    'home' => $current_lang === 'ro' ? 'Acasa' : 'Home',
+    'venues' => $current_lang === 'ro' ? 'Locatii' : 'Venues',
+
+    // Hero
+    'badge' => $current_lang === 'ro' ? 'Directorul Locatiilor' : 'Venues Directory',
+    'hero_title' => $current_lang === 'ro' ? 'Locatii' : 'Venues',
+    'hero_subtitle' => $current_lang === 'ro'
+        ? 'Toate locatiile gestionate in platforma Tixello. Descopera sali de concerte, teatre, stadioane si multe altele.'
+        : 'All venues managed in the Tixello platform. Discover concert halls, theaters, stadiums and more.',
+
+    // Search & Filters
+    'search_placeholder' => $current_lang === 'ro' ? 'Cauta locatii...' : 'Search venues...',
+    'venues_label' => $current_lang === 'ro' ? 'locatii' : 'venues',
+    'filters' => $current_lang === 'ro' ? 'Filtre' : 'Filters',
+    'all' => $current_lang === 'ro' ? 'Toate' : 'All',
+    'venue' => $current_lang === 'ro' ? 'Locatie' : 'Venue',
+    'seats' => $current_lang === 'ro' ? 'locuri' : 'seats',
+
+    // Results
+    'venues_found' => $current_lang === 'ro' ? 'locatii gasite' : 'venues found',
+    'of_total' => $current_lang === 'ro' ? 'din' : 'of',
+    'total' => 'total',
+
+    // Empty State
+    'no_venue_found' => $current_lang === 'ro' ? 'Nicio locatie gasita' : 'No venue found',
+    'try_modify_filters' => $current_lang === 'ro'
+        ? 'Incearca sa modifici filtrele sau termenul de cautare'
+        : 'Try modifying the filters or search term',
+    'reset_filters' => $current_lang === 'ro' ? 'Reseteaza filtrele' : 'Reset filters',
+
+    // Load More
+    'load_more' => $current_lang === 'ro' ? 'Incarca mai multe locatii' : 'Load more venues',
+    'showing' => $current_lang === 'ro' ? 'Se afiseaza' : 'Showing',
+
+    // CTA
+    'cta_title' => $current_lang === 'ro' ? 'Ai o locatie pentru evenimente?' : 'Have an event venue?',
+    'cta_subtitle' => $current_lang === 'ro'
+        ? 'Inregistreaza-ti locatia pe Tixello si incepe sa primesti rezervari de la organizatori din toata tara.'
+        : 'Register your venue on Tixello and start receiving bookings from organizers across the country.',
+    'add_venue' => $current_lang === 'ro' ? 'Adauga locatia ta' : 'Add your venue',
+    'learn_more' => $current_lang === 'ro' ? 'Afla mai multe' : 'Learn more',
+];
+
 // Luăm venues (ideal prin helperul tixello_fetch_venues_core)
 $venues = [];
 if ( function_exists( 'tixello_fetch_venues_core' ) ) {
@@ -87,12 +136,14 @@ foreach ( $venues as $v ) {
     $facebook = isset( $v['social']['facebook_url'] ) ? $v['social']['facebook_url'] : '';
     $instagram = isset( $v['social']['instagram_url'] ) ? $v['social']['instagram_url'] : '';
 
-    // descriere scurtă (luăm RO, dacă există)
+    // descriere scurtă (folosim limba curentă)
     $desc = '';
-    if ( ! empty( $v['description_translations']['ro'] ) ) {
+    if ( $current_lang === 'ro' && ! empty( $v['description_translations']['ro'] ) ) {
         $desc = wp_strip_all_tags( $v['description_translations']['ro'] );
     } elseif ( ! empty( $v['description_translations']['en'] ) ) {
         $desc = wp_strip_all_tags( $v['description_translations']['en'] );
+    } elseif ( ! empty( $v['description_translations']['ro'] ) ) {
+        $desc = wp_strip_all_tags( $v['description_translations']['ro'] );
     } elseif ( ! empty( $v['description'] ) ) {
         $desc = wp_strip_all_tags( $v['description'] );
     }
@@ -141,26 +192,26 @@ $total_venues = count( $js_venues );
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-sm mb-8">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors">Acasa</a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
                 <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span class="text-white/70">Locatii</span>
+                <span class="text-white/70"><?php echo esc_html( $t['venues'] ); ?></span>
             </nav>
 
             <!-- Title -->
             <div class="max-w-3xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6">
                     <span class="text-lg">🏛️</span>
-                    <span class="text-sm font-medium text-indigo-400">Directorul Locatiilor</span>
+                    <span class="text-sm font-medium text-indigo-400"><?php echo esc_html( $t['badge'] ); ?></span>
                 </div>
 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    Locatii
+                    <?php echo esc_html( $t['hero_title'] ); ?>
                 </h1>
 
                 <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    Toate locatiile gestionate in platforma Tixello. Descopera sali de concerte, teatre, stadioane si multe altele.
+                    <?php echo esc_html( $t['hero_subtitle'] ); ?>
                 </p>
             </div>
         </div>
@@ -183,7 +234,7 @@ $total_venues = count( $js_venues );
                         </svg>
                         <input type="text"
                                x-model="search"
-                               placeholder="Cauta locatii..."
+                               placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
                     </div>
 
@@ -192,7 +243,7 @@ $total_venues = count( $js_venues );
                         <!-- Stats badge -->
                         <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-violet-600/10 border border-violet-500/20">
                             <span class="text-2xl font-bold text-white" x-text="filteredVenues.length"><?php echo $total_venues; ?></span>
-                            <span class="text-sm text-white/60">locatii</span>
+                            <span class="text-sm text-white/60"><?php echo esc_html( $t['venues_label'] ); ?></span>
                         </div>
 
                         <!-- View toggle -->
@@ -223,7 +274,7 @@ $total_venues = count( $js_venues );
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                             </svg>
-                            <span class="text-sm font-medium">Filtre</span>
+                            <span class="text-sm font-medium"><?php echo esc_html( $t['filters'] ); ?></span>
                             <span x-show="activeLetter !== 'all'" x-text="activeLetter" class="px-1.5 py-0.5 rounded bg-violet-600 text-xs font-bold"></span>
                         </button>
                     </div>
@@ -240,7 +291,7 @@ $total_venues = count( $js_venues );
                                 : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'"
                             @click="setLetter('all')"
                         >
-                            Toate
+                            <?php echo esc_html( $t['all'] ); ?>
                         </button>
                         <template x-for="letter in letters" :key="letter">
                             <button
@@ -265,9 +316,9 @@ $total_venues = count( $js_venues );
                 <!-- Results info -->
                 <div class="flex items-center justify-between mb-6">
                     <p class="text-sm text-white/50">
-                        <span x-text="filteredVenues.length"></span> locatii gasite
+                        <span x-text="filteredVenues.length"></span> <?php echo esc_html( $t['venues_found'] ); ?>
                         <template x-if="search || activeLetter !== 'all'">
-                            <span> din <?php echo $total_venues; ?> total</span>
+                            <span> <?php echo esc_html( $t['of_total'] ); ?> <?php echo $total_venues; ?> <?php echo esc_html( $t['total'] ); ?></span>
                         </template>
                     </p>
                 </div>
@@ -298,7 +349,7 @@ $total_venues = count( $js_venues );
                                 <!-- Category badge -->
                                 <div class="absolute top-3 left-3">
                                     <span class="px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-sm text-xs font-medium text-white/90">
-                                        🏛️ <span x-text="venue.type || 'Locatie'"></span>
+                                        🏛️ <span x-text="venue.type || '<?php echo esc_js( $t['venue'] ); ?>'"></span>
                                     </span>
                                 </div>
                             </div>
@@ -326,7 +377,7 @@ $total_venues = count( $js_venues );
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                             </svg>
-                                            <span x-text="venue.capacity.toLocaleString() + ' locuri'"></span>
+                                            <span x-text="venue.capacity.toLocaleString() + ' <?php echo esc_js( $t['seats'] ); ?>'"></span>
                                         </div>
                                     </template>
                                     <div class="flex items-center gap-1.5 text-xs text-white/40 ml-auto">
@@ -401,10 +452,10 @@ $total_venues = count( $js_venues );
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Nicio locatie gasita</h3>
-                    <p class="text-white/50 mb-6">Incearca sa modifici filtrele sau termenul de cautare</p>
+                    <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_venue_found'] ); ?></h3>
+                    <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
                     <button @click="search = ''; activeLetter = 'all'" class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                        Reseteaza filtrele
+                        <?php echo esc_html( $t['reset_filters'] ); ?>
                     </button>
                 </div>
 
@@ -413,13 +464,13 @@ $total_venues = count( $js_venues );
                     <button
                         @click="loadMore()"
                         class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-violet-600/20 hover:border-violet-500/30 transition-all duration-300">
-                        Incarca mai multe locatii
+                        <?php echo esc_html( $t['load_more'] ); ?>
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <p class="mt-4 text-sm text-white/40">
-                        Se afiseaza <span x-text="displayedVenues.length"></span> din <span x-text="filteredVenues.length"></span> locatii
+                        <?php echo esc_html( $t['showing'] ); ?> <span x-text="displayedVenues.length"></span> <?php echo esc_html( $t['of_total'] ); ?> <span x-text="filteredVenues.length"></span> <?php echo esc_html( $t['venues_label'] ); ?>
                     </p>
                 </div>
             </div>
@@ -439,21 +490,21 @@ $total_venues = count( $js_venues );
                 <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                     <div class="max-w-xl">
                         <h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">
-                            Ai o locatie pentru evenimente?
+                            <?php echo esc_html( $t['cta_title'] ); ?>
                         </h2>
                         <p class="text-white/60 text-lg">
-                            Inregistreaza-ti locatia pe Tixello si incepe sa primesti rezervari de la organizatori din toata tara.
+                            <?php echo esc_html( $t['cta_subtitle'] ); ?>
                         </p>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300">
-                            Adauga locatia ta
+                            <?php echo esc_html( $t['add_venue'] ); ?>
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
                         </a>
                         <a href="<?php echo esc_url( home_url( '/pentru-locatii/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-all duration-300">
-                            Afla mai multe
+                            <?php echo esc_html( $t['learn_more'] ); ?>
                         </a>
                     </div>
                 </div>

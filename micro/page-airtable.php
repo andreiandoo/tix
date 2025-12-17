@@ -5,6 +5,94 @@
  */
 
 get_header();
+
+// Multilingual support
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'               => $current_lang === 'ro' ? 'Baza de Date Flexibila' : 'Flexible Database',
+	'hero_title'          => $current_lang === 'ro' ? 'Integrare' : 'Integration',
+	'hero_desc'           => $current_lang === 'ro' ? 'Puterea spreadsheet-urilor + flexibilitatea bazelor de date. <strong class="text-white">Sincronizare bidirectionala</strong> pentru comenzi, bilete si clienti.' : 'The power of spreadsheets + flexibility of databases. <strong class="text-white">Bidirectional sync</strong> for orders, tickets, and customers.',
+	'cta_connect'         => $current_lang === 'ro' ? 'Conecteaza Airtable' : 'Connect Airtable',
+	'cta_features'        => $current_lang === 'ro' ? 'Vezi Functionalitati' : 'See Features',
+	'realtime_sync'       => $current_lang === 'ro' ? 'Sync in timp real' : 'Real-time sync',
+	'secure_auth'         => $current_lang === 'ro' ? 'Autentificare securizata' : 'Secure authentication',
+
+	// Table preview
+	'festival_orders'     => $current_lang === 'ro' ? 'Comenzi Festival' : 'Festival Orders',
+	'records'             => $current_lang === 'ro' ? 'inregistrari' : 'records',
+	'synced'              => $current_lang === 'ro' ? 'Sincronizat' : 'Synced',
+	'syncing'             => $current_lang === 'ro' ? 'Sincronizare...' : 'Syncing...',
+	'order'               => $current_lang === 'ro' ? 'Comanda' : 'Order',
+	'customer'            => $current_lang === 'ro' ? 'Client' : 'Customer',
+	'paid'                => $current_lang === 'ro' ? 'Platit' : 'Paid',
+
+	// Sync Modes
+	'sync_badge'          => $current_lang === 'ro' ? 'Moduri Sincronizare' : 'Sync Modes',
+	'sync_title'          => $current_lang === 'ro' ? 'Date care curg' : 'Data flowing',
+	'sync_title2'         => $current_lang === 'ro' ? 'in ambele directii' : 'both directions',
+	'sync_desc'           => $current_lang === 'ro' ? 'Alege cum sincronizezi: push, bidirectional, programat sau in timp real.' : 'Choose how to sync: push, bidirectional, scheduled, or real-time.',
+	'push_only'           => $current_lang === 'ro' ? 'Doar Push' : 'Push Only',
+	'push_desc'           => $current_lang === 'ro' ? 'Datele curg doar catre Airtable. Perfect pentru raportare.' : 'Data flows only to Airtable. Perfect for reporting.',
+	'bidirectional'       => $current_lang === 'ro' ? 'Bidirectional' : 'Bidirectional',
+	'bidirectional_desc'  => $current_lang === 'ro' ? 'Schimbarile in oricare sistem se sincronizeaza in celalalt.' : 'Changes in either system sync to the other.',
+	'scheduled'           => $current_lang === 'ro' ? 'Programat' : 'Scheduled',
+	'scheduled_desc'      => $current_lang === 'ro' ? 'Sincronizare periodica la intervale configurate.' : 'Periodic sync at configured intervals.',
+	'hourly_daily'        => $current_lang === 'ro' ? 'Orar/Zilnic' : 'Hourly/Daily',
+	'realtime'            => $current_lang === 'ro' ? 'Timp Real' : 'Real-time',
+	'realtime_desc'       => $current_lang === 'ro' ? 'Sincronizare imediata la fiecare schimbare de inregistrare.' : 'Immediate sync on every record change.',
+
+	// Field Mapping
+	'field_badge'         => $current_lang === 'ro' ? 'Mapare Campuri' : 'Field Mapping',
+	'field_title'         => $current_lang === 'ro' ? 'Conecteaza datele' : 'Connect data',
+	'field_title2'        => $current_lang === 'ro' ? 'corect' : 'correctly',
+	'field_desc'          => $current_lang === 'ro' ? 'Mapeaza campurile platformei la coloanele Airtable. Pastreaza tipurile de date si relatiile.' : 'Map platform fields to Airtable columns. Preserve data types and relationships.',
+	'text_types'          => $current_lang === 'ro' ? 'Text o linie, Text lung' : 'Single line text, Long text',
+	'number_types'        => $current_lang === 'ro' ? 'Numar, Valuta, Procent' : 'Number, Currency, Percent',
+	'date_types'          => $current_lang === 'ro' ? 'Data, DateTime' : 'Date, DateTime',
+	'select_types'        => $current_lang === 'ro' ? 'Selectare simpla/multipla' : 'Single/Multiple select',
+	'link_types'          => $current_lang === 'ro' ? 'Inregistrari legate, Atasamente' : 'Linked records, Attachments',
+	'fields_mapped'       => $current_lang === 'ro' ? '5 campuri mapate' : '5 fields mapped',
+	'add_mapping'         => $current_lang === 'ro' ? '+ Adauga mapare camp' : '+ Add field mapping',
+
+	// Multiple Bases
+	'org_badge'           => $current_lang === 'ro' ? 'Organizare' : 'Organization',
+	'bases_title'         => $current_lang === 'ro' ? 'Baze multiple pentru' : 'Multiple bases for',
+	'bases_title2'        => $current_lang === 'ro' ? 'operatiuni complexe' : 'complex operations',
+	'bases_desc'          => $current_lang === 'ro' ? 'Vanzari intr-o baza, clienti in alta, planificare intr-a treia. Conectate dar organizate.' : 'Sales in one base, customers in another, planning in a third. Connected but organized.',
+	'ticket_sales'        => $current_lang === 'ro' ? 'Vanzari Bilete' : 'Ticket Sales',
+	'orders'              => $current_lang === 'ro' ? 'Comenzi' : 'Orders',
+	'tickets'             => $current_lang === 'ro' ? 'Bilete' : 'Tickets',
+	'revenue'             => $current_lang === 'ro' ? 'Venituri' : 'Revenue',
+	'crm_customers'       => $current_lang === 'ro' ? 'Clienti CRM' : 'CRM Customers',
+	'customers'           => $current_lang === 'ro' ? 'Clienti' : 'Customers',
+	'planning'            => $current_lang === 'ro' ? 'Planificare' : 'Planning',
+	'events'              => $current_lang === 'ro' ? 'Evenimente' : 'Events',
+	'team'                => $current_lang === 'ro' ? 'Echipa' : 'Team',
+	'linked_records'      => $current_lang === 'ro' ? 'Inregistrari Legate' : 'Linked Records',
+	'linked_desc'         => $current_lang === 'ro' ? 'Leaga comenzile de clienti, biletele de evenimente. Relatii intre baze.' : 'Link orders to customers, tickets to events. Relationships between bases.',
+
+	// Use Cases
+	'usecases_badge'      => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'      => $current_lang === 'ro' ? 'Workflow-uri care' : 'Workflows that',
+	'usecases_title2'     => $current_lang === 'ro' ? 'functioneaza' : 'work',
+	'event_planning'      => $current_lang === 'ro' ? 'Planificare Evenimente' : 'Event Planning',
+	'event_planning_desc' => $current_lang === 'ro' ? 'Urmareste planificarea in Airtable cu date vanzari bilete legate. Vezi ce evenimente se vand bine. Coordoneaza planificarea cu realitatea vanzarilor.' : 'Track planning in Airtable with linked ticket sales data. See which events sell well. Coordinate planning with sales reality.',
+	'customer_success'    => $current_lang === 'ro' ? 'Customer Success' : 'Customer Success',
+	'customer_success_desc' => $current_lang === 'ro' ? 'Gestioneaza relatiile cu clientii in Airtable. Leaga inregistrarile de achizitii de profile. Urmareste engagement-ul si follow-up-urile.' : 'Manage customer relationships in Airtable. Link purchase records to profiles. Track engagement and follow-ups.',
+	'ops_dashboard'       => $current_lang === 'ro' ? 'Dashboard Operatiuni' : 'Operations Dashboard',
+	'ops_dashboard_desc'  => $current_lang === 'ro' ? 'Construieste dashboard-uri vizuale cu vizualizari Airtable. Kanban boards pentru status comenzi. Vizualizari calendar pentru evenimente.' : 'Build visual dashboards with Airtable views. Kanban boards for order status. Calendar views for events.',
+	'team_collab'         => $current_lang === 'ro' ? 'Colaborare Echipa' : 'Team Collaboration',
+	'team_collab_desc'    => $current_lang === 'ro' ? 'Partajeaza bazele cu membrii echipei. Atribuie sarcini bazate pe datele biletelor. Colaboreaza fara a partaja accesul la platforma.' : 'Share bases with team members. Assign tasks based on ticket data. Collaborate without sharing platform access.',
+
+	// Testimonial
+	'testimonial'         => $current_lang === 'ro' ? 'Echipa folosea deja <span class="text-gradient-airtable font-semibold">Airtable</span> pentru planificare. Acum vanzarile de bilete apar automat langa task-uri. Toata lumea vede imaginea completa.' : 'The team was already using <span class="text-gradient-airtable font-semibold">Airtable</span> for planning. Now ticket sales appear automatically next to tasks. Everyone sees the complete picture.',
+
+	// Final CTA
+	'final_title'         => $current_lang === 'ro' ? 'Integrare' : 'Integration',
+	'final_desc'          => $current_lang === 'ro' ? 'Spreadsheet + database power. Sincronizare bidirectionala, mapare campuri, baze multiple.' : 'Spreadsheet + database power. Bidirectional sync, field mapping, multiple bases.',
+	'cta_questions'       => $current_lang === 'ro' ? 'Intrebari? Contacteaza-ne' : 'Questions? Contact us',
+];
 ?>
 
 <style>
@@ -122,27 +210,27 @@ get_header();
           <!-- Badge -->
           <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-airtable-primary/10 border border-airtable-primary/20 mb-6">
             <svg class="w-5 h-5 text-airtable-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
-            <span class="text-airtable-primary text-sm font-medium">Baza de Date Flexibila</span>
+            <span class="text-airtable-primary text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Integrare<br><span class="text-gradient-airtable">Airtable</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-airtable">Airtable</span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Puterea spreadsheet-urilor + flexibilitatea bazelor de date. <strong class="text-white">Sincronizare bidirectionala</strong> pentru comenzi, bilete si clienti.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-airtable-primary text-airtable-dark hover:bg-airtable-secondary hover:text-white hover:scale-105 hover:shadow-glow-airtable transition-all duration-300">
-              Conecteaza Airtable
+              <?php echo esc_html( $t['cta_connect'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#functionalitati" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi Functionalitati
+              <?php echo esc_html( $t['cta_features'] ); ?>
             </a>
           </div>
 
@@ -183,14 +271,14 @@ get_header();
                     <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold text-sm">Comenzi Festival</div>
-                    <div class="text-white/40 text-xs">appXyz123 • 3 inregistrari</div>
+                    <div class="text-white font-semibold text-sm"><?php echo esc_html( $t['festival_orders'] ); ?></div>
+                    <div class="text-white/40 text-xs">appXyz123 • 3 <?php echo esc_html( $t['records'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="sync-badge realtime" :class="syncing ? 'animate-pulse' : ''">
-                    <span x-show="!syncing">● Sincronizat</span>
-                    <span x-show="syncing">↻ Sincronizare...</span>
+                    <span x-show="!syncing">● <?php echo esc_html( $t['synced'] ); ?></span>
+                    <span x-show="syncing">↻ <?php echo esc_html( $t['syncing'] ); ?></span>
                   </span>
                 </div>
               </div>
@@ -199,11 +287,11 @@ get_header();
               <div class="grid grid-cols-4 airtable-header">
                 <div class="airtable-cell font-semibold text-white/70 text-sm">
                   <span class="field-type text mr-2">Text</span>
-                  Comanda
+                  <?php echo esc_html( $t['order'] ); ?>
                 </div>
                 <div class="airtable-cell font-semibold text-white/70 text-sm">
                   <span class="field-type text mr-2">Email</span>
-                  Client
+                  <?php echo esc_html( $t['customer'] ); ?>
                 </div>
                 <div class="airtable-cell font-semibold text-white/70 text-sm">
                   <span class="field-type currency mr-2">€</span>
@@ -245,8 +333,8 @@ get_header();
               <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-airtable-accent animate-sync-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                 <div>
-                  <div class="text-airtable-accent text-sm font-medium">Bidirectional</div>
-                  <div class="text-white/40 text-xs">Sync in timp real</div>
+                  <div class="text-airtable-accent text-sm font-medium"><?php echo esc_html( $t['bidirectional'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['realtime_sync'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -257,7 +345,7 @@ get_header();
                 <svg class="w-5 h-5 text-airtable-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 <div>
                   <div class="text-airtable-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs">Autentificare securizata</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure_auth'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -272,9 +360,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-airtable-primary text-sm font-medium uppercase tracking-widest">Moduri Sincronizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Date care curg<br><span class="text-gradient-airtable">in ambele directii</span></h2>
-        <p class="text-lg text-white/60">Alege cum sincronizezi: push, bidirectional, programat sau in timp real.</p>
+        <span class="text-airtable-primary text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['sync_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-airtable"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['sync_desc'] ); ?></p>
       </div>
 
       <!-- Sync Modes Grid -->
@@ -284,8 +372,8 @@ get_header();
           <div class="w-14 h-14 rounded-2xl bg-airtable-primary/10 flex items-center justify-center mb-4">
             <svg class="w-7 h-7 text-airtable-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Doar Push</h3>
-          <p class="text-white/50 text-sm mb-4">Datele curg doar catre Airtable. Perfect pentru raportare.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['push_only'] ); ?></h3>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['push_desc'] ); ?></p>
           <span class="sync-badge push">Tixello → Airtable</span>
         </div>
 
@@ -294,8 +382,8 @@ get_header();
           <div class="w-14 h-14 rounded-2xl bg-airtable-accent/10 flex items-center justify-center mb-4">
             <svg class="w-7 h-7 text-airtable-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Bidirectional</h3>
-          <p class="text-white/50 text-sm mb-4">Schimbarile in oricare sistem se sincronizeaza in celalalt.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['bidirectional'] ); ?></h3>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['bidirectional_desc'] ); ?></p>
           <span class="sync-badge bidirectional">↔ Two-way Sync</span>
         </div>
 
@@ -304,9 +392,9 @@ get_header();
           <div class="w-14 h-14 rounded-2xl bg-airtable-purple/10 flex items-center justify-center mb-4">
             <svg class="w-7 h-7 text-airtable-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Programat</h3>
-          <p class="text-white/50 text-sm mb-4">Sincronizare periodica la intervale configurate.</p>
-          <span class="px-3 py-1 rounded bg-airtable-purple/20 text-airtable-purple text-xs">⏱ Orar/Zilnic</span>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['scheduled'] ); ?></h3>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['scheduled_desc'] ); ?></p>
+          <span class="px-3 py-1 rounded bg-airtable-purple/20 text-airtable-purple text-xs">⏱ <?php echo esc_html( $t['hourly_daily'] ); ?></span>
         </div>
 
         <!-- Real-time -->
@@ -314,8 +402,8 @@ get_header();
           <div class="w-14 h-14 rounded-2xl bg-airtable-green/10 flex items-center justify-center mb-4">
             <svg class="w-7 h-7 text-airtable-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Timp Real</h3>
-          <p class="text-white/50 text-sm mb-4">Sincronizare imediata la fiecare schimbare de inregistrare.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['realtime'] ); ?></h3>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['realtime_desc'] ); ?></p>
           <span class="sync-badge realtime">⚡ Instant</span>
         </div>
       </div>
@@ -328,30 +416,30 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-airtable-accent text-sm font-medium uppercase tracking-widest">Mapare Campuri</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Conecteaza datele<br><span class="text-gradient-airtable">corect</span></h2>
-          <p class="text-lg text-white/60 mb-8">Mapeaza campurile platformei la coloanele Airtable. Pastreaza tipurile de date si relatiile.</p>
+          <span class="text-airtable-accent text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['field_badge'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['field_title'] ); ?><br><span class="text-gradient-airtable"><?php echo esc_html( $t['field_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['field_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-airtable-primary/10 border border-airtable-primary/30">
               <span class="field-type text">Text</span>
-              <span class="text-white">Text o linie, Text lung</span>
+              <span class="text-white"><?php echo esc_html( $t['text_types'] ); ?></span>
             </div>
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <span class="field-type number">123</span>
-              <span class="text-white">Numar, Valuta, Procent</span>
+              <span class="text-white"><?php echo esc_html( $t['number_types'] ); ?></span>
             </div>
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <span class="field-type date">📅</span>
-              <span class="text-white">Data, DateTime</span>
+              <span class="text-white"><?php echo esc_html( $t['date_types'] ); ?></span>
             </div>
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <span class="field-type select">⬤</span>
-              <span class="text-white">Selectare simpla/multipla</span>
+              <span class="text-white"><?php echo esc_html( $t['select_types'] ); ?></span>
             </div>
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
               <span class="field-type link">🔗</span>
-              <span class="text-white">Inregistrari legate, Atasamente</span>
+              <span class="text-white"><?php echo esc_html( $t['link_types'] ); ?></span>
             </div>
           </div>
         </div>
@@ -360,8 +448,8 @@ get_header();
         <div class="reveal reveal-delay-1">
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
             <div class="flex items-center justify-between mb-6">
-              <div class="text-white font-semibold">Mapare Campuri</div>
-              <span class="text-airtable-green text-xs">✓ 5 campuri mapate</span>
+              <div class="text-white font-semibold"><?php echo esc_html( $t['field_badge'] ); ?></div>
+              <span class="text-airtable-green text-xs">✓ <?php echo esc_html( $t['fields_mapped'] ); ?></span>
             </div>
 
             <!-- Mapping Grid -->
@@ -451,7 +539,7 @@ get_header();
 
               <!-- Add Field -->
               <button class="w-full p-3 rounded-lg border-2 border-dashed border-white/20 text-white/40 text-sm hover:border-airtable-primary/50 hover:text-airtable-primary transition-colors">
-                + Adauga mapare camp
+                <?php echo esc_html( $t['add_mapping'] ); ?>
               </button>
             </div>
           </div>
@@ -464,9 +552,9 @@ get_header();
   <section class="py-24 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-airtable-secondary text-sm font-medium uppercase tracking-widest">Organizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Baze multiple pentru<br><span class="text-gradient-airtable">operatiuni complexe</span></h2>
-        <p class="text-lg text-white/60">Vanzari intr-o baza, clienti in alta, planificare intr-a treia. Conectate dar organizate.</p>
+        <span class="text-airtable-secondary text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['org_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['bases_title'] ); ?><br><span class="text-gradient-airtable"><?php echo esc_html( $t['bases_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['bases_desc'] ); ?></p>
       </div>
 
       <!-- Bases Grid -->
@@ -478,21 +566,21 @@ get_header();
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <div>
-              <div class="text-white font-semibold">Vanzari Bilete</div>
+              <div class="text-white font-semibold"><?php echo esc_html( $t['ticket_sales'] ); ?></div>
               <div class="text-white/40 text-xs">appSales123</div>
             </div>
           </div>
           <div class="space-y-2 text-sm">
             <div class="flex items-center justify-between text-white/60">
-              <span>📋 Comenzi</span>
+              <span>📋 <?php echo esc_html( $t['orders'] ); ?></span>
               <span class="text-airtable-primary">2,847</span>
             </div>
             <div class="flex items-center justify-between text-white/60">
-              <span>🎫 Bilete</span>
+              <span>🎫 <?php echo esc_html( $t['tickets'] ); ?></span>
               <span class="text-airtable-primary">5,124</span>
             </div>
             <div class="flex items-center justify-between text-white/60">
-              <span>💰 Venituri</span>
+              <span>💰 <?php echo esc_html( $t['revenue'] ); ?></span>
               <span class="text-airtable-primary">€127,450</span>
             </div>
           </div>
@@ -508,13 +596,13 @@ get_header();
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             </div>
             <div>
-              <div class="text-white font-semibold">Clienti CRM</div>
+              <div class="text-white font-semibold"><?php echo esc_html( $t['crm_customers'] ); ?></div>
               <div class="text-white/40 text-xs">appCRM456</div>
             </div>
           </div>
           <div class="space-y-2 text-sm">
             <div class="flex items-center justify-between text-white/60">
-              <span>👥 Clienti</span>
+              <span>👥 <?php echo esc_html( $t['customers'] ); ?></span>
               <span class="text-airtable-accent">1,892</span>
             </div>
             <div class="flex items-center justify-between text-white/60">
@@ -538,13 +626,13 @@ get_header();
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <div>
-              <div class="text-white font-semibold">Planificare</div>
+              <div class="text-white font-semibold"><?php echo esc_html( $t['planning'] ); ?></div>
               <div class="text-white/40 text-xs">appPlan789</div>
             </div>
           </div>
           <div class="space-y-2 text-sm">
             <div class="flex items-center justify-between text-white/60">
-              <span>📅 Evenimente</span>
+              <span>📅 <?php echo esc_html( $t['events'] ); ?></span>
               <span class="text-airtable-purple">12</span>
             </div>
             <div class="flex items-center justify-between text-white/60">
@@ -552,7 +640,7 @@ get_header();
               <span class="text-airtable-purple">89</span>
             </div>
             <div class="flex items-center justify-between text-white/60">
-              <span>👤 Echipa</span>
+              <span>👤 <?php echo esc_html( $t['team'] ); ?></span>
               <span class="text-airtable-purple">15</span>
             </div>
           </div>
@@ -569,8 +657,8 @@ get_header();
             <svg class="w-6 h-6 text-airtable-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
           </div>
           <div>
-            <div class="text-airtable-accent font-medium">Inregistrari Legate</div>
-            <div class="text-white/60 text-sm">Leaga comenzile de clienti, biletele de evenimente. Relatii intre baze.</div>
+            <div class="text-airtable-accent font-medium"><?php echo esc_html( $t['linked_records'] ); ?></div>
+            <div class="text-white/60 text-sm"><?php echo esc_html( $t['linked_desc'] ); ?></div>
           </div>
         </div>
       </div>
@@ -581,8 +669,8 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Workflow-uri care<br><span class="text-gradient animate-shimmer">functioneaza</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
@@ -591,8 +679,8 @@ get_header();
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-airtable-primary/20 to-airtable-primary/10 flex items-center justify-center flex-shrink-0"><span class="text-2xl">📅</span></div>
             <div>
-              <h3 class="text-xl font-semibold text-white mb-2">Planificare Evenimente</h3>
-              <p class="text-white/50 text-sm mb-4">Urmareste planificarea in Airtable cu date vanzari bilete legate. Vezi ce evenimente se vand bine. Coordoneaza planificarea cu realitatea vanzarilor.</p>
+              <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['event_planning'] ); ?></h3>
+              <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['event_planning_desc'] ); ?></p>
               <div class="flex flex-wrap gap-2">
                 <span class="px-2 py-1 rounded bg-airtable-primary/20 text-airtable-primary text-xs">Kanban</span>
                 <span class="px-2 py-1 rounded bg-airtable-primary/20 text-airtable-primary text-xs">Calendar</span>
@@ -606,8 +694,8 @@ get_header();
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-airtable-accent/20 to-airtable-accent/10 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🤝</span></div>
             <div>
-              <h3 class="text-xl font-semibold text-white mb-2">Customer Success</h3>
-              <p class="text-white/50 text-sm mb-4">Gestioneaza relatiile cu clientii in Airtable. Leaga inregistrarile de achizitii de profile. Urmareste engagement-ul si follow-up-urile.</p>
+              <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['customer_success'] ); ?></h3>
+              <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['customer_success_desc'] ); ?></p>
               <div class="flex flex-wrap gap-2">
                 <span class="px-2 py-1 rounded bg-airtable-accent/20 text-airtable-accent text-xs">CRM</span>
                 <span class="px-2 py-1 rounded bg-airtable-accent/20 text-airtable-accent text-xs">Follow-ups</span>
@@ -621,8 +709,8 @@ get_header();
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-airtable-green/20 to-airtable-green/10 flex items-center justify-center flex-shrink-0"><span class="text-2xl">📊</span></div>
             <div>
-              <h3 class="text-xl font-semibold text-white mb-2">Dashboard Operatiuni</h3>
-              <p class="text-white/50 text-sm mb-4">Construieste dashboard-uri vizuale cu vizualizari Airtable. Kanban boards pentru status comenzi. Vizualizari calendar pentru evenimente.</p>
+              <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['ops_dashboard'] ); ?></h3>
+              <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['ops_dashboard_desc'] ); ?></p>
               <div class="flex flex-wrap gap-2">
                 <span class="px-2 py-1 rounded bg-airtable-green/20 text-airtable-green text-xs">Vizualizari</span>
                 <span class="px-2 py-1 rounded bg-airtable-green/20 text-airtable-green text-xs">Filtre</span>
@@ -636,8 +724,8 @@ get_header();
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-airtable-purple/20 to-airtable-purple/10 flex items-center justify-center flex-shrink-0"><span class="text-2xl">👥</span></div>
             <div>
-              <h3 class="text-xl font-semibold text-white mb-2">Colaborare Echipa</h3>
-              <p class="text-white/50 text-sm mb-4">Partajeaza bazele cu membrii echipei. Atribuie sarcini bazate pe datele biletelor. Colaboreaza fara a partaja accesul la platforma.</p>
+              <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['team_collab'] ); ?></h3>
+              <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['team_collab_desc'] ); ?></p>
               <div class="flex flex-wrap gap-2">
                 <span class="px-2 py-1 rounded bg-airtable-purple/20 text-airtable-purple text-xs">Sharing</span>
                 <span class="px-2 py-1 rounded bg-airtable-purple/20 text-airtable-purple text-xs">Permissions</span>
@@ -663,7 +751,7 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Echipa folosea deja <span class="text-gradient-airtable font-semibold">Airtable</span> pentru planificare. Acum vanzarile de bilete apar automat langa task-uri. Toata lumea vede imaginea completa."
+            "<?php echo $t['testimonial']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-airtable-primary to-airtable-secondary flex items-center justify-center">
@@ -688,16 +776,16 @@ get_header();
     <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">🔄</div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Integrare<br><span class="text-gradient-airtable">Airtable</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Spreadsheet + database power. Sincronizare bidirectionala, mapare campuri, baze multiple.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-airtable">Airtable</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-airtable-primary text-airtable-dark hover:bg-airtable-secondary hover:text-white hover:scale-105 hover:shadow-glow-airtable transition-all duration-300">
-          Conecteaza Airtable
+          <?php echo esc_html( $t['cta_connect'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Intrebari? Contacteaza-ne
+          <?php echo esc_html( $t['cta_questions'] ); ?>
         </a>
       </div>
 

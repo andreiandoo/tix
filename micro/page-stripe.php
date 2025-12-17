@@ -5,6 +5,64 @@
  */
 
 get_header();
+
+// Language detection (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Translations array
+$t = [
+    // Hero section
+    'badge'               => 'Powered by Stripe',
+    'hero_title_1'        => $current_lang === 'ro' ? 'Plăți' : 'Payments',
+    'hero_title_2'        => $current_lang === 'ro' ? 'fără limite' : 'without limits',
+    'hero_desc'           => $current_lang === 'ro' ? 'Acceptă plăți de la clienți din <strong class="text-white">întreaga lume</strong>. Carduri, Apple Pay, Google Pay, SEPA - toate într-o singură integrare. <strong class="text-white">Securitate PCI DSS Nivel 1</strong>.' : 'Accept payments from customers around <strong class="text-white">the world</strong>. Cards, Apple Pay, Google Pay, SEPA - all in one integration. <strong class="text-white">PCI DSS Level 1 Security</strong>.',
+    'cta_connect'         => $current_lang === 'ro' ? 'Conectează Stripe' : 'Connect Stripe',
+    'cta_methods'         => $current_lang === 'ro' ? 'Vezi metode de plată' : 'See payment methods',
+    'stat_currencies'     => $current_lang === 'ro' ? 'Valute suportate' : 'Currencies supported',
+    'stat_uptime'         => $current_lang === 'ro' ? 'Uptime garantat' : 'Uptime guaranteed',
+    'stat_security'       => $current_lang === 'ro' ? 'Securitate maximă' : 'Maximum security',
+
+    // Checkout mockup
+    'checkout'            => 'Checkout',
+    'secure_payment'      => $current_lang === 'ro' ? 'Plată securizată' : 'Secure payment',
+    'pay_with'            => $current_lang === 'ro' ? 'Plătește cu' : 'Pay with',
+    'card'                => $current_lang === 'ro' ? 'Card' : 'Card',
+    'card_number'         => $current_lang === 'ro' ? 'Număr card' : 'Card number',
+    'expiry'              => $current_lang === 'ro' ? 'Expirare' : 'Expiry',
+    'name_on_card'        => $current_lang === 'ro' ? 'Nume pe card' : 'Name on card',
+    'pay_now'             => $current_lang === 'ro' ? 'Plătește acum' : 'Pay now',
+    'processing'          => $current_lang === 'ro' ? 'Se procesează...' : 'Processing...',
+    'payment_success'     => $current_lang === 'ro' ? 'Plată reușită!' : 'Payment successful!',
+    'total'               => 'Total',
+
+    // Problem section
+    'problem'             => $current_lang === 'ro' ? 'Problema' : 'Problem',
+    'problem_title'       => $current_lang === 'ro' ? 'Plățile tradiționale limitează vânzările tale' : 'Traditional payments limit your sales',
+    'problem_desc'        => $current_lang === 'ro' ? 'Fără opțiuni moderne de plată, pierzi clienți care preferă să plătească altfel.' : 'Without modern payment options, you lose customers who prefer to pay differently.',
+
+    // Payment methods section
+    'methods'             => $current_lang === 'ro' ? 'Metode de plată' : 'Payment methods',
+    'methods_title'       => $current_lang === 'ro' ? 'Toate metodele de plată într-un singur loc' : 'All payment methods in one place',
+    'methods_desc'        => $current_lang === 'ro' ? 'Oferă clienților libertatea de a plăti cum doresc.' : 'Give customers the freedom to pay as they wish.',
+
+    // Features section
+    'features'            => $current_lang === 'ro' ? 'Funcționalități' : 'Features',
+    'feat_title'          => $current_lang === 'ro' ? 'De ce Stripe?' : 'Why Stripe?',
+    'instant_payouts'     => $current_lang === 'ro' ? 'Încasări instant' : 'Instant payouts',
+    'instant_desc'        => $current_lang === 'ro' ? 'Primește banii în cont rapid, nu în săptămâni.' : 'Get money in your account quickly, not in weeks.',
+    'fraud_protection'    => $current_lang === 'ro' ? 'Protecție la fraudă' : 'Fraud protection',
+    'fraud_desc'          => $current_lang === 'ro' ? 'Radar AI detectează și blochează automat tranzacțiile frauduloase.' : 'Radar AI automatically detects and blocks fraudulent transactions.',
+    'global_reach'        => $current_lang === 'ro' ? 'Acoperire globală' : 'Global reach',
+    'global_desc'         => $current_lang === 'ro' ? 'Acceptă plăți din peste 195 de țări în 135+ valute.' : 'Accept payments from over 195 countries in 135+ currencies.',
+    'pci_compliant'       => $current_lang === 'ro' ? 'Conformitate PCI' : 'PCI Compliant',
+    'pci_desc'            => $current_lang === 'ro' ? 'Nivel 1 PCI DSS - cel mai înalt nivel de securitate.' : 'Level 1 PCI DSS - the highest level of security.',
+
+    // CTA section
+    'final_title'         => $current_lang === 'ro' ? 'Gata să accepți plăți globale?' : 'Ready to accept global payments?',
+    'final_desc'          => $current_lang === 'ro' ? 'Conectează contul tău Stripe în câteva minute și începe să accepți plăți din întreaga lume.' : 'Connect your Stripe account in minutes and start accepting payments from around the world.',
+    'cta_start'           => $current_lang === 'ro' ? 'Începe acum' : 'Start now',
+    'cta_contact'         => $current_lang === 'ro' ? 'Contactează-ne' : 'Contact us',
+];
 ?>
 
 <style>
@@ -135,22 +193,22 @@ get_header();
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Plăți<br><span class="text-gradient-stripe">fără limite</span>
+            <?php echo esc_html( $t['hero_title_1'] ); ?><br><span class="text-gradient-stripe"><?php echo esc_html( $t['hero_title_2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Acceptă plăți de la clienți din <strong class="text-white">întreaga lume</strong>. Carduri, Apple Pay, Google Pay, SEPA - toate într-o singură integrare. <strong class="text-white">Securitate PCI DSS Nivel 1</strong>.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-stripe-purple to-stripe-light text-white hover:scale-105 hover:shadow-glow-stripe transition-all duration-300">
-              Conectează Stripe
+              <?php echo esc_html( $t['cta_connect'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#metode-plata" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi metode de plată
+              <?php echo esc_html( $t['cta_methods'] ); ?>
             </a>
           </div>
 
@@ -158,15 +216,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-stripe-purple">135+</div>
-              <div class="text-white/40 text-sm">Valute suportate</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_currencies'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">99.9%</div>
-              <div class="text-white/40 text-sm">Uptime garantat</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_uptime'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-brand-green">PCI L1</div>
-              <div class="text-white/40 text-sm">Securitate maximă</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_security'] ); ?></div>
             </div>
           </div>
         </div>
@@ -188,8 +246,8 @@ get_header();
                     <svg class="w-5 h-5 text-stripe-purple" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">Checkout</div>
-                    <div class="text-white/40 text-xs">Plată securizată</div>
+                    <div class="text-white font-semibold"><?php echo esc_html( $t['checkout'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure_payment'] ); ?></div>
                   </div>
                 </div>
                 <div class="secure-badge px-3 py-1 rounded-full flex items-center gap-1">
@@ -202,11 +260,11 @@ get_header();
               <div class="bg-dark-900/50 rounded-xl p-4 mb-6">
                 <div class="flex items-center justify-between">
                   <div>
-                    <div class="text-white/40 text-xs">Total de plată</div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['total'] ); ?></div>
                     <div class="text-3xl font-display font-bold text-white">€157<span class="text-lg">.50</span></div>
                   </div>
                   <div class="text-right">
-                    <div class="text-white/40 text-xs">2 bilete VIP</div>
+                    <div class="text-white/40 text-xs">2 <?php echo $current_lang === 'ro' ? 'bilete VIP' : 'VIP tickets'; ?></div>
                     <div class="text-white/60 text-sm">Summer Fest 2025</div>
                   </div>
                 </div>
@@ -214,7 +272,7 @@ get_header();
 
               <!-- Payment Methods -->
               <div class="mb-4">
-                <div class="text-white/40 text-xs uppercase tracking-wider mb-3">Metodă de plată</div>
+                <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['pay_with'] ); ?></div>
                 <div class="flex gap-2">
                   <button @click="paymentMethod = 'card'" :class="paymentMethod === 'card' ? 'active' : ''" class="payment-badge flex-1 rounded-lg p-3 flex items-center justify-center gap-2">
                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/></svg>
@@ -232,7 +290,7 @@ get_header();
               <!-- Card Form -->
               <div x-show="paymentMethod === 'card'" class="space-y-4">
                 <div>
-                  <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block">Număr card</label>
+                  <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block"><?php echo esc_html( $t['card_number'] ); ?></label>
                   <div class="stripe-input flex items-center gap-3">
                     <span class="text-white font-mono" x-text="cardNumber">4242 4242 4242 4242</span>
                     <div class="ml-auto flex items-center gap-2">
@@ -242,7 +300,7 @@ get_header();
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block">Expirare</label>
+                    <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block"><?php echo esc_html( $t['expiry'] ); ?></label>
                     <div class="stripe-input">
                       <span class="text-white font-mono">12 / 28</span>
                     </div>
@@ -258,7 +316,7 @@ get_header();
 
               <!-- Apple/Google Pay -->
               <div x-show="paymentMethod !== 'card'" class="py-8 text-center">
-                <div class="text-white/60 text-sm mb-2">Apasă pentru a continua cu</div>
+                <div class="text-white/60 text-sm mb-2"><?php echo $current_lang === 'ro' ? 'Apasă pentru a continua cu' : 'Press to continue with'; ?></div>
                 <div x-show="paymentMethod === 'apple'" class="text-white text-xl font-semibold"> Pay</div>
                 <div x-show="paymentMethod === 'google'" class="text-white text-xl font-semibold">Google Pay</div>
               </div>
@@ -272,15 +330,15 @@ get_header();
               >
                 <span x-show="!processing && !success" class="flex items-center justify-center gap-2">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                  Plătește €157.50
+                  <?php echo esc_html( $t['pay_now'] ); ?> €157.50
                 </span>
                 <span x-show="processing" class="flex items-center justify-center gap-2">
                   <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                  Procesare...
+                  <?php echo esc_html( $t['processing'] ); ?>
                 </span>
                 <span x-show="success" class="flex items-center justify-center gap-2">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                  Plată reușită!
+                  <?php echo esc_html( $t['payment_success'] ); ?>
                 </span>
               </button>
 
@@ -322,7 +380,7 @@ get_header();
                 </div>
                 <div>
                   <div class="text-brand-green text-sm font-medium">Instant</div>
-                  <div class="text-white/40 text-xs">Confirmare plată</div>
+                  <div class="text-white/40 text-xs"><?php echo $current_lang === 'ro' ? 'Confirmare plată' : 'Payment confirmed'; ?></div>
                 </div>
               </div>
             </div>
@@ -337,9 +395,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-stripe-purple text-sm font-medium uppercase tracking-widest">Metode de Plată</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Lasă clienții să<br><span class="text-gradient-stripe">aleagă</span></h2>
-        <p class="text-lg text-white/60">Carduri, portofele digitale și metode locale. Toate funcționează instantaneu.</p>
+        <span class="text-stripe-purple text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['methods'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo $current_lang === 'ro' ? 'Lasă clienții să' : 'Let customers'; ?><br><span class="text-gradient-stripe"><?php echo $current_lang === 'ro' ? 'aleagă' : 'choose'; ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo $current_lang === 'ro' ? 'Carduri, portofele digitale și metode locale. Toate funcționează instantaneu.' : 'Cards, digital wallets and local methods. All work instantly.'; ?></p>
       </div>
 
       <!-- Payment Methods Grid -->
@@ -351,7 +409,7 @@ get_header();
               <svg class="w-6 h-6 text-stripe-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold">Carduri</h3>
+              <h3 class="text-white font-semibold"><?php echo $current_lang === 'ro' ? 'Carduri' : 'Cards'; ?></h3>
               <p class="text-white/40 text-xs">Credit & Debit</p>
             </div>
           </div>
@@ -373,7 +431,7 @@ get_header();
               <p class="text-white/40 text-xs">Touch & Face ID</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm">Checkout cu o atingere pe iPhone, iPad, Mac și Apple Watch.</div>
+          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Checkout cu o atingere pe iPhone, iPad, Mac și Apple Watch.' : 'One-touch checkout on iPhone, iPad, Mac and Apple Watch.'; ?></div>
         </div>
 
         <!-- Google Pay -->
@@ -387,7 +445,7 @@ get_header();
               <p class="text-white/40 text-xs">Android & Chrome</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm">Plătește rapid cu cardurile salvate în contul Google.</div>
+          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Plătește rapid cu cardurile salvate în contul Google.' : 'Pay quickly with cards saved in your Google account.'; ?></div>
         </div>
 
         <!-- SEPA -->
@@ -401,7 +459,7 @@ get_header();
               <p class="text-white/40 text-xs">Europa (EUR)</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm">Debitare directă din contul bancar pentru clienții europeni.</div>
+          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Debitare directă din contul bancar pentru clienții europeni.' : 'Direct debit from bank account for European customers.'; ?></div>
         </div>
       </div>
 
@@ -437,8 +495,8 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-brand-green text-sm font-medium uppercase tracking-widest">Securitate</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Protecție<br><span class="text-gradient animate-shimmer">la fiecare pas</span></h2>
+          <span class="text-brand-green text-sm font-medium uppercase tracking-widest"><?php echo $current_lang === 'ro' ? 'Securitate' : 'Security'; ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo $current_lang === 'ro' ? 'Protecție' : 'Protection'; ?><br><span class="text-gradient animate-shimmer"><?php echo $current_lang === 'ro' ? 'la fiecare pas' : 'at every step'; ?></span></h2>
           <p class="text-lg text-white/60 mb-8">Cele mai înalte standarde de securitate. Datele cardurilor nu ating niciodată serverele tale.</p>
 
           <div class="space-y-4">

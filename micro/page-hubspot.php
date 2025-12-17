@@ -5,6 +5,112 @@
  */
 
 get_header();
+
+// Language detection (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Translations array
+$t = [
+    // Hero section
+    'badge'              => 'CRM & Marketing Automation',
+    'hero_title'         => $current_lang === 'ro' ? 'conectat' : 'connected',
+    'hero_desc'          => $current_lang === 'ro' ? 'Sincronizează <strong class="text-white">contacte, deal-uri și companii</strong> bidirecțional cu HubSpot CRM. Automatizare marketing bazată pe comportamentul real de achiziție.' : 'Sync <strong class="text-white">contacts, deals, and companies</strong> bidirectionally with HubSpot CRM. Marketing automation based on real purchase behavior.',
+    'cta_connect'        => $current_lang === 'ro' ? 'Conectează HubSpot' : 'Connect HubSpot',
+    'see_objects'        => $current_lang === 'ro' ? 'Vezi obiectele suportate' : 'See supported objects',
+    'bidirectional'      => $current_lang === 'ro' ? 'Direcțional' : 'Directional',
+    'secured'            => $current_lang === 'ro' ? '2.0 Securizat' : '2.0 Secured',
+    'real_time_sync'     => $current_lang === 'ro' ? 'Time Sync' : 'Time Sync',
+    'bi_sync'            => $current_lang === 'ro' ? 'Sincronizare bidirecțională' : 'Bidirectional sync',
+    'syncing'            => $current_lang === 'ro' ? 'Sincronizare...' : 'Syncing...',
+    'connected'          => $current_lang === 'ro' ? 'Conectat' : 'Connected',
+    'total_purchases'    => $current_lang === 'ro' ? 'Total achiziții' : 'Total purchases',
+    'automation'         => $current_lang === 'ro' ? 'Automatizare' : 'Automation',
+
+    // Objects section
+    'objects_label'      => $current_lang === 'ro' ? 'Obiecte HubSpot' : 'HubSpot Objects',
+    'objects_title'      => $current_lang === 'ro' ? 'Contacte, Deals,' : 'Contacts, Deals,',
+    'objects_desc'       => $current_lang === 'ro' ? 'Sincronizează toate obiectele HubSpot principale cu datele tale de ticketing.' : 'Sync all major HubSpot objects with your ticketing data.',
+    'contacts_desc'      => $current_lang === 'ro' ? 'Persoane care cumpără bilete sau se înregistrează la evenimente.' : 'People who buy tickets or register for events.',
+    'deals_desc'         => $current_lang === 'ro' ? 'Oportunități de vânzări pentru pachete și sponsorizări.' : 'Sales opportunities for packages and sponsorships.',
+    'companies_desc'     => $current_lang === 'ro' ? 'Organizații pentru achiziții bulk și facturare B2B.' : 'Organizations for bulk purchases and B2B invoicing.',
+    'tickets_desc'       => $current_lang === 'ro' ? 'Tichete de suport cu context achiziții.' : 'Support tickets with purchase context.',
+    'domain'             => $current_lang === 'ro' ? 'Domeniu' : 'Domain',
+    'industry'           => $current_lang === 'ro' ? 'Industrie' : 'Industry',
+    'status'             => 'Status',
+    'priority'           => $current_lang === 'ro' ? 'Prioritate' : 'Priority',
+
+    // Property Mapping section
+    'mapping_label'      => $current_lang === 'ro' ? 'Mapare Proprietăți' : 'Property Mapping',
+    'mapping_title_1'    => $current_lang === 'ro' ? 'Conectează' : 'Connect',
+    'mapping_title_2'    => $current_lang === 'ro' ? 'orice câmp' : 'any field',
+    'mapping_desc'       => $current_lang === 'ro' ? 'Mapează datele biletelor la orice proprietate HubSpot - standard sau personalizată. Total control asupra ce date ajung unde.' : 'Map ticket data to any HubSpot property - standard or custom. Total control over what data goes where.',
+    'standard_props'     => $current_lang === 'ro' ? 'Proprietăți Standard' : 'Standard Properties',
+    'custom_props'       => $current_lang === 'ro' ? 'Proprietăți Custom' : 'Custom Properties',
+    'custom_props_desc'  => $current_lang === 'ro' ? 'Creează câmpuri personalizate în HubSpot' : 'Create custom fields in HubSpot',
+    'calc_props'         => $current_lang === 'ro' ? 'Proprietăți Calculate' : 'Calculated Properties',
+    'calc_props_desc'    => $current_lang === 'ro' ? 'Calculează valori din datele biletelor' : 'Calculate values from ticket data',
+    'field_mapping'      => $current_lang === 'ro' ? 'Mapare Câmpuri' : 'Field Mapping',
+    'add_mapping'        => $current_lang === 'ro' ? '+ Adaugă mapare nouă' : '+ Add new mapping',
+
+    // Pipeline section
+    'pipeline_label'     => $current_lang === 'ro' ? 'Pipeline Vânzări' : 'Sales Pipeline',
+    'pipeline_title_1'   => $current_lang === 'ro' ? 'Urmărește' : 'Track',
+    'pipeline_title_2'   => $current_lang === 'ro' ? 'deal-urile' : 'deals',
+    'pipeline_desc'      => $current_lang === 'ro' ? 'Vânzările de bilete corporative devin Deal-uri în HubSpot. Prognozează veniturile alături de restul afacerii.' : 'Corporate ticket sales become Deals in HubSpot. Forecast revenue alongside the rest of your business.',
+    'corp_tickets'       => $current_lang === 'ro' ? 'Bilete Corporative - Summer Festival' : 'Corporate Tickets - Summer Festival',
+    'tickets_count'      => $current_lang === 'ro' ? '50 bilete' : '50 tickets',
+    'proposal_sent'      => $current_lang === 'ro' ? 'Proposal Sent' : 'Proposal Sent',
+    'close_date'         => $current_lang === 'ro' ? 'Close: 30 Ian 2025' : 'Close: Jan 30 2025',
+
+    // Marketing Automation section
+    'mkt_label'          => 'Marketing Automation',
+    'mkt_title_1'        => 'Workflow-uri',
+    'mkt_title_2'        => $current_lang === 'ro' ? 'inteligente' : 'intelligent',
+    'mkt_desc'           => $current_lang === 'ro' ? 'Declanșează automatizări HubSpot bazate pe comportamentul real de achiziție. Emailuri personalizate, segmentare dinamică, nurturing automat.' : 'Trigger HubSpot automations based on real purchase behavior. Personalized emails, dynamic segmentation, automatic nurturing.',
+    'workflow_auto'      => $current_lang === 'ro' ? 'Workflow Automatizat' : 'Automated Workflow',
+    'triggered_by'       => $current_lang === 'ro' ? 'Declanșat de achiziția biletului' : 'Triggered by ticket purchase',
+    'trigger_ticket'     => $current_lang === 'ro' ? 'Trigger: Bilet cumpărat' : 'Trigger: Ticket purchased',
+    'trigger_desc'       => $current_lang === 'ro' ? 'Contact creat/actualizat în HubSpot' : 'Contact created/updated in HubSpot',
+    'email_confirm'      => $current_lang === 'ro' ? 'Email: Confirmare achiziție' : 'Email: Purchase confirmation',
+    'email_confirm_desc' => $current_lang === 'ro' ? 'Trimis automat în 1 minut' : 'Sent automatically in 1 minute',
+    'delay_3days'        => $current_lang === 'ro' ? 'Delay: 3 zile înainte' : 'Delay: 3 days before',
+    'delay_desc'         => $current_lang === 'ro' ? 'Așteaptă până aproape de eveniment' : 'Wait until close to event',
+    'email_preevent'     => $current_lang === 'ro' ? 'Email: Info pre-eveniment' : 'Email: Pre-event info',
+    'email_preevent_desc'=> $current_lang === 'ro' ? 'Locație, program, ce să aduci' : 'Location, schedule, what to bring',
+    'email_sequences'    => $current_lang === 'ro' ? 'Secvențe Email' : 'Email Sequences',
+    'sequences_desc'     => $current_lang === 'ro' ? 'Confirmare, reminder, follow-up post-eveniment' : 'Confirmation, reminder, post-event follow-up',
+    'dynamic_segment'    => $current_lang === 'ro' ? 'Segmentare Dinamică' : 'Dynamic Segmentation',
+    'segment_desc'       => $current_lang === 'ro' ? 'Liste bazate pe evenimente, cheltuieli, frecvență' : 'Lists based on events, spending, frequency',
+    'lifecycle'          => 'Lifecycle Tracking',
+    'lifecycle_desc'     => $current_lang === 'ro' ? 'De la prima achiziție la client fidel recurent' : 'From first purchase to loyal recurring customer',
+
+    // Use Cases section
+    'use_cases'          => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+    'hubspot_for'        => 'HubSpot',
+    'for_events'         => $current_lang === 'ro' ? 'evenimente' : 'events',
+    'mkt_segmentation'   => $current_lang === 'ro' ? 'Segmentare Marketing' : 'Marketing Segmentation',
+    'segment_mkt_desc'   => $current_lang === 'ro' ? 'Segmentează contactele după participare, valoare achiziții sau tipuri bilete. Campanii targetate.' : 'Segment contacts by attendance, purchase value or ticket types. Targeted campaigns.',
+    'sales_pipeline'     => 'Pipeline Vânzări',
+    'pipeline_case_desc' => $current_lang === 'ro' ? 'Urmărește vânzările corporative ca Deal-uri. Prognozează venituri din evenimente.' : 'Track corporate sales as Deals. Forecast event revenue.',
+    'client_lifecycle'   => $current_lang === 'ro' ? 'Lifecycle Client' : 'Client Lifecycle',
+    'lifecycle_case_desc'=> $current_lang === 'ro' ? 'Urmărește de la prima achiziție la cumpărător fidel. Automatizează etapele lifecycle.' : 'Track from first purchase to loyal buyer. Automate lifecycle stages.',
+    'mkt_automation'     => $current_lang === 'ro' ? 'Automatizare Marketing' : 'Marketing Automation',
+    'auto_case_desc'     => $current_lang === 'ro' ? 'Declanșează workflow-uri când clienții cumpără. Secvențe automate.' : 'Trigger workflows when customers buy. Automatic sequences.',
+    'company_mgmt'       => $current_lang === 'ro' ? 'Gestionare Companii' : 'Company Management',
+    'company_desc'       => $current_lang === 'ro' ? 'Leagă contacte de Companies. Urmărește vânzările B2B per organizație.' : 'Link contacts to Companies. Track B2B sales per organization.',
+    'support_integration'=> $current_lang === 'ro' ? 'Integrare Suport' : 'Support Integration',
+    'support_desc'       => $current_lang === 'ro' ? 'Creează tichete HubSpot cu context achiziții. Suport informat.' : 'Create HubSpot tickets with purchase context. Informed support.',
+
+    // Testimonial
+    'testimonial_text'   => $current_lang === 'ro' ? 'Echipa de marketing vede acum <span class="text-gradient-hubspot font-semibold">istoricul complet</span> al fiecărui client direct în HubSpot. Campaniile sunt mult mai targetate, iar rata de conversie a crescut cu 35%.' : 'The marketing team now sees the <span class="text-gradient-hubspot font-semibold">complete history</span> of each customer directly in HubSpot. Campaigns are much more targeted, and conversion rate increased by 35%.',
+    'testimonial_role'   => 'Marketing Director, Untold Festival',
+
+    // Final CTA
+    'cta_title_1'        => $current_lang === 'ro' ? 'Conectează' : 'Connect',
+    'cta_desc'           => $current_lang === 'ro' ? 'Sincronizare bidirecțională, mapare proprietăți, automatizare marketing. CRM-ul tău de evenimente, complet.' : 'Bidirectional sync, property mapping, marketing automation. Your event CRM, complete.',
+    'questions_contact'  => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+    'final_tagline'      => $current_lang === 'ro' ? 'OAuth 2.0 • Sincronizare Bidirecțională • Webhook Support' : 'OAuth 2.0 • Bidirectional Sync • Webhook Support',
+];
 ?>
 
 <style>
@@ -173,27 +279,27 @@ get_header();
             <div class="hubspot-sprocket w-6 h-6" style="width: 24px; height: 24px;">
               <div class="w-2 h-2 bg-white rounded-full"></div>
             </div>
-            <span class="text-hubspot-orange text-sm font-medium">CRM & Marketing Automation</span>
+            <span class="text-hubspot-orange text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            HubSpot<br><span class="text-gradient-hubspot">conectat</span>
+            HubSpot<br><span class="text-gradient-hubspot"><?php echo esc_html( $t['hero_title'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Sincronizează <strong class="text-white">contacte, deal-uri și companii</strong> bidirecțional cu HubSpot CRM. Automatizare marketing bazată pe comportamentul real de achiziție.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-hubspot-orange to-hubspot-coral text-white hover:scale-105 hover:shadow-glow-hubspot transition-all duration-300">
-              Conectează HubSpot
+              <?php echo esc_html( $t['cta_connect'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#obiecte" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi obiectele suportate
+              <?php echo esc_html( $t['see_objects'] ); ?>
             </a>
           </div>
 
@@ -201,15 +307,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-hubspot-orange">Bi</div>
-              <div class="text-white/40 text-sm">Direcțional</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['bidirectional'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">OAuth</div>
-              <div class="text-white/40 text-sm">2.0 Securizat</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['secured'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-hubspot-teal">Real</div>
-              <div class="text-white/40 text-sm">Time Sync</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['real_time_sync'] ); ?></div>
             </div>
           </div>
         </div>
@@ -238,12 +344,12 @@ get_header();
                   </div>
                   <div>
                     <div class="text-white font-semibold">HubSpot CRM</div>
-                    <div class="text-white/40 text-xs">Sincronizare bidirecțională</div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['bi_sync'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full animate-pulse" :class="syncing ? 'bg-hubspot-orange' : 'bg-brand-green'"></span>
-                  <span class="text-xs" :class="syncing ? 'text-hubspot-orange' : 'text-brand-green'" x-text="syncing ? 'Sincronizare...' : 'Conectat'"></span>
+                  <span class="text-xs" :class="syncing ? 'text-hubspot-orange' : 'text-brand-green'" x-text="syncing ? '<?php echo esc_attr( $t['syncing'] ); ?>' : '<?php echo esc_attr( $t['connected'] ); ?>'"></span>
                 </div>
               </div>
 
@@ -326,7 +432,7 @@ get_header();
                   </div>
                   <div class="text-right">
                     <div class="text-hubspot-teal text-sm font-medium">€450</div>
-                    <div class="text-white/40 text-xs">Total achiziții</div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['total_purchases'] ); ?></div>
                   </div>
                 </div>
               </div>
@@ -353,7 +459,7 @@ get_header();
                 </div>
                 <div>
                   <div class="text-hubspot-teal text-sm font-medium">Workflows</div>
-                  <div class="text-white/40 text-xs">Automatizare</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['automation'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -368,9 +474,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-hubspot-orange text-sm font-medium uppercase tracking-widest">Obiecte HubSpot</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Contacte, Deals,<br><span class="text-gradient-hubspot">Companies</span></h2>
-        <p class="text-lg text-white/60">Sincronizează toate obiectele HubSpot principale cu datele tale de ticketing.</p>
+        <span class="text-hubspot-orange text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['objects_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-hubspot">Companies</span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['objects_desc'] ); ?></p>
       </div>
 
       <!-- Objects Grid -->
@@ -381,11 +487,11 @@ get_header();
             <svg class="w-7 h-7 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">Contacts</h3>
-          <p class="text-white/50 text-sm mb-4">Persoane care cumpără bilete sau se înregistrează la evenimente.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['contacts_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Email</span>
-            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Nume</span>
-            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Telefon</span>
+            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Name</span>
+            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Phone</span>
           </div>
         </div>
 
@@ -395,7 +501,7 @@ get_header();
             <svg class="w-7 h-7 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">Deals</h3>
-          <p class="text-white/50 text-sm mb-4">Oportunități de vânzări pentru pachete și sponsorizări.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['deals_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
             <span class="px-2 py-1 rounded bg-hubspot-teal/10 text-hubspot-teal text-xs">Amount</span>
             <span class="px-2 py-1 rounded bg-hubspot-teal/10 text-hubspot-teal text-xs">Stage</span>
@@ -409,10 +515,10 @@ get_header();
             <svg class="w-7 h-7 text-hubspot-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">Companies</h3>
-          <p class="text-white/50 text-sm mb-4">Organizații pentru achiziții bulk și facturare B2B.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['companies_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs">Domeniu</span>
-            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs">Industrie</span>
+            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs"><?php echo esc_html( $t['domain'] ); ?></span>
+            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs"><?php echo esc_html( $t['industry'] ); ?></span>
           </div>
         </div>
 
@@ -422,10 +528,10 @@ get_header();
             <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
           </div>
           <h3 class="text-xl font-semibold text-white mb-2">Tickets</h3>
-          <p class="text-white/50 text-sm mb-4">Tichete de suport cu context achiziții.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['tickets_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs">Status</span>
-            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs">Prioritate</span>
+            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs"><?php echo esc_html( $t['status'] ); ?></span>
+            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs"><?php echo esc_html( $t['priority'] ); ?></span>
           </div>
         </div>
       </div>
@@ -438,9 +544,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest">Mapare Proprietăți</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Conectează<br><span class="text-gradient-hubspot">orice câmp</span></h2>
-          <p class="text-lg text-white/60 mb-8">Mapează datele biletelor la orice proprietate HubSpot - standard sau personalizată. Total control asupra ce date ajung unde.</p>
+          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['mapping_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['mapping_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mapping_title_2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['mapping_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
@@ -448,7 +554,7 @@ get_header();
                 <svg class="w-6 h-6 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Proprietăți Standard</span>
+                <span class="text-white font-medium"><?php echo esc_html( $t['standard_props'] ); ?></span>
                 <p class="text-white/50 text-sm">email, firstname, lastname, phone</p>
               </div>
             </div>
@@ -458,8 +564,8 @@ get_header();
                 <svg class="w-6 h-6 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Proprietăți Custom</span>
-                <p class="text-white/50 text-sm">Creează câmpuri personalizate în HubSpot</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['custom_props'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['custom_props_desc'] ); ?></p>
               </div>
             </div>
 
@@ -468,8 +574,8 @@ get_header();
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Proprietăți Calculate</span>
-                <p class="text-white/50 text-sm">Calculează valori din datele biletelor</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['calc_props'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['calc_props_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -483,7 +589,7 @@ get_header();
                 <svg class="w-5 h-5 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold">Mapare Câmpuri</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['field_mapping'] ); ?></div>
                 <div class="text-white/40 text-xs">Tixello → HubSpot</div>
               </div>
             </div>
@@ -529,7 +635,7 @@ get_header();
 
             <!-- Add mapping button -->
             <button class="w-full mt-4 py-2 rounded-lg border border-dashed border-hubspot-orange/30 text-hubspot-orange/60 text-sm hover:border-hubspot-orange hover:text-hubspot-orange transition-colors">
-              + Adaugă mapare nouă
+              <?php echo esc_html( $t['add_mapping'] ); ?>
             </button>
           </div>
         </div>
@@ -541,9 +647,9 @@ get_header();
   <section class="py-24 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest">Pipeline Vânzări</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Urmărește<br><span class="text-gradient-hubspot">deal-urile</span></h2>
-        <p class="text-lg text-white/60">Vânzările de bilete corporative devin Deal-uri în HubSpot. Prognozează veniturile alături de restul afacerii.</p>
+        <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['pipeline_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['pipeline_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['pipeline_title_2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['pipeline_desc'] ); ?></p>
       </div>
 
       <!-- Pipeline Visual -->
@@ -579,8 +685,8 @@ get_header();
                 <svg class="w-5 h-5 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold">Bilete Corporative - Summer Festival</div>
-                <div class="text-white/40 text-xs">TechCorp SRL • 50 bilete</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['corp_tickets'] ); ?></div>
+                <div class="text-white/40 text-xs">TechCorp SRL • <?php echo esc_html( $t['tickets_count'] ); ?></div>
               </div>
             </div>
             <div class="text-right">
@@ -597,8 +703,8 @@ get_header();
               <span class="text-white/60 text-sm">Alexandru P.</span>
             </div>
             <div class="flex-1"></div>
-            <span class="px-3 py-1 rounded-full bg-hubspot-orange/20 text-hubspot-orange text-xs font-medium">Proposal Sent</span>
-            <span class="text-white/40 text-xs">Close: 30 Ian 2025</span>
+            <span class="px-3 py-1 rounded-full bg-hubspot-orange/20 text-hubspot-orange text-xs font-medium"><?php echo esc_html( $t['proposal_sent'] ); ?></span>
+            <span class="text-white/40 text-xs"><?php echo esc_html( $t['close_date'] ); ?></span>
           </div>
         </div>
       </div>
@@ -617,8 +723,8 @@ get_header();
                 <svg class="w-5 h-5 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold">Workflow Automatizat</div>
-                <div class="text-white/40 text-xs">Declanșat de achiziția biletului</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['workflow_auto'] ); ?></div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['triggered_by'] ); ?></div>
               </div>
             </div>
 
@@ -627,8 +733,8 @@ get_header();
               <div class="flex items-center gap-4 p-3 rounded-lg bg-hubspot-orange/10 border border-hubspot-orange/30">
                 <div class="w-8 h-8 rounded-full bg-hubspot-orange flex items-center justify-center text-white text-sm font-bold">1</div>
                 <div>
-                  <div class="text-white font-medium">Trigger: Bilet cumpărat</div>
-                  <div class="text-white/40 text-xs">Contact creat/actualizat în HubSpot</div>
+                  <div class="text-white font-medium"><?php echo esc_html( $t['trigger_ticket'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['trigger_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -639,8 +745,8 @@ get_header();
               <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
                 <div class="w-8 h-8 rounded-full bg-hubspot-teal/20 flex items-center justify-center text-hubspot-teal text-sm font-bold">2</div>
                 <div>
-                  <div class="text-white font-medium">Email: Confirmare achiziție</div>
-                  <div class="text-white/40 text-xs">Trimis automat în 1 minut</div>
+                  <div class="text-white font-medium"><?php echo esc_html( $t['email_confirm'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['email_confirm_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -651,8 +757,8 @@ get_header();
               <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
                 <div class="w-8 h-8 rounded-full bg-hubspot-teal/20 flex items-center justify-center text-hubspot-teal text-sm font-bold">3</div>
                 <div>
-                  <div class="text-white font-medium">Delay: 3 zile înainte</div>
-                  <div class="text-white/40 text-xs">Așteaptă până aproape de eveniment</div>
+                  <div class="text-white font-medium"><?php echo esc_html( $t['delay_3days'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['delay_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -663,8 +769,8 @@ get_header();
               <div class="flex items-center gap-4 p-3 rounded-lg bg-brand-green/10 border border-brand-green/30">
                 <div class="w-8 h-8 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green text-sm font-bold">4</div>
                 <div>
-                  <div class="text-white font-medium">Email: Info pre-eveniment</div>
-                  <div class="text-white/40 text-xs">Locație, program, ce să aduci</div>
+                  <div class="text-white font-medium"><?php echo esc_html( $t['email_preevent'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['email_preevent_desc'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -673,9 +779,9 @@ get_header();
 
         <!-- Content -->
         <div class="reveal order-1 lg:order-2">
-          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest">Marketing Automation</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Workflow-uri<br><span class="text-gradient-hubspot">inteligente</span></h2>
-          <p class="text-lg text-white/60 mb-8">Declanșează automatizări HubSpot bazate pe comportamentul real de achiziție. Emailuri personalizate, segmentare dinamică, nurturing automat.</p>
+          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['mkt_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['mkt_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mkt_title_2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['mkt_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -683,8 +789,8 @@ get_header();
                 <svg class="w-4 h-4 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Secvențe Email</div>
-                <p class="text-white/50 text-sm">Confirmare, reminder, follow-up post-eveniment</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['email_sequences'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['sequences_desc'] ); ?></p>
               </div>
             </div>
 
@@ -693,8 +799,8 @@ get_header();
                 <svg class="w-4 h-4 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Segmentare Dinamică</div>
-                <p class="text-white/50 text-sm">Liste bazate pe evenimente, cheltuieli, frecvență</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['dynamic_segment'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_desc'] ); ?></p>
               </div>
             </div>
 
@@ -703,8 +809,8 @@ get_header();
                 <svg class="w-4 h-4 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Lifecycle Tracking</div>
-                <p class="text-white/50 text-sm">De la prima achiziție la client fidel recurent</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['lifecycle'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['lifecycle_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -717,45 +823,45 @@ get_header();
   <section class="py-24 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">HubSpot pentru<br><span class="text-gradient animate-shimmer">evenimente</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['use_cases'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['hubspot_for'] ); ?> for<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['for_events'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-orange/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-orange/20 to-hubspot-coral/20 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Segmentare Marketing</h3>
-          <p class="text-white/50 text-sm">Segmentează contactele după participare, valoare achiziții sau tipuri bilete. Campanii targetate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['mkt_segmentation'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_mkt_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-teal/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-teal/20 to-hubspot-teal/10 flex items-center justify-center mb-4"><span class="text-2xl">💼</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Pipeline Vânzări</h3>
-          <p class="text-white/50 text-sm">Urmărește vânzările corporative ca Deal-uri. Prognozează venituri din evenimente.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['pipeline_case_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-blue/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-blue/20 to-hubspot-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">🔄</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Lifecycle Client</h3>
-          <p class="text-white/50 text-sm">Urmărește de la prima achiziție la cumpărător fidel. Automatizează etapele lifecycle.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['client_lifecycle'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['lifecycle_case_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">⚡</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Automatizare Marketing</h3>
-          <p class="text-white/50 text-sm">Declanșează workflow-uri când clienții cumpără. Secvențe automate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['mkt_automation'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['auto_case_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Gestionare Companii</h3>
-          <p class="text-white/50 text-sm">Leagă contacte de Companies. Urmărește vânzările B2B per organizație.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['company_mgmt'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['company_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">🎫</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Integrare Suport</h3>
-          <p class="text-white/50 text-sm">Creează tichete HubSpot cu context achiziții. Suport informat.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['support_integration'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['support_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -775,13 +881,13 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Echipa de marketing vede acum <span class="text-gradient-hubspot font-semibold">istoricul complet</span> al fiecărui client direct în HubSpot. Campaniile sunt mult mai targetate, iar rata de conversie a crescut cu 35%."
+            "<?php echo $t['testimonial_text']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-hubspot-orange to-hubspot-teal"></div>
             <div>
               <div class="font-semibold text-white">Elena D.</div>
-              <div class="text-white/50">Marketing Director, Untold Festival</div>
+              <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
             </div>
           </div>
         </div>
@@ -795,20 +901,20 @@ get_header();
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(255,122,89,0.2) 0%, rgba(0,189,165,0.1) 100%);"></div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Conectează<br><span class="text-gradient-hubspot">HubSpot</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Sincronizare bidirecțională, mapare proprietăți, automatizare marketing. CRM-ul tău de evenimente, complet.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title_1'] ); ?><br><span class="text-gradient-hubspot">HubSpot</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-hubspot-orange to-hubspot-coral text-white hover:scale-105 hover:shadow-glow-hubspot transition-all duration-300">
-          Conectează HubSpot
+          <?php echo esc_html( $t['cta_connect'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['questions_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">OAuth 2.0 • Sincronizare Bidirecțională • Webhook Support</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

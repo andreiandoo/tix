@@ -7,21 +7,133 @@
 
 get_header();
 
-// Get all events for featured section
-$events_raw = tixello_fetch_events_core();
-$STORAGE_BASE = 'https://core.tixello.com/storage/';
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
 
-$full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
-    if ( empty( $path ) ) return '';
-    if ( preg_match( '#^https?://#i', $path ) ) return esc_url( $path );
-    return esc_url( $STORAGE_BASE . ltrim( $path, '/' ) );
-};
+// Array cu traduceri
+$t = [
+    // Hero
+    'badge' => $current_lang === 'ro' ? 'Descoperă Evenimente' : 'Discover Events',
+    'title' => $current_lang === 'ro' ? 'Evenimente' : 'Events',
+    'subtitle' => $current_lang === 'ro'
+        ? 'Descoperă concerte, festivaluri, spectacole de teatru și multe altele. Găsește următoarea ta experiență de neuitat.'
+        : 'Discover concerts, festivals, theater shows, and more. Find your next unforgettable experience.',
 
-// Get first 2 events for featured section
-$featured_events = array_slice( $events_raw, 0, 2 );
+    // Search & Filters
+    'search_placeholder' => $current_lang === 'ro' ? 'Caută evenimente, artiști, locații...' : 'Search events, artists, venues...',
+    'filters' => $current_lang === 'ro' ? 'Filtre' : 'Filters',
+    'price_range' => $current_lang === 'ro' ? 'Interval Preț' : 'Price Range',
+    'any_price' => $current_lang === 'ro' ? 'Orice Preț' : 'Any Price',
+    'free' => $current_lang === 'ro' ? 'Gratuit' : 'Free',
+    'under_50' => $current_lang === 'ro' ? 'Sub 50 RON' : 'Under 50 RON',
+    'category' => $current_lang === 'ro' ? 'Categorie' : 'Category',
+    'all_categories' => $current_lang === 'ro' ? 'Toate Categoriile' : 'All Categories',
+    'genre' => $current_lang === 'ro' ? 'Gen' : 'Genre',
+    'all_genres' => $current_lang === 'ro' ? 'Toate Genurile' : 'All Genres',
+    'sort_by' => $current_lang === 'ro' ? 'Sortează După' : 'Sort By',
+    'date_soonest' => $current_lang === 'ro' ? 'Dată (Cele mai apropiate)' : 'Date (Soonest)',
+    'date_latest' => $current_lang === 'ro' ? 'Dată (Cele mai îndepărtate)' : 'Date (Latest)',
+    'price_low_high' => $current_lang === 'ro' ? 'Preț (Mic la Mare)' : 'Price (Low to High)',
+    'price_high_low' => $current_lang === 'ro' ? 'Preț (Mare la Mic)' : 'Price (High to Low)',
+    'popularity' => $current_lang === 'ro' ? 'Popularitate' : 'Popularity',
+    'recently_added' => $current_lang === 'ro' ? 'Recent Adăugate' : 'Recently Added',
+    'clear_filters' => $current_lang === 'ro' ? 'Șterge toate filtrele' : 'Clear all filters',
+    'apply_filters' => $current_lang === 'ro' ? 'Aplică Filtre' : 'Apply Filters',
+    'all_events' => $current_lang === 'ro' ? 'Toate Evenimentele' : 'All Events',
 
-// Define event categories with their types
-$event_categories = [
+    // Categories
+    'music_concerts' => $current_lang === 'ro' ? 'Muzică & Concerte' : 'Music & Concerts',
+    'theater_dance' => $current_lang === 'ro' ? 'Teatru & Dans' : 'Theater & Dance',
+    'comedy' => $current_lang === 'ro' ? 'Comedie' : 'Comedy',
+    'film_cinema' => $current_lang === 'ro' ? 'Film & Cinema' : 'Film & Cinema',
+    'literature' => $current_lang === 'ro' ? 'Literatură' : 'Literature',
+    'visual_arts' => $current_lang === 'ro' ? 'Arte Vizuale' : 'Visual Arts',
+    'conferences' => $current_lang === 'ro' ? 'Conferințe' : 'Conferences',
+    'education' => $current_lang === 'ro' ? 'Educație' : 'Education',
+
+    // Search Results
+    'search_results' => $current_lang === 'ro' ? 'Rezultate Căutare' : 'Search Results',
+    'results_for' => $current_lang === 'ro' ? 'Rezultate pentru: ' : 'Results for: ',
+    'no_results' => $current_lang === 'ro' ? 'Niciun rezultat găsit' : 'No results found',
+    'no_results_hint' => $current_lang === 'ro'
+        ? 'Încearcă să ajustezi căutarea sau filtrele pentru a găsi ceea ce cauți.'
+        : 'Try adjusting your search or filters to find what you\'re looking for.',
+
+    // Featured Events
+    'featured_events' => $current_lang === 'ro' ? 'Evenimente Recomandate' : 'Featured Events',
+    'featured_subtitle' => $current_lang === 'ro' ? 'Nu rata aceste evenimente populare' : 'Don\'t miss these popular events',
+    'view_all' => $current_lang === 'ro' ? 'Vezi toate' : 'View all',
+    'from' => $current_lang === 'ro' ? 'De la' : 'From',
+    'get_tickets' => $current_lang === 'ro' ? 'Cumpără Bilete' : 'Get Tickets',
+
+    // CTA Section
+    'cta_title' => $current_lang === 'ro' ? 'Nu găsești ce cauți?' : 'Can\'t find what you\'re looking for?',
+    'cta_subtitle' => $current_lang === 'ro'
+        ? 'Abonează-te la newsletter și fii primul care află despre evenimente noi din zona ta.'
+        : 'Subscribe to our newsletter and be the first to know about new events in your area.',
+    'notify_me' => $current_lang === 'ro' ? 'Notifică-mă' : 'Notify Me',
+
+    // Date Labels (for JS)
+    'any_date' => $current_lang === 'ro' ? 'Orice Dată' : 'Any Date',
+    'today' => $current_lang === 'ro' ? 'Astăzi' : 'Today',
+    'tomorrow' => $current_lang === 'ro' ? 'Mâine' : 'Tomorrow',
+    'this_weekend' => $current_lang === 'ro' ? 'Weekend-ul Acesta' : 'This Weekend',
+    'this_week' => $current_lang === 'ro' ? 'Săptămâna Aceasta' : 'This Week',
+    'this_month' => $current_lang === 'ro' ? 'Luna Aceasta' : 'This Month',
+    'any_location' => $current_lang === 'ro' ? 'Orice Locație' : 'Any Location',
+];
+
+// Categorii evenimente cu traduceri
+$event_categories = $current_lang === 'ro' ? [
+    'music' => [
+        'icon' => '🎵',
+        'title' => 'Muzică & Concerte',
+        'subtitle' => 'Concert, Festival, Club Night, Open Air',
+        'types' => 'Concert, Music Festival, Recital, Symphonic Concert, Chamber Concert, Club Night / DJ Set, Open Air / Outdoor, Acoustic Concert, Choral Concert'
+    ],
+    'theater' => [
+        'icon' => '🎭',
+        'title' => 'Teatru & Dans',
+        'subtitle' => 'Piesă de Teatru, Musical, Operă, Balet',
+        'types' => 'Theater Play, Musical, Opera, Operetta, Ballet, Contemporary Dance, Circus Show, Improvisation, Pantomime, Pupettry / Marrionettes'
+    ],
+    'comedy' => [
+        'icon' => '😂',
+        'title' => 'Comedie & Entertainment',
+        'subtitle' => 'Stand-up, One-man Show, Magie',
+        'types' => 'Stand-up Comedy, One-man Show, Sketch Comedy, Roast, Variety / Cabaret, Magic / Illusion, Mentalism'
+    ],
+    'film' => [
+        'icon' => '🎬',
+        'title' => 'Film & Cinema',
+        'subtitle' => 'Premieră, Festival, Documentar',
+        'types' => 'Film Premiere, Film Festival, Special Screening, Documentary, Cine-concert'
+    ],
+    'literature' => [
+        'icon' => '📚',
+        'title' => 'Literatură & Poezie',
+        'subtitle' => 'Lansare Carte, Lectură, Poetry Slam',
+        'types' => 'Book Launch, Public Reading, Poetry Slam, Spoken Word, Book Fair'
+    ],
+    'visual' => [
+        'icon' => '🎨',
+        'title' => 'Arte Vizuale',
+        'subtitle' => 'Expoziție, Instalație, Artă Digitală',
+        'types' => 'Vernissage / Exhibition, Art Installation, Performance Art, Digital Art / New Media, Street Art'
+    ],
+    'conferences' => [
+        'icon' => '💼',
+        'title' => 'Conferințe & Business',
+        'subtitle' => 'Conferință, Summit, Expo, Networking',
+        'types' => 'Conference, Seminar, Workshop, Networking Event, Summit, Hackathon, Pitch / Demo Day, Trade fair / Expo'
+    ],
+    'education' => [
+        'icon' => '📖',
+        'title' => 'Educație & Învățare',
+        'subtitle' => 'Curs, Masterclass, Webinar',
+        'types' => 'Course / Training, Masterclass, Webinar, Guided Tour, Lecture / Talk'
+    ]
+] : [
     'music' => [
         'icon' => '🎵',
         'title' => 'Music & Concerts',
@@ -71,6 +183,19 @@ $event_categories = [
         'types' => 'Course / Training, Masterclass, Webinar, Guided Tour, Lecture / Talk'
     ]
 ];
+
+// Get all events for featured section
+$events_raw = tixello_fetch_events_core();
+$STORAGE_BASE = 'https://core.tixello.com/storage/';
+
+$full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
+    if ( empty( $path ) ) return '';
+    if ( preg_match( '#^https?://#i', $path ) ) return esc_url( $path );
+    return esc_url( $STORAGE_BASE . ltrim( $path, '/' ) );
+};
+
+// Get first 2 events for featured section
+$featured_events = array_slice( $events_raw, 0, 2 );
 ?>
 
 <div class="bg-zinc-950 text-zinc-200 min-h-screen" x-data="eventsPage()">
@@ -87,15 +212,15 @@ $event_categories = [
             <div class="max-w-3xl mb-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
                     <span class="text-lg">🎫</span>
-                    <span class="text-sm font-medium text-pink-400"><?php esc_html_e( 'Discover Events', 'tixello' ); ?></span>
+                    <span class="text-sm font-medium text-pink-400"><?php echo esc_html( $t['badge'] ); ?></span>
                 </div>
 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    <?php esc_html_e( 'Events', 'tixello' ); ?>
+                    <?php echo esc_html( $t['title'] ); ?>
                 </h1>
 
                 <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    <?php esc_html_e( 'Discover concerts, festivals, theater shows, and more. Find your next unforgettable experience.', 'tixello' ); ?>
+                    <?php echo esc_html( $t['subtitle'] ); ?>
                 </p>
             </div>
 
@@ -117,7 +242,7 @@ $event_categories = [
                     <input type="text"
                            x-model="searchQuery"
                            @input.debounce.300ms="performSearch"
-                           placeholder="<?php esc_attr_e( 'Search events, artists, venues...', 'tixello' ); ?>"
+                           placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
                            class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
                 </div>
 
@@ -159,7 +284,7 @@ $event_categories = [
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                     </svg>
-                    <span class="text-sm font-medium"><?php esc_html_e( 'Filters', 'tixello' ); ?></span>
+                    <span class="text-sm font-medium"><?php echo esc_html( $t['filters'] ); ?></span>
                 </button>
 
                 <!-- View Toggle -->
@@ -202,11 +327,11 @@ $event_categories = [
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <!-- Price Range -->
                     <div>
-                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php esc_html_e( 'Price Range', 'tixello' ); ?></label>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php echo esc_html( $t['price_range'] ); ?></label>
                         <select x-model="priceRange" class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
-                            <option value="any"><?php esc_html_e( 'Any Price', 'tixello' ); ?></option>
-                            <option value="free"><?php esc_html_e( 'Free', 'tixello' ); ?></option>
-                            <option value="0-50"><?php esc_html_e( 'Under 50 RON', 'tixello' ); ?></option>
+                            <option value="any"><?php echo esc_html( $t['any_price'] ); ?></option>
+                            <option value="free"><?php echo esc_html( $t['free'] ); ?></option>
+                            <option value="0-50"><?php echo esc_html( $t['under_50'] ); ?></option>
                             <option value="50-100">50 - 100 RON</option>
                             <option value="100-200">100 - 200 RON</option>
                             <option value="200+">200+ RON</option>
@@ -215,25 +340,25 @@ $event_categories = [
 
                     <!-- Category -->
                     <div>
-                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php esc_html_e( 'Category', 'tixello' ); ?></label>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php echo esc_html( $t['category'] ); ?></label>
                         <select x-model="selectedCategory" class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
-                            <option value="all"><?php esc_html_e( 'All Categories', 'tixello' ); ?></option>
-                            <option value="music">🎵 <?php esc_html_e( 'Music & Concerts', 'tixello' ); ?></option>
-                            <option value="theater">🎭 <?php esc_html_e( 'Theater & Dance', 'tixello' ); ?></option>
-                            <option value="comedy">😂 <?php esc_html_e( 'Comedy', 'tixello' ); ?></option>
-                            <option value="film">🎬 <?php esc_html_e( 'Film & Cinema', 'tixello' ); ?></option>
-                            <option value="literature">📚 <?php esc_html_e( 'Literature', 'tixello' ); ?></option>
-                            <option value="visual">🎨 <?php esc_html_e( 'Visual Arts', 'tixello' ); ?></option>
-                            <option value="conferences">💼 <?php esc_html_e( 'Conferences', 'tixello' ); ?></option>
-                            <option value="education">📖 <?php esc_html_e( 'Education', 'tixello' ); ?></option>
+                            <option value="all"><?php echo esc_html( $t['all_categories'] ); ?></option>
+                            <option value="music">🎵 <?php echo esc_html( $t['music_concerts'] ); ?></option>
+                            <option value="theater">🎭 <?php echo esc_html( $t['theater_dance'] ); ?></option>
+                            <option value="comedy">😂 <?php echo esc_html( $t['comedy'] ); ?></option>
+                            <option value="film">🎬 <?php echo esc_html( $t['film_cinema'] ); ?></option>
+                            <option value="literature">📚 <?php echo esc_html( $t['literature'] ); ?></option>
+                            <option value="visual">🎨 <?php echo esc_html( $t['visual_arts'] ); ?></option>
+                            <option value="conferences">💼 <?php echo esc_html( $t['conferences'] ); ?></option>
+                            <option value="education">📖 <?php echo esc_html( $t['education'] ); ?></option>
                         </select>
                     </div>
 
                     <!-- Genre -->
                     <div>
-                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php esc_html_e( 'Genre', 'tixello' ); ?></label>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php echo esc_html( $t['genre'] ); ?></label>
                         <select x-model="selectedGenre" class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
-                            <option value="all"><?php esc_html_e( 'All Genres', 'tixello' ); ?></option>
+                            <option value="all"><?php echo esc_html( $t['all_genres'] ); ?></option>
                             <option value="rock">Rock</option>
                             <option value="pop">Pop</option>
                             <option value="electronic">Electronic</option>
@@ -246,24 +371,24 @@ $event_categories = [
 
                     <!-- Sort By -->
                     <div>
-                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php esc_html_e( 'Sort By', 'tixello' ); ?></label>
+                        <label class="block text-xs text-white/50 uppercase tracking-wider mb-2"><?php echo esc_html( $t['sort_by'] ); ?></label>
                         <select x-model="sortBy" class="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-violet-500/50">
-                            <option value="date_asc"><?php esc_html_e( 'Date (Soonest)', 'tixello' ); ?></option>
-                            <option value="date_desc"><?php esc_html_e( 'Date (Latest)', 'tixello' ); ?></option>
-                            <option value="price_asc"><?php esc_html_e( 'Price (Low to High)', 'tixello' ); ?></option>
-                            <option value="price_desc"><?php esc_html_e( 'Price (High to Low)', 'tixello' ); ?></option>
-                            <option value="popularity"><?php esc_html_e( 'Popularity', 'tixello' ); ?></option>
-                            <option value="recent"><?php esc_html_e( 'Recently Added', 'tixello' ); ?></option>
+                            <option value="date_asc"><?php echo esc_html( $t['date_soonest'] ); ?></option>
+                            <option value="date_desc"><?php echo esc_html( $t['date_latest'] ); ?></option>
+                            <option value="price_asc"><?php echo esc_html( $t['price_low_high'] ); ?></option>
+                            <option value="price_desc"><?php echo esc_html( $t['price_high_low'] ); ?></option>
+                            <option value="popularity"><?php echo esc_html( $t['popularity'] ); ?></option>
+                            <option value="recent"><?php echo esc_html( $t['recently_added'] ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
                     <button @click="clearFilters" class="text-sm text-white/50 hover:text-white transition-colors">
-                        <?php esc_html_e( 'Clear all filters', 'tixello' ); ?>
+                        <?php echo esc_html( $t['clear_filters'] ); ?>
                     </button>
                     <button @click="applyFilters" class="px-6 py-2 rounded-lg bg-violet-600 text-white text-sm font-semibold hover:bg-violet-500 transition-colors">
-                        <?php esc_html_e( 'Apply Filters', 'tixello' ); ?>
+                        <?php echo esc_html( $t['apply_filters'] ); ?>
                     </button>
                 </div>
             </div>
@@ -277,7 +402,7 @@ $event_categories = [
                 <button @click="activeTab = 'all'"
                         class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors"
                         :class="activeTab === 'all' ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'">
-                    <?php esc_html_e( 'All Events', 'tixello' ); ?>
+                    <?php echo esc_html( $t['all_events'] ); ?>
                 </button>
                 <?php foreach ( $event_categories as $key => $cat ) : ?>
                     <button @click="activeTab = '<?php echo esc_attr( $key ); ?>'"
@@ -295,8 +420,8 @@ $event_categories = [
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php esc_html_e( 'Search Results', 'tixello' ); ?></h2>
-                    <p class="text-white/50 mt-1" x-text="'Results for: ' + searchQuery"></p>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php echo esc_html( $t['search_results'] ); ?></h2>
+                    <p class="text-white/50 mt-1" x-text="'<?php echo esc_js( $t['results_for'] ); ?>' + searchQuery"></p>
                 </div>
             </div>
 
@@ -316,9 +441,9 @@ $event_categories = [
                         <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
                             <span class="text-4xl opacity-50">🔍</span>
                         </div>
-                        <h3 class="text-lg font-medium text-white/70 mb-2"><?php esc_html_e( 'No results found', 'tixello' ); ?></h3>
+                        <h3 class="text-lg font-medium text-white/70 mb-2"><?php echo esc_html( $t['no_results'] ); ?></h3>
                         <p class="text-sm text-white/40 max-w-md">
-                            <?php esc_html_e( 'Try adjusting your search or filters to find what you\'re looking for.', 'tixello' ); ?>
+                            <?php echo esc_html( $t['no_results_hint'] ); ?>
                         </p>
                     </div>
                 </template>
@@ -356,11 +481,11 @@ $event_categories = [
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php esc_html_e( 'Featured Events', 'tixello' ); ?></h2>
-                    <p class="text-white/50 mt-1"><?php esc_html_e( 'Don\'t miss these popular events', 'tixello' ); ?></p>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php echo esc_html( $t['featured_events'] ); ?></h2>
+                    <p class="text-white/50 mt-1"><?php echo esc_html( $t['featured_subtitle'] ); ?></p>
                 </div>
                 <a href="#all-events" class="hidden sm:inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 transition-colors">
-                    <?php esc_html_e( 'View all', 'tixello' ); ?>
+                    <?php echo esc_html( $t['view_all'] ); ?>
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -438,17 +563,17 @@ $event_categories = [
                             </div>
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <span class="text-sm text-white/50"><?php esc_html_e( 'From', 'tixello' ); ?></span>
+                                    <span class="text-sm text-white/50"><?php echo esc_html( $t['from'] ); ?></span>
                                     <span class="text-xl font-bold text-white ml-2">
                                         <?php if ( is_null( $price_from ) || $price_from == 0 ) : ?>
-                                            FREE
+                                            <?php echo esc_html( $t['free'] ); ?>
                                         <?php else : ?>
                                             <?php echo esc_html( $price_from ); ?> RON
                                         <?php endif; ?>
                                     </span>
                                 </div>
                                 <span class="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-sm text-white text-sm font-medium group-hover:bg-violet-600 transition-colors">
-                                    <?php esc_html_e( 'Get Tickets', 'tixello' ); ?> →
+                                    <?php echo esc_html( $t['get_tickets'] ); ?> →
                                 </span>
                             </div>
                         </div>
@@ -489,19 +614,19 @@ $event_categories = [
                 <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                     <div class="max-w-xl">
                         <h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">
-                            <?php esc_html_e( 'Can\'t find what you\'re looking for?', 'tixello' ); ?>
+                            <?php echo esc_html( $t['cta_title'] ); ?>
                         </h2>
                         <p class="text-white/60 text-lg">
-                            <?php esc_html_e( 'Subscribe to our newsletter and be the first to know about new events in your area.', 'tixello' ); ?>
+                            <?php echo esc_html( $t['cta_subtitle'] ); ?>
                         </p>
                     </div>
                     <form class="flex flex-col sm:flex-row gap-4" action="#" method="post">
                         <input type="email"
                                name="email"
-                               placeholder="<?php esc_attr_e( 'your@email.com', 'tixello' ); ?>"
+                               placeholder="your@email.com"
                                class="px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 transition-all">
                         <button type="submit" class="px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300 whitespace-nowrap">
-                            <?php esc_html_e( 'Notify Me', 'tixello' ); ?>
+                            <?php echo esc_html( $t['notify_me'] ); ?>
                         </button>
                     </form>
                 </div>
@@ -537,18 +662,18 @@ function eventsPage() {
         // Computed labels
         get dateLabel() {
             const labels = {
-                'any': '<?php esc_html_e( 'Any Date', 'tixello' ); ?>',
-                'today': '<?php esc_html_e( 'Today', 'tixello' ); ?>',
-                'tomorrow': '<?php esc_html_e( 'Tomorrow', 'tixello' ); ?>',
-                'weekend': '<?php esc_html_e( 'This Weekend', 'tixello' ); ?>',
-                'week': '<?php esc_html_e( 'This Week', 'tixello' ); ?>',
-                'month': '<?php esc_html_e( 'This Month', 'tixello' ); ?>'
+                'any': '<?php echo esc_js( $t['any_date'] ); ?>',
+                'today': '<?php echo esc_js( $t['today'] ); ?>',
+                'tomorrow': '<?php echo esc_js( $t['tomorrow'] ); ?>',
+                'weekend': '<?php echo esc_js( $t['this_weekend'] ); ?>',
+                'week': '<?php echo esc_js( $t['this_week'] ); ?>',
+                'month': '<?php echo esc_js( $t['this_month'] ); ?>'
             };
-            return labels[this.selectedDate] || '<?php esc_html_e( 'Any Date', 'tixello' ); ?>';
+            return labels[this.selectedDate] || '<?php echo esc_js( $t['any_date'] ); ?>';
         },
 
         get locationLabel() {
-            return this.selectedLocation === 'any' ? '<?php esc_html_e( 'Any Location', 'tixello' ); ?>' : this.selectedLocation;
+            return this.selectedLocation === 'any' ? '<?php echo esc_js( $t['any_location'] ); ?>' : this.selectedLocation;
         },
 
         // Methods

@@ -5,6 +5,126 @@
  */
 
 get_header();
+
+// Language detection (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Translations array
+$t = [
+    // Hero section
+    'badge'              => $current_lang === 'ro' ? 'Lista de Asteptare Inteligenta' : 'Smart Waitlist',
+    'hero_title_1'       => 'Sold out?',
+    'hero_title_2'       => $current_lang === 'ro' ? 'Nicio problema.' : 'No problem.',
+    'hero_desc'          => $current_lang === 'ro' ? 'Transforma dezamagirea "sold out" in vanzari viitoare. Capteaza interesul, notifica instant, <strong class="text-white">converteste automat</strong> cand biletele devin disponibile.' : 'Transform "sold out" disappointment into future sales. Capture interest, notify instantly, <strong class="text-white">auto-convert</strong> when tickets become available.',
+    'cta_activate'       => $current_lang === 'ro' ? 'Activeaza Waitlist' : 'Activate Waitlist',
+    'cta_how'            => $current_lang === 'ro' ? 'Cum functioneaza' : 'How it works',
+    'stat_conversion'    => $current_lang === 'ro' ? 'Rata conversie' : 'Conversion rate',
+    'stat_window'        => $current_lang === 'ro' ? 'Fereastra achizitie' : 'Purchase window',
+    'stat_max'           => $current_lang === 'ro' ? 'Max. lista' : 'Max list',
+
+    // Hero mockup
+    'waiting'            => $current_lang === 'ro' ? 'in asteptare' : 'waiting',
+    'position_in_queue'  => $current_lang === 'ro' ? 'Pozitia ta in coada' : 'Your position in queue',
+    'advancing'          => $current_lang === 'ro' ? 'Avansezi' : 'Advancing',
+    'of'                 => $current_lang === 'ro' ? 'din' : 'of',
+    'progress'           => $current_lang === 'ro' ? 'Progres' : 'Progress',
+    'queue_realtime'     => $current_lang === 'ro' ? 'Coada in timp real' : 'Queue in real time',
+    'you'                => $current_lang === 'ro' ? 'Tu' : 'You',
+    'vip_ticket'         => $current_lang === 'ro' ? 'Bilet VIP' : 'VIP Ticket',
+    'tickets_each'       => $current_lang === 'ro' ? '2 bilete - 150 EUR/buc' : '2 tickets - 150 EUR each',
+    'pref_saved'         => $current_lang === 'ro' ? 'Preferinta salvata' : 'Preference saved',
+    'your_turn'          => $current_lang === 'ro' ? 'E randul tau!' : 'It\'s your turn!',
+    'tickets_avail'      => $current_lang === 'ro' ? 'Biletele sunt disponibile. Ai 2 ore sa finalizezi achizitia.' : 'Tickets are available. You have 2 hours to complete purchase.',
+    'time_remaining'     => $current_lang === 'ro' ? 'Timp ramas:' : 'Time remaining:',
+    'buy_now'            => $current_lang === 'ro' ? 'Cumpara Acum' : 'Buy Now',
+    'notif_sent'         => $current_lang === 'ro' ? 'Notificare trimisa' : 'Notification sent',
+    'email_sms'          => 'Email + SMS',
+
+    // Problem section
+    'problem'            => $current_lang === 'ro' ? 'Problema' : 'Problem',
+    'problem_title_1'    => $current_lang === 'ro' ? 'Sold out = ' : 'Sold out = ',
+    'problem_title_2'    => $current_lang === 'ro' ? 'Clienti pierduti?' : 'Lost customers?',
+    'problem_desc'       => $current_lang === 'ro' ? 'Fara lista de asteptare, pierzi clienti entuziasti care ar fi platit.' : 'Without a waitlist, you lose enthusiastic customers who would have paid.',
+    'without_waitlist'   => $current_lang === 'ro' ? 'Fara Lista de Asteptare' : 'Without Waitlist',
+    'with_waitlist'      => $current_lang === 'ro' ? 'Cu Lista de Asteptare' : 'With Waitlist',
+    'interested_client'  => $current_lang === 'ro' ? 'Client interesat' : 'Interested customer',
+    'wants_vip'          => $current_lang === 'ro' ? 'Vrea 2 bilete VIP' : 'Wants 2 VIP tickets',
+    'client_leaves'      => $current_lang === 'ro' ? 'Client pleaca' : 'Customer leaves',
+    'loss'               => $current_lang === 'ro' ? 'pierdere' : 'loss',
+    'when_available'     => $current_lang === 'ro' ? 'Cand biletele devin disponibile din returnari... nimeni nu mai stie.' : 'When tickets become available from returns... nobody knows.',
+    'joins_list'         => $current_lang === 'ro' ? 'Se inscrie pe lista - Pozitia #23' : 'Joins waitlist - Position #23',
+    'ticket_returned'    => $current_lang === 'ro' ? 'Bilet returnat' : 'Ticket returned',
+    'instant_notif'      => $current_lang === 'ro' ? 'Notificare instant' : 'Instant notification',
+    'emails_sent'        => $current_lang === 'ro' ? 'Email + SMS trimise' : 'Email + SMS sent',
+    'purchase_complete'  => $current_lang === 'ro' ? 'Achizitie finalizata' : 'Purchase completed',
+
+    // How it works section
+    'how_works'          => $current_lang === 'ro' ? 'Cum Functioneaza' : 'How It Works',
+    'flow_title_1'       => $current_lang === 'ro' ? 'Fluxul complet' : 'The complete flow',
+    'flow_title_2'       => $current_lang === 'ro' ? 'automatizat' : 'automated',
+    'flow_desc'          => $current_lang === 'ro' ? 'De la sold-out la vanzare, fara interventie manuala.' : 'From sold-out to sale, without manual intervention.',
+    'step1_title'        => 'Sold Out',
+    'step1_desc'         => $current_lang === 'ro' ? 'Evenimentul face sold-out. Lista de asteptare se activeaza automat.' : 'Event sells out. Waitlist activates automatically.',
+    'auto_activation'    => $current_lang === 'ro' ? 'Activare automata' : 'Auto activation',
+    'step2_title'        => $current_lang === 'ro' ? 'Inscriere' : 'Sign Up',
+    'step2_desc'         => $current_lang === 'ro' ? 'Clientii se inscriu cu preferinte: tip bilet, cantitate. Primesc pozitia in coada.' : 'Customers sign up with preferences: ticket type, quantity. They receive queue position.',
+    'prefs_saved'        => $current_lang === 'ro' ? 'Preferinte salvate' : 'Preferences saved',
+    'step3_title'        => $current_lang === 'ro' ? 'Notificare' : 'Notification',
+    'step3_desc'         => $current_lang === 'ro' ? 'Cand biletele devin disponibile, sistemul notifica instant prin email si SMS.' : 'When tickets become available, the system notifies instantly via email and SMS.',
+    'step4_title'        => $current_lang === 'ro' ? 'Conversie' : 'Conversion',
+    'step4_desc'         => $current_lang === 'ro' ? 'Clientul are o fereastra de timp sa cumpere. Daca nu, urmatorul primeste sansa.' : 'Customer has a time window to purchase. If not, next in line gets the chance.',
+    'window_2h'          => $current_lang === 'ro' ? 'Fereastra 2h' : '2h window',
+
+    // Features section
+    'features'           => $current_lang === 'ro' ? 'Functionalitati' : 'Features',
+    'feat_title_1'       => $current_lang === 'ro' ? 'Tot ce ai nevoie' : 'Everything you need',
+    'feat_title_2'       => $current_lang === 'ro' ? 'pentru conversie' : 'for conversion',
+    'feat1_title'        => $current_lang === 'ro' ? 'Activare Automata' : 'Auto Activation',
+    'feat1_desc'         => $current_lang === 'ro' ? 'Lista se activeaza automat cand evenimentul face sold-out. Zero configurare manuala.' : 'List activates automatically when event sells out. Zero manual configuration.',
+    'feat2_title'        => $current_lang === 'ro' ? 'Afisare Pozitie' : 'Position Display',
+    'feat2_desc'         => $current_lang === 'ro' ? 'Clientii vad pozitia lor in timp real. Transparenta construieste incredere si engagement.' : 'Customers see their position in real-time. Transparency builds trust and engagement.',
+    'feat3_title'        => $current_lang === 'ro' ? 'Notificari Duale' : 'Dual Notifications',
+    'feat3_desc'         => $current_lang === 'ro' ? 'Email si SMS simultan. Maximizeaza sansele ca mesajul sa ajunga la client.' : 'Email and SMS simultaneously. Maximizes chances the message reaches the customer.',
+    'feat4_title'        => $current_lang === 'ro' ? 'Ferestre de Timp' : 'Time Windows',
+    'feat4_desc'         => $current_lang === 'ro' ? 'Creeaza urgenta cu limite de timp. Daca nu cumpara, urmatorul primeste sansa.' : 'Create urgency with time limits. If they don\'t buy, the next person gets the chance.',
+    'feat5_title'        => $current_lang === 'ro' ? 'Prioritate VIP' : 'VIP Priority',
+    'feat5_desc'         => $current_lang === 'ro' ? 'Membrii VIP si de loialitate primesc prioritate. Rasplateste-ti cei mai buni clienti.' : 'VIP and loyalty members get priority. Reward your best customers.',
+    'feat6_title'        => $current_lang === 'ro' ? 'Integrare Returnari' : 'Returns Integration',
+    'feat6_desc'         => $current_lang === 'ro' ? 'Biletele din returnari curg automat catre lista de asteptare. Zero interventie manuala.' : 'Returned tickets flow automatically to the waitlist. Zero manual intervention.',
+
+    // Priority section
+    'priorities'         => $current_lang === 'ro' ? 'Prioritati' : 'Priorities',
+    'prio_title_1'       => $current_lang === 'ro' ? 'Regulile tale,' : 'Your rules,',
+    'prio_title_2'       => $current_lang === 'ro' ? 'alegerea ta' : 'your choice',
+    'prio_desc'          => $current_lang === 'ro' ? 'Alege cum se distribuie biletele: echitabil, VIP first, sau primul-venit-primul-servit.' : 'Choose how tickets are distributed: fair, VIP first, or first-come-first-served.',
+    'fair_title'         => $current_lang === 'ro' ? 'Distributie Echitabila' : 'Fair Distribution',
+    'fair_desc'          => $current_lang === 'ro' ? 'Algoritm care asigura sanse egale pentru toti. Perfect pentru evenimente cu audiente diverse.' : 'Algorithm ensuring equal chances for everyone. Perfect for events with diverse audiences.',
+    'vip_title'          => $current_lang === 'ro' ? 'Prioritate VIP' : 'VIP Priority',
+    'vip_desc'           => $current_lang === 'ro' ? 'Membrii VIP si de loialitate primesc prioritate. Rasplateste-ti clientii fideli.' : 'VIP and loyalty members get priority. Reward your loyal customers.',
+    'popular'            => 'POPULAR',
+    'vip_member'         => 'VIP Member',
+    'priority'           => 'PRIORITY',
+    'loyalty_member'     => 'Loyalty Member',
+    'standard'           => 'Standard',
+    'normal'             => 'Normal',
+    'fcfs_title'         => $current_lang === 'ro' ? 'Primul-Venit' : 'First-Come',
+    'fcfs_desc'          => $current_lang === 'ro' ? 'Strict dupa ordinea inscrierii. Simplu, transparent, usor de inteles pentru toti.' : 'Strictly by signup order. Simple, transparent, easy to understand for everyone.',
+    'signed_up'          => $current_lang === 'ro' ? 'Inscris:' : 'Signed up:',
+    'next'               => 'NEXT',
+    'waiting_label'      => 'Waiting',
+
+    // Testimonial section
+    'testimonial_quote'  => $current_lang === 'ro' ? 'Am facut sold-out in 2 ore. Dar lista de asteptare ne-a adus inca <span class="text-waitlist-orange font-semibold">12.000 EUR din returnari</span>. Oamenii care altfel ar fi plecat au cumparat cand au aparut bilete. Magic.' : 'We sold out in 2 hours. But the waitlist brought us another <span class="text-waitlist-orange font-semibold">12,000 EUR from returns</span>. People who would have left bought when tickets appeared. Magic.',
+    'testimonial_author' => 'Dan M.',
+    'testimonial_role'   => $current_lang === 'ro' ? 'Organizator, Electric Castle' : 'Organizer, Electric Castle',
+
+    // Final CTA section
+    'final_title_1'      => $current_lang === 'ro' ? 'Nu mai pierde' : 'Don\'t lose',
+    'final_title_2'      => $current_lang === 'ro' ? 'nicio vanzare' : 'any more sales',
+    'final_desc'         => $current_lang === 'ro' ? 'Sold out nu mai inseamna clienti pierduti. Capteaza-i, notifica-i, converteste-i.' : 'Sold out no longer means lost customers. Capture them, notify them, convert them.',
+    'cta_questions'      => $current_lang === 'ro' ? 'Intrebari? Contacteaza-ne' : 'Questions? Contact us',
+    'footer_note'        => $current_lang === 'ro' ? 'Inclus gratuit in toate planurile. Notificari email + SMS. Max 10.000 per lista.' : 'Included free in all plans. Email + SMS notifications. Max 10,000 per list.',
+];
 ?>
 
 <style>
@@ -138,27 +258,27 @@ get_header();
           <svg class="w-5 h-5 text-waitlist-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
-          <span class="text-waitlist-orange text-sm font-medium">Lista de Asteptare Inteligenta</span>
+          <span class="text-waitlist-orange text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
         </div>
 
         <!-- Heading -->
         <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-          Sold out?<br><span class="text-gradient-waitlist">Nicio problema.</span>
+          <?php echo esc_html( $t['hero_title_1'] ); ?><br><span class="text-gradient-waitlist"><?php echo esc_html( $t['hero_title_2'] ); ?></span>
         </h1>
 
         <!-- Description -->
         <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-          Transforma dezamagirea "sold out" in vanzari viitoare. Capteaza interesul, notifica instant, <strong class="text-white">converteste automat</strong> cand biletele devin disponibile.
+          <?php echo $t['hero_desc']; ?>
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-wrap gap-4 mb-12">
           <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn-waitlist">
-            Activeaza Waitlist
+            <?php echo esc_html( $t['cta_activate'] ); ?>
             <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a href="#cum-functioneaza" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
-            Cum functioneaza
+            <?php echo esc_html( $t['cta_how'] ); ?>
           </a>
         </div>
 
@@ -166,15 +286,15 @@ get_header();
         <div class="grid grid-cols-3 gap-6">
           <div>
             <div class="text-3xl font-display font-bold text-waitlist-orange">87%</div>
-            <div class="text-white/40 text-sm">Rata conversie</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_conversion'] ); ?></div>
           </div>
           <div>
             <div class="text-3xl font-display font-bold text-white">2h</div>
-            <div class="text-white/40 text-sm">Fereastra achizitie</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_window'] ); ?></div>
           </div>
           <div>
             <div class="text-3xl font-display font-bold text-white">10k+</div>
-            <div class="text-white/40 text-sm">Max. lista</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_max'] ); ?></div>
           </div>
         </div>
       </div>
@@ -212,28 +332,28 @@ get_header();
               </div>
               <div class="flex items-center gap-2 text-waitlist-amber text-sm">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span>847 in asteptare</span>
+                <span>847 <?php echo esc_html( $t['waiting'] ); ?></span>
               </div>
             </div>
 
             <!-- Your Position Card -->
             <div class="bg-gradient-to-br from-waitlist-orange/20 to-waitlist-amber/10 rounded-2xl p-5 border border-waitlist-orange/20 mb-6">
               <div class="flex items-center justify-between mb-4">
-                <div class="text-white/60 text-sm">Pozitia ta in coada</div>
+                <div class="text-white/60 text-sm"><?php echo esc_html( $t['position_in_queue'] ); ?></div>
                 <div class="flex items-center gap-1">
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-                  <span class="text-brand-green text-sm">Avansezi</span>
+                  <span class="text-brand-green text-sm"><?php echo esc_html( $t['advancing'] ); ?></span>
                 </div>
               </div>
               <div class="flex items-end gap-4">
                 <div class="text-6xl font-display font-bold text-white position-badge" x-text="'#' + position">#3</div>
-                <div class="text-white/40 text-sm mb-2">din 847</div>
+                <div class="text-white/40 text-sm mb-2"><?php echo esc_html( $t['of'] ); ?> 847</div>
               </div>
 
               <!-- Progress bar -->
               <div class="mt-4">
                 <div class="flex justify-between text-xs text-white/40 mb-2">
-                  <span>Progres</span>
+                  <span><?php echo esc_html( $t['progress'] ); ?></span>
                   <span x-text="Math.round((847 - position) / 847 * 100) + '%'">99%</span>
                 </div>
                 <div class="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -244,13 +364,13 @@ get_header();
 
             <!-- Queue Visualization -->
             <div class="relative mb-6">
-              <div class="text-white/40 text-xs uppercase tracking-wider mb-3">Coada in timp real</div>
+              <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['queue_realtime'] ); ?></div>
               <div class="flex items-center gap-3 overflow-hidden">
                 <div class="flex items-center gap-2">
                   <!-- Current user -->
                   <div class="relative queue-person" :class="position === 1 ? 'scale-110' : ''">
                     <div class="w-12 h-12 rounded-full bg-gradient-to-br from-waitlist-orange to-waitlist-amber flex items-center justify-center border-2 border-white shadow-lg">
-                      <span class="text-white font-bold text-sm">Tu</span>
+                      <span class="text-white font-bold text-sm"><?php echo esc_html( $t['you'] ); ?></span>
                     </div>
                     <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-dark-800 border border-waitlist-orange flex items-center justify-center">
                       <span class="text-waitlist-orange text-[10px] font-bold" x-text="position">3</span>
@@ -280,12 +400,12 @@ get_header();
             <!-- Preference -->
             <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
               <div>
-                <div class="text-white text-sm font-medium">Bilet VIP</div>
-                <div class="text-white/40 text-xs">2 bilete - 150 EUR/buc</div>
+                <div class="text-white text-sm font-medium"><?php echo esc_html( $t['vip_ticket'] ); ?></div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['tickets_each'] ); ?></div>
               </div>
               <div class="text-brand-green text-sm flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                Preferinta salvata
+                <?php echo esc_html( $t['pref_saved'] ); ?>
               </div>
             </div>
           </div>
@@ -297,14 +417,14 @@ get_header();
                 <svg class="w-5 h-5 text-brand-green bell-animate" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold text-sm">E randul tau!</div>
-                <div class="text-white/60 text-xs mt-1">Biletele sunt disponibile. Ai 2 ore sa finalizezi achizitia.</div>
+                <div class="text-white font-semibold text-sm"><?php echo esc_html( $t['your_turn'] ); ?></div>
+                <div class="text-white/60 text-xs mt-1"><?php echo esc_html( $t['tickets_avail'] ); ?></div>
               </div>
             </div>
             <!-- Timer -->
             <div class="mt-3 p-2 rounded-lg bg-waitlist-orange/10 border border-waitlist-orange/20">
               <div class="flex items-center justify-between">
-                <span class="text-waitlist-orange text-xs">Timp ramas:</span>
+                <span class="text-waitlist-orange text-xs"><?php echo esc_html( $t['time_remaining'] ); ?></span>
                 <div class="flex items-center gap-1 font-mono">
                   <span class="text-white font-bold timer-digit" x-text="String(timer.h).padStart(2, '0')">01</span>
                   <span class="text-white/40">:</span>
@@ -315,7 +435,7 @@ get_header();
               </div>
             </div>
             <button class="w-full mt-3 px-4 py-2 rounded-lg bg-brand-green text-white font-semibold text-sm hover:bg-brand-green/90 transition-colors">
-              Cumpara Acum
+              <?php echo esc_html( $t['buy_now'] ); ?>
             </button>
           </div>
 
@@ -324,8 +444,8 @@ get_header();
             <div class="flex items-center gap-2">
               <div class="text-2xl">📧</div>
               <div>
-                <div class="text-white text-sm font-medium">Notificare trimisa</div>
-                <div class="text-white/40 text-xs">Email + SMS</div>
+                <div class="text-white text-sm font-medium"><?php echo esc_html( $t['notif_sent'] ); ?></div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['email_sms'] ); ?></div>
               </div>
             </div>
           </div>
@@ -340,9 +460,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-brand-rose text-sm font-medium uppercase tracking-widest">Problema</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Sold out = <br><span class="text-brand-rose">Clienti pierduti?</span></h2>
-      <p class="text-lg text-white/60">Fara lista de asteptare, pierzi clienti entuziasti care ar fi platit.</p>
+      <span class="text-brand-rose text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['problem'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['problem_title_1'] ); ?><br><span class="text-brand-rose"><?php echo esc_html( $t['problem_title_2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['problem_desc'] ); ?></p>
     </div>
 
     <!-- Before/After -->
@@ -354,7 +474,7 @@ get_header();
             <div class="w-12 h-12 rounded-xl bg-brand-rose/20 flex items-center justify-center">
               <svg class="w-6 h-6 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </div>
-            <span class="text-brand-rose font-semibold">Fara Lista de Asteptare</span>
+            <span class="text-brand-rose font-semibold"><?php echo esc_html( $t['without_waitlist'] ); ?></span>
           </div>
 
           <div class="space-y-4">
@@ -364,8 +484,8 @@ get_header();
                   <svg class="w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 </div>
                 <div>
-                  <div class="text-white text-sm">Client interesat</div>
-                  <div class="text-white/40 text-xs">Vrea 2 bilete VIP</div>
+                  <div class="text-white text-sm"><?php echo esc_html( $t['interested_client'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['wants_vip'] ); ?></div>
                 </div>
               </div>
               <div class="p-3 rounded-lg bg-brand-rose/10 border border-brand-rose/20 text-center">
@@ -383,14 +503,14 @@ get_header();
                   <svg class="w-5 h-5 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </div>
                 <div>
-                  <div class="text-white/50 text-sm">Client pleaca</div>
-                  <div class="text-brand-rose text-xs">-300 EUR pierdere</div>
+                  <div class="text-white/50 text-sm"><?php echo esc_html( $t['client_leaves'] ); ?></div>
+                  <div class="text-brand-rose text-xs">-300 EUR <?php echo esc_html( $t['loss'] ); ?></div>
                 </div>
               </div>
             </div>
 
             <div class="mt-4 p-3 rounded-lg bg-brand-rose/5 border border-brand-rose/10">
-              <div class="text-brand-rose/70 text-sm text-center">Cand biletele devin disponibile din returnari... nimeni nu mai stie.</div>
+              <div class="text-brand-rose/70 text-sm text-center"><?php echo esc_html( $t['when_available'] ); ?></div>
             </div>
           </div>
         </div>
@@ -403,7 +523,7 @@ get_header();
             <div class="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center">
               <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <span class="text-brand-green font-semibold">Cu Lista de Asteptare</span>
+            <span class="text-brand-green font-semibold"><?php echo esc_html( $t['with_waitlist'] ); ?></span>
           </div>
 
           <div class="space-y-4">
@@ -413,18 +533,18 @@ get_header();
                   <svg class="w-5 h-5 text-waitlist-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 </div>
                 <div>
-                  <div class="text-white text-sm">Client interesat</div>
-                  <div class="text-white/40 text-xs">Vrea 2 bilete VIP</div>
+                  <div class="text-white text-sm"><?php echo esc_html( $t['interested_client'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['wants_vip'] ); ?></div>
                 </div>
               </div>
               <div class="p-3 rounded-lg bg-waitlist-orange/10 border border-waitlist-orange/20 text-center">
-                <span class="text-waitlist-orange text-sm">Se inscrie pe lista - Pozitia #23</span>
+                <span class="text-waitlist-orange text-sm"><?php echo esc_html( $t['joins_list'] ); ?></span>
               </div>
             </div>
 
             <div class="flex items-center justify-center gap-2 text-white/30">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-              <span class="text-xs">Bilet returnat</span>
+              <span class="text-xs"><?php echo esc_html( $t['ticket_returned'] ); ?></span>
             </div>
 
             <div class="p-4 rounded-xl bg-dark-900/50">
@@ -433,8 +553,8 @@ get_header();
                   <svg class="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 </div>
                 <div>
-                  <div class="text-white text-sm">Notificare instant</div>
-                  <div class="text-brand-green text-xs">Email + SMS trimise</div>
+                  <div class="text-white text-sm"><?php echo esc_html( $t['instant_notif'] ); ?></div>
+                  <div class="text-brand-green text-xs"><?php echo esc_html( $t['emails_sent'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -443,7 +563,7 @@ get_header();
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <svg class="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  <span class="text-brand-green text-sm font-medium">Achizitie finalizata</span>
+                  <span class="text-brand-green text-sm font-medium"><?php echo esc_html( $t['purchase_complete'] ); ?></span>
                 </div>
                 <span class="text-brand-green font-bold">+300 EUR</span>
               </div>
@@ -461,9 +581,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-waitlist-orange text-sm font-medium uppercase tracking-widest">Cum Functioneaza</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Fluxul complet<br><span class="text-gradient-waitlist">automatizat</span></h2>
-      <p class="text-lg text-white/60">De la sold-out la vanzare, fara interventie manuala.</p>
+      <span class="text-waitlist-orange text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['how_works'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['flow_title_1'] ); ?><br><span class="text-gradient-waitlist"><?php echo esc_html( $t['flow_title_2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['flow_desc'] ); ?></p>
     </div>
 
     <!-- Flow Steps -->
@@ -476,11 +596,11 @@ get_header();
         <div class="reveal">
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 relative h-full">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-waitlist-orange to-waitlist-amber flex items-center justify-center text-white font-display font-bold text-xl mb-4 shadow-lg shadow-waitlist-orange/30">1</div>
-            <h3 class="text-xl font-semibold text-white mb-2">Sold Out</h3>
-            <p class="text-white/50 text-sm mb-4">Evenimentul face sold-out. Lista de asteptare se activeaza automat.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step1_title'] ); ?></h3>
+            <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['step1_desc'] ); ?></p>
             <div class="flex items-center gap-2 text-waitlist-orange text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              Activare automata
+              <?php echo esc_html( $t['auto_activation'] ); ?>
             </div>
           </div>
         </div>
@@ -489,11 +609,11 @@ get_header();
         <div class="reveal reveal-delay-1">
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 relative h-full">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-waitlist-amber to-waitlist-gold flex items-center justify-center text-white font-display font-bold text-xl mb-4 shadow-lg shadow-waitlist-amber/30">2</div>
-            <h3 class="text-xl font-semibold text-white mb-2">Inscriere</h3>
-            <p class="text-white/50 text-sm mb-4">Clientii se inscriu cu preferinte: tip bilet, cantitate. Primesc pozitia in coada.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step2_title'] ); ?></h3>
+            <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['step2_desc'] ); ?></p>
             <div class="flex items-center gap-2 text-waitlist-amber text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-              Preferinte salvate
+              <?php echo esc_html( $t['prefs_saved'] ); ?>
             </div>
           </div>
         </div>
@@ -502,11 +622,11 @@ get_header();
         <div class="reveal reveal-delay-2">
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 relative h-full">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-violet flex items-center justify-center text-white font-display font-bold text-xl mb-4 shadow-lg shadow-brand-cyan/30">3</div>
-            <h3 class="text-xl font-semibold text-white mb-2">Notificare</h3>
-            <p class="text-white/50 text-sm mb-4">Cand biletele devin disponibile, sistemul notifica instant prin email si SMS.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step3_title'] ); ?></h3>
+            <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['step3_desc'] ); ?></p>
             <div class="flex items-center gap-2 text-brand-cyan text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-              Email + SMS
+              <?php echo esc_html( $t['email_sms'] ); ?>
             </div>
           </div>
         </div>
@@ -515,11 +635,11 @@ get_header();
         <div class="reveal reveal-delay-3">
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 relative h-full">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center text-white font-display font-bold text-xl mb-4 shadow-lg shadow-brand-green/30">4</div>
-            <h3 class="text-xl font-semibold text-white mb-2">Conversie</h3>
-            <p class="text-white/50 text-sm mb-4">Clientul are o fereastra de timp sa cumpere. Daca nu, urmatorul primeste sansa.</p>
+            <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['step4_title'] ); ?></h3>
+            <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['step4_desc'] ); ?></p>
             <div class="flex items-center gap-2 text-brand-green text-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Fereastra 2h
+              <?php echo esc_html( $t['window_2h'] ); ?>
             </div>
           </div>
         </div>
@@ -534,8 +654,8 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Functionalitati</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tot ce ai nevoie<br><span class="text-gradient animate-shimmer">pentru conversie</span></h2>
+      <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['features'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['feat_title_1'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['feat_title_2'] ); ?></span></h2>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -544,8 +664,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-waitlist-orange/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-waitlist-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Activare Automata</h3>
-        <p class="text-white/50 text-sm">Lista se activeaza automat cand evenimentul face sold-out. Zero configurare manuala.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat1_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat1_desc'] ); ?></p>
       </div>
 
       <!-- Feature 2: Position Display -->
@@ -553,8 +673,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-brand-cyan/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Afisare Pozitie</h3>
-        <p class="text-white/50 text-sm">Clientii vad pozitia lor in timp real. Transparenta construieste incredere si engagement.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat2_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat2_desc'] ); ?></p>
       </div>
 
       <!-- Feature 3: Dual Notifications -->
@@ -562,8 +682,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Notificari Duale</h3>
-        <p class="text-white/50 text-sm">Email si SMS simultan. Maximizeaza sansele ca mesajul sa ajunga la client.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat3_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat3_desc'] ); ?></p>
       </div>
 
       <!-- Feature 4: Time Windows -->
@@ -571,8 +691,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-brand-rose/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Ferestre de Timp</h3>
-        <p class="text-white/50 text-sm">Creeaza urgenta cu limite de timp. Daca nu cumpara, urmatorul primeste sansa.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat4_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat4_desc'] ); ?></p>
       </div>
 
       <!-- Feature 5: VIP Priority -->
@@ -580,8 +700,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-waitlist-amber/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-waitlist-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Prioritate VIP</h3>
-        <p class="text-white/50 text-sm">Membrii VIP si de loialitate primesc prioritate. Rasplateste-ti cei mai buni clienti.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat5_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat5_desc'] ); ?></p>
       </div>
 
       <!-- Feature 6: Returns Integration -->
@@ -589,8 +709,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-brand-green/20 flex items-center justify-center mb-4">
           <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Integrare Returnari</h3>
-        <p class="text-white/50 text-sm">Biletele din returnari curg automat catre lista de asteptare. Zero interventie manuala.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['feat6_title'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['feat6_desc'] ); ?></p>
       </div>
     </div>
   </div>
@@ -601,9 +721,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-waitlist-amber text-sm font-medium uppercase tracking-widest">Prioritati</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Regulile tale,<br><span class="text-gradient-waitlist">alegerea ta</span></h2>
-      <p class="text-lg text-white/60">Alege cum se distribuie biletele: echitabil, VIP first, sau primul-venit-primul-servit.</p>
+      <span class="text-waitlist-amber text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['priorities'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['prio_title_1'] ); ?><br><span class="text-gradient-waitlist"><?php echo esc_html( $t['prio_title_2'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['prio_desc'] ); ?></p>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-6">
@@ -613,8 +733,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-brand-cyan/20 flex items-center justify-center mb-6">
             <svg class="w-8 h-8 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
           </div>
-          <h3 class="text-2xl font-semibold text-white mb-4">Distributie Echitabila</h3>
-          <p class="text-white/50 mb-6">Algoritm care asigura sanse egale pentru toti. Perfect pentru evenimente cu audiente diverse.</p>
+          <h3 class="text-2xl font-semibold text-white mb-4"><?php echo esc_html( $t['fair_title'] ); ?></h3>
+          <p class="text-white/50 mb-6"><?php echo esc_html( $t['fair_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
@@ -644,8 +764,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-waitlist-amber/20 flex items-center justify-center mb-6 vip-glow">
             <svg class="w-8 h-8 text-waitlist-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
           </div>
-          <h3 class="text-2xl font-semibold text-white mb-4">Prioritate VIP</h3>
-          <p class="text-white/50 mb-6">Membrii VIP si de loialitate primesc prioritate. Rasplateste-ti clientii fideli.</p>
+          <h3 class="text-2xl font-semibold text-white mb-4"><?php echo esc_html( $t['vip_title'] ); ?></h3>
+          <p class="text-white/50 mb-6"><?php echo esc_html( $t['vip_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-3 p-3 rounded-xl bg-waitlist-amber/10 border border-waitlist-amber/20">
@@ -673,8 +793,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-brand-green/20 flex items-center justify-center mb-6">
             <svg class="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
           </div>
-          <h3 class="text-2xl font-semibold text-white mb-4">Primul-Venit</h3>
-          <p class="text-white/50 mb-6">Strict dupa ordinea inscrierii. Simplu, transparent, usor de inteles pentru toti.</p>
+          <h3 class="text-2xl font-semibold text-white mb-4"><?php echo esc_html( $t['fcfs_title'] ); ?></h3>
+          <p class="text-white/50 mb-6"><?php echo esc_html( $t['fcfs_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-3 p-3 rounded-xl bg-brand-green/10 border border-brand-green/20">
@@ -715,14 +835,14 @@ get_header();
         </div>
         <!-- Quote -->
         <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-          "Am facut sold-out in 2 ore. Dar lista de asteptare ne-a adus inca <span class="text-waitlist-orange font-semibold">12.000 EUR din returnari</span>. Oamenii care altfel ar fi plecat au cumparat cand au aparut bilete. Magic."
+          "<?php echo $t['testimonial_quote']; ?>"
         </blockquote>
         <!-- Author -->
         <div class="flex items-center gap-4">
           <div class="w-14 h-14 rounded-full bg-gradient-to-br from-waitlist-orange to-waitlist-amber"></div>
           <div>
-            <div class="font-semibold text-white">Dan M.</div>
-            <div class="text-white/50">Organizator, Electric Castle</div>
+            <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+            <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
           </div>
         </div>
       </div>
@@ -736,20 +856,20 @@ get_header();
   <div class="absolute w-[800px] h-[800px] bg-waitlist-orange/30 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none"></div>
 
   <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Nu mai pierde<br><span class="text-gradient-waitlist">nicio vanzare</span></h2>
-    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Sold out nu mai inseamna clienti pierduti. Capteaza-i, notifica-i, converteste-i.</p>
+    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title_1'] ); ?><br><span class="text-gradient-waitlist"><?php echo esc_html( $t['final_title_2'] ); ?></span></h2>
+    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
       <a href="<?php echo esc_url(home_url('/signup')); ?>" class="btn-waitlist text-lg px-10">
-        Activeaza Waitlist
+        <?php echo esc_html( $t['cta_activate'] ); ?>
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
       <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
-        Intrebari? Contacteaza-ne
+        <?php echo esc_html( $t['cta_questions'] ); ?>
       </a>
     </div>
 
-    <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Inclus gratuit in toate planurile. Notificari email + SMS. Max 10.000 per lista.</p>
+    <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['footer_note'] ); ?></p>
   </div>
 </section>
 

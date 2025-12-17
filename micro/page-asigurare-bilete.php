@@ -5,6 +5,128 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+    // Hero
+    'badge'                   => $current_lang === 'ro' ? 'Add-on Optional · Venituri din Comisioane' : 'Optional Add-on · Commission Revenue',
+    'hero_title'              => $current_lang === 'ro' ? 'Asigurare' : 'Ticket',
+    'hero_title2'             => $current_lang === 'ro' ? 'bilete' : 'insurance',
+    'hero_desc'               => $current_lang === 'ro' ? 'Ofera clientilor <strong class="text-white">liniste sufleteasca</strong>. Add-on optional la checkout pentru protectie impotriva circumstantelor neprevazute. <strong class="text-white">Zero cost</strong> pentru tine - venituri din comisioane.' : 'Give your customers <strong class="text-white">peace of mind</strong>. Optional add-on at checkout for protection against unforeseen circumstances. <strong class="text-white">Zero cost</strong> for you - commission revenue.',
+    'cta_activate'            => $current_lang === 'ro' ? 'Activeaza Asigurarea' : 'Activate Insurance',
+    'cta_how_works'           => $current_lang === 'ro' ? 'Cum functioneaza' : 'How it works',
+    'stat_activation'         => $current_lang === 'ro' ? 'Cost activare' : 'Activation cost',
+    'stat_revenue'            => $current_lang === 'ro' ? 'Venituri extra' : 'Extra revenue',
+    'stat_policy'             => $current_lang === 'ro' ? 'Emitere polite' : 'Policy issuance',
+
+    // Checkout Mockup
+    'checkout'                => 'Checkout',
+    'secured'                 => $current_lang === 'ro' ? 'Securizat' : 'Secured',
+    'ticket_insurance'        => $current_lang === 'ro' ? 'Asigurare Bilete' : 'Ticket Insurance',
+    'recommended'             => $current_lang === 'ro' ? 'Recomandat' : 'Recommended',
+    'insurance_desc'          => $current_lang === 'ro' ? 'Protejeaza-ti achizitia impotriva circumstantelor neprevazute: boala, urgente familiale, probleme de calatorie.' : 'Protect your purchase against unforeseen circumstances: illness, family emergencies, travel issues.',
+    'from_ticket_value'       => $current_lang === 'ro' ? 'din valoarea biletelor' : 'of ticket value',
+    'total'                   => 'Total',
+    'pay_secured'             => $current_lang === 'ro' ? 'Plateste Securizat' : 'Pay Secured',
+    'insured'                 => $current_lang === 'ro' ? 'Asigurat' : 'Insured',
+    'policy_issued'           => $current_lang === 'ro' ? 'Polita emisa' : 'Policy issued',
+
+    // How It Works
+    'how_works'               => $current_lang === 'ro' ? 'Cum Functioneaza' : 'How It Works',
+    'simple_for'              => $current_lang === 'ro' ? 'Simplu pentru' : 'Simple for',
+    'everyone'                => $current_lang === 'ro' ? 'toata lumea' : 'everyone',
+    'how_works_desc'          => $current_lang === 'ro' ? 'Add-on optional la checkout → Plata → Polita emisa automat' : 'Optional checkout add-on → Payment → Auto policy issuance',
+    'step1'                   => $current_lang === 'ro' ? 'Pasul 1' : 'Step 1',
+    'step1_title'             => 'Checkout',
+    'step1_desc'              => $current_lang === 'ro' ? 'Clientul vede optiunea de asigurare in checkout. Un checkbox simplu cu explicatii clare despre ce acopera.' : 'Customer sees the insurance option at checkout. A simple checkbox with clear explanations of coverage.',
+    'step2'                   => $current_lang === 'ro' ? 'Pasul 2' : 'Step 2',
+    'step2_title'             => $current_lang === 'ro' ? 'Plata' : 'Payment',
+    'step2_desc'              => $current_lang === 'ro' ? 'Prima de asigurare se adauga la total. Plata se proceseaza normal, cu asigurarea inclusa.' : 'Insurance premium is added to total. Payment processes normally, with insurance included.',
+    'step3'                   => $current_lang === 'ro' ? 'Pasul 3' : 'Step 3',
+    'step3_title'             => $current_lang === 'ro' ? 'Polita Emisa' : 'Policy Issued',
+    'step3_desc'              => $current_lang === 'ro' ? 'Polita se emite automat si se ataseaza la bilet. Documentul e disponibil instant pentru client.' : 'Policy is issued automatically and attached to ticket. Document is instantly available for customer.',
+
+    // Pricing Models
+    'pricing_models'          => $current_lang === 'ro' ? 'Modele de Pret' : 'Pricing Models',
+    'flexibility'             => $current_lang === 'ro' ? 'Flexibilitate' : 'Total',
+    'total_flex'              => $current_lang === 'ro' ? 'totala' : 'flexibility',
+    'pricing_desc'            => $current_lang === 'ro' ? 'Alege modelul de pret care se potriveste evenimentelor tale. Suma fixa, procent, sau pe niveluri.' : 'Choose the pricing model that fits your events. Fixed amount, percentage, or tiered.',
+    'fixed_amount'            => $current_lang === 'ro' ? 'Suma Fixa' : 'Fixed Amount',
+    'fixed_amount_desc'       => $current_lang === 'ro' ? 'Ex: €2 per bilet, indiferent de pret' : 'Ex: €2 per ticket, regardless of price',
+    'percentage'              => $current_lang === 'ro' ? 'Procentual' : 'Percentage',
+    'popular'                 => 'Popular',
+    'percentage_desc'         => $current_lang === 'ro' ? 'Ex: 5% din valoarea biletului' : 'Ex: 5% of ticket value',
+    'min_max_caps'            => $current_lang === 'ro' ? 'Plafoane Min/Max' : 'Min/Max Caps',
+    'min_max_desc'            => $current_lang === 'ro' ? 'Ex: minim €1, maxim €50' : 'Ex: minimum €1, maximum €50',
+    'premium_calculator'      => $current_lang === 'ro' ? 'Calculator Prima' : 'Premium Calculator',
+    'test_scenarios'          => $current_lang === 'ro' ? 'Testeaza diferite scenarii' : 'Test different scenarios',
+    'ticket_price'            => $current_lang === 'ro' ? 'Pret bilet' : 'Ticket price',
+    'insurance_rate'          => $current_lang === 'ro' ? 'Rata asigurare' : 'Insurance rate',
+    'insurance_premium'       => $current_lang === 'ro' ? 'Prima asigurare' : 'Insurance premium',
+    'per_ticket'              => $current_lang === 'ro' ? 'per bilet' : 'per ticket',
+
+    // Hierarchical Config
+    'configuration'           => $current_lang === 'ro' ? 'Configurare' : 'Configuration',
+    'control'                 => 'Control',
+    'hierarchical'            => $current_lang === 'ro' ? 'ierarhic' : 'hierarchical',
+    'config_desc'             => $current_lang === 'ro' ? 'Setari implicite la nivel de tenant, personalizate per eveniment sau tip bilet.' : 'Default settings at tenant level, customized per event or ticket type.',
+    'tenant_level'            => $current_lang === 'ro' ? 'Nivel Tenant' : 'Tenant Level',
+    'default'                 => 'Default',
+    'tenant_desc'             => $current_lang === 'ro' ? 'Setari implicite pentru toate evenimentele' : 'Default settings for all events',
+    'global_rate'             => $current_lang === 'ro' ? 'rata globala' : 'global rate',
+    'event_level'             => $current_lang === 'ro' ? 'Nivel Eveniment' : 'Event Level',
+    'override'                => 'Override',
+    'event_level_desc'        => $current_lang === 'ro' ? 'Suprascrie pentru evenimente specifice' : 'Override for specific events',
+    'ticket_level'            => $current_lang === 'ro' ? 'Nivel Tip Bilet' : 'Ticket Type Level',
+    'specific'                => $current_lang === 'ro' ? 'Specific' : 'Specific',
+    'ticket_level_desc'       => $current_lang === 'ro' ? 'Control fin per categorie de bilet' : 'Fine control per ticket category',
+    'most_specific'           => $current_lang === 'ro' ? 'Se aplica cea mai specifica configurare' : 'Most specific configuration is applied',
+
+    // Policy Lifecycle
+    'lifecycle'               => $current_lang === 'ro' ? 'Ciclul de Viata' : 'Lifecycle',
+    'status'                  => 'Status',
+    'policy'                  => $current_lang === 'ro' ? 'polita' : 'policy',
+    'lifecycle_desc'          => $current_lang === 'ro' ? 'Urmarire completa de la cotatie la revendicare.' : 'Complete tracking from quote to claim.',
+    'pending'                 => 'pending',
+    'pending_desc'            => $current_lang === 'ro' ? 'Asteptare plata' : 'Awaiting payment',
+    'issued'                  => 'issued',
+    'issued_desc'             => $current_lang === 'ro' ? 'Polita activa' : 'Active policy',
+    'voided'                  => 'voided',
+    'voided_desc'             => $current_lang === 'ro' ? 'Comanda anulata' : 'Order cancelled',
+    'refunded'                => 'refunded',
+    'refunded_desc'           => $current_lang === 'ro' ? 'Returnare procesata' : 'Refund processed',
+    'claimed'                 => 'claimed',
+    'claimed_desc'            => $current_lang === 'ro' ? 'Revendicare facuta' : 'Claim made',
+
+    // Use Cases
+    'use_cases'               => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+    'perfect_for'             => $current_lang === 'ro' ? 'Perfect pentru' : 'Perfect for',
+    'any_event'               => $current_lang === 'ro' ? 'orice eveniment' : 'any event',
+    'concerts_festivals'      => $current_lang === 'ro' ? 'Concerte & Festivaluri' : 'Concerts & Festivals',
+    'concerts_desc'           => $current_lang === 'ro' ? 'Fanilor le ofera increderea sa cumpere bilete cu luni inainte, stiind ca sunt protejati.' : 'Gives fans confidence to buy tickets months ahead, knowing they are protected.',
+    'corporate_events'        => $current_lang === 'ro' ? 'Evenimente Corporate' : 'Corporate Events',
+    'corporate_desc'          => $current_lang === 'ro' ? 'Clientii B2B apreciaza flexibilitatea pentru biletele angajatilor, mai ales la evenimente nerambursabile.' : 'B2B clients appreciate flexibility for employee tickets, especially for non-refundable events.',
+    'vip_packages'            => $current_lang === 'ro' ? 'Pachete VIP' : 'VIP Packages',
+    'vip_desc'                => $current_lang === 'ro' ? 'Biletele premium cu cost semnificativ beneficiaza cel mai mult. Clientii sunt mai dispusi sa investeasca cand sunt protejati.' : 'Premium tickets with significant cost benefit the most. Customers are more willing to invest when protected.',
+    'international_events'    => $current_lang === 'ro' ? 'Evenimente Internationale' : 'International Events',
+    'international_desc'      => $current_lang === 'ro' ? 'Calatorii au riscuri suplimentare: zboruri anulate, vize, restrictii. Asigurarea ofera liniste.' : 'Travelers have additional risks: cancelled flights, visas, restrictions. Insurance provides peace of mind.',
+    'group_bookings'          => $current_lang === 'ro' ? 'Rezervari de Grup' : 'Group Bookings',
+    'group_desc'              => $current_lang === 'ro' ? 'Cand organizezi participare de grup, asigurarea protejeaza intregul grup, nu doar indivizi.' : 'When organizing group participation, insurance protects the entire group, not just individuals.',
+    'season_passes'           => $current_lang === 'ro' ? 'Abonamente de Sezon' : 'Season Passes',
+    'season_desc'             => $current_lang === 'ro' ? 'Angajamentele pe termen lung beneficiaza de acoperire care se intinde pe mai multe evenimente.' : 'Long-term commitments benefit from coverage that extends across multiple events.',
+
+    // Testimonial
+    'testimonial_text'        => $current_lang === 'ro' ? 'Am fost sceptic la inceput, dar <span class="text-gradient-insurance font-semibold">23% dintre clienti</span> au ales asigurarea la biletele VIP. E un venit extra fara niciun efort din partea noastra. Clientii sunt mai relaxati, noi castigam mai mult.' : 'I was skeptical at first, but <span class="text-gradient-insurance font-semibold">23% of customers</span> chose insurance for VIP tickets. It\'s extra revenue with no effort on our part. Customers are more relaxed, we earn more.',
+    'testimonial_author'      => 'Marius T.',
+    'testimonial_role'        => $current_lang === 'ro' ? 'Organizator, Jazz in the Park' : 'Organizer, Jazz in the Park',
+
+    // Final CTA
+    'protect'                 => $current_lang === 'ro' ? 'Protejeaza' : 'Protect',
+    'customers'               => $current_lang === 'ro' ? 'clientii' : 'customers',
+    'final_desc'              => $current_lang === 'ro' ? 'Zero cost pentru tine. Venituri din comisioane. Clienti mai fericiti.' : 'Zero cost for you. Commission revenue. Happier customers.',
+    'questions_contact'       => $current_lang === 'ro' ? 'Intrebari? Contacteaza-ne' : 'Questions? Contact us',
+    'footer_note'             => $current_lang === 'ro' ? 'Gratuit de activat. Comision din prime. Suport multi-furnizor.' : 'Free to activate. Commission on premiums. Multi-provider support.',
+];
 ?>
 
 <style>
@@ -145,27 +267,27 @@ get_header();
         <!-- Badge -->
         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-insurance-emerald/10 border border-insurance-emerald/20 mb-6">
           <svg class="w-5 h-5 text-insurance-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          <span class="text-insurance-emerald text-sm font-medium">Add-on Optional · Venituri din Comisioane</span>
+          <span class="text-insurance-emerald text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
         </div>
 
         <!-- Heading -->
         <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-          Asigurare<br><span class="text-gradient-insurance">bilete</span>
+          <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-insurance"><?php echo esc_html( $t['hero_title2'] ); ?></span>
         </h1>
 
         <!-- Description -->
         <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-          Ofera clientilor <strong class="text-white">liniste sufleteasca</strong>. Add-on optional la checkout pentru protectie impotriva circumstantelor neprevazute. <strong class="text-white">Zero cost</strong> pentru tine - venituri din comisioane.
+          <?php echo $t['hero_desc']; ?>
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-wrap gap-4 mb-12">
           <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-insurance-emerald to-insurance-teal text-white hover:scale-105 hover:shadow-glow-emerald transition-all duration-300">
-            Activeaza Asigurarea
+            <?php echo esc_html( $t['cta_activate'] ); ?>
             <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a href="#cum-functioneaza" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-            Cum functioneaza
+            <?php echo esc_html( $t['cta_how_works'] ); ?>
           </a>
         </div>
 
@@ -173,15 +295,15 @@ get_header();
         <div class="grid grid-cols-3 gap-6">
           <div>
             <div class="text-3xl font-display font-bold text-insurance-emerald">0€</div>
-            <div class="text-white/40 text-sm">Cost activare</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_activation'] ); ?></div>
           </div>
           <div>
             <div class="text-3xl font-display font-bold text-white">+15%</div>
-            <div class="text-white/40 text-sm">Venituri extra</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_revenue'] ); ?></div>
           </div>
           <div>
             <div class="text-3xl font-display font-bold text-insurance-teal">Auto</div>
-            <div class="text-white/40 text-sm">Emitere polite</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_policy'] ); ?></div>
           </div>
         </div>
       </div>
@@ -206,12 +328,12 @@ get_header();
                   <span class="text-lg">🎫</span>
                 </div>
                 <div>
-                  <div class="text-white font-semibold">Checkout</div>
+                  <div class="text-white font-semibold"><?php echo esc_html( $t['checkout'] ); ?></div>
                   <div class="text-white/40 text-xs">Summer Music Festival</div>
                 </div>
               </div>
               <div class="px-3 py-1 rounded-full bg-brand-green/20 text-brand-green text-xs font-medium">
-                Securizat
+                <?php echo esc_html( $t['secured'] ); ?>
               </div>
             </div>
 
@@ -238,12 +360,12 @@ get_header();
                 <div class="flex-1">
                   <div class="flex items-center gap-2 mb-1">
                     <svg class="w-5 h-5 text-insurance-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <span class="text-white font-medium">Asigurare Bilete</span>
-                    <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs">Recomandat</span>
+                    <span class="text-white font-medium"><?php echo esc_html( $t['ticket_insurance'] ); ?></span>
+                    <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs"><?php echo esc_html( $t['recommended'] ); ?></span>
                   </div>
-                  <p class="text-white/50 text-sm mb-2">Protejeaza-ti achizitia impotriva circumstantelor neprevazute: boala, urgente familiale, probleme de calatorie.</p>
+                  <p class="text-white/50 text-sm mb-2"><?php echo esc_html( $t['insurance_desc'] ); ?></p>
                   <div class="flex items-center justify-between">
-                    <span class="text-white/40 text-sm"><span x-text="insuranceRate">5</span>% din valoarea biletelor</span>
+                    <span class="text-white/40 text-sm"><span x-text="insuranceRate">5</span>% <?php echo esc_html( $t['from_ticket_value'] ); ?></span>
                     <span class="text-insurance-emerald font-semibold premium-display" x-show="insuranceEnabled" x-transition>+€<span x-text="premium">7.50</span></span>
                   </div>
                 </div>
@@ -255,7 +377,7 @@ get_header();
 
             <!-- Total -->
             <div class="flex items-center justify-between mb-4">
-              <span class="text-white/60">Total</span>
+              <span class="text-white/60"><?php echo esc_html( $t['total'] ); ?></span>
               <span class="text-2xl font-display font-bold text-white premium-display">€<span x-text="total">157.50</span></span>
             </div>
 
@@ -263,7 +385,7 @@ get_header();
             <button class="w-full py-4 rounded-xl font-semibold text-white transition-all duration-300" :class="insuranceEnabled ? 'bg-gradient-to-r from-insurance-emerald to-insurance-teal hover:shadow-glow-emerald' : 'bg-gradient-to-r from-brand-violet to-brand-cyan hover:shadow-lg'">
               <span class="flex items-center justify-center gap-2">
                 <svg x-show="insuranceEnabled" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                Plateste Securizat
+                <?php echo esc_html( $t['pay_secured'] ); ?>
               </span>
             </button>
 
@@ -275,7 +397,7 @@ get_header();
               </div>
               <div class="flex items-center gap-1 text-white/30 text-xs">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                Asigurat
+                <?php echo esc_html( $t['insured'] ); ?>
               </div>
               <div class="flex items-center gap-1 text-white/30 text-xs">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
@@ -296,7 +418,7 @@ get_header();
                 <span class="text-sm">📄</span>
               </div>
               <div>
-                <div class="text-insurance-emerald text-sm font-medium">Polita emisa</div>
+                <div class="text-insurance-emerald text-sm font-medium"><?php echo esc_html( $t['policy_issued'] ); ?></div>
                 <div class="text-white/40 text-xs">POL-2025-001234</div>
               </div>
             </div>
@@ -312,9 +434,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-insurance-emerald text-sm font-medium uppercase tracking-widest">Cum Functioneaza</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Simplu pentru<br><span class="text-gradient-insurance">toata lumea</span></h2>
-      <p class="text-lg text-white/60">Add-on optional la checkout → Plata → Polita emisa automat</p>
+      <span class="text-insurance-emerald text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['how_works'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['simple_for'] ); ?><br><span class="text-gradient-insurance"><?php echo esc_html( $t['everyone'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['how_works_desc'] ); ?></p>
     </div>
 
     <!-- 3-Step Flow -->
@@ -329,9 +451,9 @@ get_header();
             <div class="w-16 h-16 rounded-2xl bg-insurance-emerald/20 flex items-center justify-center mx-auto mb-4 relative z-10">
               <span class="text-3xl">🛒</span>
             </div>
-            <div class="px-3 py-1 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs font-medium inline-block mb-4">Pasul 1</div>
-            <h3 class="text-xl font-semibold text-white mb-3">Checkout</h3>
-            <p class="text-white/50 text-sm">Clientul vede optiunea de asigurare in checkout. Un checkbox simplu cu explicatii clare despre ce acopera.</p>
+            <div class="px-3 py-1 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs font-medium inline-block mb-4"><?php echo esc_html( $t['step1'] ); ?></div>
+            <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['step1_title'] ); ?></h3>
+            <p class="text-white/50 text-sm"><?php echo esc_html( $t['step1_desc'] ); ?></p>
           </div>
         </div>
 
@@ -341,9 +463,9 @@ get_header();
             <div class="w-16 h-16 rounded-2xl bg-insurance-teal/20 flex items-center justify-center mx-auto mb-4 relative z-10">
               <span class="text-3xl">💳</span>
             </div>
-            <div class="px-3 py-1 rounded-full bg-insurance-teal/20 text-insurance-teal text-xs font-medium inline-block mb-4">Pasul 2</div>
-            <h3 class="text-xl font-semibold text-white mb-3">Plata</h3>
-            <p class="text-white/50 text-sm">Prima de asigurare se adauga la total. Plata se proceseaza normal, cu asigurarea inclusa.</p>
+            <div class="px-3 py-1 rounded-full bg-insurance-teal/20 text-insurance-teal text-xs font-medium inline-block mb-4"><?php echo esc_html( $t['step2'] ); ?></div>
+            <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['step2_title'] ); ?></h3>
+            <p class="text-white/50 text-sm"><?php echo esc_html( $t['step2_desc'] ); ?></p>
           </div>
         </div>
 
@@ -353,9 +475,9 @@ get_header();
             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-insurance-emerald to-insurance-teal flex items-center justify-center mx-auto mb-4 relative z-10 shadow-shield">
               <span class="text-3xl">📄</span>
             </div>
-            <div class="px-3 py-1 rounded-full bg-insurance-emerald text-white text-xs font-medium inline-block mb-4">Pasul 3</div>
-            <h3 class="text-xl font-semibold text-white mb-3">Polita Emisa</h3>
-            <p class="text-white/50 text-sm">Polita se emite automat si se ataseaza la bilet. Documentul e disponibil instant pentru client.</p>
+            <div class="px-3 py-1 rounded-full bg-insurance-emerald text-white text-xs font-medium inline-block mb-4"><?php echo esc_html( $t['step3'] ); ?></div>
+            <h3 class="text-xl font-semibold text-white mb-3"><?php echo esc_html( $t['step3_title'] ); ?></h3>
+            <p class="text-white/50 text-sm"><?php echo esc_html( $t['step3_desc'] ); ?></p>
           </div>
         </div>
       </div>
@@ -369,9 +491,9 @@ get_header();
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <!-- Content -->
       <div class="reveal">
-        <span class="text-insurance-teal text-sm font-medium uppercase tracking-widest">Modele de Pret</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Flexibilitate<br><span class="text-gradient-insurance">totala</span></h2>
-        <p class="text-lg text-white/60 mb-8">Alege modelul de pret care se potriveste evenimentelor tale. Suma fixa, procent, sau pe niveluri.</p>
+        <span class="text-insurance-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['pricing_models'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['flexibility'] ); ?><br><span class="text-gradient-insurance"><?php echo esc_html( $t['total_flex'] ); ?></span></h2>
+        <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['pricing_desc'] ); ?></p>
 
         <div class="space-y-4">
           <!-- Fixed Amount -->
@@ -380,8 +502,8 @@ get_header();
               <span class="text-brand-amber font-bold">€</span>
             </div>
             <div class="flex-1">
-              <div class="text-white font-medium">Suma Fixa</div>
-              <div class="text-white/50 text-sm">Ex: €2 per bilet, indiferent de pret</div>
+              <div class="text-white font-medium"><?php echo esc_html( $t['fixed_amount'] ); ?></div>
+              <div class="text-white/50 text-sm"><?php echo esc_html( $t['fixed_amount_desc'] ); ?></div>
             </div>
             <code class="px-2 py-1 rounded bg-dark-900 text-brand-amber text-xs">fixed: 2.00</code>
           </div>
@@ -393,10 +515,10 @@ get_header();
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-2">
-                <div class="text-white font-medium">Procentual</div>
-                <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs">Popular</span>
+                <div class="text-white font-medium"><?php echo esc_html( $t['percentage'] ); ?></div>
+                <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs"><?php echo esc_html( $t['popular'] ); ?></span>
               </div>
-              <div class="text-white/50 text-sm">Ex: 5% din valoarea biletului</div>
+              <div class="text-white/50 text-sm"><?php echo esc_html( $t['percentage_desc'] ); ?></div>
             </div>
             <code class="px-2 py-1 rounded bg-dark-900 text-insurance-emerald text-xs">rate: 5%</code>
           </div>
@@ -407,8 +529,8 @@ get_header();
               <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
             </div>
             <div class="flex-1">
-              <div class="text-white font-medium">Plafoane Min/Max</div>
-              <div class="text-white/50 text-sm">Ex: minim €1, maxim €50</div>
+              <div class="text-white font-medium"><?php echo esc_html( $t['min_max_caps'] ); ?></div>
+              <div class="text-white/50 text-sm"><?php echo esc_html( $t['min_max_desc'] ); ?></div>
             </div>
             <code class="px-2 py-1 rounded bg-dark-900 text-brand-violet text-xs">1-50€</code>
           </div>
@@ -432,15 +554,15 @@ get_header();
               <svg class="w-5 h-5 text-insurance-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
             </div>
             <div>
-              <div class="text-white font-semibold">Calculator Prima</div>
-              <div class="text-white/40 text-xs">Testeaza diferite scenarii</div>
+              <div class="text-white font-semibold"><?php echo esc_html( $t['premium_calculator'] ); ?></div>
+              <div class="text-white/40 text-xs"><?php echo esc_html( $t['test_scenarios'] ); ?></div>
             </div>
           </div>
 
           <!-- Ticket Price Slider -->
           <div class="mb-6">
             <div class="flex items-center justify-between mb-2">
-              <label class="text-white/60 text-sm">Pret bilet</label>
+              <label class="text-white/60 text-sm"><?php echo esc_html( $t['ticket_price'] ); ?></label>
               <span class="text-white font-semibold">€<span x-text="ticketPrice">100</span></span>
             </div>
             <input type="range" x-model="ticketPrice" min="10" max="500" step="10" class="w-full h-2 rounded-full bg-dark-900 appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-insurance-emerald [&::-webkit-slider-thumb]:cursor-pointer">
@@ -449,7 +571,7 @@ get_header();
           <!-- Rate Slider -->
           <div class="mb-6">
             <div class="flex items-center justify-between mb-2">
-              <label class="text-white/60 text-sm">Rata asigurare</label>
+              <label class="text-white/60 text-sm"><?php echo esc_html( $t['insurance_rate'] ); ?></label>
               <span class="text-insurance-emerald font-semibold"><span x-text="rate">5</span>%</span>
             </div>
             <input type="range" x-model="rate" min="1" max="15" step="0.5" class="w-full h-2 rounded-full bg-dark-900 appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-insurance-teal [&::-webkit-slider-thumb]:cursor-pointer">
@@ -457,9 +579,9 @@ get_header();
 
           <!-- Result -->
           <div class="p-4 rounded-xl bg-insurance-emerald/10 border border-insurance-emerald/20 text-center">
-            <div class="text-white/60 text-sm mb-1">Prima asigurare</div>
+            <div class="text-white/60 text-sm mb-1"><?php echo esc_html( $t['insurance_premium'] ); ?></div>
             <div class="text-4xl font-display font-bold text-insurance-emerald premium-display">€<span x-text="premium">5.00</span></div>
-            <div class="text-white/40 text-xs mt-1">per bilet</div>
+            <div class="text-white/40 text-xs mt-1"><?php echo esc_html( $t['per_ticket'] ); ?></div>
           </div>
 
           <!-- Caps info -->
@@ -479,9 +601,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Configurare</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Control<br><span class="text-gradient animate-shimmer">ierarhic</span></h2>
-      <p class="text-lg text-white/60">Setari implicite la nivel de tenant, personalizate per eveniment sau tip bilet.</p>
+      <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['configuration'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['control'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['hierarchical'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['config_desc'] ); ?></p>
     </div>
 
     <!-- Hierarchy Visualization -->
@@ -496,14 +618,14 @@ get_header();
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-semibold">Nivel Tenant</span>
-                  <span class="px-2 py-0.5 rounded-full bg-brand-violet/20 text-brand-violet text-xs">Default</span>
+                  <span class="text-white font-semibold"><?php echo esc_html( $t['tenant_level'] ); ?></span>
+                  <span class="px-2 py-0.5 rounded-full bg-brand-violet/20 text-brand-violet text-xs"><?php echo esc_html( $t['default'] ); ?></span>
                 </div>
-                <div class="text-white/50 text-sm">Setari implicite pentru toate evenimentele</div>
+                <div class="text-white/50 text-sm"><?php echo esc_html( $t['tenant_desc'] ); ?></div>
               </div>
               <div class="text-right">
                 <div class="text-brand-violet font-mono text-sm">5%</div>
-                <div class="text-white/40 text-xs">rata globala</div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['global_rate'] ); ?></div>
               </div>
             </div>
           </div>
@@ -518,10 +640,10 @@ get_header();
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-semibold">Nivel Eveniment</span>
-                  <span class="px-2 py-0.5 rounded-full bg-insurance-teal/20 text-insurance-teal text-xs">Override</span>
+                  <span class="text-white font-semibold"><?php echo esc_html( $t['event_level'] ); ?></span>
+                  <span class="px-2 py-0.5 rounded-full bg-insurance-teal/20 text-insurance-teal text-xs"><?php echo esc_html( $t['override'] ); ?></span>
                 </div>
-                <div class="text-white/50 text-sm">Suprascrie pentru evenimente specifice</div>
+                <div class="text-white/50 text-sm"><?php echo esc_html( $t['event_level_desc'] ); ?></div>
               </div>
               <div class="text-right">
                 <div class="text-insurance-teal font-mono text-sm">7%</div>
@@ -540,10 +662,10 @@ get_header();
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-semibold">Nivel Tip Bilet</span>
-                  <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs">Specific</span>
+                  <span class="text-white font-semibold"><?php echo esc_html( $t['ticket_level'] ); ?></span>
+                  <span class="px-2 py-0.5 rounded-full bg-insurance-emerald/20 text-insurance-emerald text-xs"><?php echo esc_html( $t['specific'] ); ?></span>
                 </div>
-                <div class="text-white/50 text-sm">Control fin per categorie de bilet</div>
+                <div class="text-white/50 text-sm"><?php echo esc_html( $t['ticket_level_desc'] ); ?></div>
               </div>
               <div class="text-right">
                 <div class="text-insurance-emerald font-mono text-sm">€3 fix</div>
@@ -558,7 +680,7 @@ get_header();
       <div class="mt-8 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-insurance-emerald/10 border border-insurance-emerald/20">
           <svg class="w-5 h-5 text-insurance-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-insurance-emerald text-sm">Se aplica cea mai specifica configurare</span>
+          <span class="text-insurance-emerald text-sm"><?php echo esc_html( $t['most_specific'] ); ?></span>
         </div>
       </div>
     </div>
@@ -570,9 +692,9 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest">Ciclul de Viata</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Status<br><span class="text-gradient animate-shimmer">polita</span></h2>
-      <p class="text-lg text-white/60">Urmarire completa de la cotatie la revendicare.</p>
+      <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['lifecycle'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['status'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['policy'] ); ?></span></h2>
+      <p class="text-lg text-white/60"><?php echo esc_html( $t['lifecycle_desc'] ); ?></p>
     </div>
 
     <!-- Status Flow -->
@@ -583,8 +705,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-brand-amber/20 flex items-center justify-center mx-auto mb-3 border-2 border-brand-amber/30">
             <svg class="w-8 h-8 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <div class="px-3 py-1 rounded-full status-pending text-xs font-medium inline-block mb-2">pending</div>
-          <p class="text-white/40 text-xs">Asteptare plata</p>
+          <div class="px-3 py-1 rounded-full status-pending text-xs font-medium inline-block mb-2"><?php echo esc_html( $t['pending'] ); ?></div>
+          <p class="text-white/40 text-xs"><?php echo esc_html( $t['pending_desc'] ); ?></p>
         </div>
 
         <!-- Arrow -->
@@ -597,8 +719,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-insurance-emerald/20 flex items-center justify-center mx-auto mb-3 border-2 border-insurance-emerald/30 shadow-shield">
             <svg class="w-8 h-8 text-insurance-emerald" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <div class="px-3 py-1 rounded-full status-issued text-xs font-medium inline-block mb-2">issued</div>
-          <p class="text-white/40 text-xs">Polita activa</p>
+          <div class="px-3 py-1 rounded-full status-issued text-xs font-medium inline-block mb-2"><?php echo esc_html( $t['issued'] ); ?></div>
+          <p class="text-white/40 text-xs"><?php echo esc_html( $t['issued_desc'] ); ?></p>
         </div>
 
         <!-- Arrow -->
@@ -614,8 +736,8 @@ get_header();
           <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-2">
             <svg class="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </div>
-          <div class="px-2 py-0.5 rounded-full status-voided text-xs font-medium inline-block mb-1">voided</div>
-          <p class="text-white/30 text-xs">Comanda anulata</p>
+          <div class="px-2 py-0.5 rounded-full status-voided text-xs font-medium inline-block mb-1"><?php echo esc_html( $t['voided'] ); ?></div>
+          <p class="text-white/30 text-xs"><?php echo esc_html( $t['voided_desc'] ); ?></p>
         </div>
 
         <!-- Refunded -->
@@ -623,8 +745,8 @@ get_header();
           <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mx-auto mb-2">
             <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
           </div>
-          <div class="px-2 py-0.5 rounded-full status-refunded text-xs font-medium inline-block mb-1">refunded</div>
-          <p class="text-white/30 text-xs">Returnare procesata</p>
+          <div class="px-2 py-0.5 rounded-full status-refunded text-xs font-medium inline-block mb-1"><?php echo esc_html( $t['refunded'] ); ?></div>
+          <p class="text-white/30 text-xs"><?php echo esc_html( $t['refunded_desc'] ); ?></p>
         </div>
 
         <!-- Claimed -->
@@ -632,8 +754,8 @@ get_header();
           <div class="w-12 h-12 rounded-xl bg-brand-amber/20 flex items-center justify-center mx-auto mb-2">
             <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
-          <div class="px-2 py-0.5 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-medium inline-block mb-1">claimed</div>
-          <p class="text-white/30 text-xs">Revendicare facuta</p>
+          <div class="px-2 py-0.5 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-medium inline-block mb-1"><?php echo esc_html( $t['claimed'] ); ?></div>
+          <p class="text-white/30 text-xs"><?php echo esc_html( $t['claimed_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -645,8 +767,8 @@ get_header();
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-      <span class="text-insurance-emerald text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Perfect pentru<br><span class="text-gradient-insurance">orice eveniment</span></h2>
+      <span class="text-insurance-emerald text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['use_cases'] ); ?></span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['perfect_for'] ); ?><br><span class="text-gradient-insurance"><?php echo esc_html( $t['any_event'] ); ?></span></h2>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -655,8 +777,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">🎵</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Concerte & Festivaluri</h3>
-        <p class="text-white/50 text-sm">Fanilor le ofera increderea sa cumpere bilete cu luni inainte, stiind ca sunt protejati.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['concerts_festivals'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['concerts_desc'] ); ?></p>
       </div>
 
       <!-- Corporate -->
@@ -664,8 +786,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">🏢</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Evenimente Corporate</h3>
-        <p class="text-white/50 text-sm">Clientii B2B apreciaza flexibilitatea pentru biletele angajatilor, mai ales la evenimente nerambursabile.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['corporate_events'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['corporate_desc'] ); ?></p>
       </div>
 
       <!-- VIP Packages -->
@@ -673,8 +795,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">👑</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Pachete VIP</h3>
-        <p class="text-white/50 text-sm">Biletele premium cu cost semnificativ beneficiaza cel mai mult. Clientii sunt mai dispusi sa investeasca cand sunt protejati.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['vip_packages'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['vip_desc'] ); ?></p>
       </div>
 
       <!-- International -->
@@ -682,8 +804,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">✈️</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Evenimente Internationale</h3>
-        <p class="text-white/50 text-sm">Calatorii au riscuri suplimentare: zboruri anulate, vize, restrictii. Asigurarea ofera liniste.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['international_events'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['international_desc'] ); ?></p>
       </div>
 
       <!-- Group Bookings -->
@@ -691,8 +813,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">👥</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Rezervari de Grup</h3>
-        <p class="text-white/50 text-sm">Cand organizezi participare de grup, asigurarea protejeaza intregul grup, nu doar indivizi.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['group_bookings'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['group_desc'] ); ?></p>
       </div>
 
       <!-- Season Passes -->
@@ -700,8 +822,8 @@ get_header();
         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-4">
           <span class="text-2xl">🎟️</span>
         </div>
-        <h3 class="text-xl font-semibold text-white mb-2">Abonamente de Sezon</h3>
-        <p class="text-white/50 text-sm">Angajamentele pe termen lung beneficiaza de acoperire care se intinde pe mai multe evenimente.</p>
+        <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['season_passes'] ); ?></h3>
+        <p class="text-white/50 text-sm"><?php echo esc_html( $t['season_desc'] ); ?></p>
       </div>
     </div>
   </div>
@@ -723,14 +845,14 @@ get_header();
         </div>
         <!-- Quote -->
         <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-          "Am fost sceptic la inceput, dar <span class="text-gradient-insurance font-semibold">23% dintre clienti</span> au ales asigurarea la biletele VIP. E un venit extra fara niciun efort din partea noastra. Clientii sunt mai relaxati, noi castigam mai mult."
+          "<?php echo $t['testimonial_text']; ?>"
         </blockquote>
         <!-- Author -->
         <div class="flex items-center gap-4">
           <div class="w-14 h-14 rounded-full bg-gradient-to-br from-insurance-emerald to-insurance-teal"></div>
           <div>
-            <div class="font-semibold text-white">Marius T.</div>
-            <div class="text-white/50">Organizator, Jazz in the Park</div>
+            <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+            <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
           </div>
         </div>
       </div>
@@ -752,21 +874,21 @@ get_header();
   </div>
 
   <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Protejeaza<br><span class="text-gradient-insurance">clientii</span></h2>
-    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Zero cost pentru tine. Venituri din comisioane. Clienti mai fericiti.</p>
+    <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['protect'] ); ?><br><span class="text-gradient-insurance"><?php echo esc_html( $t['customers'] ); ?></span></h2>
+    <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
       <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-insurance-emerald to-insurance-teal text-white hover:scale-105 hover:shadow-glow-emerald transition-all duration-300">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        Activeaza Asigurarea
+        <?php echo esc_html( $t['cta_activate'] ); ?>
         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
       <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-        Intrebari? Contacteaza-ne
+        <?php echo esc_html( $t['questions_contact'] ); ?>
       </a>
     </div>
 
-    <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Gratuit de activat. Comision din prime. Suport multi-furnizor.</p>
+    <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['footer_note'] ); ?></p>
   </div>
 </section>
 

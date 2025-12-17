@@ -5,6 +5,68 @@
 
 get_header();
 
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Array cu traduceri
+$t = [
+    // 404 / Error messages
+    'venue_not_found' => $current_lang === 'ro' ? 'Locatie negasita' : 'Venue not found',
+    'no_slug_provided' => $current_lang === 'ro' ? 'Nu a fost furnizat un slug pentru locatie.' : 'No venue slug was provided.',
+    'could_not_find_venue' => $current_lang === 'ro' ? 'Nu am putut gasi aceasta locatie in Tixello Core.' : 'Could not find this venue in Tixello Core.',
+    'back_to_venues' => $current_lang === 'ro' ? 'Inapoi la locatii' : 'Back to venues',
+    'page_error' => $current_lang === 'ro' ? 'Eroare pagina locatie' : 'Venue page error',
+    'helper_missing' => $current_lang === 'ro' ? 'Functia helper pentru locatii lipseste.' : 'Venue helper function is missing.',
+
+    // Breadcrumb
+    'home' => $current_lang === 'ro' ? 'Acasa' : 'Home',
+    'venues' => $current_lang === 'ro' ? 'Locatii' : 'Venues',
+    'venue' => $current_lang === 'ro' ? 'Locatie' : 'Venue',
+
+    // Hero & Map
+    'open_google_maps' => $current_lang === 'ro' ? 'Deschide in Google Maps' : 'Open in Google Maps',
+
+    // Stats
+    'capacity' => $current_lang === 'ro' ? 'Capacitate' : 'Capacity',
+    'events' => $current_lang === 'ro' ? 'Evenimente' : 'Events',
+    'established_year' => $current_lang === 'ro' ? 'Anul infiintarii' : 'Established',
+    'seated' => $current_lang === 'ro' ? 'Locuri sezut' : 'Seated',
+    'standing' => $current_lang === 'ro' ? 'Locuri in picioare' : 'Standing',
+    'seats' => $current_lang === 'ro' ? 'locuri' : 'seats',
+
+    // Content sections
+    'about_venue' => $current_lang === 'ro' ? 'Despre locatie' : 'About venue',
+    'location' => $current_lang === 'ro' ? 'Localizare' : 'Location',
+
+    // Sidebar - Action
+    'organizing_event' => $current_lang === 'ro' ? 'Organizezi un eveniment?' : 'Organizing an event?',
+    'contact_venue_desc' => $current_lang === 'ro'
+        ? 'Contacteaza locatia pentru disponibilitate si preturi.'
+        : 'Contact the venue for availability and pricing.',
+    'request_quote' => $current_lang === 'ro' ? 'Solicita oferta' : 'Request quote',
+    'call_now' => $current_lang === 'ro' ? 'Suna acum' : 'Call now',
+
+    // Sidebar - Contact
+    'contact' => 'Contact',
+    'phone' => $current_lang === 'ro' ? 'Telefon' : 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'social_media' => 'Social Media',
+
+    // Share
+    'share_venue' => $current_lang === 'ro' ? 'Distribuie locatia' : 'Share venue',
+
+    // Events section
+    'events_at_venue' => $current_lang === 'ro' ? 'Evenimente la aceasta locatie' : 'Events at this venue',
+    'events_scheduled' => $current_lang === 'ro' ? 'evenimente programate' : 'events scheduled',
+    'view_all' => $current_lang === 'ro' ? 'Vezi toate' : 'View all',
+    'from' => $current_lang === 'ro' ? 'de la' : 'from',
+    'view_all_events' => $current_lang === 'ro' ? 'Vezi toate evenimentele' : 'View all events',
+
+    // Similar venues
+    'similar_venues' => $current_lang === 'ro' ? 'Locatii similare' : 'Similar Venues',
+];
+
 $slug = get_query_var( 'tixello_venue_slug' );
 
 if ( ! $slug ) {
@@ -12,10 +74,10 @@ if ( ! $slug ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Locatie negasita</h1>
-            <p class="mt-2 text-white/60">Nu a fost furnizat un slug pentru locatie.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['venue_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['no_slug_provided'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/venues/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la locatii
+                <?php echo esc_html( $t['back_to_venues'] ); ?>
             </a>
         </div>
     </main>
@@ -29,8 +91,8 @@ if ( ! function_exists( 'tixello_get_venue_by_slug' ) ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Eroare pagina locatie</h1>
-            <p class="mt-2 text-white/60">Functia helper pentru locatii lipseste.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['page_error'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['helper_missing'] ); ?></p>
         </div>
     </main>
     <?php
@@ -45,10 +107,10 @@ if ( ! $venue ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Locatie negasita</h1>
-            <p class="mt-2 text-white/60">Nu am putut gasi aceasta locatie in Tixello Core.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['venue_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['could_not_find_venue'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/venues/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la locatii
+                <?php echo esc_html( $t['back_to_venues'] ); ?>
             </a>
         </div>
     </main>
@@ -60,12 +122,14 @@ if ( ! $venue ) {
 // Normalizare venue
 $name = isset( $venue['name'] ) ? $venue['name'] : 'Unknown venue';
 
-// Description
+// Description (use current language)
 $desc_html = '';
-if ( ! empty( $venue['description_translations']['ro'] ) ) {
+if ( $current_lang === 'ro' && ! empty( $venue['description_translations']['ro'] ) ) {
     $desc_html = $venue['description_translations']['ro'];
 } elseif ( ! empty( $venue['description_translations']['en'] ) ) {
     $desc_html = $venue['description_translations']['en'];
+} elseif ( ! empty( $venue['description_translations']['ro'] ) ) {
+    $desc_html = $venue['description_translations']['ro'];
 } elseif ( ! empty( $venue['description'] ) ) {
     $desc_html = $venue['description'];
 }
@@ -100,7 +164,7 @@ $facebook  = isset( $venue['social']['facebook_url'] ) ? $venue['social']['faceb
 $instagram = isset( $venue['social']['instagram_url'] ) ? $venue['social']['instagram_url'] : '';
 $tiktok    = isset( $venue['social']['tiktok_url'] ) ? $venue['social']['tiktok_url'] : '';
 
-$venue_type = isset( $venue['type'] ) ? $venue['type'] : 'Locatie';
+$venue_type = isset( $venue['type'] ) ? $venue['type'] : $t['venue'];
 
 $STORAGE_BASE = 'https://core.tixello.com/storage/';
 $full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
@@ -270,11 +334,11 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
         <div class="absolute top-8 left-0 right-0 z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex items-center gap-2 text-sm">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/60 hover:text-white transition-colors">Acasa</a>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/60 hover:text-white transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
                     <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
-                    <a href="<?php echo esc_url( home_url( '/venues/' ) ); ?>" class="text-white/60 hover:text-white transition-colors">Locatii</a>
+                    <a href="<?php echo esc_url( home_url( '/venues/' ) ); ?>" class="text-white/60 hover:text-white transition-colors"><?php echo esc_html( $t['venues'] ); ?></a>
                     <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -319,7 +383,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        Deschide in Google Maps
+                        <?php echo esc_html( $t['open_google_maps'] ); ?>
                     </a>
                     <?php endif; ?>
                 </div>
@@ -363,7 +427,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
-                                <span><?php echo esc_html( number_format_i18n( $cap_total ) ); ?> locuri</span>
+                                <span><?php echo esc_html( number_format_i18n( $cap_total ) ); ?> <?php echo esc_html( $t['seats'] ); ?></span>
                             </div>
                             <?php endif; ?>
                         </div>
@@ -373,27 +437,27 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                             <div class="text-2xl font-bold text-white"><?php echo $cap_total ? esc_html( number_format_i18n( $cap_total ) ) : '-'; ?></div>
-                            <div class="text-sm text-white/50">Capacitate</div>
+                            <div class="text-sm text-white/50"><?php echo esc_html( $t['capacity'] ); ?></div>
                         </div>
                         <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                             <div class="text-2xl font-bold text-white"><?php echo $events_count > 0 ? $events_count : '-'; ?></div>
-                            <div class="text-sm text-white/50">Evenimente</div>
+                            <div class="text-sm text-white/50"><?php echo esc_html( $t['events'] ); ?></div>
                         </div>
                         <?php if ( $established_year ) : ?>
                         <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                             <div class="text-2xl font-bold text-white"><?php echo esc_html( $established_year ); ?></div>
-                            <div class="text-sm text-white/50">Anul infiintarii</div>
+                            <div class="text-sm text-white/50"><?php echo esc_html( $t['established_year'] ); ?></div>
                         </div>
                         <?php endif; ?>
                         <?php if ( $cap_seated ) : ?>
                         <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                             <div class="text-2xl font-bold text-white"><?php echo esc_html( number_format_i18n( $cap_seated ) ); ?></div>
-                            <div class="text-sm text-white/50">Locuri sezut</div>
+                            <div class="text-sm text-white/50"><?php echo esc_html( $t['seated'] ); ?></div>
                         </div>
                         <?php elseif ( $cap_standing ) : ?>
                         <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                             <div class="text-2xl font-bold text-white"><?php echo esc_html( number_format_i18n( $cap_standing ) ); ?></div>
-                            <div class="text-sm text-white/50">Locuri in picioare</div>
+                            <div class="text-sm text-white/50"><?php echo esc_html( $t['standing'] ); ?></div>
                         </div>
                         <?php endif; ?>
                     </div>
@@ -401,7 +465,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                     <!-- Description -->
                     <?php if ( $desc_html ) : ?>
                     <div class="prose prose-invert max-w-none">
-                        <h2 class="text-xl font-bold text-white mb-4">Despre locatie</h2>
+                        <h2 class="text-xl font-bold text-white mb-4"><?php echo esc_html( $t['about_venue'] ); ?></h2>
                         <div class="text-white/70 leading-relaxed space-y-4">
                             <?php echo wp_kses_post( $desc_html ); ?>
                         </div>
@@ -411,7 +475,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                     <!-- Google Maps -->
                     <?php if ( $lat && $lng ) : ?>
                     <div>
-                        <h2 class="text-xl font-bold text-white mb-4">Localizare</h2>
+                        <h2 class="text-xl font-bold text-white mb-4"><?php echo esc_html( $t['location'] ); ?></h2>
                         <div class="rounded-2xl overflow-hidden border border-white/10">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2000!2d<?php echo esc_attr( $lng ); ?>!3d<?php echo esc_attr( $lat ); ?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sro"
@@ -444,7 +508,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
-                                    Deschide in Google Maps
+                                    <?php echo esc_html( $t['open_google_maps'] ); ?>
                                 </a>
                             </div>
                             <?php endif; ?>
@@ -461,9 +525,9 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
 
                         <!-- Action Card -->
                         <div class="p-6 rounded-2xl bg-zinc-900/80 border border-white/10">
-                            <h3 class="text-lg font-bold text-white mb-4">Organizezi un eveniment?</h3>
+                            <h3 class="text-lg font-bold text-white mb-4"><?php echo esc_html( $t['organizing_event'] ); ?></h3>
                             <p class="text-sm text-white/60 mb-6">
-                                Contacteaza locatia pentru disponibilitate si preturi.
+                                <?php echo esc_html( $t['contact_venue_desc'] ); ?>
                             </p>
                             <div class="space-y-3">
                                 <?php if ( $email ) : ?>
@@ -471,7 +535,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                     </svg>
-                                    Solicita oferta
+                                    <?php echo esc_html( $t['request_quote'] ); ?>
                                 </a>
                                 <?php endif; ?>
                                 <?php if ( $phone ) : ?>
@@ -479,7 +543,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                                     </svg>
-                                    Suna acum
+                                    <?php echo esc_html( $t['call_now'] ); ?>
                                 </a>
                                 <?php endif; ?>
                             </div>
@@ -487,7 +551,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
 
                         <!-- Contact Info -->
                         <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
-                            <h3 class="text-lg font-bold text-white mb-4">Contact</h3>
+                            <h3 class="text-lg font-bold text-white mb-4"><?php echo esc_html( $t['contact'] ); ?></h3>
                             <div class="space-y-4">
                                 <?php if ( $phone ) : ?>
                                 <div class="flex items-center gap-3">
@@ -497,7 +561,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-white/40">Telefon</p>
+                                        <p class="text-xs text-white/40"><?php echo esc_html( $t['phone'] ); ?></p>
                                         <a href="tel:<?php echo esc_attr( $phone ); ?>" class="text-sm text-white hover:text-violet-400 transition-colors"><?php echo esc_html( $phone ); ?></a>
                                     </div>
                                 </div>
@@ -510,7 +574,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-white/40">Email</p>
+                                        <p class="text-xs text-white/40"><?php echo esc_html( $t['email'] ); ?></p>
                                         <a href="mailto:<?php echo esc_attr( $email ); ?>" class="text-sm text-white hover:text-violet-400 transition-colors"><?php echo esc_html( $email ); ?></a>
                                     </div>
                                 </div>
@@ -523,7 +587,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-white/40">Website</p>
+                                        <p class="text-xs text-white/40"><?php echo esc_html( $t['website'] ); ?></p>
                                         <a href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer" class="text-sm text-white hover:text-violet-400 transition-colors"><?php echo esc_html( parse_url( $website, PHP_URL_HOST ) ); ?></a>
                                     </div>
                                 </div>
@@ -533,7 +597,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                             <!-- Social Links -->
                             <?php if ( $facebook || $instagram || $tiktok ) : ?>
                             <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="text-xs text-white/40 mb-3">Social Media</p>
+                                <p class="text-xs text-white/40 mb-3"><?php echo esc_html( $t['social_media'] ); ?></p>
                                 <div class="flex items-center gap-2">
                                     <?php if ( $facebook ) : ?>
                                     <a href="<?php echo esc_url( $facebook ); ?>" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-violet-600/20 transition-all">
@@ -558,7 +622,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                         <!-- Share -->
                         <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-white/60">Distribuie locatia</span>
+                                <span class="text-sm text-white/60"><?php echo esc_html( $t['share_venue'] ); ?></span>
                                 <div class="flex items-center gap-2">
                                     <button onclick="navigator.share && navigator.share({title: '<?php echo esc_js( $name ); ?>', url: window.location.href})" class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -582,11 +646,11 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h2 class="text-2xl lg:text-3xl font-bold text-white">Evenimente la aceasta locatie</h2>
-                    <p class="text-white/60 mt-1"><?php echo $events_count; ?> evenimente programate</p>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php echo esc_html( $t['events_at_venue'] ); ?></h2>
+                    <p class="text-white/60 mt-1"><?php echo $events_count; ?> <?php echo esc_html( $t['events_scheduled'] ); ?></p>
                 </div>
                 <a href="<?php echo esc_url( home_url( '/search/?venue=' . urlencode( $name ) ) ); ?>" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-all">
-                    Vezi toate
+                    <?php echo esc_html( $t['view_all'] ); ?>
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -668,7 +732,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                             <?php endif; ?>
                             <?php if ( ! is_null( $price_from ) ) : ?>
                             <div class="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
-                                <span class="text-sm text-white/40">de la</span>
+                                <span class="text-sm text-white/40"><?php echo esc_html( $t['from'] ); ?></span>
                                 <span class="text-lg font-bold text-white"><?php echo esc_html( $price_from ); ?> RON</span>
                             </div>
                             <?php endif; ?>
@@ -680,7 +744,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
             <!-- Mobile see all link -->
             <div class="mt-6 sm:hidden text-center">
                 <a href="<?php echo esc_url( home_url( '/search/?venue=' . urlencode( $name ) ) ); ?>" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium">
-                    Vezi toate evenimentele
+                    <?php echo esc_html( $t['view_all_events'] ); ?>
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -694,7 +758,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
     <?php if ( ! empty( $similar_venues ) ) : ?>
     <section class="py-12 lg:py-16 border-t border-white/5 bg-zinc-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8">Locatii similare</h2>
+            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8"><?php echo esc_html( $t['similar_venues'] ); ?></h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <?php foreach ( $similar_venues as $sv ) :
@@ -720,7 +784,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
                         <div class="p-4">
                             <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors"><?php echo esc_html( $sv_name ); ?></h3>
                             <?php if ( $sv_cap ) : ?>
-                                <p class="text-sm text-white/50"><?php echo esc_html( number_format_i18n( $sv_cap ) ); ?> locuri</p>
+                                <p class="text-sm text-white/50"><?php echo esc_html( number_format_i18n( $sv_cap ) ); ?> <?php echo esc_html( $t['seats'] ); ?></p>
                             <?php endif; ?>
                         </div>
                     </a>

@@ -6,6 +6,63 @@
 
 get_header();
 
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Array cu traduceri
+$t = [
+    // Breadcrumb
+    'home' => $current_lang === 'ro' ? 'Acasa' : 'Home',
+    'artists' => $current_lang === 'ro' ? 'Artisti' : 'Artists',
+
+    // Hero
+    'badge' => 'Tixello Artists Network',
+    'hero_title' => $current_lang === 'ro' ? 'Descopera Artisti' : 'Discover Artists',
+    'hero_subtitle' => $current_lang === 'ro'
+        ? 'Exploreaza %s artisti din Romania si din intreaga lume. Cauta dupa nume, gen sau locatie.'
+        : 'Explore %s artists from Romania and around the world. Search by name, genre or location.',
+
+    // Stats
+    'total_artists' => $current_lang === 'ro' ? 'Total Artisti' : 'Total Artists',
+    'genres' => $current_lang === 'ro' ? 'Genuri' : 'Genres',
+    'countries' => $current_lang === 'ro' ? 'Tari' : 'Countries',
+    'featured' => 'Featured',
+
+    // Search & Filters
+    'search_placeholder' => $current_lang === 'ro' ? 'Cauta artisti dupa nume...' : 'Search artists by name...',
+    'all_genres' => $current_lang === 'ro' ? 'Toate genurile' : 'All Genres',
+    'all' => 'All',
+
+    // Featured Section
+    'featured_artists' => $current_lang === 'ro' ? 'Artisti Featured' : 'Featured Artists',
+    'trending_month' => $current_lang === 'ro' ? 'Trending luna aceasta' : 'Trending this month',
+    'view_all' => $current_lang === 'ro' ? 'Vezi toti' : 'View all',
+
+    // All Artists Section
+    'all_artists' => $current_lang === 'ro' ? 'Toti artistii' : 'All Artists',
+    'showing_of' => $current_lang === 'ro' ? 'Se afiseaza' : 'Showing',
+    'of' => $current_lang === 'ro' ? 'din' : 'of',
+    'artists_label' => $current_lang === 'ro' ? 'artisti' : 'artists',
+
+    // Empty State
+    'no_artist_found' => $current_lang === 'ro' ? 'Niciun artist gasit' : 'No artist found',
+    'try_modify_filters' => $current_lang === 'ro'
+        ? 'Incearca sa modifici filtrele sau termenul de cautare'
+        : 'Try modifying the filters or search term',
+    'reset_filters' => $current_lang === 'ro' ? 'Reseteaza filtrele' : 'Reset filters',
+
+    // Load More
+    'load_more' => $current_lang === 'ro' ? 'Incarca mai multi artisti' : 'Load more artists',
+
+    // CTA Section
+    'are_you_artist' => $current_lang === 'ro' ? 'Esti artist?' : 'Are you an artist?',
+    'cta_subtitle' => $current_lang === 'ro'
+        ? 'Alatura-te retelei de artisti Tixello si conecteaza-te cu organizatori de evenimente din toata Europa. Fii descoperit de milioane de fani.'
+        : 'Join the Tixello artist network and connect with event organizers across Europe. Be discovered by millions of fans.',
+    'register_as_artist' => $current_lang === 'ro' ? 'Inregistreaza-te ca artist' : 'Register as an artist',
+    'learn_more' => $current_lang === 'ro' ? 'Afla mai multe' : 'Learn more',
+];
+
 // Fetch artists
 $artists = [];
 if ( function_exists( 'tixello_fetch_artists_core' ) ) {
@@ -57,10 +114,12 @@ foreach ( $artists as $a ) {
     }
 
     $bio = '';
-    if ( ! empty( $a['bio_translations']['ro'] ) ) {
+    if ( $current_lang === 'ro' && ! empty( $a['bio_translations']['ro'] ) ) {
         $bio = wp_strip_all_tags( $a['bio_translations']['ro'] );
     } elseif ( ! empty( $a['bio_translations']['en'] ) ) {
         $bio = wp_strip_all_tags( $a['bio_translations']['en'] );
+    } elseif ( ! empty( $a['bio_translations']['ro'] ) ) {
+        $bio = wp_strip_all_tags( $a['bio_translations']['ro'] );
     } elseif ( ! empty( $a['bio'] ) ) {
         $bio = wp_strip_all_tags( $a['bio'] );
     }
@@ -118,26 +177,26 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-sm mb-8">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors">Acasa</a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
                 <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span class="text-white/70">Artisti</span>
+                <span class="text-white/70"><?php echo esc_html( $t['artists'] ); ?></span>
             </nav>
 
             <!-- Title -->
             <div class="max-w-3xl mb-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
                     <span class="text-lg">🎤</span>
-                    <span class="text-sm font-medium text-pink-400">Tixello Artists Network</span>
+                    <span class="text-sm font-medium text-pink-400"><?php echo esc_html( $t['badge'] ); ?></span>
                 </div>
 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    Descopera Artisti
+                    <?php echo esc_html( $t['hero_title'] ); ?>
                 </h1>
 
                 <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    Exploreaza <span class="text-white font-semibold"><?php echo number_format_i18n( $total_artists ); ?></span> artisti din Romania si din intreaga lume. Cauta dupa nume, gen sau locatie.
+                    <?php echo sprintf( esc_html( $t['hero_subtitle'] ), '<span class="text-white font-semibold">' . number_format_i18n( $total_artists ) . '</span>' ); ?>
                 </p>
             </div>
 
@@ -145,19 +204,19 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                     <div class="text-2xl font-bold text-white"><?php echo number_format_i18n( $total_artists ); ?></div>
-                    <div class="text-xs text-white/50">Total Artisti</div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['total_artists'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                     <div class="text-2xl font-bold text-white"><?php echo count( $all_genres ); ?></div>
-                    <div class="text-xs text-white/50">Genuri</div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['genres'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                     <div class="text-2xl font-bold text-white"><?php echo count( array_unique( array_filter( array_column( $js_artists, 'country' ) ) ) ); ?></div>
-                    <div class="text-xs text-white/50">Tari</div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['countries'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                     <div class="text-2xl font-bold text-pink-400"><?php echo count( array_filter( $js_artists, function( $a ) { return $a['featured']; } ) ); ?></div>
-                    <div class="text-xs text-white/50">Featured</div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['featured'] ); ?></div>
                 </div>
             </div>
         </div>
@@ -178,7 +237,7 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                         </svg>
                         <input type="text"
                                x-model="search"
-                               placeholder="Cauta artisti dupa nume..."
+                               placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
                     </div>
 
@@ -188,14 +247,14 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                             </svg>
-                            <span class="text-sm font-medium" x-text="activeGenre === 'all' ? 'Toate genurile' : activeGenre"></span>
+                            <span class="text-sm font-medium" x-text="activeGenre === 'all' ? '<?php echo esc_js( $t['all_genres'] ); ?>' : activeGenre"></span>
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50">
                             <button @click="activeGenre = 'all'; open = false" class="w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
-                                Toate genurile
+                                <?php echo esc_html( $t['all_genres'] ); ?>
                             </button>
                             <template x-for="genre in genres" :key="genre">
                                 <button @click="activeGenre = genre; open = false" class="w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === genre ? 'text-violet-400' : 'text-white/70'" x-text="genre"></button>
@@ -242,7 +301,7 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
                     <button @click="activeGenre = 'all'" :class="activeGenre === 'all' ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors">
-                        Toate genurile
+                        <?php echo esc_html( $t['all_genres'] ); ?>
                     </button>
                     <template x-for="genre in genres.slice(0, 12)" :key="genre">
                         <button @click="activeGenre = genre" :class="activeGenre === genre ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors" x-text="genre"></button>
@@ -257,11 +316,11 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-white">Artisti Featured</h2>
-                        <p class="text-white/50 mt-1">Trending luna aceasta</p>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php echo esc_html( $t['featured_artists'] ); ?></h2>
+                        <p class="text-white/50 mt-1"><?php echo esc_html( $t['trending_month'] ); ?></p>
                     </div>
                     <a href="#all-artists" class="hidden sm:inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 transition-colors">
-                        Vezi toti
+                        <?php echo esc_html( $t['view_all'] ); ?>
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
@@ -323,9 +382,9 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                 <!-- Results Header -->
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h2 class="text-2xl font-bold text-white">Toti artistii</h2>
+                        <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['all_artists'] ); ?></h2>
                         <p class="text-white/50 mt-1">
-                            Se afiseaza <span class="text-white" x-text="displayedArtists.length"></span> din <span class="text-white" x-text="filteredArtists.length"></span> artisti
+                            <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                         </p>
                     </div>
                 </div>
@@ -414,10 +473,10 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Niciun artist gasit</h3>
-                    <p class="text-white/50 mb-6">Incearca sa modifici filtrele sau termenul de cautare</p>
+                    <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_artist_found'] ); ?></h3>
+                    <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
                     <button @click="search = ''; activeLetter = 'all'; activeGenre = 'all'" class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                        Reseteaza filtrele
+                        <?php echo esc_html( $t['reset_filters'] ); ?>
                     </button>
                 </div>
 
@@ -427,10 +486,10 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
-                        Incarca mai multi artisti
+                        <?php echo esc_html( $t['load_more'] ); ?>
                     </button>
                     <p class="text-sm text-white/40 mt-3">
-                        Se afiseaza <span x-text="displayedArtists.length"></span> din <span x-text="filteredArtists.length"></span> artisti
+                        <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                     </p>
                 </div>
 
@@ -450,17 +509,17 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
 
                 <div class="relative text-center max-w-2xl mx-auto">
                     <h2 class="text-2xl lg:text-4xl font-bold text-white mb-4">
-                        Esti artist?
+                        <?php echo esc_html( $t['are_you_artist'] ); ?>
                     </h2>
                     <p class="text-white/60 text-lg mb-8">
-                        Alatura-te retelei de artisti Tixello si conecteaza-te cu organizatori de evenimente din toata Europa. Fii descoperit de milioane de fani.
+                        <?php echo esc_html( $t['cta_subtitle'] ); ?>
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300">
-                            Inregistreaza-te ca artist
+                            <?php echo esc_html( $t['register_as_artist'] ); ?>
                         </a>
                         <a href="<?php echo esc_url( home_url( '/pentru-artisti/' ) ); ?>" class="px-8 py-4 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300">
-                            Afla mai multe
+                            <?php echo esc_html( $t['learn_more'] ); ?>
                         </a>
                     </div>
                 </div>

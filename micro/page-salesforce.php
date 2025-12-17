@@ -5,6 +5,98 @@
  */
 
 get_header();
+
+// Multilingual support
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'               => $current_lang === 'ro' ? 'Sincronizare CRM Bidirecțională' : 'Bidirectional CRM Sync',
+	'hero_title'          => $current_lang === 'ro' ? 'în sync' : 'in sync',
+	'hero_desc'           => $current_lang === 'ro' ? 'Clienți, comenzi și evenimente <strong class="text-white">sincronizate automat</strong> cu Salesforce CRM. Echipa de vânzări vede totul - istoric achiziții, participări, valoare client.' : 'Customers, orders, and events <strong class="text-white">automatically synced</strong> with Salesforce CRM. The sales team sees everything - purchase history, attendance, customer value.',
+	'cta_connect'         => $current_lang === 'ro' ? 'Conectează Salesforce' : 'Connect Salesforce',
+	'cta_see_objects'     => $current_lang === 'ro' ? 'Vezi obiectele suportate' : 'See supported objects',
+	'both_directions'     => $current_lang === 'ro' ? 'Ambele direcții' : 'Both directions',
+	'at_each_event'       => $current_lang === 'ro' ? 'La fiecare eveniment' : 'At each event',
+	'advanced_queries'    => $current_lang === 'ro' ? 'Interogări avansate' : 'Advanced queries',
+	'active_sync'         => $current_lang === 'ro' ? 'Sincronizare Activă' : 'Active Sync',
+	'bidirectional_rt'    => $current_lang === 'ro' ? 'Bidirecțională • Real-time' : 'Bidirectional • Real-time',
+	'syncing'             => $current_lang === 'ro' ? 'Sincronizare...' : 'Syncing...',
+	'synced'              => $current_lang === 'ro' ? 'Sincronizat' : 'Synced',
+	'syncs'               => $current_lang === 'ro' ? 'sincronizări' : 'syncs',
+	'last_hour'           => $current_lang === 'ro' ? 'ultima oră' : 'last hour',
+	'secure'              => $current_lang === 'ro' ? 'Securizat' : 'Secure',
+
+	// Objects section
+	'objects_badge'       => $current_lang === 'ro' ? 'Obiecte Suportate' : 'Supported Objects',
+	'objects_title'       => $current_lang === 'ro' ? 'Toate obiectele' : 'All the objects',
+	'objects_title2'      => $current_lang === 'ro' ? 'de care ai nevoie' : 'you need',
+	'objects_desc'        => $current_lang === 'ro' ? 'Standard și personalizate. Sincronizare completă cu CRM-ul tău.' : 'Standard and custom. Complete synchronization with your CRM.',
+	'contact_desc'        => $current_lang === 'ro' ? 'Clienți individuali cu detalii personale, istoricul achizițiilor și preferințe.' : 'Individual customers with personal details, purchase history, and preferences.',
+	'lead_desc'           => $current_lang === 'ro' ? 'Potențiali clienți înainte de conversie. Urmărire pipeline de la interes la achiziție.' : 'Potential customers before conversion. Pipeline tracking from interest to purchase.',
+	'opportunity_desc'    => $current_lang === 'ro' ? 'Deal-uri de vânzări pentru pachete mari, sponsorizări și vânzări corporative.' : 'Sales deals for large packages, sponsorships, and corporate sales.',
+	'account_desc'        => $current_lang === 'ro' ? 'Companii pentru vânzări B2B. Leagă multiple contacte la același cont.' : 'Companies for B2B sales. Link multiple contacts to the same account.',
+	'custom_objects'      => $current_lang === 'ro' ? '+ Obiecte personalizate suportate prin maparea câmpurilor' : '+ Custom objects supported through field mapping',
+
+	// Sync directions
+	'sync_badge'          => $current_lang === 'ro' ? 'Direcții Sincronizare' : 'Sync Directions',
+	'sync_title'          => $current_lang === 'ro' ? 'Tu controlezi' : 'You control',
+	'sync_title2'         => $current_lang === 'ro' ? 'fluxul de date' : 'the data flow',
+	'sync_desc'           => $current_lang === 'ro' ? 'Alege cum se sincronizează datele: push, pull sau bidirecțional. Fiecare obiect poate avea propria configurare.' : 'Choose how data syncs: push, pull, or bidirectional. Each object can have its own configuration.',
+	'push_desc'           => $current_lang === 'ro' ? 'Trimite date când se creează comenzi sau clienți noi' : 'Send data when orders or new customers are created',
+	'pull_desc'           => $current_lang === 'ro' ? 'Importă actualizările făcute direct în Salesforce' : 'Import updates made directly in Salesforce',
+	'bidirectional'       => $current_lang === 'ro' ? 'Bidirecțional' : 'Bidirectional',
+	'recommended'         => $current_lang === 'ro' ? 'Recomandat' : 'Recommended',
+	'bidirectional_desc'  => $current_lang === 'ro' ? 'Sincronizare automată în ambele direcții - o singură sursă de adevăr' : 'Automatic sync in both directions - a single source of truth',
+	'sync_config'         => $current_lang === 'ro' ? 'Configurare Sync' : 'Sync Configuration',
+	'per_object'          => $current_lang === 'ro' ? 'Per obiect' : 'Per object',
+
+	// Field mapping
+	'field_badge'         => $current_lang === 'ro' ? 'Mapare Câmpuri' : 'Field Mapping',
+	'field_title'         => $current_lang === 'ro' ? 'Date acolo unde' : 'Data where',
+	'field_title2'        => $current_lang === 'ro' ? 'ai nevoie' : 'you need it',
+	'field_desc'          => $current_lang === 'ro' ? 'Mapează câmpurile Tixello la orice câmp Salesforce - standard sau personalizat.' : 'Map Tixello fields to any Salesforce field - standard or custom.',
+	'tixello_field'       => $current_lang === 'ro' ? 'Câmp Tixello' : 'Tixello Field',
+	'salesforce_field'    => $current_lang === 'ro' ? 'Câmp Salesforce' : 'Salesforce Field',
+	'add_mapping'         => $current_lang === 'ro' ? '+ Adaugă mapare câmp' : '+ Add field mapping',
+
+	// SOQL section
+	'soql_badge'          => $current_lang === 'ro' ? 'Interogări SOQL' : 'SOQL Queries',
+	'soql_title'          => $current_lang === 'ro' ? 'Puterea' : 'The power of',
+	'soql_title2'         => $current_lang === 'ro' ? 'interogărilor' : 'queries',
+	'soql_desc'           => $current_lang === 'ro' ? 'Interoghează direct datele Salesforce cu SOQL. Segmentează clienții, extrage rapoarte, filtrează sincronizările.' : 'Query Salesforce data directly with SOQL. Segment customers, extract reports, filter syncs.',
+	'results'             => $current_lang === 'ro' ? 'Rezultate: 47 înregistrări' : 'Results: 47 records',
+	'advanced_filter'     => $current_lang === 'ro' ? 'Filtrare Avansată' : 'Advanced Filtering',
+	'advanced_filter_desc'=> $current_lang === 'ro' ? 'Sincronizează doar înregistrările care contează. Filtrează după dată, valoare, eveniment.' : 'Sync only the records that matter. Filter by date, value, event.',
+	'segment_customers'   => $current_lang === 'ro' ? 'Segmentare Clienți' : 'Customer Segmentation',
+	'segment_desc'        => $current_lang === 'ro' ? 'Identifică VIP-urile, clienții corporativi, participanții frecvenți.' : 'Identify VIPs, corporate customers, frequent attendees.',
+	'custom_reporting'    => $current_lang === 'ro' ? 'Raportare Personalizată' : 'Custom Reporting',
+	'custom_report_desc'  => $current_lang === 'ro' ? 'Extrage date pentru analytics și rapoarte custom.' : 'Extract data for analytics and custom reports.',
+
+	// Use cases
+	'usecases_badge'      => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'      => $current_lang === 'ro' ? 'CRM-ul tău,' : 'Your CRM,',
+	'b2b_sales'           => $current_lang === 'ro' ? 'Vânzări B2B' : 'B2B Sales',
+	'b2b_desc'            => $current_lang === 'ro' ? 'Creează Accounts pentru companii, leagă Contacts ca angajați, urmărește Opportunities pentru deal-uri mari.' : 'Create Accounts for companies, link Contacts as employees, track Opportunities for large deals.',
+	'vip_tracking'        => $current_lang === 'ro' ? 'Urmărire VIP' : 'VIP Tracking',
+	'vip_desc'            => $current_lang === 'ro' ? 'Marchează cumpărătorii de mare valoare. Istoricul complet de achiziții pentru servicii personalizate.' : 'Mark high-value buyers. Complete purchase history for personalized services.',
+	'event_campaigns'     => $current_lang === 'ro' ? 'Campanii Evenimente' : 'Event Campaigns',
+	'events_desc'         => $current_lang === 'ro' ? 'Segmentează contactele după participare. Targetează participanții anteriori. Măsoară ROI.' : 'Segment contacts by attendance. Target previous attendees. Measure ROI.',
+	'corporate_clients'   => $current_lang === 'ro' ? 'Clienți Corporativi' : 'Corporate Clients',
+	'corporate_desc'      => $current_lang === 'ro' ? 'Gestionează reînnoirile și abonamentele. Multiple contacte per Account pentru vizibilitate completă.' : 'Manage renewals and subscriptions. Multiple contacts per Account for complete visibility.',
+	'sales_pipeline'      => $current_lang === 'ro' ? 'Pipeline Vânzări' : 'Sales Pipeline',
+	'pipeline_desc'       => $current_lang === 'ro' ? 'Creează Opportunities pentru pachete mari. Prognozează venituri alături de alte vânzări.' : 'Create Opportunities for large packages. Forecast revenue alongside other sales.',
+	'post_event'          => $current_lang === 'ro' ? 'Follow-Up Post-Event' : 'Post-Event Follow-Up',
+	'post_event_desc'     => $current_lang === 'ro' ? 'Sincronizează participarea. Permite follow-up de vânzări cu participanții. Conversie lead-uri.' : 'Sync attendance. Enable sales follow-up with attendees. Convert leads.',
+
+	// Testimonial
+	'testimonial'         => $current_lang === 'ro' ? 'Echipa de vânzări vede acum <span class="text-gradient-sf font-semibold">întregul istoric</span> al clientului direct în Salesforce. Nu mai pierdem timp căutând informații. Deal-urile se închid mai repede.' : 'The sales team now sees the customer\'s <span class="text-gradient-sf font-semibold">complete history</span> directly in Salesforce. We no longer waste time searching for information. Deals close faster.',
+
+	// Final CTA
+	'final_title'         => $current_lang === 'ro' ? 'Conectează' : 'Connect',
+	'final_desc'          => $current_lang === 'ro' ? 'Sincronizare bidirecțională. Mapare personalizată. Interogări SOQL. CRM-ul tău, supercharged.' : 'Bidirectional sync. Custom mapping. SOQL queries. Your CRM, supercharged.',
+	'cta_questions'       => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'final_tagline'       => $current_lang === 'ro' ? 'OAuth 2.0 securizat. Suport Sandbox. Audit complet.' : 'Secure OAuth 2.0. Sandbox support. Complete audit.',
+];
 ?>
 
 <style>
@@ -102,28 +194,28 @@ get_header();
             <svg class="w-5 h-5 text-salesforce-blue" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12.24 2.57c-1.4-.53-2.94-.24-4.08.78l-.13.12c-1.54 1.43-1.77 3.74-.62 5.44.24.36.19.85-.13 1.15l-.49.47c-.35.34-.9.34-1.25 0l-.55-.53c-1.15-1.1-2.97-1.1-4.12 0-1.14 1.1-1.14 2.88 0 3.98l6.27 6.06c.34.33.89.33 1.23 0l.01-.01 9.76-9.43c.34-.33.34-.86 0-1.19l-4.27-4.13c-.34-.33-.89-.33-1.23 0l-.57.55c-.35.34-.35.89 0 1.23l2.71 2.62-7.08 6.84-4.53-4.38c-.25-.24-.25-.63 0-.87.25-.24.66-.24.91 0l3.12 3.01c.35.34.91.34 1.26 0l5.82-5.62c.35-.34.35-.89 0-1.23l-4.27-4.13c-.57-.55-.57-1.44 0-1.99.57-.55 1.5-.55 2.07 0l6.34 6.13c1.15 1.1 1.15 2.88 0 3.98l-9.76 9.43c-1.15 1.1-3.01 1.1-4.16 0L.65 14.34c-1.73-1.67-1.73-4.38 0-6.05 1.15-1.1 2.81-1.32 4.19-.66"/>
             </svg>
-            <span class="text-salesforce-blue text-sm font-medium">Sincronizare CRM Bidirecțională</span>
+            <span class="text-salesforce-blue text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Salesforce<br><span class="text-gradient-sf">în sync</span>
+            Salesforce<br><span class="text-gradient-sf"><?php echo esc_html( $t['hero_title'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Clienți, comenzi și evenimente <strong class="text-white">sincronizate automat</strong> cu Salesforce CRM. Echipa de vânzări vede totul - istoric achiziții, participări, valoare client.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-salesforce-blue to-salesforce-light text-white hover:scale-105 hover:shadow-glow-sf transition-all duration-300">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.24 2.57c-1.4-.53-2.94-.24-4.08.78l-.13.12c-1.54 1.43-1.77 3.74-.62 5.44"/></svg>
-              Conectează Salesforce
+              <?php echo esc_html( $t['cta_connect'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#obiecte" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi obiectele suportate
+              <?php echo esc_html( $t['cta_see_objects'] ); ?>
             </a>
           </div>
 
@@ -131,15 +223,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-salesforce-blue">Bi-Sync</div>
-              <div class="text-white/40 text-sm">Ambele direcții</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['both_directions'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">Real-time</div>
-              <div class="text-white/40 text-sm">La fiecare eveniment</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['at_each_event'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-salesforce-cloud">SOQL</div>
-              <div class="text-white/40 text-sm">Interogări avansate</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['advanced_queries'] ); ?></div>
             </div>
           </div>
         </div>
@@ -157,13 +249,13 @@ get_header();
                     <svg class="w-5 h-5 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">Sincronizare Activă</div>
-                    <div class="text-white/40 text-xs">Bidirecțională • Real-time</div>
+                    <div class="text-white font-semibold"><?php echo esc_html( $t['active_sync'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['bidirectional_rt'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2" :class="syncing ? 'animate-pulse' : ''">
                   <span class="w-2 h-2 rounded-full" :class="syncing ? 'bg-salesforce-blue' : 'bg-brand-green'"></span>
-                  <span class="text-xs" :class="syncing ? 'text-salesforce-blue' : 'text-brand-green'" x-text="syncing ? 'Sincronizare...' : 'Sincronizat'"></span>
+                  <span class="text-xs" :class="syncing ? 'text-salesforce-blue' : 'text-brand-green'" x-text="syncing ? '<?php echo esc_attr( $t['syncing'] ); ?>' : '<?php echo esc_attr( $t['synced'] ); ?>'"></span>
                 </div>
               </div>
 
@@ -257,7 +349,7 @@ get_header();
                 </div>
                 <div>
                   <div class="text-brand-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs">Securizat</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -267,8 +359,8 @@ get_header();
               <div class="flex items-center gap-2">
                 <span class="text-2xl">⚡</span>
                 <div>
-                  <div class="text-salesforce-blue text-sm font-medium" x-text="synced + ' sincronizări'">0 sincronizări</div>
-                  <div class="text-white/40 text-xs">ultima oră</div>
+                  <div class="text-salesforce-blue text-sm font-medium" x-text="synced + ' <?php echo esc_attr( $t['syncs'] ); ?>'">0 <?php echo esc_html( $t['syncs'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['last_hour'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -283,9 +375,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest">Obiecte Suportate</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Toate obiectele<br><span class="text-gradient-sf">de care ai nevoie</span></h2>
-        <p class="text-lg text-white/60">Standard și personalizate. Sincronizare completă cu CRM-ul tău.</p>
+        <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['objects_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['objects_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['objects_desc'] ); ?></p>
       </div>
 
       <!-- Objects Grid -->
@@ -299,7 +391,7 @@ get_header();
             <h3 class="text-xl font-semibold text-white">Contact</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4">Clienți individuali cu detalii personale, istoricul achizițiilor și preferințe.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['contact_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Email</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Phone</span>
@@ -316,7 +408,7 @@ get_header();
             <h3 class="text-xl font-semibold text-white">Lead</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4">Potențiali clienți înainte de conversie. Urmărire pipeline de la interes la achiziție.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['lead_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Status</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Source</span>
@@ -333,7 +425,7 @@ get_header();
             <h3 class="text-xl font-semibold text-white">Opportunity</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4">Deal-uri de vânzări pentru pachete mari, sponsorizări și vânzări corporative.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['opportunity_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Amount</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Stage</span>
@@ -350,7 +442,7 @@ get_header();
             <h3 class="text-xl font-semibold text-white">Account</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4">Companii pentru vânzări B2B. Leagă multiple contacte la același cont.</p>
+          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['account_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Name</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Industry</span>
@@ -363,7 +455,7 @@ get_header();
       <div class="mt-8 text-center reveal">
         <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-dark-800/50 border border-white/10">
           <svg class="w-5 h-5 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-          <span class="text-white/70">+ Obiecte personalizate suportate prin maparea câmpurilor</span>
+          <span class="text-white/70"><?php echo esc_html( $t['custom_objects'] ); ?></span>
         </div>
       </div>
     </div>
@@ -375,9 +467,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-salesforce-cloud text-sm font-medium uppercase tracking-widest">Direcții Sincronizare</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Tu controlezi<br><span class="text-gradient-sf">fluxul de date</span></h2>
-          <p class="text-lg text-white/60 mb-8">Alege cum se sincronizează datele: push, pull sau bidirecțional. Fiecare obiect poate avea propria configurare.</p>
+          <span class="text-salesforce-cloud text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['sync_badge'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['sync_desc'] ); ?></p>
 
           <div class="space-y-4">
             <!-- Push -->
@@ -390,7 +482,7 @@ get_header();
                   <span class="text-white font-medium">Push</span>
                   <span class="text-white/40 text-sm">Tixello → Salesforce</span>
                 </div>
-                <p class="text-white/50 text-sm">Trimite date când se creează comenzi sau clienți noi</p>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['push_desc'] ); ?></p>
               </div>
             </div>
 
@@ -404,7 +496,7 @@ get_header();
                   <span class="text-white font-medium">Pull</span>
                   <span class="text-white/40 text-sm">Salesforce → Tixello</span>
                 </div>
-                <p class="text-white/50 text-sm">Importă actualizările făcute direct în Salesforce</p>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['pull_desc'] ); ?></p>
               </div>
             </div>
 
@@ -415,10 +507,10 @@ get_header();
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-medium">Bidirecțional</span>
-                  <span class="px-2 py-0.5 rounded-full bg-salesforce-blue/20 text-salesforce-blue text-xs">Recomandat</span>
+                  <span class="text-white font-medium"><?php echo esc_html( $t['bidirectional'] ); ?></span>
+                  <span class="px-2 py-0.5 rounded-full bg-salesforce-blue/20 text-salesforce-blue text-xs"><?php echo esc_html( $t['recommended'] ); ?></span>
                 </div>
-                <p class="text-white/50 text-sm">Sincronizare automată în ambele direcții - o singură sursă de adevăr</p>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['bidirectional_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -432,8 +524,8 @@ get_header();
                 <svg class="w-5 h-5 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold">Configurare Sync</div>
-                <div class="text-white/40 text-xs">Per obiect</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['sync_config'] ); ?></div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['per_object'] ); ?></div>
               </div>
             </div>
 
@@ -444,7 +536,7 @@ get_header();
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Contact</span>
                 </div>
                 <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
-                  <option>⟷ Bidirecțional</option>
+                  <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
                   <option>← Pull</option>
                 </select>
@@ -457,7 +549,7 @@ get_header();
                 </div>
                 <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
                   <option>→ Push</option>
-                  <option>⟷ Bidirecțional</option>
+                  <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>← Pull</option>
                 </select>
               </div>
@@ -468,7 +560,7 @@ get_header();
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Opportunity</span>
                 </div>
                 <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
-                  <option>⟷ Bidirecțional</option>
+                  <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
                   <option>← Pull</option>
                 </select>
@@ -481,7 +573,7 @@ get_header();
                 </div>
                 <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
                   <option>← Pull</option>
-                  <option>⟷ Bidirecțional</option>
+                  <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
                 </select>
               </div>
@@ -497,9 +589,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Mapare Câmpuri</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Date acolo unde<br><span class="text-gradient animate-shimmer">ai nevoie</span></h2>
-        <p class="text-lg text-white/60">Mapează câmpurile Tixello la orice câmp Salesforce - standard sau personalizat.</p>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['field_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['field_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['field_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['field_desc'] ); ?></p>
       </div>
 
       <!-- Field Mapping Visual -->
@@ -507,11 +599,11 @@ get_header();
         <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
           <div class="grid grid-cols-5 gap-4 items-center mb-4 text-center">
             <div class="col-span-2">
-              <div class="text-white/40 text-xs uppercase tracking-wider">Câmp Tixello</div>
+              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['tixello_field'] ); ?></div>
             </div>
             <div></div>
             <div class="col-span-2">
-              <div class="text-white/40 text-xs uppercase tracking-wider">Câmp Salesforce</div>
+              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['salesforce_field'] ); ?></div>
             </div>
           </div>
 
@@ -577,7 +669,7 @@ get_header();
 
           <!-- Add mapping button -->
           <button class="mt-4 w-full p-3 rounded-lg border-2 border-dashed border-white/10 text-white/40 text-sm hover:border-salesforce-blue/30 hover:text-white/70 transition-all">
-            + Adaugă mapare câmp
+            <?php echo esc_html( $t['add_mapping'] ); ?>
           </button>
         </div>
       </div>
@@ -628,7 +720,7 @@ get_header();
 
             <!-- Results preview -->
             <div class="border-t border-white/10 p-4">
-              <div class="text-white/40 text-xs uppercase tracking-wider mb-3">Rezultate: 47 înregistrări</div>
+              <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['results'] ); ?></div>
               <div class="space-y-2">
                 <div class="flex items-center justify-between p-2 rounded bg-dark-900/50 text-sm">
                   <span class="text-white">Maria Ionescu</span>
@@ -649,9 +741,9 @@ get_header();
 
         <!-- Content -->
         <div class="reveal order-1 lg:order-2">
-          <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest">Interogări SOQL</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Puterea<br><span class="text-gradient-sf">interogărilor</span></h2>
-          <p class="text-lg text-white/60 mb-8">Interoghează direct datele Salesforce cu SOQL. Segmentează clienții, extrage rapoarte, filtrează sincronizările.</p>
+          <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['soql_badge'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['soql_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['soql_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['soql_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -659,8 +751,8 @@ get_header();
                 <svg class="w-4 h-4 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Filtrare Avansată</div>
-                <p class="text-white/50 text-sm">Sincronizează doar înregistrările care contează. Filtrează după dată, valoare, eveniment.</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['advanced_filter'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['advanced_filter_desc'] ); ?></p>
               </div>
             </div>
 
@@ -669,8 +761,8 @@ get_header();
                 <svg class="w-4 h-4 text-salesforce-cloud" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Segmentare Clienți</div>
-                <p class="text-white/50 text-sm">Identifică VIP-urile, clienții corporativi, participanții frecvenți.</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['segment_customers'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_desc'] ); ?></p>
               </div>
             </div>
 
@@ -679,8 +771,8 @@ get_header();
                 <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Raportare Personalizată</div>
-                <p class="text-white/50 text-sm">Extrage date pentru analytics și rapoarte custom.</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['custom_reporting'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['custom_report_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -693,45 +785,45 @@ get_header();
   <section class="py-24 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">CRM-ul tău,<br><span class="text-gradient animate-shimmer">supercharged</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer">supercharged</span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-blue/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-blue/20 to-salesforce-cloud/20 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Vânzări B2B</h3>
-          <p class="text-white/50 text-sm">Creează Accounts pentru companii, leagă Contacts ca angajați, urmărește Opportunities pentru deal-uri mari.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['b2b_sales'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['b2b_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">👑</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Urmărire VIP</h3>
-          <p class="text-white/50 text-sm">Marchează cumpărătorii de mare valoare. Istoricul complet de achiziții pentru servicii personalizate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['vip_tracking'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['vip_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Campanii Evenimente</h3>
-          <p class="text-white/50 text-sm">Segmentează contactele după participare. Targetează participanții anteriori. Măsoară ROI.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['event_campaigns'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['events_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">💼</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Clienți Corporativi</h3>
-          <p class="text-white/50 text-sm">Gestionează reînnoirile și abonamentele. Multiple contacte per Account pentru vizibilitate completă.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['corporate_clients'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['corporate_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-cloud/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-cloud/20 to-salesforce-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">📈</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Pipeline Vânzări</h3>
-          <p class="text-white/50 text-sm">Creează Opportunities pentru pachete mari. Prognozează venituri alături de alte vânzări.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['pipeline_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🎯</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Follow-Up Post-Event</h3>
-          <p class="text-white/50 text-sm">Sincronizează participarea. Permite follow-up de vânzări cu participanții. Conversie lead-uri.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['post_event'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['post_event_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -751,7 +843,7 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Echipa de vânzări vede acum <span class="text-gradient-sf font-semibold">întregul istoric</span> al clientului direct în Salesforce. Nu mai pierdem timp căutând informații. Deal-urile se închid mai repede."
+            "<?php echo $t['testimonial']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-salesforce-blue to-salesforce-cloud"></div>
@@ -775,20 +867,20 @@ get_header();
     </div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Conectează<br><span class="text-gradient-sf">Salesforce</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Sincronizare bidirecțională. Mapare personalizată. Interogări SOQL. CRM-ul tău, supercharged.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-sf">Salesforce</span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-salesforce-blue to-salesforce-light text-white hover:scale-105 hover:shadow-glow-sf transition-all duration-300">
-          Conectează Salesforce
+          <?php echo esc_html( $t['cta_connect'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_questions'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">OAuth 2.0 securizat. Suport Sandbox. Audit complet.</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

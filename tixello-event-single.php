@@ -6,6 +6,82 @@
 
 get_header();
 
+// Detectare limba curentă (Polylang)
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Array cu traduceri
+$t = [
+    // 404 / Error messages
+    'event_not_found'      => $current_lang === 'ro' ? 'Eveniment negasit' : 'Event not found',
+    'no_slug_provided'     => $current_lang === 'ro' ? 'Nu a fost furnizat un slug pentru eveniment.' : 'No event slug was provided.',
+    'could_not_find_event' => $current_lang === 'ro' ? 'Nu am putut gasi acest eveniment.' : 'Could not find this event.',
+    'back_to_events'       => $current_lang === 'ro' ? 'Inapoi la evenimente' : 'Back to events',
+
+    // Breadcrumb
+    'home'   => $current_lang === 'ro' ? 'Acasa' : 'Home',
+    'events' => $current_lang === 'ro' ? 'Evenimente' : 'Events',
+
+    // Status badges
+    'cancelled'      => $current_lang === 'ro' ? 'Anulat' : 'Cancelled',
+    'postponed'      => $current_lang === 'ro' ? 'Amanat' : 'Postponed',
+    'sold_out'       => 'Sold Out',
+    'door_tickets'   => $current_lang === 'ro' ? 'Bilete la intrare' : 'Door tickets only',
+
+    // Date & Time
+    'date'        => $current_lang === 'ro' ? 'Data' : 'Date',
+    'time'        => $current_lang === 'ro' ? 'Ora' : 'Time',
+    'doors_open'  => $current_lang === 'ro' ? 'Usi deschise' : 'Doors open',
+
+    // Notices
+    'event_postponed' => $current_lang === 'ro' ? 'Eveniment amanat' : 'Event postponed',
+    'event_cancelled' => $current_lang === 'ro' ? 'Eveniment anulat' : 'Event cancelled',
+
+    // About section
+    'about_event' => $current_lang === 'ro' ? 'Despre eveniment' : 'About event',
+
+    // Artists section
+    'artists'       => $current_lang === 'ro' ? 'Artisti' : 'Artists',
+    'headliner'     => 'Headliner',
+    'special_guest' => 'Special Guest',
+    'view_profile'  => $current_lang === 'ro' ? 'Vezi profil' : 'View profile',
+
+    // Venue section
+    'location'    => $current_lang === 'ro' ? 'Locatie' : 'Location',
+    'event_venue' => $current_lang === 'ro' ? 'Locatie eveniment' : 'Event venue',
+    'view_venue'  => $current_lang === 'ro' ? 'Vezi locatia' : 'View venue',
+    'seats'       => $current_lang === 'ro' ? 'locuri' : 'seats',
+    'directions'  => $current_lang === 'ro' ? 'Indicatii' : 'Directions',
+
+    // External links section
+    'more_info'        => $current_lang === 'ro' ? 'Mai multe informatii' : 'More information',
+    'official_website' => $current_lang === 'ro' ? 'Website oficial' : 'Official website',
+    'view_on_facebook' => $current_lang === 'ro' ? 'Vezi pe Facebook' : 'View on Facebook',
+    'organizer'        => $current_lang === 'ro' ? 'Organizator' : 'Organizer',
+
+    // Tickets sidebar
+    'tickets'             => $current_lang === 'ro' ? 'Bilete' : 'Tickets',
+    'select_ticket_type'  => $current_lang === 'ro' ? 'Selecteaza tipul de bilet' : 'Select ticket type',
+    'available'           => $current_lang === 'ro' ? 'disponibile' : 'available',
+    'starting_from'       => $current_lang === 'ro' ? 'Incepand de la' : 'Starting from',
+    'buy_tickets'         => $current_lang === 'ro' ? 'Cumpara bilete' : 'Buy tickets',
+    'redirect_notice'     => $current_lang === 'ro' ? 'Vei fi redirectionat catre website-ul organizatorului' : 'You will be redirected to the organizer\'s website',
+    'tickets_unavailable' => $current_lang === 'ro' ? 'Link-ul pentru bilete nu este disponibil momentan.' : 'Ticket link is not available at the moment.',
+
+    // Organizer card
+    'event_organizer' => $current_lang === 'ro' ? 'Organizator evenimente' : 'Event organizer',
+    'website'         => 'Website',
+
+    // Share
+    'share_event' => $current_lang === 'ro' ? 'Distribuie evenimentul' : 'Share event',
+
+    // Mobile CTA
+    'from' => $current_lang === 'ro' ? 'De la' : 'From',
+
+    // Similar events
+    'similar_events' => $current_lang === 'ro' ? 'Evenimente similare' : 'Similar events',
+    'from_price'     => $current_lang === 'ro' ? 'de la' : 'from',
+];
+
 // Slug-ul din URL
 $slug = get_query_var( 'tixello_event_slug' );
 
@@ -15,10 +91,10 @@ if ( ! $slug ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Eveniment negasit</h1>
-            <p class="mt-2 text-white/60">Nu a fost furnizat un slug pentru eveniment.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['event_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['no_slug_provided'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/events/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la evenimente
+                <?php echo esc_html( $t['back_to_events'] ); ?>
             </a>
         </div>
     </main>
@@ -35,10 +111,10 @@ if ( ! $event || ! is_array( $event ) ) {
     ?>
     <main id="primary" class="site-main bg-zinc-950 text-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 class="text-2xl font-bold text-white">Eveniment negasit</h1>
-            <p class="mt-2 text-white/60">Nu am putut gasi acest eveniment.</p>
+            <h1 class="text-2xl font-bold text-white"><?php echo esc_html( $t['event_not_found'] ); ?></h1>
+            <p class="mt-2 text-white/60"><?php echo esc_html( $t['could_not_find_event'] ); ?></p>
             <a href="<?php echo esc_url( home_url( '/events/' ) ); ?>" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
-                Inapoi la evenimente
+                <?php echo esc_html( $t['back_to_events'] ); ?>
             </a>
         </div>
     </main>
@@ -281,11 +357,11 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
         <div class="absolute top-8 left-0 right-0">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex items-center gap-2 text-sm">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/60 hover:text-white transition-colors">Acasa</a>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/60 hover:text-white transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
                     <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
-                    <a href="<?php echo esc_url( home_url( '/events/' ) ); ?>" class="text-white/60 hover:text-white transition-colors">Evenimente</a>
+                    <a href="<?php echo esc_url( home_url( '/events/' ) ); ?>" class="text-white/60 hover:text-white transition-colors"><?php echo esc_html( $t['events'] ); ?></a>
                     <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -304,21 +380,21 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     </span>
                     <?php if ( $is_cancelled ) : ?>
                         <span class="px-3 py-1 rounded-lg bg-red-600 text-white text-xs font-semibold">
-                            Anulat
+                            <?php echo esc_html( $t['cancelled'] ); ?>
                         </span>
                     <?php elseif ( $is_postponed ) : ?>
                         <span class="px-3 py-1 rounded-lg bg-amber-600 text-white text-xs font-semibold">
-                            Amanat
+                            <?php echo esc_html( $t['postponed'] ); ?>
                         </span>
                     <?php endif; ?>
                     <?php if ( $is_sold_out ) : ?>
                         <span class="px-3 py-1 rounded-lg bg-zinc-600 text-white text-xs font-semibold">
-                            Sold Out
+                            <?php echo esc_html( $t['sold_out'] ); ?>
                         </span>
                     <?php endif; ?>
                     <?php if ( $door_only ) : ?>
                         <span class="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-sm text-white text-xs font-medium">
-                            Bilete la intrare
+                            <?php echo esc_html( $t['door_tickets'] ); ?>
                         </span>
                     <?php endif; ?>
                 </div>
@@ -386,7 +462,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                 <span class="text-2xl font-bold leading-none"><?php echo esc_html( $event_day ); ?></span>
                             </div>
                             <div>
-                                <p class="text-sm text-white/50">Data</p>
+                                <p class="text-sm text-white/50"><?php echo esc_html( $t['date'] ); ?></p>
                                 <p class="text-lg font-semibold text-white"><?php echo esc_html( $event_weekday ); ?>, <?php echo esc_html( $start_date_pretty ); ?></p>
                             </div>
                         </div>
@@ -399,10 +475,10 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                 </svg>
                             </div>
                             <div>
-                                <p class="text-sm text-white/50">Ora</p>
+                                <p class="text-sm text-white/50"><?php echo esc_html( $t['time'] ); ?></p>
                                 <p class="text-lg font-semibold text-white"><?php echo esc_html( $start_time_pretty ); ?></p>
                                 <?php if ( $door_time_pretty ) : ?>
-                                    <p class="text-sm text-white/40">Usi deschise: <?php echo esc_html( $door_time_pretty ); ?></p>
+                                    <p class="text-sm text-white/40"><?php echo esc_html( $t['doors_open'] ); ?>: <?php echo esc_html( $door_time_pretty ); ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -412,14 +488,14 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     <!-- Postponed/Cancelled Notice -->
                     <?php if ( $is_postponed && ! empty( $event['postponed_reason'] ) ) : ?>
                     <div class="p-6 rounded-2xl bg-amber-600/10 border border-amber-500/20">
-                        <h3 class="text-lg font-bold text-amber-400 mb-2">Eveniment amanat</h3>
+                        <h3 class="text-lg font-bold text-amber-400 mb-2"><?php echo esc_html( $t['event_postponed'] ); ?></h3>
                         <p class="text-white/70"><?php echo esc_html( $event['postponed_reason'] ); ?></p>
                     </div>
                     <?php endif; ?>
 
                     <?php if ( $is_cancelled && ! empty( $event['cancel_reason'] ) ) : ?>
                     <div class="p-6 rounded-2xl bg-red-600/10 border border-red-500/20">
-                        <h3 class="text-lg font-bold text-red-400 mb-2">Eveniment anulat</h3>
+                        <h3 class="text-lg font-bold text-red-400 mb-2"><?php echo esc_html( $t['event_cancelled'] ); ?></h3>
                         <p class="text-white/70"><?php echo esc_html( $event['cancel_reason'] ); ?></p>
                     </div>
                     <?php endif; ?>
@@ -427,7 +503,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     <!-- Description -->
                     <?php if ( $description ) : ?>
                     <div>
-                        <h2 class="text-2xl font-bold text-white mb-6">Despre eveniment</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['about_event'] ); ?></h2>
                         <div class="prose prose-invert max-w-none">
                             <div class="text-white/70 leading-relaxed space-y-4">
                                 <?php echo wp_kses_post( $description ); ?>
@@ -436,7 +512,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     </div>
                     <?php elseif ( $short_description ) : ?>
                     <div>
-                        <h2 class="text-2xl font-bold text-white mb-6">Despre eveniment</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['about_event'] ); ?></h2>
                         <p class="text-white/70 leading-relaxed"><?php echo esc_html( $short_description ); ?></p>
                     </div>
                     <?php endif; ?>
@@ -444,7 +520,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     <!-- Artists Section -->
                     <?php if ( ! empty( $artists ) ) : ?>
                     <div id="artists">
-                        <h2 class="text-2xl font-bold text-white mb-6">Artisti</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['artists'] ); ?></h2>
 
                         <div class="space-y-6">
                             <?php foreach ( $artists as $index => $artist ) :
@@ -463,7 +539,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                 } elseif ( ! empty( $artist['bio'] ) ) {
                                     $artist_bio = wp_strip_all_tags( $artist['bio'] );
                                 }
-                                $artist_role = $index === 0 ? 'Headliner' : 'Special Guest';
+                                $artist_role = $index === 0 ? $t['headliner'] : $t['special_guest'];
                             ?>
                             <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
                                 <div class="flex flex-col sm:flex-row gap-6">
@@ -493,7 +569,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                             </div>
                                             <?php if ( $artist_slug ) : ?>
                                             <a href="<?php echo esc_url( home_url( '/artists/' . $artist_slug . '/' ) ); ?>" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/70 hover:text-white hover:bg-white/10 transition-all">
-                                                Vezi profil
+                                                <?php echo esc_html( $t['view_profile'] ); ?>
                                             </a>
                                             <?php endif; ?>
                                         </div>
@@ -522,7 +598,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     <!-- Venue Section -->
                     <?php if ( $venue_name ) : ?>
                     <div id="venue">
-                        <h2 class="text-2xl font-bold text-white mb-6">Locatie</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['location'] ); ?></h2>
 
                         <div class="rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden">
                             <!-- Venue Header -->
@@ -551,11 +627,11 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                                 <?php else : ?>
                                                     <h3 class="text-xl font-bold text-white"><?php echo esc_html( $venue_name ); ?></h3>
                                                 <?php endif; ?>
-                                                <p class="text-sm text-white/50">Locatie eveniment</p>
+                                                <p class="text-sm text-white/50"><?php echo esc_html( $t['event_venue'] ); ?></p>
                                             </div>
                                             <?php if ( $venue_slug ) : ?>
                                             <a href="<?php echo esc_url( home_url( '/venues/' . $venue_slug . '/' ) ); ?>" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/70 hover:text-white hover:bg-white/10 transition-all">
-                                                Vezi locatia
+                                                <?php echo esc_html( $t['view_venue'] ); ?>
                                             </a>
                                             <?php endif; ?>
                                         </div>
@@ -576,7 +652,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                 </svg>
-                                                <span><?php echo esc_html( number_format_i18n( $venue_capacity ) ); ?> locuri</span>
+                                                <span><?php echo esc_html( number_format_i18n( $venue_capacity ) ); ?> <?php echo esc_html( $t['seats'] ); ?></span>
                                             </div>
                                             <?php endif; ?>
                                         </div>
@@ -604,7 +680,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
-                                    Indicatii
+                                    <?php echo esc_html( $t['directions'] ); ?>
                                 </a>
                             </div>
                             <?php endif; ?>
@@ -615,7 +691,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     <!-- External Links -->
                     <?php if ( ! empty( $event['event_website_url'] ) || ! empty( $event['facebook_url'] ) || ! empty( $organizer_website ) ) : ?>
                     <div>
-                        <h2 class="text-2xl font-bold text-white mb-6">Mai multe informatii</h2>
+                        <h2 class="text-2xl font-bold text-white mb-6"><?php echo esc_html( $t['more_info'] ); ?></h2>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <?php if ( ! empty( $event['event_website_url'] ) ) : ?>
                             <a href="<?php echo esc_url( $event['event_website_url'] ); ?>" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all group">
@@ -625,7 +701,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Website oficial</p>
+                                    <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors"><?php echo esc_html( $t['official_website'] ); ?></p>
                                     <p class="text-xs text-white/40"><?php echo esc_html( parse_url( $event['event_website_url'], PHP_URL_HOST ) ); ?></p>
                                 </div>
                             </a>
@@ -637,7 +713,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">Facebook</p>
-                                    <p class="text-xs text-white/40">Vezi pe Facebook</p>
+                                    <p class="text-xs text-white/40"><?php echo esc_html( $t['view_on_facebook'] ); ?></p>
                                 </div>
                             </a>
                             <?php endif; ?>
@@ -649,7 +725,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-white group-hover:text-orange-400 transition-colors">Organizator</p>
+                                    <p class="text-sm font-medium text-white group-hover:text-orange-400 transition-colors"><?php echo esc_html( $t['organizer'] ); ?></p>
                                     <p class="text-xs text-white/40"><?php echo esc_html( parse_url( $organizer_website, PHP_URL_HOST ) ); ?></p>
                                 </div>
                             </a>
@@ -667,8 +743,8 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                         <!-- Tickets Card -->
                         <div class="rounded-2xl bg-zinc-900/80 border border-white/10 overflow-hidden">
                             <div class="p-6 border-b border-white/5">
-                                <h3 class="text-lg font-bold text-white mb-1">Bilete</h3>
-                                <p class="text-sm text-white/50">Selecteaza tipul de bilet</p>
+                                <h3 class="text-lg font-bold text-white mb-1"><?php echo esc_html( $t['tickets'] ); ?></h3>
+                                <p class="text-sm text-white/50"><?php echo esc_html( $t['select_ticket_type'] ); ?></p>
                             </div>
 
                             <!-- Ticket Options -->
@@ -689,9 +765,9 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                         <div>
                                             <h4 class="font-semibold text-white <?php echo ! $tt_sold_out ? 'group-hover:text-violet-400 transition-colors' : ''; ?>"><?php echo esc_html( $tt_name ); ?></h4>
                                             <?php if ( $tt_sold_out ) : ?>
-                                                <p class="text-xs text-red-400">Sold Out</p>
+                                                <p class="text-xs text-red-400"><?php echo esc_html( $t['sold_out'] ); ?></p>
                                             <?php elseif ( $tt_avail !== null && $tt_cap !== null ) : ?>
-                                                <p class="text-xs text-emerald-400"><?php echo intval( $tt_avail ); ?> / <?php echo intval( $tt_cap ); ?> disponibile</p>
+                                                <p class="text-xs text-emerald-400"><?php echo intval( $tt_avail ); ?> / <?php echo intval( $tt_cap ); ?> <?php echo esc_html( $t['available'] ); ?></p>
                                             <?php endif; ?>
                                         </div>
                                         <div class="text-right">
@@ -717,7 +793,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                             <div class="p-4 border-t border-white/5 bg-zinc-800/50">
                                 <?php if ( ! is_null( $price_from ) ) : ?>
                                 <div class="flex items-center justify-between mb-4">
-                                    <span class="text-white/60">Incepand de la</span>
+                                    <span class="text-white/60"><?php echo esc_html( $t['starting_from'] ); ?></span>
                                     <div class="text-right">
                                         <span class="text-2xl font-bold text-white"><?php echo esc_html( $price_from ); ?> RON</span>
                                     </div>
@@ -733,26 +809,26 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
                                     </svg>
-                                    Cumpara bilete
+                                    <?php echo esc_html( $t['buy_tickets'] ); ?>
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
                                 </a>
 
                                 <p class="text-xs text-white/40 text-center mt-3">
-                                    Vei fi redirectionat catre website-ul organizatorului
+                                    <?php echo esc_html( $t['redirect_notice'] ); ?>
                                 </p>
                                 <?php elseif ( $is_sold_out ) : ?>
                                 <div class="flex items-center justify-center w-full px-6 py-4 rounded-xl bg-zinc-700 text-white/60 font-bold text-lg">
-                                    Sold Out
+                                    <?php echo esc_html( $t['sold_out'] ); ?>
                                 </div>
                                 <?php elseif ( $is_cancelled ) : ?>
                                 <div class="flex items-center justify-center w-full px-6 py-4 rounded-xl bg-red-600/20 text-red-400 font-bold text-lg">
-                                    Eveniment anulat
+                                    <?php echo esc_html( $t['event_cancelled'] ); ?>
                                 </div>
                                 <?php else : ?>
                                 <p class="text-sm text-white/50 text-center">
-                                    Link-ul pentru bilete nu este disponibil momentan.
+                                    <?php echo esc_html( $t['tickets_unavailable'] ); ?>
                                 </p>
                                 <?php endif; ?>
                             </div>
@@ -761,20 +837,20 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                         <!-- Organizer Card -->
                         <?php if ( $organizer_name ) : ?>
                         <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5">
-                            <h3 class="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">Organizator</h3>
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-white/50 mb-4"><?php echo esc_html( $t['organizer'] ); ?></h3>
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
                                     <?php echo esc_html( strtoupper( mb_substr( $organizer_name, 0, 2 ) ) ); ?>
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-white"><?php echo esc_html( $organizer_name ); ?></h4>
-                                    <p class="text-sm text-white/50">Organizator evenimente</p>
+                                    <p class="text-sm text-white/50"><?php echo esc_html( $t['event_organizer'] ); ?></p>
                                 </div>
                             </div>
                             <?php if ( $organizer_website ) : ?>
                             <div class="flex items-center gap-3 mt-4">
                                 <a href="<?php echo esc_url( $organizer_website ); ?>" target="_blank" class="flex-1 text-center px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:text-white hover:bg-white/10 transition-all">
-                                    Website
+                                    <?php echo esc_html( $t['website'] ); ?>
                                 </a>
                             </div>
                             <?php endif; ?>
@@ -783,7 +859,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
 
                         <!-- Share -->
                         <div class="p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
-                            <p class="text-sm text-white/50 mb-3">Distribuie evenimentul</p>
+                            <p class="text-sm text-white/50 mb-3"><?php echo esc_html( $t['share_event'] ); ?></p>
                             <div class="flex items-center gap-2">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( get_permalink() ); ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#1877F2]/20 text-[#1877F2] text-sm font-medium hover:bg-[#1877F2]/30 transition-colors">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -809,7 +885,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
     <div class="fixed bottom-0 left-0 right-0 p-4 bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 lg:hidden z-50">
         <div class="flex items-center justify-between gap-4">
             <div>
-                <p class="text-sm text-white/50">De la</p>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['from'] ); ?></p>
                 <p class="text-xl font-bold text-white"><?php echo ! is_null( $price_from ) ? esc_html( $price_from ) . ' RON' : '-'; ?></p>
             </div>
             <a href="<?php echo $event_url; ?>"
@@ -818,7 +894,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
                 </svg>
-                Cumpara bilete
+                <?php echo esc_html( $t['buy_tickets'] ); ?>
             </a>
         </div>
     </div>
@@ -828,7 +904,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
     <?php if ( ! empty( $similar_events ) ) : ?>
     <section class="py-12 lg:py-16 border-t border-white/5 bg-zinc-900/30 <?php echo ( $event_url && ! $is_cancelled && ! $is_sold_out ) ? 'mb-20 lg:mb-0' : ''; ?>">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8">Evenimente similare</h2>
+            <h2 class="text-2xl lg:text-3xl font-bold text-white mb-8"><?php echo esc_html( $t['similar_events'] ); ?></h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <?php foreach ( $similar_events as $sim_ev ) :
@@ -861,7 +937,7 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                         <p class="text-sm text-white/50 mb-3"><?php echo esc_html( $sim_venue ); ?></p>
                         <?php if ( ! is_null( $sim_price ) ) : ?>
                         <div class="flex items-center justify-between pt-3 border-t border-white/5">
-                            <span class="text-sm text-white/40">de la</span>
+                            <span class="text-sm text-white/40"><?php echo esc_html( $t['from_price'] ); ?></span>
                             <span class="text-lg font-bold text-white"><?php echo esc_html( $sim_price ); ?> RON</span>
                         </div>
                         <?php endif; ?>

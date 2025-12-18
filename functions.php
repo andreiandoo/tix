@@ -640,11 +640,11 @@ function tixello_events_by_type_shortcode( $atts ) {
             ob_start();
             ?>
             <div class="flex flex-col items-center justify-center py-16 text-center">
-                <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
+                <div class="flex items-center justify-center w-20 h-20 mb-4 rounded-2xl bg-white/5">
                     <span class="text-4xl opacity-50"><?php echo esc_html( $empty_icon ); ?></span>
                 </div>
-                <h3 class="text-lg font-medium text-white/70 mb-2">No events found</h3>
-                <p class="text-sm text-white/40 max-w-md">
+                <h3 class="mb-2 text-lg font-medium text-white/70">No events found</h3>
+                <p class="max-w-md text-sm text-white/40">
                     <?php if ( $has_type_filter ) : ?>
                         There are no <?php echo esc_html( $section_title ? $section_title : implode( ', ', $filter_types ) ); ?> events scheduled at the moment. Check back soon or explore other categories.
                     <?php else : ?>
@@ -730,14 +730,14 @@ function tixello_events_by_type_shortcode( $atts ) {
                     <span class="text-3xl"><?php echo esc_html( $icon ); ?></span>
                 <?php endif; ?>
                 <div>
-                    <h2 class="text-xl lg:text-2xl font-bold text-white"><?php echo esc_html( $section_title !== '' ? $section_title : 'Events' ); ?></h2>
+                    <h2 class="text-xl font-bold text-white lg:text-2xl"><?php echo esc_html( $section_title !== '' ? $section_title : 'Events' ); ?></h2>
                     <?php if ( $subtitle ) : ?>
                         <p class="text-sm text-white/50"><?php echo esc_html( $subtitle ); ?></p>
                     <?php endif; ?>
                 </div>
             </div>
             <?php if ( $single_type && $search_type_param !== '' ) : ?>
-                <a href="<?php echo esc_url( $type_url ); ?>" class="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                <a href="<?php echo esc_url( $type_url ); ?>" class="text-sm transition-colors text-violet-400 hover:text-violet-300">
                     View all →
                 </a>
             <?php endif; ?>
@@ -755,7 +755,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                     $genre_url = add_query_arg( $genre_args, $search_base );
                     ?>
                     <a href="<?php echo esc_url( $genre_url ); ?>"
-                       class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30 transition-all">
+                       class="px-3 py-1 text-xs transition-all border rounded-full bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30">
                         <?php echo esc_html( $genre_name ); ?>
                     </a>
                 <?php endforeach; ?>
@@ -792,12 +792,12 @@ function tixello_events_by_type_shortcode( $atts ) {
                 }
                 $event_url = $event_url ? esc_url( $event_url ) : '';
                 ?>
-                <a href="<?php echo $event_url; ?>" class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 transition-all">
+                <a href="<?php echo $event_url; ?>" class="relative overflow-hidden transition-all border group bg-zinc-900/50 rounded-2xl border-white/5 hover:border-violet-500/30">
                     <div class="aspect-[3/4] relative overflow-hidden">
                         <?php if ( $poster_url ) : ?>
                             <img src="<?php echo $poster_url; ?>"
                                  alt="<?php echo esc_attr( $title ); ?>"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                                  loading="lazy">
                         <?php else : ?>
                             <div class="w-full h-full bg-zinc-800"></div>
@@ -806,18 +806,18 @@ function tixello_events_by_type_shortcode( $atts ) {
 
                         <!-- Date badge -->
                         <?php if ( $date_month && $date_day ) : ?>
-                            <div class="absolute top-3 left-3 flex flex-col items-center px-3 py-2 rounded-xl bg-violet-600 text-white">
+                            <div class="absolute flex flex-col items-center px-3 py-2 text-white top-3 left-3 rounded-xl bg-violet-600">
                                 <span class="text-xs font-medium uppercase"><?php echo esc_html( $date_month ); ?></span>
                                 <span class="text-xl font-bold leading-none"><?php echo esc_html( $date_day ); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
                     <div class="p-4">
-                        <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1 line-clamp-2">
+                        <h3 class="mb-1 font-semibold text-white transition-colors group-hover:text-violet-400 line-clamp-2">
                             <?php echo esc_html( $title ); ?>
                         </h3>
                         <?php if ( $venue_name ) : ?>
-                            <div class="flex items-center gap-2 text-sm text-white/50 mb-3">
+                            <div class="flex items-center gap-2 mb-3 text-sm text-white/50">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -844,11 +844,11 @@ function tixello_events_by_type_shortcode( $atts ) {
     else :
     // ===== LIGHT THEME OUTPUT (original) =====
     ?>
-    <section class="tixello-events-by-type my-8">
+    <section class="my-8 tixello-events-by-type">
         <!-- Titlu tip eveniment + count + View all -->
-        <div class="mb-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
             <div class="flex flex-col items-start">
-                <h3 class="text-3xl font-bold mb-4"><?php echo esc_html( $section_title !== '' ? $section_title : 'Events' ); ?></h3>
+                <h3 class="mb-4 text-3xl font-bold"><?php echo esc_html( $section_title !== '' ? $section_title : 'Events' ); ?></h3>
                 <div class="text-lg font-bold text-slate-800">
                     <?php if ( $single_type && $search_type_param !== '' ) : ?>
                         <a
@@ -873,7 +873,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                 <div>
                     <a
                         href="<?php echo esc_url( $type_url ); ?>"
-                        class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition"
+                        class="inline-flex items-center px-3 py-1 text-xs font-medium transition bg-white border rounded-full border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
                     >
                         View all
                     </a>
@@ -883,7 +883,7 @@ function tixello_events_by_type_shortcode( $atts ) {
 
         <!-- Pills: ALL (doar dacă e un singur type) + genuri -->
         <?php if ( $events_count > 0 || ! empty( $genre_counts ) ) : ?>
-            <div class="mb-4 flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mb-4">
                 <?php if ( $single_type && $search_type_param !== '' ) : ?>
                     <?php
                     // Primul pill: ALL (numărul total de evenimente din acest type)
@@ -891,7 +891,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                     ?>
                     <a
                         href="<?php echo esc_url( $all_url ); ?>"
-                        class="inline-flex items-center rounded-full border border-slate-900 bg-slate-900 px-3 py-1 text-xs font-medium text-white hover:bg-slate-800 hover:border-slate-900 transition"
+                        class="inline-flex items-center px-3 py-1 text-xs font-medium text-white transition border rounded-full border-slate-900 bg-slate-900 hover:bg-slate-800 hover:border-slate-900"
                     >
                         <span>All</span>
                         <span class="ml-1 text-[10px] text-slate-200">
@@ -914,10 +914,10 @@ function tixello_events_by_type_shortcode( $atts ) {
                         ?>
                         <a
                             href="<?php echo esc_url( $genre_url ); ?>"
-                            class="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-base font-medium text-brand-dark hover:border-brand-purple hover:bg-brand-purple hover:text-white transition-all ease-in-out duration-200 group"
+                            class="inline-flex items-center px-3 py-1 text-base font-medium transition-all duration-200 ease-in-out bg-white border rounded-full border-slate-200 text-brand-dark hover:border-brand-purple hover:bg-brand-purple hover:text-white group"
                         >
                             <span><?php echo esc_html( $genre_name ); ?></span>
-                            <span class="ml-1 text-sm text-brand-purple group-hover:text-white transition-all ease-in-out duration-200">
+                            <span class="ml-1 text-sm transition-all duration-200 ease-in-out text-brand-purple group-hover:text-white">
                                 (<?php echo intval( $count ); ?>)
                             </span>
                         </a>
@@ -957,7 +957,7 @@ function tixello_events_by_type_shortcode( $atts ) {
 
                     $event_url = $event_url ? esc_url( $event_url ) : '';
                     ?>
-                    <div class="group flex flex-col rounded-xl border border-slate-200 bg-white text-sm text-brand-dark shadow-sm transition hover:border-slate-300">
+                    <div class="flex flex-col text-sm transition bg-white border shadow-sm group rounded-xl border-slate-200 text-brand-dark hover:border-slate-300">
                         <?php if ( $event_url ) : ?>
                         <a href="<?php echo $event_url; ?>" class="flex flex-col h-full pb-3 group">
                         <?php endif; ?>
@@ -968,14 +968,14 @@ function tixello_events_by_type_shortcode( $atts ) {
                                     <img
                                         src="<?php echo $poster_url; ?>"
                                         alt="<?php echo esc_attr( $title ); ?>"
-                                        class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                        class="object-cover w-full h-full transition duration-300 group-hover:scale-105"
                                         loading="lazy"
                                     />
                                 <?php endif; ?>
                             </div>
 
                             <!-- Date / time -->
-                            <div class="flex items-center justify-between mb-1 text-sm text-slate-600 px-3">
+                            <div class="flex items-center justify-between px-3 mb-1 text-sm text-slate-600">
                                 <?php if ( $start_date ) : ?>
                                     <span><?php echo esc_html( $start_date ); ?></span>
                                 <?php endif; ?>
@@ -990,7 +990,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                             </div>
 
                             <!-- Title -->
-                            <h3 class="mb-1 line-clamp-2 text-lg font-bold text-brand-dark px-3 group-hover:text-brand-purple">
+                            <h3 class="px-3 mb-1 text-lg font-bold line-clamp-2 text-brand-dark group-hover:text-brand-purple">
                                 <?php echo esc_html( $title ); ?>
                             </h3>
 
@@ -1003,7 +1003,7 @@ function tixello_events_by_type_shortcode( $atts ) {
                                 <?php endif; ?>
 
                                 <?php if( $venue_name || $venue_addr || $venue_city ) : ?>
-                                    <div class="border-t border-slate-200 flex items-center justify-between pt-2 mt-2">
+                                    <div class="flex items-center justify-between pt-2 mt-2 border-t border-slate-200">
                                         <?php if ( $venue_name ) : ?>
                                             <div class="pl-3 font-medium text-slate-800">
                                                 <?php echo esc_html( $venue_name ); ?>

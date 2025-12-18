@@ -926,7 +926,7 @@ function tixello_events_by_type_shortcode( $atts ) {
             </div>
         <?php endif; ?>
 
-        <!-- Grid 8 coloane, ultima coloană se vede doar pe jumătate ca sa fac un slider effect -->
+        <!-- Grid 8 coloane, ultima coloană se vede doar pe jumătate -->
         <div class="relative overflow-x-hidden">
             <div class="grid grid-cols-8 gap-4 -mr-[6.25%]">
                 <?php foreach ( $filtered_events as $ev ) : ?>
@@ -1526,88 +1526,96 @@ function tixello_ajax_load_artists() {
 }
 
 /**
- * Fetch artist genres list from API
+ * Fetch artist genres list - extracts from artists data and caches
+ * Returns array of genre names sorted alphabetically
  */
 function tixello_fetch_artist_genres_list() {
-    static $cached = null;
-
-    if ( ! is_null( $cached ) ) {
+    // Check transient cache first
+    $cached = get_transient( 'tixello_artist_genres_list' );
+    if ( $cached !== false && is_array( $cached ) ) {
         return $cached;
     }
 
-    $api_key = defined( 'TIXELLO_API_KEY' )
-        ? TIXELLO_API_KEY
-        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+    // Fetch first page of artists to extract genres
+    $result = tixello_fetch_artists_paginated( [
+        'page'     => 1,
+        'per_page' => 200,
+    ] );
 
-    $url = 'https://core.tixello.com/api/v1/public/artist-genres';
+    $artists = isset( $result['artists'] ) ? $result['artists'] : [];
+    $genres_map = [];
 
-    $response = wp_remote_get(
-        $url,
-        [
-            'headers' => [
-                'X-API-Key' => $api_key,
-            ],
-            'timeout' => 10,
-        ]
-    );
-
-    if ( is_wp_error( $response ) ) {
-        return [];
+    foreach ( $artists as $artist ) {
+        if ( ! empty( $artist['artist_genres'] ) && is_array( $artist['artist_genres'] ) ) {
+            foreach ( $artist['artist_genres'] as $genre ) {
+                $name = isset( $genre['name'] ) ? trim( $genre['name'] ) : '';
+                $id = isset( $genre['id'] ) ? $genre['id'] : 0;
+                if ( ! empty( $name ) && ! isset( $genres_map[ $name ] ) ) {
+                    $genres_map[ $name ] = [
+                        'id'   => $id,
+                        'name' => $name,
+                    ];
+                }
+            }
+        }
     }
 
-    $body = wp_remote_retrieve_body( $response );
-    $data = json_decode( $body, true );
+    // Sort alphabetically by name
+    $genres = array_values( $genres_map );
+    usort( $genres, function( $a, $b ) {
+        return strcasecmp( $a['name'], $b['name'] );
+    } );
 
-    if ( ! is_array( $data ) ) {
-        return [];
-    }
+    // Cache for 10 minutes
+    set_transient( 'tixello_artist_genres_list', $genres, 10 * MINUTE_IN_SECONDS );
 
-    $genres = isset( $data['data'] ) ? $data['data'] : ( isset( $data ) && is_array( $data ) ? $data : [] );
-
-    $cached = $genres;
     return $genres;
 }
 
 /**
- * Fetch artist types list from API
+ * Fetch artist types list - extracts from artists data and caches
+ * Returns array of type names sorted alphabetically
  */
 function tixello_fetch_artist_types_list() {
-    static $cached = null;
-
-    if ( ! is_null( $cached ) ) {
+    // Check transient cache first
+    $cached = get_transient( 'tixello_artist_types_list' );
+    if ( $cached !== false && is_array( $cached ) ) {
         return $cached;
     }
 
-    $api_key = defined( 'TIXELLO_API_KEY' )
-        ? TIXELLO_API_KEY
-        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+    // Fetch first page of artists to extract types
+    $result = tixello_fetch_artists_paginated( [
+        'page'     => 1,
+        'per_page' => 200,
+    ] );
 
-    $url = 'https://core.tixello.com/api/v1/public/artist-types';
+    $artists = isset( $result['artists'] ) ? $result['artists'] : [];
+    $types_map = [];
 
-    $response = wp_remote_get(
-        $url,
-        [
-            'headers' => [
-                'X-API-Key' => $api_key,
-            ],
-            'timeout' => 10,
-        ]
-    );
-
-    if ( is_wp_error( $response ) ) {
-        return [];
+    foreach ( $artists as $artist ) {
+        if ( ! empty( $artist['artist_types'] ) && is_array( $artist['artist_types'] ) ) {
+            foreach ( $artist['artist_types'] as $type ) {
+                $name = isset( $type['name'] ) ? trim( $type['name'] ) : '';
+                $id = isset( $type['id'] ) ? $type['id'] : 0;
+                if ( ! empty( $name ) && ! isset( $types_map[ $name ] ) ) {
+                    $types_map[ $name ] = [
+                        'id'   => $id,
+                        'name' => $name,
+                    ];
+                }
+            }
+        }
     }
 
-    $body = wp_remote_retrieve_body( $response );
-    $data = json_decode( $body, true );
+    // Sort alphabetically by name
+    $types = array_values( $types_map );
+    usort( $types, function( $a, $b ) {
+        return strcasecmp( $a['name'], $b['name'] );
+    } );
 
-    if ( ! is_array( $data ) ) {
-        return [];
-    }
+    // Cache for 10 minutes
+    set_transient( 'tixello_artist_types_list', $types, 10 * MINUTE_IN_SECONDS );
 
-    $types = isset( $data['data'] ) ? $data['data'] : ( isset( $data ) && is_array( $data ) ? $data : [] );
-
-    $cached = $types;
     return $types;
 }
 

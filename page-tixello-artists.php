@@ -14,9 +14,9 @@ $url_letter = get_query_var( 'tixello_artist_letter', '' );
 $url_genre  = get_query_var( 'tixello_artist_genre', '' );
 
 // Get stats from API (cached)
-$total_artists = tixello_get_stat_value( 'artists' );
-$total_genres  = tixello_get_stat_value( 'artist_genres' );
-$total_types   = tixello_get_stat_value( 'artist_types' );
+$total_artists = function_exists( 'tixello_get_stat_value' ) ? tixello_get_stat_value( 'artists' ) : '0';
+$total_genres  = function_exists( 'tixello_get_stat_value' ) ? tixello_get_stat_value( 'artist_genres' ) : '0';
+$total_types   = function_exists( 'tixello_get_stat_value' ) ? tixello_get_stat_value( 'artist_types' ) : '0';
 
 // Fetch genres list for filter pills
 $genres_list = [];
@@ -30,59 +30,97 @@ if ( function_exists( 'tixello_fetch_artist_types_list' ) ) {
     $types_list = tixello_fetch_artist_types_list();
 }
 
-// Array cu traduceri
-$t = [
-    // Breadcrumb
-    'home' => $current_lang === 'ro' ? 'Acasa' : 'Home',
-    'artists' => $current_lang === 'ro' ? 'Artisti' : 'Artists',
-
-    // Hero
-    'badge' => 'Tixello Artists Network',
-    'hero_title' => $current_lang === 'ro' ? 'Descopera Artisti' : 'Discover Artists',
-    'hero_subtitle' => $current_lang === 'ro'
-        ? 'Exploreaza %s artisti din Romania si din intreaga lume. Cauta dupa nume, gen sau locatie.'
-        : 'Explore %s artists from Romania and around the world. Search by name, genre or location.',
-
-    // Stats
-    'total_artists' => $current_lang === 'ro' ? 'Total Artisti' : 'Total Artists',
-    'genres' => $current_lang === 'ro' ? 'Genuri' : 'Genres',
-    'countries' => $current_lang === 'ro' ? 'Tari' : 'Countries',
-    'artist_types' => $current_lang === 'ro' ? 'Tipuri Artisti' : 'Artist Types',
-
-    // Search & Filters
-    'search_placeholder' => $current_lang === 'ro' ? 'Cauta artisti dupa nume...' : 'Search artists by name...',
-    'all_genres' => $current_lang === 'ro' ? 'Toate genurile' : 'All Genres',
-    'all' => 'All',
-
-    // All Artists Section
-    'all_artists' => $current_lang === 'ro' ? 'Toti artistii' : 'All Artists',
-    'showing_of' => $current_lang === 'ro' ? 'Se afiseaza' : 'Showing',
-    'of' => $current_lang === 'ro' ? 'din' : 'of',
-    'artists_label' => $current_lang === 'ro' ? 'artisti' : 'artists',
-    'loading' => $current_lang === 'ro' ? 'Se incarca...' : 'Loading...',
-
-    // Empty State
-    'no_artist_found' => $current_lang === 'ro' ? 'Niciun artist gasit' : 'No artist found',
-    'try_modify_filters' => $current_lang === 'ro'
-        ? 'Incearca sa modifici filtrele sau termenul de cautare'
-        : 'Try modifying the filters or search term',
-    'reset_filters' => $current_lang === 'ro' ? 'Reseteaza filtrele' : 'Reset filters',
-
-    // Load More
-    'load_more' => $current_lang === 'ro' ? 'Incarca mai multi artisti' : 'Load more artists',
-
-    // CTA Section
-    'are_you_artist' => $current_lang === 'ro' ? 'Esti artist?' : 'Are you an artist?',
-    'cta_subtitle' => $current_lang === 'ro'
-        ? 'Alatura-te retelei de artisti Tixello si conecteaza-te cu organizatori de evenimente din toata Europa. Fii descoperit de milioane de fani.'
-        : 'Join the Tixello artist network and connect with event organizers across Europe. Be discovered by millions of fans.',
-    'register_as_artist' => $current_lang === 'ro' ? 'Inregistreaza-te ca artist' : 'Register as an artist',
-    'learn_more' => $current_lang === 'ro' ? 'Afla mai multe' : 'Learn more',
-
-    // Filter labels
-    'filter_by_letter' => $current_lang === 'ro' ? 'Artisti cu litera' : 'Artists starting with',
-    'filter_by_genre' => $current_lang === 'ro' ? 'Artisti gen' : 'Artists in genre',
+// Translations array - all strings for both languages
+$translations = [
+    'ro' => [
+        // Breadcrumb
+        'home' => 'Acasa',
+        'artists' => 'Artisti',
+        // Hero
+        'badge' => 'Reteaua de Artisti Tixello',
+        'hero_title' => 'Descopera Artisti',
+        'hero_subtitle' => 'Exploreaza %s artisti din Romania si din intreaga lume. Cauta dupa nume, gen sau locatie.',
+        // Stats
+        'total_artists' => 'Total Artisti',
+        'genres' => 'Genuri',
+        'artist_types' => 'Tipuri Artisti',
+        'showing' => 'Afisati',
+        // Search & Filters
+        'search_placeholder' => 'Cauta artisti dupa nume...',
+        'all_genres' => 'Toate genurile',
+        'all' => 'Toate',
+        // All Artists Section
+        'all_artists' => 'Toti artistii',
+        'showing_of' => 'Se afiseaza',
+        'of' => 'din',
+        'artists_label' => 'artisti',
+        'loading' => 'Se incarca...',
+        // Empty State
+        'no_artist_found' => 'Niciun artist gasit',
+        'try_modify_filters' => 'Incearca sa modifici filtrele sau termenul de cautare',
+        'reset_filters' => 'Reseteaza filtrele',
+        // Load More
+        'load_more' => 'Incarca mai multi artisti',
+        // CTA Section
+        'are_you_artist' => 'Esti artist?',
+        'cta_subtitle' => 'Alatura-te retelei de artisti Tixello si conecteaza-te cu organizatori de evenimente din toata Europa. Fii descoperit de milioane de fani.',
+        'register_as_artist' => 'Inregistreaza-te ca artist',
+        'learn_more' => 'Afla mai multe',
+        // Filter labels
+        'filter_by_letter' => 'Artisti cu litera',
+        'filter_by_genre' => 'Artisti gen',
+    ],
+    'en' => [
+        // Breadcrumb
+        'home' => 'Home',
+        'artists' => 'Artists',
+        // Hero
+        'badge' => 'Tixello Artists Network',
+        'hero_title' => 'Discover Artists',
+        'hero_subtitle' => 'Explore %s artists from Romania and around the world. Search by name, genre or location.',
+        // Stats
+        'total_artists' => 'Total Artists',
+        'genres' => 'Genres',
+        'artist_types' => 'Artist Types',
+        'showing' => 'Showing',
+        // Search & Filters
+        'search_placeholder' => 'Search artists by name...',
+        'all_genres' => 'All Genres',
+        'all' => 'All',
+        // All Artists Section
+        'all_artists' => 'All Artists',
+        'showing_of' => 'Showing',
+        'of' => 'of',
+        'artists_label' => 'artists',
+        'loading' => 'Loading...',
+        // Empty State
+        'no_artist_found' => 'No artist found',
+        'try_modify_filters' => 'Try modifying the filters or search term',
+        'reset_filters' => 'Reset filters',
+        // Load More
+        'load_more' => 'Load more artists',
+        // CTA Section
+        'are_you_artist' => 'Are you an artist?',
+        'cta_subtitle' => 'Join the Tixello artist network and connect with event organizers across Europe. Be discovered by millions of fans.',
+        'register_as_artist' => 'Register as an artist',
+        'learn_more' => 'Learn more',
+        // Filter labels
+        'filter_by_letter' => 'Artists starting with',
+        'filter_by_genre' => 'Artists in genre',
+    ],
 ];
+
+// Get translations for current language
+$t = isset( $translations[ $current_lang ] ) ? $translations[ $current_lang ] : $translations['en'];
+
+// Prepare genres for JavaScript
+$js_genres = [];
+foreach ( $genres_list as $genre ) {
+    $name = is_array( $genre ) ? ( $genre['name'] ?? '' ) : $genre;
+    if ( ! empty( $name ) ) {
+        $js_genres[] = $name;
+    }
+}
 
 ?>
 
@@ -107,7 +145,7 @@ $t = [
                     <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
-                    <span class="text-white/70"><?php echo esc_html( strtoupper( $url_letter ) ); ?></span>
+                    <span class="text-white/70"><?php echo esc_html( strtoupper( urldecode( $url_letter ) ) ); ?></span>
                 <?php endif; ?>
                 <?php if ( $url_genre ) : ?>
                     <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,7 +164,7 @@ $t = [
 
                 <?php if ( $url_letter ) : ?>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                        <?php echo esc_html( $t['filter_by_letter'] ); ?> "<?php echo esc_html( strtoupper( $url_letter ) ); ?>"
+                        <?php echo esc_html( $t['filter_by_letter'] ); ?> "<?php echo esc_html( strtoupper( urldecode( $url_letter ) ) ); ?>"
                     </h1>
                 <?php elseif ( $url_genre ) : ?>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -139,7 +177,7 @@ $t = [
                 <?php endif; ?>
 
                 <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    <?php echo sprintf( $t['hero_subtitle'], '<span class="text-white font-semibold">' . $total_artists . '</span>' ); ?>
+                    <?php echo sprintf( $t['hero_subtitle'], '<span class="text-white font-semibold">' . esc_html( $total_artists ) . '</span>' ); ?>
                 </p>
             </div>
 
@@ -159,7 +197,7 @@ $t = [
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
                     <div class="text-2xl font-bold text-pink-400" id="filtered-count">-</div>
-                    <div class="text-xs text-white/50" id="filtered-label"><?php echo esc_html( $t['showing_of'] ); ?></div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['showing'] ); ?></div>
                 </div>
             </div>
         </div>
@@ -180,35 +218,29 @@ $t = [
                         </svg>
                         <input type="text"
                                x-model="search"
-                               @input.debounce.400ms="searchArtists()"
+                               @input.debounce.300ms="filterArtists()"
                                placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
                     </div>
 
                     <!-- Genre Filter Dropdown -->
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                        <button @click="open = !open" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all min-w-[180px]">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                             </svg>
-                            <span class="text-sm font-medium" x-text="activeGenre === 'all' ? '<?php echo esc_js( $t['all_genres'] ); ?>' : activeGenre"></span>
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <span class="text-sm font-medium truncate" x-text="activeGenre === 'all' ? '<?php echo esc_js( $t['all_genres'] ); ?>' : activeGenre"></span>
+                            <svg class="w-4 h-4 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50">
-                            <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
+                            <button @click="setGenre('all'); open = false" class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
                                 <?php echo esc_html( $t['all_genres'] ); ?>
-                            </a>
-                            <?php foreach ( $genres_list as $genre ) : ?>
-                                <?php $genre_name = is_array( $genre ) ? ( $genre['name'] ?? '' ) : $genre; ?>
-                                <?php if ( ! empty( $genre_name ) ) : ?>
-                                    <a href="<?php echo esc_url( home_url( '/artists/genre/' . urlencode( $genre_name ) . '/' ) ); ?>"
-                                       class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors text-white/70 hover:text-violet-400">
-                                        <?php echo esc_html( $genre_name ); ?>
-                                    </a>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            </button>
+                            <template x-for="genre in genres" :key="genre">
+                                <button @click="setGenre(genre); open = false" class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === genre ? 'text-violet-400' : 'text-white/70'" x-text="genre"></button>
+                            </template>
                         </div>
                     </div>
 
@@ -233,19 +265,22 @@ $t = [
         <section class="border-b border-white/5 bg-zinc-900/30">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
-                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>"
-                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo empty( $url_letter ) && empty( $url_genre ) ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
-                        All
-                    </a>
-                    <a href="<?php echo esc_url( home_url( '/artists/letter/%23/' ) ); ?>"
-                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo $url_letter === '#' || $url_letter === '%23' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
+                    <button @click="setLetter('all')"
+                       :class="activeLetter === 'all' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
+                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
+                        <?php echo esc_html( $t['all'] ); ?>
+                    </button>
+                    <button @click="setLetter('#')"
+                       :class="activeLetter === '#' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
+                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
                         #
-                    </a>
+                    </button>
                     <?php foreach ( range( 'A', 'Z' ) as $letter ) : ?>
-                        <a href="<?php echo esc_url( home_url( '/artists/letter/' . $letter . '/' ) ); ?>"
-                           class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo strtoupper( $url_letter ) === $letter ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
+                        <button @click="setLetter('<?php echo $letter; ?>')"
+                           :class="activeLetter === '<?php echo $letter; ?>' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
+                           class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
                             <?php echo $letter; ?>
-                        </a>
+                        </button>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -255,22 +290,18 @@ $t = [
         <section class="border-b border-white/5">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
-                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>"
-                       class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors <?php echo empty( $url_genre ) ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'; ?>">
+                    <button @click="setGenre('all')"
+                       :class="activeGenre === 'all' ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'"
+                       class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors">
                         <?php echo esc_html( $t['all_genres'] ); ?>
-                    </a>
-                    <?php
-                    $shown_genres = array_slice( $genres_list, 0, 12 );
-                    foreach ( $shown_genres as $genre ) :
-                        $genre_name = is_array( $genre ) ? ( $genre['name'] ?? '' ) : $genre;
-                        if ( empty( $genre_name ) ) continue;
-                        $is_active = urldecode( $url_genre ) === $genre_name;
-                    ?>
-                        <a href="<?php echo esc_url( home_url( '/artists/genre/' . urlencode( $genre_name ) . '/' ) ); ?>"
-                           class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors <?php echo $is_active ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'; ?>">
-                            <?php echo esc_html( $genre_name ); ?>
-                        </a>
-                    <?php endforeach; ?>
+                    </button>
+                    <template x-for="genre in genres.slice(0, 15)" :key="genre">
+                        <button @click="setGenre(genre)"
+                           :class="activeGenre === genre ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'"
+                           class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                           x-text="genre">
+                        </button>
+                    </template>
                 </div>
             </div>
         </section>
@@ -285,7 +316,7 @@ $t = [
                         <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['all_artists'] ); ?></h2>
                         <p class="text-white/50 mt-1">
                             <span x-show="!loading">
-                                <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="artists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="totalArtists"></span> <?php echo esc_html( $t['artists_label'] ); ?>
+                                <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                             </span>
                             <span x-show="loading" class="flex items-center gap-2">
                                 <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -299,7 +330,7 @@ $t = [
                 </div>
 
                 <!-- Loading Skeleton -->
-                <div x-show="loading && artists.length === 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                <div x-show="loading && allArtists.length === 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
                     <?php for ( $i = 0; $i < 12; $i++ ) : ?>
                     <div class="animate-pulse">
                         <div class="aspect-square rounded-2xl bg-zinc-800/50 mb-3"></div>
@@ -310,8 +341,8 @@ $t = [
                 </div>
 
                 <!-- Grid View -->
-                <div x-show="viewMode === 'grid' && artists.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
-                    <template x-for="artist in artists" :key="artist.id">
+                <div x-show="viewMode === 'grid' && displayedArtists.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                    <template x-for="artist in displayedArtists" :key="artist.id">
                         <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group">
                             <div class="relative aspect-square rounded-2xl overflow-hidden mb-3">
                                 <template x-if="artist.image">
@@ -347,8 +378,8 @@ $t = [
                 </div>
 
                 <!-- List View -->
-                <div x-show="viewMode === 'list' && artists.length > 0" class="space-y-3">
-                    <template x-for="artist in artists" :key="artist.id">
+                <div x-show="viewMode === 'list' && displayedArtists.length > 0" class="space-y-3">
+                    <template x-for="artist in displayedArtists" :key="artist.id">
                         <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80 transition-all duration-300">
                             <!-- Thumbnail -->
                             <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-800">
@@ -387,7 +418,7 @@ $t = [
                 </div>
 
                 <!-- Empty State -->
-                <div x-show="!loading && artists.length === 0" class="text-center py-16">
+                <div x-show="!loading && filteredArtists.length === 0" class="text-center py-16">
                     <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
                         <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -395,9 +426,9 @@ $t = [
                     </div>
                     <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_artist_found'] ); ?></h3>
                     <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
-                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="inline-block px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+                    <button @click="resetFilters()" class="inline-block px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
                         <?php echo esc_html( $t['reset_filters'] ); ?>
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Load More -->
@@ -409,7 +440,7 @@ $t = [
                         <?php echo esc_html( $t['load_more'] ); ?>
                     </button>
                     <p class="text-sm text-white/40 mt-3">
-                        <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="artists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="totalArtists"></span> <?php echo esc_html( $t['artists_label'] ); ?>
+                        <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                     </p>
                 </div>
 
@@ -458,16 +489,19 @@ $t = [
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('tixelloArtistsDirectory', () => ({
-                artists: [],
-                totalArtists: 0,
+                allArtists: [],
+                genres: <?php echo wp_json_encode( $js_genres ); ?>,
+                totalFromApi: 0,
                 currentPage: 1,
                 lastPage: 1,
+                perPage: 48,
                 loading: true,
                 loadingMore: false,
                 search: '',
-                activeLetter: '<?php echo esc_js( $url_letter ); ?>' || 'all',
-                activeGenre: '<?php echo esc_js( urldecode( $url_genre ) ); ?>' || 'all',
+                activeLetter: '<?php echo esc_js( $url_letter ?: 'all' ); ?>',
+                activeGenre: '<?php echo esc_js( urldecode( $url_genre ) ?: 'all' ); ?>',
                 viewMode: 'grid',
+                displayCount: 48,
                 ajaxUrl: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
 
                 init() {
@@ -479,8 +513,10 @@ $t = [
                         this.loadingMore = true;
                     } else {
                         this.loading = true;
-                        this.artists = [];
-                        this.currentPage = 1;
+                        if (!append) {
+                            this.allArtists = [];
+                            this.currentPage = 1;
+                        }
                     }
 
                     const params = new URLSearchParams({
@@ -488,16 +524,9 @@ $t = [
                         page: this.currentPage,
                     });
 
-                    if (this.activeLetter && this.activeLetter !== 'all') {
+                    // Only send letter filter to API if not searching
+                    if (this.activeLetter && this.activeLetter !== 'all' && !this.search.trim()) {
                         params.append('letter', this.activeLetter);
-                    }
-
-                    if (this.activeGenre && this.activeGenre !== 'all') {
-                        params.append('genre', this.activeGenre);
-                    }
-
-                    if (this.search.trim()) {
-                        params.append('search', this.search.trim());
                     }
 
                     try {
@@ -506,22 +535,29 @@ $t = [
 
                         if (result.success) {
                             if (append) {
-                                this.artists = [...this.artists, ...result.data.artists];
+                                this.allArtists = [...this.allArtists, ...result.data.artists];
                             } else {
-                                this.artists = result.data.artists;
+                                this.allArtists = result.data.artists;
                             }
 
                             if (result.data.pagination) {
-                                this.totalArtists = result.data.pagination.total || this.artists.length;
+                                this.totalFromApi = result.data.pagination.total || this.allArtists.length;
                                 this.lastPage = result.data.pagination.last_page || 1;
                                 this.currentPage = result.data.pagination.current_page || 1;
                             }
 
-                            // Update the filtered count in stats
-                            const filteredCountEl = document.getElementById('filtered-count');
-                            if (filteredCountEl) {
-                                filteredCountEl.textContent = this.artists.length;
+                            // Extract genres from artists if we don't have them
+                            if (this.genres.length === 0) {
+                                const genreSet = new Set();
+                                this.allArtists.forEach(a => {
+                                    if (a.genres) {
+                                        a.genres.forEach(g => genreSet.add(g));
+                                    }
+                                });
+                                this.genres = Array.from(genreSet).sort();
                             }
+
+                            this.updateFilteredCount();
                         }
                     } catch (error) {
                         console.error('Error loading artists:', error);
@@ -531,22 +567,104 @@ $t = [
                     }
                 },
 
+                get filteredArtists() {
+                    let list = [...this.allArtists];
+                    const searchTerm = this.search.trim().toLowerCase();
+
+                    // Search filter (client-side)
+                    if (searchTerm) {
+                        list = list.filter(a => {
+                            const haystack = [
+                                a.name || '',
+                                a.city || '',
+                                a.country || '',
+                                ...(a.genres || [])
+                            ].join(' ').toLowerCase();
+                            return haystack.includes(searchTerm);
+                        });
+                    }
+
+                    // Letter filter (client-side when searching)
+                    if (this.activeLetter !== 'all' && searchTerm) {
+                        list = list.filter(a => {
+                            const firstChar = (a.name || '').charAt(0).toUpperCase();
+                            if (this.activeLetter === '#') {
+                                return /[0-9]/.test(firstChar);
+                            }
+                            return firstChar === this.activeLetter;
+                        });
+                    }
+
+                    // Genre filter (client-side)
+                    if (this.activeGenre !== 'all') {
+                        list = list.filter(a => {
+                            return a.genres && a.genres.some(g =>
+                                g.toLowerCase() === this.activeGenre.toLowerCase()
+                            );
+                        });
+                    }
+
+                    return list;
+                },
+
+                get displayedArtists() {
+                    return this.filteredArtists.slice(0, this.displayCount);
+                },
+
                 get hasMore() {
-                    return this.currentPage < this.lastPage;
+                    // Has more if: more filtered results to show OR more pages to load from API
+                    return this.displayCount < this.filteredArtists.length || this.currentPage < this.lastPage;
                 },
 
                 loadMore() {
-                    if (this.hasMore && !this.loadingMore) {
+                    if (this.displayCount < this.filteredArtists.length) {
+                        // Show more from current data
+                        this.displayCount += 48;
+                    } else if (this.currentPage < this.lastPage) {
+                        // Fetch next page from API
                         this.currentPage++;
                         this.loadArtists(true);
                     }
                 },
 
-                searchArtists() {
-                    // Reset to page 1 when searching
-                    this.currentPage = 1;
+                setLetter(letter) {
+                    this.activeLetter = letter;
+                    this.displayCount = 48;
+
+                    // If searching, filter client-side
+                    if (this.search.trim()) {
+                        this.updateFilteredCount();
+                    } else {
+                        // Otherwise reload from API
+                        this.loadArtists();
+                    }
+                },
+
+                setGenre(genre) {
+                    this.activeGenre = genre;
+                    this.displayCount = 48;
+                    this.updateFilteredCount();
+                },
+
+                filterArtists() {
+                    this.displayCount = 48;
+                    this.updateFilteredCount();
+                },
+
+                resetFilters() {
+                    this.search = '';
+                    this.activeLetter = 'all';
+                    this.activeGenre = 'all';
+                    this.displayCount = 48;
                     this.loadArtists();
                 },
+
+                updateFilteredCount() {
+                    const el = document.getElementById('filtered-count');
+                    if (el) {
+                        el.textContent = this.filteredArtists.length;
+                    }
+                }
             }));
         });
     </script>

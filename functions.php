@@ -926,7 +926,7 @@ function tixello_events_by_type_shortcode( $atts ) {
             </div>
         <?php endif; ?>
 
-        <!-- Grid 8 coloane, ultima coloană se vede doar pe jumătate -->
+        <!-- Grid 8 coloane, ultima coloană se vede doar pe jumătate ca sa fac un slider effect -->
         <div class="relative overflow-x-hidden">
             <div class="grid grid-cols-8 gap-4 -mr-[6.25%]">
                 <?php foreach ( $filtered_events as $ev ) : ?>

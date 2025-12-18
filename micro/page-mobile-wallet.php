@@ -5,6 +5,101 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'                  => 'Apple Wallet & Google Pay',
+	'hero_title'             => $current_lang === 'ro' ? 'Bilete în' : 'Tickets in your',
+	'hero_title2'            => $current_lang === 'ro' ? 'buzunar' : 'pocket',
+	'hero_desc'              => $current_lang === 'ro'
+		? 'Transformă biletele în <strong class="text-white">carduri digitale</strong> pentru Apple Wallet și Google Pay. Actualizări în timp real, notificări push, acces offline. <strong class="text-white">Zero printare.</strong>'
+		: 'Transform tickets into <strong class="text-white">digital cards</strong> for Apple Wallet and Google Pay. Real-time updates, push notifications, offline access. <strong class="text-white">Zero printing.</strong>',
+	'cta_activate'           => $current_lang === 'ro' ? 'Activează Wallet Cards' : 'Activate Wallet Cards',
+	'cta_platforms'          => $current_lang === 'ro' ? 'Vezi platformele' : 'See platforms',
+
+	// Phone Mockup
+	'wallet'                 => 'Wallet',
+	'my_cards'               => $current_lang === 'ro' ? 'Cardurile Mele' : 'My Cards',
+	'ticket'                 => $current_lang === 'ro' ? 'BILET' : 'TICKET',
+	'general_access'         => $current_lang === 'ro' ? 'Acces General' : 'General Access',
+	'date_label'             => $current_lang === 'ro' ? 'Data' : 'Date',
+	'time_label'             => $current_lang === 'ro' ? 'Ora' : 'Time',
+	'location_label'         => $current_lang === 'ro' ? 'Locație' : 'Location',
+	'seat_label'             => $current_lang === 'ro' ? 'Loc' : 'Seat',
+	'notif_title'            => $current_lang === 'ro' ? 'Reminder Eveniment' : 'Event Reminder',
+	'notif_desc'             => $current_lang === 'ro' ? 'Summer Fest începe în 1 oră!' : 'Summer Fest starts in 1 hour!',
+	'nearby'                 => $current_lang === 'ro' ? 'Aproape' : 'Nearby',
+	'of_location'            => $current_lang === 'ro' ? 'de locație' : 'location',
+	'offline'                => 'Offline',
+	'accessible'             => $current_lang === 'ro' ? 'accesibil' : 'accessible',
+
+	// Platforms Section
+	'platforms_label'        => $current_lang === 'ro' ? 'Platforme Suportate' : 'Supported Platforms',
+	'platforms_title'        => 'Apple Wallet',
+	'platforms_title2'       => '& Google Pay',
+	'platforms_desc'         => $current_lang === 'ro'
+		? 'O singură integrare, ambele platforme. Acoperă 99% din smartphone-uri.'
+		: 'One integration, both platforms. Covers 99% of smartphones.',
+	'apple_pkpass'           => $current_lang === 'ro' ? 'Fișiere .pkpass native' : 'Native .pkpass files',
+	'apple_push'             => $current_lang === 'ro' ? 'Actualizări push în timp real' : 'Real-time push updates',
+	'apple_location'         => $current_lang === 'ro' ? 'Remindere bazate pe locație' : 'Location-based reminders',
+	'apple_lockscreen'       => $current_lang === 'ro' ? 'Notificări pe lock screen' : 'Lock screen notifications',
+	'apple_watch'            => $current_lang === 'ro' ? 'Sincronizare Apple Watch' : 'Apple Watch sync',
+	'google_jwt'             => $current_lang === 'ro' ? 'Carduri bazate pe JWT' : 'JWT-based cards',
+	'google_auto'            => $current_lang === 'ro' ? 'Actualizări automate' : 'Automatic updates',
+	'google_notif'           => $current_lang === 'ro' ? 'Notificări personalizate' : 'Custom notifications',
+	'google_calendar'        => $current_lang === 'ro' ? 'Integrare Google Calendar' : 'Google Calendar integration',
+	'google_backup'          => $current_lang === 'ro' ? 'Backup în cloud' : 'Cloud backup',
+
+	// Lifecycle Section
+	'lifecycle_label'        => $current_lang === 'ro' ? 'Ciclul de Viață' : 'Lifecycle',
+	'lifecycle_title'        => $current_lang === 'ro' ? 'De la achiziție' : 'From purchase',
+	'lifecycle_title2'       => $current_lang === 'ro' ? 'la check-in' : 'to check-in',
+	'step_generate'          => $current_lang === 'ro' ? 'Generare' : 'Generation',
+	'step_generate_desc'     => $current_lang === 'ro' ? 'Card generat automat la achiziția biletului' : 'Card automatically generated at ticket purchase',
+	'step_delivery'          => $current_lang === 'ro' ? 'Livrare' : 'Delivery',
+	'step_delivery_desc'     => $current_lang === 'ro' ? 'Email cu buton "Adaugă în Wallet"' : 'Email with "Add to Wallet" button',
+	'step_updates'           => $current_lang === 'ro' ? 'Actualizări' : 'Updates',
+	'step_updates_desc'      => $current_lang === 'ro' ? 'Push automat când detaliile se schimbă' : 'Auto push when details change',
+	'step_checkin'           => 'Check-in',
+	'step_checkin_desc'      => $current_lang === 'ro' ? 'Scanare cod QR la intrare' : 'QR code scan at entry',
+	'step_expire'            => $current_lang === 'ro' ? 'Expirare' : 'Expiration',
+	'step_expire_desc'       => $current_lang === 'ro' ? 'Arhivare automată post-eveniment' : 'Auto-archive post-event',
+
+	// Use Cases Section
+	'usecases_label'         => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'         => $current_lang === 'ro' ? 'Pentru orice' : 'For any',
+	'usecases_title2'        => $current_lang === 'ro' ? 'tip de eveniment' : 'event type',
+	'uc_concerts'            => $current_lang === 'ro' ? 'Concerte' : 'Concerts',
+	'uc_concerts_desc'       => $current_lang === 'ro' ? 'Carduri elegante cu artwork-ul artistului. Fanii arată telefonul și intră direct.' : 'Elegant cards with artist artwork. Fans show their phone and enter directly.',
+	'uc_festivals'           => $current_lang === 'ro' ? 'Festivaluri Multi-Zi' : 'Multi-Day Festivals',
+	'uc_festivals_desc'      => $current_lang === 'ro' ? 'Un singur card pentru toate zilele. Actualizări cu programul și anunțuri.' : 'One card for all days. Updates with schedule and announcements.',
+	'uc_conferences'         => $current_lang === 'ro' ? 'Conferințe' : 'Conferences',
+	'uc_conferences_desc'    => $current_lang === 'ro' ? 'Badge digital cu informații participant, acces la sesiuni și networking.' : 'Digital badge with attendee info, session access and networking.',
+	'uc_sports'              => $current_lang === 'ro' ? 'Evenimente Sportive' : 'Sports Events',
+	'uc_sports_desc'         => $current_lang === 'ro' ? 'Abonamente de sezon care se actualizează pentru fiecare meci de acasă.' : 'Season passes that update for each home game.',
+	'uc_theater'             => $current_lang === 'ro' ? 'Teatru & Spectacole' : 'Theater & Shows',
+	'uc_theater_desc'        => $current_lang === 'ro' ? 'Carduri sofisticate cu reminder pentru ora cortinei și informații loc.' : 'Sophisticated cards with curtain time reminder and seat info.',
+	'uc_parking'             => $current_lang === 'ro' ? 'Transport & Parcare' : 'Transport & Parking',
+	'uc_parking_desc'        => $current_lang === 'ro' ? 'Combină biletul cu permisul de parcare într-un singur card convenabil.' : 'Combine ticket with parking pass in one convenient card.',
+
+	// Testimonial
+	'testimonial_quote'      => $current_lang === 'ro'
+		? 'Am eliminat complet printarea biletelor. <span class="text-gradient-wallet font-semibold">78% din participanți</span> folosesc acum wallet cards. Check-in-ul e de 3x mai rapid, iar când am schimbat ora începerii, toată lumea a văzut actualizarea instant.'
+		: 'We completely eliminated ticket printing. <span class="text-gradient-wallet font-semibold">78% of attendees</span> now use wallet cards. Check-in is 3x faster, and when we changed the start time, everyone saw the update instantly.',
+	'testimonial_author'     => 'Diana S.',
+	'testimonial_role'       => 'Operations Manager, Electric Castle',
+
+	// Final CTA
+	'cta_title'              => $current_lang === 'ro' ? 'Bilete' : 'Modern',
+	'cta_title2'             => $current_lang === 'ro' ? 'moderne' : 'tickets',
+	'cta_desc'               => $current_lang === 'ro'
+		? 'Apple Wallet și Google Pay într-o singură integrare. Actualizări live, notificări push, acces offline.'
+		: 'Apple Wallet and Google Pay in one integration. Live updates, push notifications, offline access.',
+	'cta_contact'            => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'offline_access'         => 'Offline Access',
+];
 ?>
 
 <style>
@@ -175,27 +270,27 @@ get_header();
           <!-- Badge -->
           <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-wallet-gradient1/10 border border-wallet-gradient1/20 mb-6">
             <svg class="w-5 h-5 text-wallet-gradient1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-            <span class="text-wallet-gradient1 text-sm font-medium">Apple Wallet & Google Pay</span>
+            <span class="text-wallet-gradient1 text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Bilete în<br><span class="text-gradient-wallet">buzunar</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-wallet"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Transformă biletele în <strong class="text-white">carduri digitale</strong> pentru Apple Wallet și Google Pay. Actualizări în timp real, notificări push, acces offline. <strong class="text-white">Zero printare.</strong>
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-wallet-gradient1 to-wallet-gradient2 text-white hover:scale-105 hover:shadow-glow-wallet transition-all duration-300">
-              Activează Wallet Cards
+              <?php echo esc_html( $t['cta_activate'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#platforme" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi platformele
+              <?php echo esc_html( $t['cta_platforms'] ); ?>
             </a>
           </div>
 
@@ -232,8 +327,8 @@ get_header();
 
                 <!-- Wallet Header -->
                 <div class="bg-black px-4 py-3">
-                  <div class="text-white/60 text-xs">Wallet</div>
-                  <div class="text-white text-lg font-semibold">Cardurile Mele</div>
+                  <div class="text-white/60 text-xs"><?php echo esc_html( $t['wallet'] ); ?></div>
+                  <div class="text-white text-lg font-semibold"><?php echo esc_html( $t['my_cards'] ); ?></div>
                 </div>
 
                 <!-- Wallet Pass -->
@@ -248,7 +343,7 @@ get_header();
                           </div>
                           <span class="text-white/80 text-sm">Tixello</span>
                         </div>
-                        <span class="text-white/60 text-xs">BILET</span>
+                        <span class="text-white/60 text-xs"><?php echo esc_html( $t['ticket'] ); ?></span>
                       </div>
                     </div>
 
@@ -256,24 +351,24 @@ get_header();
                     <div class="bg-wallet-pass p-4 pt-8 -mt-8 rounded-b-2xl">
                       <div class="text-center mb-4">
                         <div class="text-white text-xl font-bold mb-1">Summer Fest 2025</div>
-                        <div class="text-white/60 text-sm">Acces General</div>
+                        <div class="text-white/60 text-sm"><?php echo esc_html( $t['general_access'] ); ?></div>
                       </div>
 
                       <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
                         <div>
-                          <div class="text-white/40 text-xs uppercase">Data</div>
+                          <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['date_label'] ); ?></div>
                           <div class="text-white font-medium">15 Iulie 2025</div>
                         </div>
                         <div class="text-right">
-                          <div class="text-white/40 text-xs uppercase">Ora</div>
+                          <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['time_label'] ); ?></div>
                           <div class="text-white font-medium">18:00</div>
                         </div>
                         <div>
-                          <div class="text-white/40 text-xs uppercase">Locație</div>
+                          <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['location_label'] ); ?></div>
                           <div class="text-white font-medium">Romexpo</div>
                         </div>
                         <div class="text-right">
-                          <div class="text-white/40 text-xs uppercase">Loc</div>
+                          <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['seat_label'] ); ?></div>
                           <div class="text-white font-medium">A-127</div>
                         </div>
                       </div>
@@ -317,8 +412,8 @@ get_header();
                 <span class="text-white font-bold text-sm">T</span>
               </div>
               <div>
-                <div class="text-gray-900 font-semibold text-sm">Reminder Eveniment</div>
-                <div class="text-gray-500 text-xs">Summer Fest începe în 1 oră!</div>
+                <div class="text-gray-900 font-semibold text-sm"><?php echo esc_html( $t['notif_title'] ); ?></div>
+                <div class="text-gray-500 text-xs"><?php echo esc_html( $t['notif_desc'] ); ?></div>
               </div>
             </div>
 
@@ -329,8 +424,8 @@ get_header();
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <div>
-                  <div class="text-wallet-gradient1 text-sm font-medium">Aproape</div>
-                  <div class="text-white/40 text-xs">de locație</div>
+                  <div class="text-wallet-gradient1 text-sm font-medium"><?php echo esc_html( $t['nearby'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['of_location'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -342,8 +437,8 @@ get_header();
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
                 <div>
-                  <div class="text-brand-green text-sm font-medium">Offline</div>
-                  <div class="text-white/40 text-xs">accesibil</div>
+                  <div class="text-brand-green text-sm font-medium"><?php echo esc_html( $t['offline'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['accessible'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -358,9 +453,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-wallet-gradient1 text-sm font-medium uppercase tracking-widest">Platforme Suportate</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Apple Wallet<br><span class="text-gradient-wallet">& Google Pay</span></h2>
-        <p class="text-lg text-white/60">O singură integrare, ambele platforme. Acoperă 99% din smartphone-uri.</p>
+        <span class="text-wallet-gradient1 text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['platforms_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['platforms_title'] ); ?><br><span class="text-gradient-wallet"><?php echo esc_html( $t['platforms_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['platforms_desc'] ); ?></p>
       </div>
 
       <!-- Platform Cards -->
@@ -380,23 +475,23 @@ get_header();
           <div class="space-y-3 mb-6">
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Fișiere .pkpass native</span>
+              <span class="text-white/70"><?php echo esc_html( $t['apple_pkpass'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Actualizări push în timp real</span>
+              <span class="text-white/70"><?php echo esc_html( $t['apple_push'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Remindere bazate pe locație</span>
+              <span class="text-white/70"><?php echo esc_html( $t['apple_location'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Notificări pe lock screen</span>
+              <span class="text-white/70"><?php echo esc_html( $t['apple_lockscreen'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Sincronizare Apple Watch</span>
+              <span class="text-white/70"><?php echo esc_html( $t['apple_watch'] ); ?></span>
             </div>
           </div>
 
@@ -421,23 +516,23 @@ get_header();
           <div class="space-y-3 mb-6">
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Carduri bazate pe JWT</span>
+              <span class="text-white/70"><?php echo esc_html( $t['google_jwt'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Actualizări automate</span>
+              <span class="text-white/70"><?php echo esc_html( $t['google_auto'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Notificări personalizate</span>
+              <span class="text-white/70"><?php echo esc_html( $t['google_notif'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Integrare Google Calendar</span>
+              <span class="text-white/70"><?php echo esc_html( $t['google_calendar'] ); ?></span>
             </div>
             <div class="flex items-center gap-3">
               <svg class="w-5 h-5 text-brand-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70">Backup în cloud</span>
+              <span class="text-white/70"><?php echo esc_html( $t['google_backup'] ); ?></span>
             </div>
           </div>
 
@@ -454,8 +549,8 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest">Ciclul de Viață</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">De la achiziție<br><span class="text-gradient animate-shimmer">la check-in</span></h2>
+        <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['lifecycle_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['lifecycle_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['lifecycle_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-5 gap-4 reveal">
@@ -464,8 +559,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-wallet-gradient1 to-wallet-gradient2 flex items-center justify-center mx-auto mb-4">
             <span class="text-white font-bold text-xl">1</span>
           </div>
-          <h4 class="text-white font-semibold mb-2">Generare</h4>
-          <p class="text-white/50 text-sm">Card generat automat la achiziția biletului</p>
+          <h4 class="text-white font-semibold mb-2"><?php echo esc_html( $t['step_generate'] ); ?></h4>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['step_generate_desc'] ); ?></p>
         </div>
 
         <!-- Arrow -->
@@ -478,8 +573,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-wallet-gradient1 to-wallet-gradient2 flex items-center justify-center mx-auto mb-4">
             <span class="text-white font-bold text-xl">2</span>
           </div>
-          <h4 class="text-white font-semibold mb-2">Livrare</h4>
-          <p class="text-white/50 text-sm">Email cu buton "Adaugă în Wallet"</p>
+          <h4 class="text-white font-semibold mb-2"><?php echo esc_html( $t['step_delivery'] ); ?></h4>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['step_delivery_desc'] ); ?></p>
         </div>
 
         <!-- Arrow -->
@@ -492,8 +587,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-wallet-gradient1 to-wallet-gradient2 flex items-center justify-center mx-auto mb-4">
             <span class="text-white font-bold text-xl">3</span>
           </div>
-          <h4 class="text-white font-semibold mb-2">Actualizări</h4>
-          <p class="text-white/50 text-sm">Push automat când detaliile se schimbă</p>
+          <h4 class="text-white font-semibold mb-2"><?php echo esc_html( $t['step_updates'] ); ?></h4>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['step_updates_desc'] ); ?></p>
         </div>
       </div>
 
@@ -506,8 +601,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-green to-brand-cyan flex items-center justify-center mx-auto mb-4">
             <span class="text-white font-bold text-xl">4</span>
           </div>
-          <h4 class="text-white font-semibold mb-2">Check-in</h4>
-          <p class="text-white/50 text-sm">Scanare cod QR la intrare</p>
+          <h4 class="text-white font-semibold mb-2"><?php echo esc_html( $t['step_checkin'] ); ?></h4>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['step_checkin_desc'] ); ?></p>
         </div>
 
         <!-- Arrow -->
@@ -520,8 +615,8 @@ get_header();
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-green to-brand-cyan flex items-center justify-center mx-auto mb-4">
             <span class="text-white font-bold text-xl">5</span>
           </div>
-          <h4 class="text-white font-semibold mb-2">Expirare</h4>
-          <p class="text-white/50 text-sm">Arhivare automată post-eveniment</p>
+          <h4 class="text-white font-semibold mb-2"><?php echo esc_html( $t['step_expire'] ); ?></h4>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['step_expire_desc'] ); ?></p>
         </div>
 
         <div class="hidden md:block"></div>
@@ -533,45 +628,45 @@ get_header();
   <section class="py-24 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Pentru orice<br><span class="text-gradient animate-shimmer">tip de eveniment</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-wallet-gradient1/20 to-wallet-gradient2/20 flex items-center justify-center mb-4"><span class="text-2xl">🎸</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Concerte</h3>
-          <p class="text-white/50 text-sm">Carduri elegante cu artwork-ul artistului. Fanii arată telefonul și intră direct.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_concerts'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_concerts_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎪</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Festivaluri Multi-Zi</h3>
-          <p class="text-white/50 text-sm">Un singur card pentru toate zilele. Actualizări cu programul și anunțuri.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_festivals'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_festivals_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🎤</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Conferințe</h3>
-          <p class="text-white/50 text-sm">Badge digital cu informații participant, acces la sesiuni și networking.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_conferences'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_conferences_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">⚽</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Evenimente Sportive</h3>
-          <p class="text-white/50 text-sm">Abonamente de sezon care se actualizează pentru fiecare meci de acasă.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_sports'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_sports_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">🎭</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Teatru & Spectacole</h3>
-          <p class="text-white/50 text-sm">Carduri sofisticate cu reminder pentru ora cortinei și informații loc.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_theater'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_theater_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-wallet-gradient1/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🚗</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Transport & Parcare</h3>
-          <p class="text-white/50 text-sm">Combină biletul cu permisul de parcare într-un singur card convenabil.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_parking'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_parking_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -591,13 +686,13 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Am eliminat complet printarea biletelor. <span class="text-gradient-wallet font-semibold">78% din participanți</span> folosesc acum wallet cards. Check-in-ul e de 3x mai rapid, iar când am schimbat ora începerii, toată lumea a văzut actualizarea instant."
+            "<?php echo $t['testimonial_quote']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-wallet-gradient1 to-wallet-gradient2"></div>
             <div>
-              <div class="font-semibold text-white">Diana S.</div>
-              <div class="text-white/50">Operations Manager, Electric Castle</div>
+              <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+              <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
             </div>
           </div>
         </div>
@@ -611,16 +706,16 @@ get_header();
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(102,126,234,0.3) 0%, rgba(118,75,162,0.2) 100%);"></div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Bilete<br><span class="text-gradient-wallet">moderne</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Apple Wallet și Google Pay într-o singură integrare. Actualizări live, notificări push, acces offline.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-wallet"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-wallet-gradient1 to-wallet-gradient2 text-white hover:scale-105 hover:shadow-glow-wallet transition-all duration-300">
-          Activează Wallet Cards
+          <?php echo esc_html( $t['cta_activate'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_contact'] ); ?>
         </a>
       </div>
 
@@ -633,7 +728,7 @@ get_header();
           <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/></svg>
           Google Pay
         </div>
-        <div class="text-white/30 text-sm">Offline Access</div>
+        <div class="text-white/30 text-sm"><?php echo esc_html( $t['offline_access'] ); ?></div>
       </div>
     </div>
   </section>

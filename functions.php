@@ -1229,15 +1229,32 @@ function tixello_get_event_by_slug( $slug ) {
  */
 
 /**
- * 1) Rewrite pentru /artists/{slug}/
+ * 1) Rewrite pentru /artists/{slug}/ and /artists/letter/{letter}/ and /artists/genre/{genre}/
  */
 add_action( 'init', 'tixello_register_artist_rewrite' );
 
 function tixello_register_artist_rewrite() {
     // Tag de query pentru slug artist
     add_rewrite_tag( '%tixello_artist_slug%', '([^&]+)' );
+    // Tags for letter and genre filtering
+    add_rewrite_tag( '%tixello_artist_letter%', '([^&]+)' );
+    add_rewrite_tag( '%tixello_artist_genre%', '([^&]+)' );
 
-    // URL: /artists/slug-ul-artistului/
+    // URL: /artists/letter/A/ - filter by letter
+    add_rewrite_rule(
+        '^artists/letter/([^/]+)/?$',
+        'index.php?tixello_artist_letter=$matches[1]',
+        'top'
+    );
+
+    // URL: /artists/genre/rock/ - filter by genre
+    add_rewrite_rule(
+        '^artists/genre/([^/]+)/?$',
+        'index.php?tixello_artist_genre=$matches[1]',
+        'top'
+    );
+
+    // URL: /artists/slug-ul-artistului/ - single artist (must be last to avoid conflicts)
     add_rewrite_rule(
         '^artists/([^/]+)/?$',
         'index.php?tixello_artist_slug=$matches[1]',
@@ -1252,18 +1269,32 @@ add_filter( 'query_vars', 'tixello_artist_query_vars' );
 
 function tixello_artist_query_vars( $vars ) {
     $vars[] = 'tixello_artist_slug';
+    $vars[] = 'tixello_artist_letter';
+    $vars[] = 'tixello_artist_genre';
     return $vars;
 }
 
 /**
- * 3) Alegem template-ul pentru single artist
- *    Va folosi fișierul tixello-artist-single.php din tema.
+ * 3) Alegem template-ul pentru single artist sau listing filtrat
+ *    Va folosi fișierul tixello-artist-single.php pentru artist individual
+ *    sau page-tixello-artists.php pentru listing filtrat
  */
 add_filter( 'template_include', 'tixello_artist_template_include' );
 
 function tixello_artist_template_include( $template ) {
-    $slug = get_query_var( 'tixello_artist_slug' );
+    $slug   = get_query_var( 'tixello_artist_slug' );
+    $letter = get_query_var( 'tixello_artist_letter' );
+    $genre  = get_query_var( 'tixello_artist_genre' );
 
+    // If filtering by letter or genre, load the artists directory page
+    if ( $letter || $genre ) {
+        $new_template = locate_template( 'page-tixello-artists.php' );
+        if ( $new_template ) {
+            return $new_template;
+        }
+    }
+
+    // If single artist slug, load single artist template
     if ( $slug ) {
         $new_template = locate_template( 'tixello-artist-single.php' );
         if ( $new_template ) {
@@ -1356,6 +1387,229 @@ function tixello_fetch_artists_core() {
     return $all;
 }
 
+/**
+ * AJAX endpoint for loading artists dynamically with filters
+ * Supports: letter, genre, search, page
+ */
+add_action( 'wp_ajax_tixello_load_artists', 'tixello_ajax_load_artists' );
+add_action( 'wp_ajax_nopriv_tixello_load_artists', 'tixello_ajax_load_artists' );
+
+function tixello_ajax_load_artists() {
+    $letter = isset( $_GET['letter'] ) ? sanitize_text_field( $_GET['letter'] ) : '';
+    $genre  = isset( $_GET['genre'] ) ? sanitize_text_field( $_GET['genre'] ) : '';
+    $search = isset( $_GET['search'] ) ? sanitize_text_field( $_GET['search'] ) : '';
+    $page   = isset( $_GET['page'] ) ? max( 1, intval( $_GET['page'] ) ) : 1;
+    $per_page = 48;
+
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+    $base_url = 'https://core.tixello.com/api/v1/public/artists';
+
+    // Build query params
+    $params = [
+        'page'     => $page,
+        'per_page' => $per_page,
+    ];
+
+    if ( ! empty( $letter ) && $letter !== 'all' ) {
+        $params['letter'] = $letter;
+    }
+
+    if ( ! empty( $genre ) && $genre !== 'all' ) {
+        $params['genre'] = $genre;
+    }
+
+    if ( ! empty( $search ) ) {
+        $params['search'] = $search;
+    }
+
+    $url = add_query_arg( $params, $base_url );
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [
+                'X-API-Key' => $api_key,
+            ],
+            'timeout' => 20,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        wp_send_json_error( [ 'message' => 'API request failed' ] );
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        wp_send_json_error( [ 'message' => 'Invalid API response' ] );
+    }
+
+    // Get pagination info
+    $pagination = isset( $data['pagination'] ) ? $data['pagination'] : [];
+    $artists    = isset( $data['data'] ) ? $data['data'] : [];
+
+    // Process artists for frontend
+    $STORAGE_BASE = 'https://core.tixello.com/storage/';
+    $processed = [];
+
+    foreach ( $artists as $a ) {
+        if ( ! is_array( $a ) || empty( $a['name'] ) ) {
+            continue;
+        }
+
+        $image_url = '';
+        if ( ! empty( $a['media']['image_url'] ) ) {
+            $path = $a['media']['image_url'];
+            if ( ! preg_match( '#^https?://#i', $path ) ) {
+                $path = ltrim( $path, '/' );
+                $image_url = $STORAGE_BASE . $path;
+            } else {
+                $image_url = $path;
+            }
+        }
+
+        // Extract genres
+        $genres = [];
+        if ( ! empty( $a['artist_genres'] ) && is_array( $a['artist_genres'] ) ) {
+            foreach ( $a['artist_genres'] as $g ) {
+                if ( isset( $g['name'] ) ) {
+                    $genres[] = $g['name'];
+                }
+            }
+        }
+
+        // Extract artist types
+        $types = [];
+        if ( ! empty( $a['artist_types'] ) && is_array( $a['artist_types'] ) ) {
+            foreach ( $a['artist_types'] as $t ) {
+                if ( isset( $t['name'] ) ) {
+                    $types[] = $t['name'];
+                }
+            }
+        }
+
+        // Get country from location
+        $country = '';
+        $city = '';
+        if ( ! empty( $a['location'] ) ) {
+            $country = isset( $a['location']['country'] ) ? $a['location']['country'] : '';
+            $city = isset( $a['location']['city'] ) ? $a['location']['city'] : '';
+        }
+
+        $first_letter = strtoupper( mb_substr( $a['name'], 0, 1 ) );
+        if ( is_numeric( $first_letter ) ) {
+            $first_letter = '#';
+        }
+
+        $processed[] = [
+            'id'          => isset( $a['id'] ) ? (int) $a['id'] : null,
+            'name'        => $a['name'],
+            'slug'        => isset( $a['slug'] ) ? $a['slug'] : '',
+            'firstLetter' => $first_letter,
+            'country'     => $country,
+            'city'        => $city,
+            'image'       => $image_url,
+            'genres'      => $genres,
+            'types'       => $types,
+            'verified'    => ! empty( $a['is_verified'] ),
+        ];
+    }
+
+    wp_send_json_success( [
+        'artists'    => $processed,
+        'pagination' => $pagination,
+    ] );
+}
+
+/**
+ * Fetch artist genres list from API
+ */
+function tixello_fetch_artist_genres_list() {
+    static $cached = null;
+
+    if ( ! is_null( $cached ) ) {
+        return $cached;
+    }
+
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+    $url = 'https://core.tixello.com/api/v1/public/artist-genres';
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [
+                'X-API-Key' => $api_key,
+            ],
+            'timeout' => 10,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return [];
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        return [];
+    }
+
+    $genres = isset( $data['data'] ) ? $data['data'] : ( isset( $data ) && is_array( $data ) ? $data : [] );
+
+    $cached = $genres;
+    return $genres;
+}
+
+/**
+ * Fetch artist types list from API
+ */
+function tixello_fetch_artist_types_list() {
+    static $cached = null;
+
+    if ( ! is_null( $cached ) ) {
+        return $cached;
+    }
+
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+    $url = 'https://core.tixello.com/api/v1/public/artist-types';
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [
+                'X-API-Key' => $api_key,
+            ],
+            'timeout' => 10,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return [];
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        return [];
+    }
+
+    $types = isset( $data['data'] ) ? $data['data'] : ( isset( $data ) && is_array( $data ) ? $data : [] );
+
+    $cached = $types;
+    return $types;
+}
 
 /**
  * 5) Helper: ia un artist după slug din API (folosind lista generală)
@@ -1649,6 +1903,17 @@ function tixello_get_stat_value( $key ) {
         'venues',
         'events',
         'artists',
+        'event_genres',
+        'event_types',
+        'venue_categories',
+        'venue_types',
+        'artist_genres',
+        'artist_types',
+        'microservices',
+        'affiliates',
+        'orders',
+        'orders_total_cents',
+        'orders_paid_total_cents',
     ];
 
     if ( ! in_array( $key, $allowed_keys, true ) ) {
@@ -1721,6 +1986,61 @@ function tixello_artists_shortcode() {
     return tixello_get_stat_value( 'artists' );
 }
 add_shortcode( 'tixello_artists', 'tixello_artists_shortcode' );
+
+function tixello_eventgenres_shortcode() {
+    return tixello_get_stat_value( 'event_genres' );
+}
+add_shortcode( 'tixello_eventgenres', 'tixello_eventgenres_shortcode' );
+
+function tixello_eventtypes_shortcode() {
+    return tixello_get_stat_value( 'event_types' );
+}
+add_shortcode( 'tixello_eventtypes', 'tixello_eventtypes_shortcode' );
+
+function tixello_venuecategories_shortcode() {
+    return tixello_get_stat_value( 'venue_categories' );
+}
+add_shortcode( 'tixello_venuecategories', 'tixello_venuecategories_shortcode' );
+
+function tixello_venuetypes_shortcode() {
+    return tixello_get_stat_value( 'venue_types' );
+}
+add_shortcode( 'tixello_venuetypes', 'tixello_venuetypes_shortcode' );
+
+function tixello_artisttypes_shortcode() {
+    return tixello_get_stat_value( 'artist_types' );
+}
+add_shortcode( 'tixello_artisttypes', 'tixello_artisttypes_shortcode' );
+
+function tixello_artistgenres_shortcode() {
+    return tixello_get_stat_value( 'artist_genres' );
+}
+add_shortcode( 'tixello_artistgenres', 'tixello_artistgenres_shortcode' );
+
+function tixello_microservices_shortcode() {
+    return tixello_get_stat_value( 'microservices' );
+}
+add_shortcode( 'tixello_microservices', 'tixello_microservices_shortcode' );
+
+function tixello_affiliates_shortcode() {
+    return tixello_get_stat_value( 'affiliates' );
+}
+add_shortcode( 'tixello_affiliates', 'tixello_affiliates_shortcode' );
+
+function tixello_orders_shortcode() {
+    return tixello_get_stat_value( 'orders' );
+}
+add_shortcode( 'tixello_orders', 'tixello_orders_shortcode' );
+
+function tixello_orderstotal_shortcode() {
+    return tixello_get_stat_value( 'orders_total_cents' );
+}
+add_shortcode( 'tixello_orderstotal', 'tixello_orderstotal_shortcode' );
+
+function tixello_orderspaidtotal_shortcode() {
+    return tixello_get_stat_value( 'orders_paid_total_cents' );
+}
+add_shortcode( 'tixello_orderspaidtotal', 'tixello_orderspaidtotal_shortcode' );
 
 /**
  * Shortcode: [tixello_stats_cards]

@@ -5,6 +5,156 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'                  => $current_lang === 'ro' ? 'Bilete în Vrac' : 'Bulk Tickets',
+	'hero_title'             => $current_lang === 'ro' ? 'Rezervări' : 'Group',
+	'hero_title2'            => $current_lang === 'ro' ? 'de grup' : 'Reservations',
+	'hero_desc'              => $current_lang === 'ro'
+		? 'Simplifică achizițiile în vrac pentru <strong class="text-white">evenimente corporate</strong>, excursii școlare și grupuri turistice. Reduceri pe niveluri, plăți parțiale, check-in în lot.'
+		: 'Simplify bulk purchases for <strong class="text-white">corporate events</strong>, school trips and tourist groups. Tiered discounts, partial payments, batch check-in.',
+	'cta_activate'           => $current_lang === 'ro' ? 'Activează Rezervări Grup' : 'Activate Group Reservations',
+	'cta_discounts'          => $current_lang === 'ro' ? 'Vezi reducerile' : 'See discounts',
+	'stat_discount'          => $current_lang === 'ro' ? 'Reducere max' : 'Max discount',
+	'stat_tickets'           => $current_lang === 'ro' ? 'Bilete/grup' : 'Tickets/group',
+	'stat_checkin'           => $current_lang === 'ro' ? 'Click check-in' : 'Click check-in',
+
+	// Hero Visual
+	'booking_label'          => $current_lang === 'ro' ? 'Rezervare Grup' : 'Group Booking',
+	'team_building'          => 'Team Building',
+	'approved'               => $current_lang === 'ro' ? 'Aprobat' : 'Approved',
+	'event_label'            => $current_lang === 'ro' ? 'Eveniment' : 'Event',
+	'tickets'                => $current_lang === 'ro' ? 'bilete' : 'tickets',
+	'group_discount_applied' => $current_lang === 'ro' ? 'Reducere Grup Aplicată' : 'Group Discount Applied',
+	'confirmed_participants' => $current_lang === 'ro' ? 'Participanți Confirmați' : 'Confirmed Participants',
+	'other_participants'     => $current_lang === 'ro' ? '+ 19 alți participanți' : '+ 19 other participants',
+	'payment_status'         => $current_lang === 'ro' ? 'Status Plată' : 'Payment Status',
+	'advance_paid'           => $current_lang === 'ro' ? 'Avans plătit' : 'Advance paid',
+	'processing'             => $current_lang === 'ro' ? 'În procesare' : 'Processing',
+	'remaining'              => $current_lang === 'ro' ? 'Rămas' : 'Remaining',
+	'you_save'               => $current_lang === 'ro' ? 'Economisiți' : 'You save',
+	'group_leader'           => $current_lang === 'ro' ? 'Lider Grup' : 'Group Leader',
+
+	// Tiered Discounts
+	'tiers_label'            => $current_lang === 'ro' ? 'Reduceri pe Niveluri' : 'Tiered Discounts',
+	'tiers_title'            => $current_lang === 'ro' ? 'Cu cât mai mult,' : 'The more you buy,',
+	'tiers_title2'           => $current_lang === 'ro' ? 'cu atât mai ieftin' : 'the cheaper it gets',
+	'tiers_desc'             => $current_lang === 'ro'
+		? 'Activează reduceri automate care răsplătesc achizițiile mai mari. Clienții economisesc, tu umpli locuri.'
+		: 'Enable automatic discounts that reward larger purchases. Customers save, you fill seats.',
+	'tier_label'             => $current_lang === 'ro' ? 'Nivelul' : 'Tier',
+	'discount_applied'       => $current_lang === 'ro' ? 'reducere aplicată' : 'discount applied',
+	'negotiable'             => $current_lang === 'ro' ? 'Negociabil' : 'Negotiable',
+	'contact_us'             => $current_lang === 'ro' ? 'contactează-ne' : 'contact us',
+	'example_label'          => $current_lang === 'ro' ? 'Exemplu: 25 bilete × €100' : 'Example: 25 tickets × €100',
+	'normal_price'           => $current_lang === 'ro' ? 'Preț Normal' : 'Normal Price',
+	'group_price'            => $current_lang === 'ro' ? 'Preț Grup' : 'Group Price',
+	'savings_message'        => $current_lang === 'ro' ? 'Economisiți €375 cu această rezervare!' : 'Save €375 with this booking!',
+
+	// Group Leader Dashboard
+	'dashboard_label'        => $current_lang === 'ro' ? 'Dashboard Lider Grup' : 'Group Leader Dashboard',
+	'control_title'          => $current_lang === 'ro' ? 'Control' : 'Total',
+	'control_title2'         => $current_lang === 'ro' ? 'total' : 'control',
+	'dashboard_desc'         => $current_lang === 'ro'
+		? 'Liderul grupului gestionează participanții, colectează detaliile individuale și distribuie biletele. Tot dintr-un singur loc.'
+		: 'The group leader manages participants, collects individual details and distributes tickets. All from one place.',
+	'manage_participants'    => $current_lang === 'ro' ? 'Gestionare Participanți' : 'Manage Participants',
+	'manage_desc'            => $current_lang === 'ro' ? 'Adaugă, editează sau șterge membri din grup' : 'Add, edit or remove group members',
+	'custom_forms'           => $current_lang === 'ro' ? 'Formulare Personalizate' : 'Custom Forms',
+	'custom_forms_desc'      => $current_lang === 'ro' ? 'Colectează cerințe dietetice, accesibilitate, mărime tricou' : 'Collect dietary requirements, accessibility, t-shirt size',
+	'ticket_distribution'    => $current_lang === 'ro' ? 'Distribuție Bilete' : 'Ticket Distribution',
+	'ticket_dist_desc'       => $current_lang === 'ro' ? 'Trimite biletele individuale pe email membrilor' : 'Send individual tickets by email to members',
+	'participants_list'      => $current_lang === 'ro' ? 'Lista Participanți' : 'Participants List',
+	'confirmed_of'           => $current_lang === 'ro' ? 'din 25 confirmați' : 'of 25 confirmed',
+	'add_btn'                => $current_lang === 'ro' ? '+ Adaugă' : '+ Add',
+	'completed'              => $current_lang === 'ro' ? 'completat' : 'completed',
+	'left'                   => $current_lang === 'ro' ? 'rămas' : 'left',
+	'vegetarian'             => 'Vegetarian',
+	'seat'                   => $current_lang === 'ro' ? 'Loc' : 'Seat',
+	'standard'               => 'Standard',
+	'distributed'            => $current_lang === 'ro' ? 'Distribuit' : 'Distributed',
+	'pending'                => 'Pending',
+	'waiting_details'        => $current_lang === 'ro' ? 'Așteaptă detalii...' : 'Waiting for details...',
+	'empty_slot'             => $current_lang === 'ro' ? 'Loc liber' : 'Empty slot',
+	'click_to_add'           => $current_lang === 'ro' ? 'Click pentru a adăuga' : 'Click to add',
+	'send_reminder'          => $current_lang === 'ro' ? '📧 Trimite Reminder' : '📧 Send Reminder',
+	'export_csv'             => '📥 Export CSV',
+
+	// Seat Blocks
+	'blocks_label'           => $current_lang === 'ro' ? 'Blocuri de Locuri' : 'Seat Blocks',
+	'together_title'         => $current_lang === 'ro' ? 'Grupul stă' : 'Group sits',
+	'together_title2'        => $current_lang === 'ro' ? 'împreună' : 'together',
+	'blocks_desc'            => $current_lang === 'ro'
+		? 'Rezervă blocuri de locuri consecutive pentru a asigura că întregul grup stă împreună. Perfect pentru evenimente cu locuri numerotate.'
+		: 'Reserve consecutive seat blocks to ensure the entire group sits together. Perfect for events with numbered seats.',
+	'block_selection'        => $current_lang === 'ro' ? 'Selecție Bloc' : 'Block Selection',
+	'block_selection_desc'   => $current_lang === 'ro' ? 'Selectează o secțiune întreagă sau rânduri consecutive' : 'Select an entire section or consecutive rows',
+	'flexible_allocation'    => $current_lang === 'ro' ? 'Alocare Flexibilă' : 'Flexible Allocation',
+	'flexible_desc'          => $current_lang === 'ro' ? 'Sau lasă sistemul să găsească cele mai bune locuri disponibile' : 'Or let the system find the best available seats',
+	'inventory_lock'         => $current_lang === 'ro' ? 'Blocare Inventar' : 'Inventory Lock',
+	'inventory_desc'         => $current_lang === 'ro' ? 'Locurile sunt rezervate până la expirarea opțiunii' : 'Seats are held until option expires',
+	'block_reserved'         => $current_lang === 'ro' ? 'Bloc Locuri Rezervat' : 'Reserved Seat Block',
+	'section_rows'           => $current_lang === 'ro' ? 'Secțiunea A • Rândurile 5-7' : 'Section A • Rows 5-7',
+	'group_seat'             => $current_lang === 'ro' ? 'Grup' : 'Group',
+	'taken_seat'             => $current_lang === 'ro' ? 'Ocupat' : 'Taken',
+	'available_seat'         => $current_lang === 'ro' ? 'Liber' : 'Available',
+	'stage'                  => $current_lang === 'ro' ? 'Scenă' : 'Stage',
+	'seats_reserved'         => $current_lang === 'ro' ? '25 locuri consecutive rezervate pentru grupul tău' : '25 consecutive seats reserved for your group',
+
+	// Group Check-in
+	'onsite_label'           => $current_lang === 'ro' ? 'La Locație' : 'On-site',
+	'checkin_title'          => 'Check-in',
+	'checkin_title2'         => $current_lang === 'ro' ? 'în lot' : 'batch',
+	'checkin_desc'           => $current_lang === 'ro'
+		? 'Procesează întregul grup cu o singură scanare. Perfect când autocarul turistic ajunge la ușă și ai 50 de persoane de verificat rapid.'
+		: 'Process the entire group with a single scan. Perfect when the tour bus arrives and you have 50 people to check quickly.',
+	'full_checkin'           => $current_lang === 'ro' ? 'Check-in Grup Complet' : 'Full Group Check-in',
+	'full_checkin_desc'      => $current_lang === 'ro' ? 'Un click procesează toți participanții confirmați' : 'One click processes all confirmed participants',
+	'qr_group'               => $current_lang === 'ro' ? 'QR Cod Grup' : 'Group QR Code',
+	'qr_group_desc'          => $current_lang === 'ro' ? 'Liderul de grup are un cod master pentru toată echipa' : 'Group leader has a master code for the entire team',
+	'attendance_list'        => $current_lang === 'ro' ? 'Lista Prezență' : 'Attendance List',
+	'attendance_desc'        => $current_lang === 'ro' ? 'Bifează manual membrii pe măsură ce intră' : 'Manually check off members as they enter',
+	'live_checkin'           => $current_lang === 'ro' ? 'Check-in Grup Live' : 'Live Group Check-in',
+	'gate'                   => $current_lang === 'ro' ? 'Poarta B' : 'Gate B',
+	'entered'                => $current_lang === 'ro' ? 'intrați' : 'entered',
+	'group_complete'         => $current_lang === 'ro' ? '✓ Grup Complet!' : '✓ Group Complete!',
+	'checkin_progress'       => $current_lang === 'ro' ? 'Check-in în desfășurare...' : 'Check-in in progress...',
+
+	// Use Cases
+	'usecases_label'         => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'         => $current_lang === 'ro' ? 'De la corporate' : 'From corporate',
+	'usecases_title2'        => $current_lang === 'ro' ? 'la școli' : 'to schools',
+	'uc_corporate'           => $current_lang === 'ro' ? 'Team Building Corporate' : 'Corporate Team Building',
+	'uc_corporate_desc'      => $current_lang === 'ro' ? 'Companii care organizează ieșiri pentru echipe. Reduceri, factură firmă, gestionare simplă.' : 'Companies organizing team outings. Discounts, company invoice, simple management.',
+	'uc_schools'             => $current_lang === 'ro' ? 'Excursii Școlare' : 'School Trips',
+	'uc_schools_desc'        => $current_lang === 'ro' ? 'Clase și grupuri de elevi. Colectare autorizații, cerințe speciale, check-in rapid.' : 'Classes and student groups. Permission collection, special requirements, quick check-in.',
+	'uc_tours'               => $current_lang === 'ro' ? 'Tururi Organizate' : 'Organized Tours',
+	'uc_tours_desc'          => $current_lang === 'ro' ? 'Agenții de turism care aduc grupuri. Un autocar, un check-in, zero coadă.' : 'Tourism agencies bringing groups. One bus, one check-in, zero queue.',
+	'uc_family'              => $current_lang === 'ro' ? 'Reuniuni de Familie' : 'Family Reunions',
+	'uc_family_desc'         => $current_lang === 'ro' ? 'Nunți, aniversări, evenimente private. Un organizator, mulți participanți.' : 'Weddings, anniversaries, private events. One organizer, many participants.',
+	'uc_sports'              => $current_lang === 'ro' ? 'Cluburi Sportive' : 'Sports Clubs',
+	'uc_sports_desc'         => $current_lang === 'ro' ? 'Deplasări ale suporterilor. Locuri consecutive, reduceri club, coordonare simplă.' : 'Fan away trips. Consecutive seats, club discounts, simple coordination.',
+	'uc_fans'                => 'Fan Clubs',
+	'uc_fans_desc'           => $current_lang === 'ro' ? 'Grupuri de fani care merg împreună la concerte. Experiență comună, preț redus.' : 'Fan groups going to concerts together. Shared experience, reduced price.',
+
+	// Testimonial
+	'testimonial_quote'      => $current_lang === 'ro'
+		? 'Aducem <span class="text-gradient-group font-semibold">3 autocare pe zi</span> la festival. Cu check-in-ul de grup, procesăm 150 de persoane în 5 minute. Înainte dura o oră.'
+		: 'We bring <span class="text-gradient-group font-semibold">3 buses per day</span> to the festival. With group check-in, we process 150 people in 5 minutes. It used to take an hour.',
+	'testimonial_author'     => 'Cristian M.',
+	'testimonial_role'       => $current_lang === 'ro' ? 'Director Operațiuni, EuroTour Travel' : 'Operations Director, EuroTour Travel',
+
+	// Final CTA
+	'cta_title'              => $current_lang === 'ro' ? 'Grupuri' : 'Groups',
+	'cta_title2'             => $current_lang === 'ro' ? 'simplificate' : 'simplified',
+	'cta_desc'               => $current_lang === 'ro'
+		? 'Reduceri pe niveluri, dashboard lider, plăți parțiale, check-in în lot. Tot ce ai nevoie pentru comenzi mari.'
+		: 'Tiered discounts, leader dashboard, partial payments, batch check-in. Everything you need for large orders.',
+	'cta_contact'            => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'cta_footer'             => $current_lang === 'ro' ? '10-500 bilete • Reduceri automate • Check-in în lot' : '10-500 tickets • Automatic discounts • Batch check-in',
+];
 ?>
 
 <style>
@@ -143,27 +293,27 @@ get_header();
           <!-- Badge -->
           <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-group-primary/10 border border-group-primary/20 mb-6">
             <svg class="w-5 h-5 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-            <span class="text-group-primary text-sm font-medium">Bilete în Vrac</span>
+            <span class="text-group-primary text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Rezervări<br><span class="text-gradient-group">de grup</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Simplifică achizițiile în vrac pentru <strong class="text-white">evenimente corporate</strong>, excursii școlare și grupuri turistice. Reduceri pe niveluri, plăți parțiale, check-in în lot.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
             <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-group-primary to-group-secondary text-white hover:scale-105 hover:shadow-glow-group transition-all duration-300">
-              Activează Rezervări Grup
+              <?php echo esc_html( $t['cta_activate'] ); ?>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a href="#reduceri" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi reducerile
+              <?php echo esc_html( $t['cta_discounts'] ); ?>
             </a>
           </div>
 
@@ -171,15 +321,15 @@ get_header();
           <div class="grid grid-cols-3 gap-6">
             <div>
               <div class="text-3xl font-display font-bold text-group-teal">-20%</div>
-              <div class="text-white/40 text-sm">Reducere max</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_discount'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-white">500</div>
-              <div class="text-white/40 text-sm">Bilete/grup</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_tickets'] ); ?></div>
             </div>
             <div>
               <div class="text-3xl font-display font-bold text-group-primary">1</div>
-              <div class="text-white/40 text-sm">Click check-in</div>
+              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_checkin'] ); ?></div>
             </div>
           </div>
         </div>
@@ -205,24 +355,24 @@ get_header();
                     <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">Rezervare Grup #247</div>
-                    <div class="text-white/40 text-xs">TechCorp SRL • Team Building</div>
+                    <div class="text-white font-semibold"><?php echo esc_html( $t['booking_label'] ); ?> #247</div>
+                    <div class="text-white/40 text-xs">TechCorp SRL • <?php echo esc_html( $t['team_building'] ); ?></div>
                   </div>
                 </div>
-                <span class="approval-approved px-3 py-1 rounded-full text-xs font-medium">Aprobat</span>
+                <span class="approval-approved px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $t['approved'] ); ?></span>
               </div>
 
               <!-- Event Info -->
               <div class="bg-dark-900/50 rounded-xl p-4 mb-4">
                 <div class="flex items-center justify-between">
                   <div>
-                    <div class="text-white/40 text-xs uppercase">Eveniment</div>
+                    <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['event_label'] ); ?></div>
                     <div class="text-white font-medium">Summer Festival 2025</div>
                     <div class="text-white/50 text-sm">15 Iulie • Romexpo</div>
                   </div>
                   <div class="text-right">
                     <div class="text-3xl font-bold text-white" x-text="groupSize">25</div>
-                    <div class="text-white/40 text-xs">bilete</div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['tickets'] ); ?></div>
                   </div>
                 </div>
               </div>
@@ -231,7 +381,7 @@ get_header();
               <div class="flex items-center justify-between p-3 rounded-xl bg-group-teal/10 border border-group-teal/30 mb-4">
                 <div class="flex items-center gap-2">
                   <svg class="w-5 h-5 text-group-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
-                  <span class="text-group-teal font-medium">Reducere Grup Aplicată</span>
+                  <span class="text-group-teal font-medium"><?php echo esc_html( $t['group_discount_applied'] ); ?></span>
                 </div>
                 <span class="discount-badge" x-text="'-' + discount + '%'">-15%</span>
               </div>
@@ -239,7 +389,7 @@ get_header();
               <!-- Attendees Preview -->
               <div class="mb-4">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-white/40 text-xs uppercase">Participanți Confirmați</span>
+                  <span class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['confirmed_participants'] ); ?></span>
                   <span class="text-white/60 text-xs">22/25</span>
                 </div>
                 <div class="space-y-2">
@@ -258,14 +408,14 @@ get_header();
                   </template>
                 </div>
                 <div class="text-center mt-2">
-                  <span class="text-white/40 text-xs">+ 19 alți participanți</span>
+                  <span class="text-white/40 text-xs"><?php echo esc_html( $t['other_participants'] ); ?></span>
                 </div>
               </div>
 
               <!-- Payment Progress -->
               <div>
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-white/40 text-xs uppercase">Status Plată</span>
+                  <span class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['payment_status'] ); ?></span>
                   <span class="text-brand-green text-xs font-medium">€1,875 / €2,500</span>
                 </div>
                 <div class="payment-split">
@@ -274,9 +424,9 @@ get_header();
                   <div class="payment-remaining" style="width: 25%"></div>
                 </div>
                 <div class="flex justify-between mt-1 text-xs text-white/40">
-                  <span>Avans plătit</span>
-                  <span>În procesare</span>
-                  <span>Rămas</span>
+                  <span><?php echo esc_html( $t['advance_paid'] ); ?></span>
+                  <span><?php echo esc_html( $t['processing'] ); ?></span>
+                  <span><?php echo esc_html( $t['remaining'] ); ?></span>
                 </div>
               </div>
             </div>
@@ -287,7 +437,7 @@ get_header();
                 <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <div>
                   <div class="text-white font-bold">€375</div>
-                  <div class="text-white/70 text-xs">Economisiți</div>
+                  <div class="text-white/70 text-xs"><?php echo esc_html( $t['you_save'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -299,7 +449,7 @@ get_header();
                   <svg class="w-4 h-4 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <div>
-                  <div class="text-group-primary text-sm font-medium">Lider Grup</div>
+                  <div class="text-group-primary text-sm font-medium"><?php echo esc_html( $t['group_leader'] ); ?></div>
                   <div class="text-white/40 text-xs">Ion Popescu</div>
                 </div>
               </div>
@@ -315,9 +465,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-group-teal text-sm font-medium uppercase tracking-widest">Reduceri pe Niveluri</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Cu cât mai mult,<br><span class="text-gradient-group">cu atât mai ieftin</span></h2>
-        <p class="text-lg text-white/60">Activează reduceri automate care răsplătesc achizițiile mai mari. Clienții economisesc, tu umpli locuri.</p>
+        <span class="text-group-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['tiers_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['tiers_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['tiers_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['tiers_desc'] ); ?></p>
       </div>
 
       <!-- Tier Cards -->
@@ -325,31 +475,31 @@ get_header();
         <!-- Tier 1 -->
         <div class="tier-card rounded-2xl p-6 cursor-pointer" :class="selectedTier >= 1 && 'active'" @click="selectedTier = 1">
           <div class="text-4xl mb-4">🎫</div>
-          <div class="text-white/40 text-sm uppercase tracking-wider mb-1">Nivelul 1</div>
+          <div class="text-white/40 text-sm uppercase tracking-wider mb-1"><?php echo esc_html( $t['tier_label'] ); ?> 1</div>
           <div class="text-3xl font-bold text-white mb-2">10+</div>
-          <div class="text-white/60 text-sm mb-4">bilete</div>
+          <div class="text-white/60 text-sm mb-4"><?php echo esc_html( $t['tickets'] ); ?></div>
           <div class="text-group-teal font-bold text-2xl">-10%</div>
-          <div class="text-white/40 text-xs mt-2">reducere aplicată</div>
+          <div class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['discount_applied'] ); ?></div>
         </div>
 
         <!-- Tier 2 -->
         <div class="tier-card rounded-2xl p-6 cursor-pointer" :class="selectedTier >= 2 && 'active'" @click="selectedTier = 2">
           <div class="text-4xl mb-4">🎟️</div>
-          <div class="text-white/40 text-sm uppercase tracking-wider mb-1">Nivelul 2</div>
+          <div class="text-white/40 text-sm uppercase tracking-wider mb-1"><?php echo esc_html( $t['tier_label'] ); ?> 2</div>
           <div class="text-3xl font-bold text-white mb-2">25+</div>
-          <div class="text-white/60 text-sm mb-4">bilete</div>
+          <div class="text-white/60 text-sm mb-4"><?php echo esc_html( $t['tickets'] ); ?></div>
           <div class="text-group-teal font-bold text-2xl">-15%</div>
-          <div class="text-white/40 text-xs mt-2">reducere aplicată</div>
+          <div class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['discount_applied'] ); ?></div>
         </div>
 
         <!-- Tier 3 -->
         <div class="tier-card rounded-2xl p-6 cursor-pointer" :class="selectedTier >= 3 && 'active'" @click="selectedTier = 3">
           <div class="text-4xl mb-4">🎪</div>
-          <div class="text-white/40 text-sm uppercase tracking-wider mb-1">Nivelul 3</div>
+          <div class="text-white/40 text-sm uppercase tracking-wider mb-1"><?php echo esc_html( $t['tier_label'] ); ?> 3</div>
           <div class="text-3xl font-bold text-white mb-2">50+</div>
-          <div class="text-white/60 text-sm mb-4">bilete</div>
+          <div class="text-white/60 text-sm mb-4"><?php echo esc_html( $t['tickets'] ); ?></div>
           <div class="text-group-teal font-bold text-2xl">-20%</div>
-          <div class="text-white/40 text-xs mt-2">reducere aplicată</div>
+          <div class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['discount_applied'] ); ?></div>
         </div>
 
         <!-- Custom -->
@@ -357,9 +507,9 @@ get_header();
           <div class="text-4xl mb-4">🏢</div>
           <div class="text-white/40 text-sm uppercase tracking-wider mb-1">Enterprise</div>
           <div class="text-3xl font-bold text-white mb-2">100+</div>
-          <div class="text-white/60 text-sm mb-4">bilete</div>
-          <div class="text-group-accent font-bold text-lg">Negociabil</div>
-          <div class="text-white/40 text-xs mt-2">contactează-ne</div>
+          <div class="text-white/60 text-sm mb-4"><?php echo esc_html( $t['tickets'] ); ?></div>
+          <div class="text-group-accent font-bold text-lg"><?php echo esc_html( $t['negotiable'] ); ?></div>
+          <div class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['contact_us'] ); ?></div>
         </div>
       </div>
 
@@ -367,21 +517,21 @@ get_header();
       <div class="max-w-2xl mx-auto mt-12 reveal reveal-delay-1">
         <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
           <div class="text-center mb-4">
-            <span class="text-white/40 text-sm">Exemplu: 25 bilete × €100</span>
+            <span class="text-white/40 text-sm"><?php echo esc_html( $t['example_label'] ); ?></span>
           </div>
           <div class="flex items-center justify-between mb-4">
             <div>
-              <div class="text-white/40 text-xs">Preț Normal</div>
+              <div class="text-white/40 text-xs"><?php echo esc_html( $t['normal_price'] ); ?></div>
               <div class="text-white/50 line-through text-lg">€2,500</div>
             </div>
             <div class="discount-badge">-15%</div>
             <div class="text-right">
-              <div class="text-group-teal text-xs">Preț Grup</div>
+              <div class="text-group-teal text-xs"><?php echo esc_html( $t['group_price'] ); ?></div>
               <div class="text-group-teal font-bold text-2xl">€2,125</div>
             </div>
           </div>
           <div class="text-center p-3 rounded-lg bg-group-teal/10 border border-group-teal/30">
-            <span class="text-group-teal font-medium">Economisiți €375 cu această rezervare!</span>
+            <span class="text-group-teal font-medium"><?php echo esc_html( $t['savings_message'] ); ?></span>
           </div>
         </div>
       </div>
@@ -394,9 +544,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-group-primary text-sm font-medium uppercase tracking-widest">Dashboard Lider Grup</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Control<br><span class="text-gradient-group">total</span></h2>
-          <p class="text-lg text-white/60 mb-8">Liderul grupului gestionează participanții, colectează detaliile individuale și distribuie biletele. Tot dintr-un singur loc.</p>
+          <span class="text-group-primary text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['dashboard_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['control_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['control_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['dashboard_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
@@ -404,8 +554,8 @@ get_header();
                 <svg class="w-6 h-6 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Gestionare Participanți</span>
-                <p class="text-white/50 text-sm">Adaugă, editează sau șterge membri din grup</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['manage_participants'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['manage_desc'] ); ?></p>
               </div>
             </div>
 
@@ -414,8 +564,8 @@ get_header();
                 <svg class="w-6 h-6 text-group-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Formulare Personalizate</span>
-                <p class="text-white/50 text-sm">Colectează cerințe dietetice, accesibilitate, mărime tricou</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['custom_forms'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['custom_forms_desc'] ); ?></p>
               </div>
             </div>
 
@@ -424,8 +574,8 @@ get_header();
                 <svg class="w-6 h-6 text-group-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Distribuție Bilete</span>
-                <p class="text-white/50 text-sm">Trimite biletele individuale pe email membrilor</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['ticket_distribution'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['ticket_dist_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -441,12 +591,12 @@ get_header();
                   <svg class="w-5 h-5 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                 </div>
                 <div>
-                  <div class="text-white font-semibold">Lista Participanți</div>
-                  <div class="text-white/40 text-xs">22 din 25 confirmați</div>
+                  <div class="text-white font-semibold"><?php echo esc_html( $t['participants_list'] ); ?></div>
+                  <div class="text-white/40 text-xs">22 <?php echo esc_html( $t['confirmed_of'] ); ?></div>
                 </div>
               </div>
               <button class="px-3 py-1.5 rounded-lg bg-group-primary/20 text-group-primary text-sm font-medium hover:bg-group-primary/30 transition-colors">
-                + Adaugă
+                <?php echo esc_html( $t['add_btn'] ); ?>
               </button>
             </div>
 
@@ -456,8 +606,8 @@ get_header();
                 <div class="progress-bar-fill" style="width: 88%"></div>
               </div>
               <div class="flex justify-between mt-1 text-xs text-white/40">
-                <span>88% completat</span>
-                <span>3 rămas</span>
+                <span>88% <?php echo esc_html( $t['completed'] ); ?></span>
+                <span>3 <?php echo esc_html( $t['left'] ); ?></span>
               </div>
             </div>
 
@@ -469,9 +619,9 @@ get_header();
                 </div>
                 <div class="flex-1">
                   <div class="text-white text-sm">Maria Ionescu</div>
-                  <div class="text-white/40 text-xs">Vegetarian • Loc A-15</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['vegetarian'] ); ?> • <?php echo esc_html( $t['seat'] ); ?> A-15</div>
                 </div>
-                <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs">Distribuit</span>
+                <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs"><?php echo esc_html( $t['distributed'] ); ?></span>
               </div>
 
               <div class="attendee-row rounded-lg px-3 py-2 flex items-center gap-3">
@@ -480,9 +630,9 @@ get_header();
                 </div>
                 <div class="flex-1">
                   <div class="text-white text-sm">Alexandru Popa</div>
-                  <div class="text-white/40 text-xs">Standard • Loc A-16</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['standard'] ); ?> • <?php echo esc_html( $t['seat'] ); ?> A-16</div>
                 </div>
-                <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs">Distribuit</span>
+                <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs"><?php echo esc_html( $t['distributed'] ); ?></span>
               </div>
 
               <div class="attendee-row rounded-lg px-3 py-2 flex items-center gap-3">
@@ -491,9 +641,9 @@ get_header();
                 </div>
                 <div class="flex-1">
                   <div class="text-white text-sm">Elena Dumitrescu</div>
-                  <div class="text-white/40 text-xs">Așteaptă detalii...</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['waiting_details'] ); ?></div>
                 </div>
-                <span class="px-2 py-0.5 rounded bg-brand-amber/20 text-brand-amber text-xs">Pending</span>
+                <span class="px-2 py-0.5 rounded bg-brand-amber/20 text-brand-amber text-xs"><?php echo esc_html( $t['pending'] ); ?></span>
               </div>
 
               <div class="attendee-row rounded-lg px-3 py-2 flex items-center gap-3 border-dashed">
@@ -501,8 +651,8 @@ get_header();
                   <svg class="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                 </div>
                 <div class="flex-1">
-                  <div class="text-white/30 text-sm">Loc liber</div>
-                  <div class="text-white/20 text-xs">Click pentru a adăuga</div>
+                  <div class="text-white/30 text-sm"><?php echo esc_html( $t['empty_slot'] ); ?></div>
+                  <div class="text-white/20 text-xs"><?php echo esc_html( $t['click_to_add'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -510,10 +660,10 @@ get_header();
             <!-- Actions -->
             <div class="flex gap-2">
               <button class="flex-1 py-2 rounded-lg bg-group-primary text-white text-sm font-medium hover:bg-group-primary/80 transition-colors">
-                📧 Trimite Reminder
+                <?php echo $t['send_reminder']; ?>
               </button>
               <button class="flex-1 py-2 rounded-lg bg-dark-700 text-white/60 text-sm hover:bg-dark-600 transition-colors">
-                📥 Export CSV
+                <?php echo esc_html( $t['export_csv'] ); ?>
               </button>
             </div>
           </div>
@@ -531,28 +681,28 @@ get_header();
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
             <div class="flex items-center justify-between mb-6">
               <div>
-                <div class="text-white font-semibold">Bloc Locuri Rezervat</div>
-                <div class="text-white/40 text-xs">Secțiunea A • Rândurile 5-7</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['block_reserved'] ); ?></div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['section_rows'] ); ?></div>
               </div>
               <div class="flex items-center gap-4 text-xs">
                 <div class="flex items-center gap-1">
                   <div class="seat selected" style="width: 12px; height: 12px;"></div>
-                  <span class="text-white/40">Grup</span>
+                  <span class="text-white/40"><?php echo esc_html( $t['group_seat'] ); ?></span>
                 </div>
                 <div class="flex items-center gap-1">
                   <div class="seat taken" style="width: 12px; height: 12px;"></div>
-                  <span class="text-white/40">Ocupat</span>
+                  <span class="text-white/40"><?php echo esc_html( $t['taken_seat'] ); ?></span>
                 </div>
                 <div class="flex items-center gap-1">
                   <div class="seat available" style="width: 12px; height: 12px;"></div>
-                  <span class="text-white/40">Liber</span>
+                  <span class="text-white/40"><?php echo esc_html( $t['available_seat'] ); ?></span>
                 </div>
               </div>
             </div>
 
             <!-- Stage -->
             <div class="text-center mb-6">
-              <div class="inline-block px-12 py-2 rounded-full bg-white/5 text-white/30 text-xs uppercase tracking-wider">Scenă</div>
+              <div class="inline-block px-12 py-2 rounded-full bg-white/5 text-white/30 text-xs uppercase tracking-wider"><?php echo esc_html( $t['stage'] ); ?></div>
             </div>
 
             <!-- Seat Grid -->
@@ -645,16 +795,16 @@ get_header();
 
             <!-- Summary -->
             <div class="mt-6 p-3 rounded-lg bg-group-primary/10 border border-group-primary/30 text-center">
-              <span class="text-group-primary font-medium">25 locuri consecutive rezervate pentru grupul tău</span>
+              <span class="text-group-primary font-medium"><?php echo esc_html( $t['seats_reserved'] ); ?></span>
             </div>
           </div>
         </div>
 
         <!-- Content -->
         <div class="reveal order-1 lg:order-2">
-          <span class="text-group-accent text-sm font-medium uppercase tracking-widest">Blocuri de Locuri</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Grupul stă<br><span class="text-gradient-group">împreună</span></h2>
-          <p class="text-lg text-white/60 mb-8">Rezervă blocuri de locuri consecutive pentru a asigura că întregul grup stă împreună. Perfect pentru evenimente cu locuri numerotate.</p>
+          <span class="text-group-accent text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['blocks_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['together_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['together_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['blocks_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -662,8 +812,8 @@ get_header();
                 <svg class="w-4 h-4 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Selecție Bloc</div>
-                <p class="text-white/50 text-sm">Selectează o secțiune întreagă sau rânduri consecutive</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['block_selection'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['block_selection_desc'] ); ?></p>
               </div>
             </div>
 
@@ -672,8 +822,8 @@ get_header();
                 <svg class="w-4 h-4 text-group-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Alocare Flexibilă</div>
-                <p class="text-white/50 text-sm">Sau lasă sistemul să găsească cele mai bune locuri disponibile</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['flexible_allocation'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['flexible_desc'] ); ?></p>
               </div>
             </div>
 
@@ -682,8 +832,8 @@ get_header();
                 <svg class="w-4 h-4 text-group-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium">Blocare Inventar</div>
-                <p class="text-white/50 text-sm">Locurile sunt rezervate până la expirarea opțiunii</p>
+                <div class="text-white font-medium"><?php echo esc_html( $t['inventory_lock'] ); ?></div>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['inventory_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -698,9 +848,9 @@ get_header();
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-brand-green text-sm font-medium uppercase tracking-widest">La Locație</span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Check-in<br><span class="text-gradient-group">în lot</span></h2>
-          <p class="text-lg text-white/60 mb-8">Procesează întregul grup cu o singură scanare. Perfect când autocarul turistic ajunge la ușă și ai 50 de persoane de verificat rapid.</p>
+          <span class="text-brand-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['onsite_label'] ); ?></span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['checkin_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['checkin_title2'] ); ?></span></h2>
+          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['checkin_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-brand-green/10 border border-brand-green/30">
@@ -708,8 +858,8 @@ get_header();
                 <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Check-in Grup Complet</span>
-                <p class="text-white/50 text-sm">Un click procesează toți participanții confirmați</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['full_checkin'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['full_checkin_desc'] ); ?></p>
               </div>
             </div>
 
@@ -718,8 +868,8 @@ get_header();
                 <svg class="w-6 h-6 text-group-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">QR Cod Grup</span>
-                <p class="text-white/50 text-sm">Liderul de grup are un cod master pentru toată echipa</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['qr_group'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['qr_group_desc'] ); ?></p>
               </div>
             </div>
 
@@ -728,8 +878,8 @@ get_header();
                 <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium">Lista Prezență</span>
-                <p class="text-white/50 text-sm">Bifează manual membrii pe măsură ce intră</p>
+                <span class="text-white font-medium"><?php echo esc_html( $t['attendance_list'] ); ?></span>
+                <p class="text-white/50 text-sm"><?php echo esc_html( $t['attendance_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -740,12 +890,12 @@ get_header();
           <div class="bg-dark-800 rounded-2xl p-6 border border-white/10" x-data="{ checkedIn: 0 }" x-init="setInterval(() => { if(checkedIn < 25) checkedIn++; }, 200)">
             <div class="flex items-center justify-between mb-6">
               <div>
-                <div class="text-white font-semibold">Check-in Grup Live</div>
-                <div class="text-white/40 text-xs">TechCorp SRL • Poarta B</div>
+                <div class="text-white font-semibold"><?php echo esc_html( $t['live_checkin'] ); ?></div>
+                <div class="text-white/40 text-xs">TechCorp SRL • <?php echo esc_html( $t['gate'] ); ?></div>
               </div>
               <div class="text-right">
                 <div class="text-3xl font-bold text-brand-green" x-text="checkedIn + '/25'">0/25</div>
-                <div class="text-white/40 text-xs">intrați</div>
+                <div class="text-white/40 text-xs"><?php echo esc_html( $t['entered'] ); ?></div>
               </div>
             </div>
 
@@ -773,7 +923,7 @@ get_header();
             <button
               class="w-full py-3 rounded-xl font-medium transition-all duration-300"
               :class="checkedIn === 25 ? 'bg-brand-green text-white' : 'bg-group-primary text-white'"
-              x-text="checkedIn === 25 ? '✓ Grup Complet!' : 'Check-in în desfășurare...'"
+              x-text="checkedIn === 25 ? '<?php echo esc_attr( $t['group_complete'] ); ?>' : '<?php echo esc_attr( $t['checkin_progress'] ); ?>'"
             ></button>
           </div>
         </div>
@@ -785,45 +935,45 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">De la corporate<br><span class="text-gradient animate-shimmer">la școli</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-group-primary/20 to-group-secondary/20 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Team Building Corporate</h3>
-          <p class="text-white/50 text-sm">Companii care organizează ieșiri pentru echipe. Reduceri, factură firmă, gestionare simplă.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_corporate'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_corporate_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎓</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Excursii Școlare</h3>
-          <p class="text-white/50 text-sm">Clase și grupuri de elevi. Colectare autorizații, cerințe speciale, check-in rapid.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_schools'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_schools_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-group-teal/20 to-group-teal/10 flex items-center justify-center mb-4"><span class="text-2xl">🚌</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Tururi Organizate</h3>
-          <p class="text-white/50 text-sm">Agenții de turism care aduc grupuri. Un autocar, un check-in, zero coadă.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_tours'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_tours_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-group-accent/20 to-group-accent/10 flex items-center justify-center mb-4"><span class="text-2xl">👨‍👩‍👧‍👦</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Reuniuni de Familie</h3>
-          <p class="text-white/50 text-sm">Nunți, aniversări, evenimente private. Un organizator, mulți participanți.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_family'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_family_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">⚽</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Cluburi Sportive</h3>
-          <p class="text-white/50 text-sm">Deplasări ale suporterilor. Locuri consecutive, reduceri club, coordonare simplă.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_sports'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_sports_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-group-primary/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🎵</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Fan Clubs</h3>
-          <p class="text-white/50 text-sm">Grupuri de fani care merg împreună la concerte. Experiență comună, preț redus.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_fans'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_fans_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -843,13 +993,13 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Aducem <span class="text-gradient-group font-semibold">3 autocare pe zi</span> la festival. Cu check-in-ul de grup, procesăm 150 de persoane în 5 minute. Înainte dura o oră."
+            "<?php echo $t['testimonial_quote']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="w-14 h-14 rounded-full bg-gradient-to-br from-group-primary to-group-accent"></div>
             <div>
-              <div class="font-semibold text-white">Cristian M.</div>
-              <div class="text-white/50">Director Operațiuni, EuroTour Travel</div>
+              <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+              <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
             </div>
           </div>
         </div>
@@ -866,20 +1016,20 @@ get_header();
     <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">🎟️</div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Grupuri<br><span class="text-gradient-group">simplificate</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Reduceri pe niveluri, dashboard lider, plăți parțiale, check-in în lot. Tot ce ai nevoie pentru comenzi mari.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-group"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-group-primary to-group-secondary text-white hover:scale-105 hover:shadow-glow-group transition-all duration-300">
-          Activează Rezervări Grup
+          <?php echo esc_html( $t['cta_activate'] ); ?>
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">10-500 bilete • Reduceri automate • Check-in în lot</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['cta_footer'] ); ?></p>
     </div>
   </section>
 

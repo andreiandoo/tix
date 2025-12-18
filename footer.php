@@ -17,31 +17,7 @@
 	<!-- Gradient accent line -->
 	<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
 
-	<!-- Newsletter Section -->
-	<div class="border-b border-white/5">
-		<div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 lg:py-16">
-			<div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-				<div class="max-w-xl">
-					<h3 class="mb-2 text-2xl font-bold text-white lg:text-3xl">
-						Rămâi la curent cu noutățile
-					</h3>
-					<p class="text-white/60">
-						Abonează-te la newsletter pentru tips, updates și oferte exclusive.
-					</p>
-				</div>
-				<div class="flex flex-col w-full gap-3 sm:flex-row lg:w-auto">
-					<input type="email" 
-							placeholder="adresa@email.com" 
-							class="flex-1 px-5 py-3 text-white transition-all border lg:w-72 rounded-xl bg-white/5 border-white/10 placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10">
-					<button class="px-6 py-3 font-semibold text-white transition-all duration-300 rounded-xl bg-violet-600 hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 whitespace-nowrap">
-						Abonează-te
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="px-4 py-12 mx-auto container-site sm:px-6 lg:px-8 lg:py-16">
+	<div class="px-4 py-12 mx-auto container-site sm:px-6 lg:px-8">
 		<div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6 lg:gap-12">
 			<!-- Brand Column -->
 			<div class="col-span-2 md:col-span-3 lg:col-span-2">
@@ -163,7 +139,7 @@
 		<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<div class="flex items-center gap-x-4">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 group">
 						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tx-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-8 h-auto transition-opacity duration-300 group-hover:opacity-90">
 					</a>
 					<div class="">

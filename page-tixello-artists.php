@@ -1,13 +1,34 @@
 <?php
 /**
  * Template Name: Tixello – Artists Directory
- * Description: Lista artisti din Tixello Core cu search si filtre
+ * Description: Lista artisti din Tixello Core cu search si filtre - Dynamic Loading
  */
 
 get_header();
 
 // Detectare limba curentă (Polylang)
 $current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+// Check for URL-based filters
+$url_letter = get_query_var( 'tixello_artist_letter', '' );
+$url_genre  = get_query_var( 'tixello_artist_genre', '' );
+
+// Get stats from API (cached)
+$total_artists = tixello_get_stat_value( 'artists' );
+$total_genres  = tixello_get_stat_value( 'artist_genres' );
+$total_types   = tixello_get_stat_value( 'artist_types' );
+
+// Fetch genres list for filter pills
+$genres_list = [];
+if ( function_exists( 'tixello_fetch_artist_genres_list' ) ) {
+    $genres_list = tixello_fetch_artist_genres_list();
+}
+
+// Fetch types list
+$types_list = [];
+if ( function_exists( 'tixello_fetch_artist_types_list' ) ) {
+    $types_list = tixello_fetch_artist_types_list();
+}
 
 // Array cu traduceri
 $t = [
@@ -26,23 +47,19 @@ $t = [
     'total_artists' => $current_lang === 'ro' ? 'Total Artisti' : 'Total Artists',
     'genres' => $current_lang === 'ro' ? 'Genuri' : 'Genres',
     'countries' => $current_lang === 'ro' ? 'Tari' : 'Countries',
-    'featured' => 'Featured',
+    'artist_types' => $current_lang === 'ro' ? 'Tipuri Artisti' : 'Artist Types',
 
     // Search & Filters
     'search_placeholder' => $current_lang === 'ro' ? 'Cauta artisti dupa nume...' : 'Search artists by name...',
     'all_genres' => $current_lang === 'ro' ? 'Toate genurile' : 'All Genres',
     'all' => 'All',
 
-    // Featured Section
-    'featured_artists' => $current_lang === 'ro' ? 'Artisti Featured' : 'Featured Artists',
-    'trending_month' => $current_lang === 'ro' ? 'Trending luna aceasta' : 'Trending this month',
-    'view_all' => $current_lang === 'ro' ? 'Vezi toti' : 'View all',
-
     // All Artists Section
     'all_artists' => $current_lang === 'ro' ? 'Toti artistii' : 'All Artists',
     'showing_of' => $current_lang === 'ro' ? 'Se afiseaza' : 'Showing',
     'of' => $current_lang === 'ro' ? 'din' : 'of',
     'artists_label' => $current_lang === 'ro' ? 'artisti' : 'artists',
+    'loading' => $current_lang === 'ro' ? 'Se incarca...' : 'Loading...',
 
     // Empty State
     'no_artist_found' => $current_lang === 'ro' ? 'Niciun artist gasit' : 'No artist found',
@@ -61,111 +78,15 @@ $t = [
         : 'Join the Tixello artist network and connect with event organizers across Europe. Be discovered by millions of fans.',
     'register_as_artist' => $current_lang === 'ro' ? 'Inregistreaza-te ca artist' : 'Register as an artist',
     'learn_more' => $current_lang === 'ro' ? 'Afla mai multe' : 'Learn more',
+
+    // Filter labels
+    'filter_by_letter' => $current_lang === 'ro' ? 'Artisti cu litera' : 'Artists starting with',
+    'filter_by_genre' => $current_lang === 'ro' ? 'Artisti gen' : 'Artists in genre',
 ];
-
-// Fetch artists
-$artists = [];
-if ( function_exists( 'tixello_fetch_artists_core' ) ) {
-    $artists = tixello_fetch_artists_core();
-}
-
-if ( ! is_array( $artists ) ) {
-    $artists = [];
-}
-
-$STORAGE_BASE = 'https://core.tixello.com/storage/';
-$full_storage_url = function( $path ) use ( $STORAGE_BASE ) {
-    if ( empty( $path ) ) {
-        return '';
-    }
-    if ( preg_match( '#^https?://#i', $path ) ) {
-        return esc_url( $path );
-    }
-    $path = ltrim( $path, '/' );
-    return esc_url( $STORAGE_BASE . $path );
-};
-
-// Normalize artists for JS
-$js_artists = [];
-$genres_set = [];
-
-foreach ( $artists as $a ) {
-    if ( ! is_array( $a ) ) {
-        continue;
-    }
-
-    $name = isset( $a['name'] ) ? $a['name'] : '';
-    if ( $name === '' ) {
-        continue;
-    }
-
-    $slug = isset( $a['slug'] ) ? $a['slug'] : '';
-    $country = isset( $a['country'] ) ? $a['country'] : '';
-    $city = isset( $a['city'] ) ? $a['city'] : '';
-
-    $image_url = '';
-    if ( ! empty( $a['media']['image_url'] ) ) {
-        $image_url = $full_storage_url( $a['media']['image_url'] );
-    }
-
-    $genres = isset( $a['genres'] ) && is_array( $a['genres'] ) ? $a['genres'] : [];
-    foreach ( $genres as $g ) {
-        $genres_set[ $g ] = true;
-    }
-
-    $bio = '';
-    if ( $current_lang === 'ro' && ! empty( $a['bio_translations']['ro'] ) ) {
-        $bio = wp_strip_all_tags( $a['bio_translations']['ro'] );
-    } elseif ( ! empty( $a['bio_translations']['en'] ) ) {
-        $bio = wp_strip_all_tags( $a['bio_translations']['en'] );
-    } elseif ( ! empty( $a['bio_translations']['ro'] ) ) {
-        $bio = wp_strip_all_tags( $a['bio_translations']['ro'] );
-    } elseif ( ! empty( $a['bio'] ) ) {
-        $bio = wp_strip_all_tags( $a['bio'] );
-    }
-
-    $first_letter = strtoupper( mb_substr( $name, 0, 1 ) );
-    if ( is_numeric( $first_letter ) ) {
-        $first_letter = '#';
-    }
-
-    $is_verified = ! empty( $a['is_verified'] );
-    $is_featured = ! empty( $a['is_featured'] );
-
-    $js_artists[] = [
-        'id'          => isset( $a['id'] ) ? (int) $a['id'] : null,
-        'name'        => $name,
-        'slug'        => $slug,
-        'firstLetter' => $first_letter,
-        'country'     => $country,
-        'city'        => $city,
-        'image'       => $image_url,
-        'genres'      => $genres,
-        'bio'         => $bio,
-        'verified'    => $is_verified,
-        'featured'    => $is_featured,
-    ];
-}
-
-$total_artists = count( $js_artists );
-$all_genres = array_keys( $genres_set );
-sort( $all_genres );
-
-// Featured artists (first 5 with images)
-$featured_artists = array_filter( $js_artists, function( $a ) {
-    return ! empty( $a['image'] );
-});
-$featured_artists = array_slice( $featured_artists, 0, 5 );
 
 ?>
 
 <main id="primary" class="site-main bg-zinc-950 text-zinc-200 antialiased">
-
-    <!-- Inject artists data for JS -->
-    <script>
-        window.tixelloArtists = <?php echo wp_json_encode( $js_artists ); ?>;
-        window.tixelloGenres = <?php echo wp_json_encode( $all_genres ); ?>;
-    </script>
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="relative overflow-hidden">
@@ -182,6 +103,18 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span class="text-white/70"><?php echo esc_html( $t['artists'] ); ?></span>
+                <?php if ( $url_letter ) : ?>
+                    <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <span class="text-white/70"><?php echo esc_html( strtoupper( $url_letter ) ); ?></span>
+                <?php endif; ?>
+                <?php if ( $url_genre ) : ?>
+                    <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <span class="text-white/70"><?php echo esc_html( urldecode( $url_genre ) ); ?></span>
+                <?php endif; ?>
             </nav>
 
             <!-- Title -->
@@ -191,39 +124,49 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                     <span class="text-sm font-medium text-pink-400"><?php echo esc_html( $t['badge'] ); ?></span>
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    <?php echo esc_html( $t['hero_title'] ); ?>
-                </h1>
+                <?php if ( $url_letter ) : ?>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                        <?php echo esc_html( $t['filter_by_letter'] ); ?> "<?php echo esc_html( strtoupper( $url_letter ) ); ?>"
+                    </h1>
+                <?php elseif ( $url_genre ) : ?>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                        <?php echo esc_html( $t['filter_by_genre'] ); ?>: <?php echo esc_html( urldecode( $url_genre ) ); ?>
+                    </h1>
+                <?php else : ?>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                        <?php echo esc_html( $t['hero_title'] ); ?>
+                    </h1>
+                <?php endif; ?>
 
                 <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    <?php echo sprintf( esc_html( $t['hero_subtitle'] ), '<span class="text-white font-semibold">' . number_format_i18n( $total_artists ) . '</span>' ); ?>
+                    <?php echo sprintf( $t['hero_subtitle'], '<span class="text-white font-semibold">' . $total_artists . '</span>' ); ?>
                 </p>
             </div>
 
-            <!-- Stats -->
+            <!-- Stats - Instant Load from API stats -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
-                    <div class="text-2xl font-bold text-white"><?php echo number_format_i18n( $total_artists ); ?></div>
+                    <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_artists ); ?></div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['total_artists'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
-                    <div class="text-2xl font-bold text-white"><?php echo count( $all_genres ); ?></div>
+                    <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_genres ); ?></div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['genres'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
-                    <div class="text-2xl font-bold text-white"><?php echo count( array_unique( array_filter( array_column( $js_artists, 'country' ) ) ) ); ?></div>
-                    <div class="text-xs text-white/50"><?php echo esc_html( $t['countries'] ); ?></div>
+                    <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_types ); ?></div>
+                    <div class="text-xs text-white/50"><?php echo esc_html( $t['artist_types'] ); ?></div>
                 </div>
                 <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
-                    <div class="text-2xl font-bold text-pink-400"><?php echo count( array_filter( $js_artists, function( $a ) { return $a['featured']; } ) ); ?></div>
-                    <div class="text-xs text-white/50"><?php echo esc_html( $t['featured'] ); ?></div>
+                    <div class="text-2xl font-bold text-pink-400" id="filtered-count">-</div>
+                    <div class="text-xs text-white/50" id="filtered-label"><?php echo esc_html( $t['showing_of'] ); ?></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Alpine.js Component -->
-    <div x-data="tixelloArtistsDirectory(window.tixelloArtists || [], window.tixelloGenres || [])" x-init="init()">
+    <!-- Alpine.js Component for Dynamic Loading -->
+    <div x-data="tixelloArtistsDirectory()" x-init="init()">
 
         <!-- ==================== SEARCH & FILTERS ==================== -->
         <section class="sticky top-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-y border-white/5">
@@ -237,11 +180,12 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                         </svg>
                         <input type="text"
                                x-model="search"
+                               @input.debounce.400ms="searchArtists()"
                                placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
                     </div>
 
-                    <!-- Genre Filter -->
+                    <!-- Genre Filter Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -253,12 +197,18 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50">
-                            <button @click="activeGenre = 'all'; open = false" class="w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
+                            <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
                                 <?php echo esc_html( $t['all_genres'] ); ?>
-                            </button>
-                            <template x-for="genre in genres" :key="genre">
-                                <button @click="activeGenre = genre; open = false" class="w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === genre ? 'text-violet-400' : 'text-white/70'" x-text="genre"></button>
-                            </template>
+                            </a>
+                            <?php foreach ( $genres_list as $genre ) : ?>
+                                <?php $genre_name = is_array( $genre ) ? ( $genre['name'] ?? '' ) : $genre; ?>
+                                <?php if ( ! empty( $genre_name ) ) : ?>
+                                    <a href="<?php echo esc_url( home_url( '/artists/genre/' . urlencode( $genre_name ) . '/' ) ); ?>"
+                                       class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors text-white/70 hover:text-violet-400">
+                                        <?php echo esc_html( $genre_name ); ?>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
 
@@ -283,15 +233,20 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
         <section class="border-b border-white/5 bg-zinc-900/30">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
-                    <button @click="activeLetter = 'all'" :class="activeLetter === 'all' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'" class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all">
+                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>"
+                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo empty( $url_letter ) && empty( $url_genre ) ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
                         All
-                    </button>
-                    <button @click="activeLetter = '#'" :class="activeLetter === '#' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'" class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all">
+                    </a>
+                    <a href="<?php echo esc_url( home_url( '/artists/letter/%23/' ) ); ?>"
+                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo $url_letter === '#' || $url_letter === '%23' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
                         #
-                    </button>
-                    <template x-for="letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" :key="letter">
-                        <button @click="activeLetter = letter" :class="activeLetter === letter ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'" class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all" x-text="letter"></button>
-                    </template>
+                    </a>
+                    <?php foreach ( range( 'A', 'Z' ) as $letter ) : ?>
+                        <a href="<?php echo esc_url( home_url( '/artists/letter/' . $letter . '/' ) ); ?>"
+                           class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center <?php echo strtoupper( $url_letter ) === $letter ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'; ?>">
+                            <?php echo $letter; ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -300,80 +255,25 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
         <section class="border-b border-white/5">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
-                    <button @click="activeGenre = 'all'" :class="activeGenre === 'all' ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors">
+                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>"
+                       class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors <?php echo empty( $url_genre ) ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'; ?>">
                         <?php echo esc_html( $t['all_genres'] ); ?>
-                    </button>
-                    <template x-for="genre in genres.slice(0, 12)" :key="genre">
-                        <button @click="activeGenre = genre" :class="activeGenre === genre ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors" x-text="genre"></button>
-                    </template>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== FEATURED ARTISTS ==================== -->
-        <?php if ( ! empty( $featured_artists ) ) : ?>
-        <section class="py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between mb-8">
-                    <div>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-white"><?php echo esc_html( $t['featured_artists'] ); ?></h2>
-                        <p class="text-white/50 mt-1"><?php echo esc_html( $t['trending_month'] ); ?></p>
-                    </div>
-                    <a href="#all-artists" class="hidden sm:inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 transition-colors">
-                        <?php echo esc_html( $t['view_all'] ); ?>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
                     </a>
-                </div>
-
-                <!-- Featured Artists Horizontal Scroll -->
-                <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4">
-                    <?php foreach ( $featured_artists as $fa ) : ?>
-                    <a href="<?php echo esc_url( home_url( '/artists/' . $fa['slug'] . '/' ) ); ?>" class="flex-shrink-0 w-72 group">
-                        <div class="relative rounded-2xl overflow-hidden aspect-[3/4]">
-                            <?php if ( $fa['image'] ) : ?>
-                                <img src="<?php echo esc_url( $fa['image'] ); ?>" alt="<?php echo esc_attr( $fa['name'] ); ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <?php else : ?>
-                                <div class="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
-                                    <span class="text-6xl font-bold text-white/10"><?php echo esc_html( strtoupper( mb_substr( $fa['name'], 0, 1 ) ) ); ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-
-                            <!-- Featured Badge -->
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-lg bg-pink-600 text-white text-xs font-semibold">
-                                    Featured
-                                </span>
-                            </div>
-
-                            <?php if ( $fa['verified'] ) : ?>
-                            <!-- Verified Badge -->
-                            <div class="absolute top-4 right-4">
-                                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-
-                            <!-- Content -->
-                            <div class="absolute bottom-0 left-0 right-0 p-5">
-                                <h3 class="text-xl font-bold text-white mb-1 group-hover:text-violet-300 transition-colors"><?php echo esc_html( $fa['name'] ); ?></h3>
-                                <p class="text-sm text-white/70 mb-3">
-                                    <?php echo esc_html( implode( ' • ', array_slice( $fa['genres'], 0, 2 ) ) ); ?>
-                                    <?php if ( $fa['city'] ) : ?> • <?php echo esc_html( $fa['city'] ); ?><?php endif; ?>
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+                    <?php
+                    $shown_genres = array_slice( $genres_list, 0, 12 );
+                    foreach ( $shown_genres as $genre ) :
+                        $genre_name = is_array( $genre ) ? ( $genre['name'] ?? '' ) : $genre;
+                        if ( empty( $genre_name ) ) continue;
+                        $is_active = urldecode( $url_genre ) === $genre_name;
+                    ?>
+                        <a href="<?php echo esc_url( home_url( '/artists/genre/' . urlencode( $genre_name ) . '/' ) ); ?>"
+                           class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors <?php echo $is_active ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'; ?>">
+                            <?php echo esc_html( $genre_name ); ?>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
         </section>
-        <?php endif; ?>
 
         <!-- ==================== ALL ARTISTS GRID ==================== -->
         <section class="py-12 border-t border-white/5" id="all-artists">
@@ -384,18 +284,38 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                     <div>
                         <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['all_artists'] ); ?></h2>
                         <p class="text-white/50 mt-1">
-                            <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
+                            <span x-show="!loading">
+                                <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="artists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="totalArtists"></span> <?php echo esc_html( $t['artists_label'] ); ?>
+                            </span>
+                            <span x-show="loading" class="flex items-center gap-2">
+                                <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <?php echo esc_html( $t['loading'] ); ?>
+                            </span>
                         </p>
                     </div>
                 </div>
 
+                <!-- Loading Skeleton -->
+                <div x-show="loading && artists.length === 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                    <?php for ( $i = 0; $i < 12; $i++ ) : ?>
+                    <div class="animate-pulse">
+                        <div class="aspect-square rounded-2xl bg-zinc-800/50 mb-3"></div>
+                        <div class="h-4 bg-zinc-800/50 rounded w-3/4 mb-2"></div>
+                        <div class="h-3 bg-zinc-800/50 rounded w-1/2"></div>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+
                 <!-- Grid View -->
-                <div x-show="viewMode === 'grid'" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
-                    <template x-for="artist in displayedArtists" :key="artist.id">
+                <div x-show="viewMode === 'grid' && artists.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                    <template x-for="artist in artists" :key="artist.id">
                         <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group">
                             <div class="relative aspect-square rounded-2xl overflow-hidden mb-3">
                                 <template x-if="artist.image">
-                                    <img :src="artist.image" :alt="artist.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <img :src="artist.image" :alt="artist.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                                 </template>
                                 <template x-if="!artist.image">
                                     <div class="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
@@ -427,8 +347,8 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                 </div>
 
                 <!-- List View -->
-                <div x-show="viewMode === 'list'" class="space-y-3">
-                    <template x-for="artist in displayedArtists" :key="artist.id">
+                <div x-show="viewMode === 'list' && artists.length > 0" class="space-y-3">
+                    <template x-for="artist in artists" :key="artist.id">
                         <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80 transition-all duration-300">
                             <!-- Thumbnail -->
                             <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-800">
@@ -467,7 +387,7 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                 </div>
 
                 <!-- Empty State -->
-                <div x-show="filteredArtists.length === 0" class="text-center py-16">
+                <div x-show="!loading && artists.length === 0" class="text-center py-16">
                     <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
                         <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -475,13 +395,13 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                     </div>
                     <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_artist_found'] ); ?></h3>
                     <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
-                    <button @click="search = ''; activeLetter = 'all'; activeGenre = 'all'" class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+                    <a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>" class="inline-block px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
                         <?php echo esc_html( $t['reset_filters'] ); ?>
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Load More -->
-                <div x-show="displayedArtists.length < filteredArtists.length" class="flex flex-col items-center mt-12">
+                <div x-show="hasMore && !loading" class="flex flex-col items-center mt-12">
                     <button @click="loadMore()" class="flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -489,8 +409,16 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
                         <?php echo esc_html( $t['load_more'] ); ?>
                     </button>
                     <p class="text-sm text-white/40 mt-3">
-                        <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
+                        <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="artists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="totalArtists"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                     </p>
+                </div>
+
+                <!-- Loading More Indicator -->
+                <div x-show="loadingMore" class="flex justify-center mt-8">
+                    <svg class="animate-spin h-8 w-8 text-violet-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
                 </div>
 
             </div>
@@ -529,58 +457,95 @@ $featured_artists = array_slice( $featured_artists, 0, 5 );
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('tixelloArtistsDirectory', (rawArtists, rawGenres) => ({
-                allArtists: [],
-                genres: [],
-                search: '',
-                activeLetter: 'all',
-                activeGenre: 'all',
-                viewMode: 'grid',
-                itemsPerPage: 24,
+            Alpine.data('tixelloArtistsDirectory', () => ({
+                artists: [],
+                totalArtists: 0,
                 currentPage: 1,
+                lastPage: 1,
+                loading: true,
+                loadingMore: false,
+                search: '',
+                activeLetter: '<?php echo esc_js( $url_letter ); ?>' || 'all',
+                activeGenre: '<?php echo esc_js( urldecode( $url_genre ) ); ?>' || 'all',
+                viewMode: 'grid',
+                ajaxUrl: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
 
                 init() {
-                    this.allArtists = rawArtists || [];
-                    this.genres = rawGenres || [];
+                    this.loadArtists();
+                },
+
+                async loadArtists(append = false) {
+                    if (append) {
+                        this.loadingMore = true;
+                    } else {
+                        this.loading = true;
+                        this.artists = [];
+                        this.currentPage = 1;
+                    }
+
+                    const params = new URLSearchParams({
+                        action: 'tixello_load_artists',
+                        page: this.currentPage,
+                    });
+
+                    if (this.activeLetter && this.activeLetter !== 'all') {
+                        params.append('letter', this.activeLetter);
+                    }
+
+                    if (this.activeGenre && this.activeGenre !== 'all') {
+                        params.append('genre', this.activeGenre);
+                    }
+
+                    if (this.search.trim()) {
+                        params.append('search', this.search.trim());
+                    }
+
+                    try {
+                        const response = await fetch(`${this.ajaxUrl}?${params.toString()}`);
+                        const result = await response.json();
+
+                        if (result.success) {
+                            if (append) {
+                                this.artists = [...this.artists, ...result.data.artists];
+                            } else {
+                                this.artists = result.data.artists;
+                            }
+
+                            if (result.data.pagination) {
+                                this.totalArtists = result.data.pagination.total || this.artists.length;
+                                this.lastPage = result.data.pagination.last_page || 1;
+                                this.currentPage = result.data.pagination.current_page || 1;
+                            }
+
+                            // Update the filtered count in stats
+                            const filteredCountEl = document.getElementById('filtered-count');
+                            if (filteredCountEl) {
+                                filteredCountEl.textContent = this.artists.length;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error loading artists:', error);
+                    } finally {
+                        this.loading = false;
+                        this.loadingMore = false;
+                    }
+                },
+
+                get hasMore() {
+                    return this.currentPage < this.lastPage;
                 },
 
                 loadMore() {
-                    this.currentPage++;
+                    if (this.hasMore && !this.loadingMore) {
+                        this.currentPage++;
+                        this.loadArtists(true);
+                    }
                 },
 
-                get filteredArtists() {
-                    let list = [...this.allArtists];
-
-                    // Search filter
-                    const q = this.search.trim().toLowerCase();
-                    if (q) {
-                        list = list.filter((a) => {
-                            const haystack = [
-                                a.name || '',
-                                a.city || '',
-                                a.country || '',
-                                a.bio || '',
-                                ...(a.genres || [])
-                            ].join(' ').toLowerCase();
-                            return haystack.includes(q);
-                        });
-                    }
-
-                    // Letter filter
-                    if (this.activeLetter !== 'all') {
-                        list = list.filter((a) => a.firstLetter === this.activeLetter);
-                    }
-
-                    // Genre filter
-                    if (this.activeGenre !== 'all') {
-                        list = list.filter((a) => a.genres && a.genres.includes(this.activeGenre));
-                    }
-
-                    return list.sort((a, b) => a.name.localeCompare(b.name));
-                },
-
-                get displayedArtists() {
-                    return this.filteredArtists.slice(0, this.currentPage * this.itemsPerPage);
+                searchArtists() {
+                    // Reset to page 1 when searching
+                    this.currentPage = 1;
+                    this.loadArtists();
                 },
             }));
         });

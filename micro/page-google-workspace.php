@@ -5,6 +5,140 @@
  */
 
 get_header();
+
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$t = [
+	// Hero
+	'badge'                  => 'Drive • Calendar • Gmail',
+	'hero_title'             => 'Google',
+	'hero_title2'            => 'Workspace',
+	'hero_desc'              => $current_lang === 'ro'
+		? 'Conectează evenimentele cu <strong class="text-white">Drive, Calendar și Gmail</strong>. Fișiere sincronizate, programări automate, email-uri profesionale. Totul în ecosistemul Google.'
+		: 'Connect events with <strong class="text-white">Drive, Calendar and Gmail</strong>. Synced files, automatic scheduling, professional emails. Everything in the Google ecosystem.',
+	'cta_connect'            => $current_lang === 'ro' ? 'Conectează cu Google' : 'Connect with Google',
+	'cta_services'           => $current_lang === 'ro' ? 'Vezi serviciile' : 'See services',
+	'sync_active'            => $current_lang === 'ro' ? 'Sincronizare activă' : 'Sync active',
+	'connected'              => $current_lang === 'ro' ? 'Conectat' : 'Connected',
+	'secured'                => $current_lang === 'ro' ? 'Securizat' : 'Secured',
+	'realtime'               => 'Real-time',
+	'auto_sync'              => 'Auto Sync',
+
+	// Drive mockup
+	'events_2025'            => $current_lang === 'ro' ? 'Evenimente 2025' : 'Events 2025',
+	'shared_drive'           => $current_lang === 'ro' ? 'Shared Drive • 24 fișiere' : 'Shared Drive • 24 files',
+	'sales_report'           => $current_lang === 'ro' ? 'Raport Vânzări - Festival.xlsx' : 'Sales Report - Festival.xlsx',
+	'updated_5min'           => $current_lang === 'ro' ? 'Actualizat acum 5 min' : 'Updated 5 min ago',
+	'new_label'              => $current_lang === 'ro' ? 'Nou' : 'New',
+	'participant_list'       => $current_lang === 'ro' ? 'Lista Participanți.pdf' : 'Participants List.pdf',
+	'auto_generated'         => $current_lang === 'ro' ? 'Generat automat' : 'Auto-generated',
+
+	// Calendar mockup
+	'guests_label'           => $current_lang === 'ro' ? 'invitați' : 'guests',
+	'tech_setup'             => $current_lang === 'ro' ? 'Setup Tehnic' : 'Technical Setup',
+
+	// Gmail mockup
+	'ticket_confirm'         => $current_lang === 'ro' ? 'Confirmare Bilet - Maria I.' : 'Ticket Confirmation - Maria I.',
+	'sent'                   => $current_lang === 'ro' ? 'Trimis' : 'Sent',
+	'your_tickets_for'       => $current_lang === 'ro' ? 'Biletele tale pentru Summer Festival 2025...' : 'Your tickets for Summer Festival 2025...',
+	'event_reminder'         => $current_lang === 'ro' ? 'Reminder Eveniment' : 'Event Reminder',
+	'scheduled'              => $current_lang === 'ro' ? 'Programat' : 'Scheduled',
+	'sends_tomorrow'         => $current_lang === 'ro' ? 'Se trimite mâine la 09:00' : 'Sends tomorrow at 09:00',
+
+	// Services Section
+	'services_label'         => $current_lang === 'ro' ? 'Servicii Integrate' : 'Integrated Services',
+	'services_title'         => 'Drive, Calendar,',
+	'services_title2'        => 'Gmail',
+	'services_desc'          => $current_lang === 'ro'
+		? 'Trei servicii esențiale, o singură integrare. Workflow-uri fluide în ecosistemul Google.'
+		: 'Three essential services, one integration. Smooth workflows in the Google ecosystem.',
+
+	// Drive features
+	'drive_desc'             => $current_lang === 'ro'
+		? 'Stochează rapoarte, exporturi și documente direct în Drive. Shared Drives pentru colaborare în echipă.'
+		: 'Store reports, exports and documents directly in Drive. Shared Drives for team collaboration.',
+	'drive_f1'               => $current_lang === 'ro' ? 'Export automat rapoarte' : 'Auto export reports',
+	'drive_f2'               => $current_lang === 'ro' ? 'Shared Drives suport' : 'Shared Drives support',
+	'drive_f3'               => $current_lang === 'ro' ? 'Link-uri partajabile' : 'Shareable links',
+	'drive_f4'               => 'PDF, Excel, CSV',
+
+	// Calendar features
+	'calendar_desc'          => $current_lang === 'ro'
+		? 'Sincronizează evenimentele automat. Invitații, remindere și verificare disponibilitate.'
+		: 'Sync events automatically. Invites, reminders and availability check.',
+	'calendar_f1'            => $current_lang === 'ro' ? 'Creare evenimente automate' : 'Auto event creation',
+	'calendar_f2'            => $current_lang === 'ro' ? 'Invitații participanți' : 'Participant invites',
+	'calendar_f3'            => $current_lang === 'ro' ? 'Remindere automate' : 'Auto reminders',
+	'calendar_f4'            => $current_lang === 'ro' ? 'Calendare multiple' : 'Multiple calendars',
+
+	// Gmail features
+	'gmail_desc'             => $current_lang === 'ro'
+		? 'Trimite email-uri profesionale prin infrastructura Google. Confirmări, remindere, follow-up.'
+		: 'Send professional emails via Google infrastructure. Confirmations, reminders, follow-up.',
+	'gmail_f1'               => $current_lang === 'ro' ? 'Email-uri tranzacționale' : 'Transactional emails',
+	'gmail_f2'               => $current_lang === 'ro' ? 'Template-uri HTML' : 'HTML templates',
+	'gmail_f3'               => $current_lang === 'ro' ? 'Atașamente fișiere' : 'File attachments',
+	'gmail_f4'               => $current_lang === 'ro' ? 'Urmărire livrare' : 'Delivery tracking',
+
+	// Data Flow Section
+	'dataflow_label'         => $current_lang === 'ro' ? 'Flux de Date' : 'Data Flow',
+	'dataflow_title'         => $current_lang === 'ro' ? 'Sincronizare' : 'Automatic',
+	'dataflow_title2'        => $current_lang === 'ro' ? 'automată' : 'sync',
+	'dataflow_desc'          => $current_lang === 'ro'
+		? 'Datele curg natural între Tixello și Google Workspace. Fără intervenție manuală.'
+		: 'Data flows naturally between Tixello and Google Workspace. No manual intervention.',
+	'ticketing_platform'     => $current_lang === 'ro' ? 'Platforma de ticketing' : 'Ticketing platform',
+	'bidirectional'          => $current_lang === 'ro' ? 'Bidirecțional' : 'Bidirectional',
+	'reports_flow'           => $current_lang === 'ro' ? 'Rapoarte' : 'Reports',
+	'events_flow'            => $current_lang === 'ro' ? 'Evenimente' : 'Events',
+	'emails_flow'            => 'Email-uri',
+	'webhooks_flow'          => 'Webhooks',
+	'notifications'          => $current_lang === 'ro' ? 'Notificări' : 'Notifications',
+
+	// Use Cases Section
+	'usecases_label'         => $current_lang === 'ro' ? 'Cazuri de Utilizare' : 'Use Cases',
+	'usecases_title'         => $current_lang === 'ro' ? 'Productivitate' : 'Google-style',
+	'usecases_title2'        => 'Google-style',
+	'uc_reporting'           => $current_lang === 'ro' ? 'Raportare Automatizată' : 'Automated Reporting',
+	'uc_reporting_desc'      => $current_lang === 'ro'
+		? 'Rapoartele de vânzări se încarcă în Drive zilnic. Finance-ul accesează fără export manual.'
+		: 'Sales reports upload to Drive daily. Finance accesses without manual export.',
+	'uc_scheduling'          => $current_lang === 'ro' ? 'Programare Evenimente' : 'Event Scheduling',
+	'uc_scheduling_desc'     => $current_lang === 'ro'
+		? 'Sincronizează în calendar. Setup, demontare, timing - toată lumea vede același program.'
+		: 'Sync to calendar. Setup, teardown, timing - everyone sees the same schedule.',
+	'uc_comms'               => $current_lang === 'ro' ? 'Comunicări Clienți' : 'Client Communications',
+	'uc_comms_desc'          => $current_lang === 'ro'
+		? 'Email-uri prin Gmail: confirmări, remindere, follow-up post-eveniment.'
+		: 'Emails via Gmail: confirmations, reminders, post-event follow-up.',
+	'uc_sharing'             => $current_lang === 'ro' ? 'Partajare Echipă' : 'Team Sharing',
+	'uc_sharing_desc'        => $current_lang === 'ro'
+		? 'Shared Drives pentru materiale, contracte, checklist-uri. Colaborare în timp real.'
+		: 'Shared Drives for materials, contracts, checklists. Real-time collaboration.',
+	'uc_stakeholders'        => $current_lang === 'ro' ? 'Actualizări Stakeholderi' : 'Stakeholder Updates',
+	'uc_stakeholders_desc'   => $current_lang === 'ro'
+		? 'Link-uri live către rapoarte. Sponsorii văd date curente fără email-uri repetate.'
+		: 'Live links to reports. Sponsors see current data without repeated emails.',
+	'uc_security'            => 'Enterprise Security',
+	'uc_security_desc'       => $current_lang === 'ro'
+		? 'Service accounts, delegare domeniu, permisiuni granulare. Securitate Google.'
+		: 'Service accounts, domain delegation, granular permissions. Google security.',
+
+	// Testimonial
+	'testimonial_quote'      => $current_lang === 'ro'
+		? 'Echipa deja folosea <span class="text-gradient-google font-semibold">Google Workspace</span> zilnic. Acum rapoartele de vânzări apar automat în Drive, evenimentele în Calendar. Zero fricțiune.'
+		: 'The team already used <span class="text-gradient-google font-semibold">Google Workspace</span> daily. Now sales reports appear automatically in Drive, events in Calendar. Zero friction.',
+	'testimonial_author'     => 'Andrei M.',
+	'testimonial_role'       => 'Operations Lead, Jazz in the Park',
+
+	// Final CTA
+	'cta_title'              => 'Google',
+	'cta_title2'             => 'Workspace',
+	'cta_desc'               => $current_lang === 'ro'
+		? 'Drive, Calendar, Gmail într-o singură integrare. Productivitate în ecosistemul Google.'
+		: 'Drive, Calendar, Gmail in one integration. Productivity in the Google ecosystem.',
+	'cta_contact'            => $current_lang === 'ro' ? 'Întrebări? Contactează-ne' : 'Questions? Contact us',
+	'cta_footer'             => 'OAuth 2.0 • Shared Drives • Service Accounts',
+];
 ?>
 
 <style>
@@ -138,17 +272,17 @@ get_header();
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            <span class="text-google-blue text-sm font-medium">Drive • Calendar • Gmail</span>
+            <span class="text-google-blue text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
           <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
-            Google<br><span class="text-gradient-google">Workspace</span>
+            <?php echo esc_html( $t['hero_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['hero_title2'] ); ?></span>
           </h1>
 
           <!-- Description -->
           <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
-            Conectează evenimentele cu <strong class="text-white">Drive, Calendar și Gmail</strong>. Fișiere sincronizate, programări automate, email-uri profesionale. Totul în ecosistemul Google.
+            <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
@@ -160,10 +294,10 @@ get_header();
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              Conectează cu Google
+              <?php echo esc_html( $t['cta_connect'] ); ?>
             </a>
             <a href="#servicii" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-              Vezi serviciile
+              <?php echo esc_html( $t['cta_services'] ); ?>
             </a>
           </div>
 
@@ -209,12 +343,12 @@ get_header();
                   </div>
                   <div>
                     <div class="text-white font-semibold">Google Workspace</div>
-                    <div class="text-white/40 text-xs">Sincronizare activă</div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['sync_active'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-google-green animate-pulse"></span>
-                  <span class="text-google-green text-xs">Conectat</span>
+                  <span class="text-google-green text-xs"><?php echo esc_html( $t['connected'] ); ?></span>
                 </div>
               </div>
 
@@ -259,8 +393,8 @@ get_header();
                     <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
                   </div>
                   <div class="flex-1">
-                    <div class="text-white text-sm font-medium">Evenimente 2025</div>
-                    <div class="text-white/40 text-xs">Shared Drive • 24 fișiere</div>
+                    <div class="text-white text-sm font-medium"><?php echo esc_html( $t['events_2025'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['shared_drive'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-3 p-3 rounded-lg bg-dark-900/50">
@@ -268,18 +402,18 @@ get_header();
                     <span class="text-white text-xs font-bold">XLS</span>
                   </div>
                   <div class="flex-1">
-                    <div class="text-white text-sm font-medium">Raport Vânzări - Festival.xlsx</div>
-                    <div class="text-white/40 text-xs">Actualizat acum 5 min</div>
+                    <div class="text-white text-sm font-medium"><?php echo esc_html( $t['sales_report'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['updated_5min'] ); ?></div>
                   </div>
-                  <span class="text-google-green text-xs">Nou</span>
+                  <span class="text-google-green text-xs"><?php echo esc_html( $t['new_label'] ); ?></span>
                 </div>
                 <div class="flex items-center gap-3 p-3 rounded-lg bg-dark-900/50">
                   <div class="file-icon pdf flex items-center justify-center">
                     <span class="text-white text-xs font-bold">PDF</span>
                   </div>
                   <div class="flex-1">
-                    <div class="text-white text-sm font-medium">Lista Participanți.pdf</div>
-                    <div class="text-white/40 text-xs">Generat automat</div>
+                    <div class="text-white text-sm font-medium"><?php echo esc_html( $t['participant_list'] ); ?></div>
+                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['auto_generated'] ); ?></div>
                   </div>
                 </div>
               </div>
@@ -298,12 +432,12 @@ get_header();
                       <div class="w-5 h-5 rounded-full bg-google-green flex items-center justify-center text-white text-xs">A</div>
                       <div class="w-5 h-5 rounded-full bg-google-yellow flex items-center justify-center text-white text-xs">E</div>
                     </div>
-                    <span class="text-white/40 text-xs">+12 invitați</span>
+                    <span class="text-white/40 text-xs">+12 <?php echo esc_html( $t['guests_label'] ); ?></span>
                   </div>
                 </div>
                 <div class="calendar-event p-3 rounded-lg opacity-60">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-white font-medium text-sm">Setup Tehnic</span>
+                    <span class="text-white font-medium text-sm"><?php echo esc_html( $t['tech_setup'] ); ?></span>
                     <span class="text-white/40 text-xs">14 Iulie</span>
                   </div>
                   <div class="text-white/60 text-xs">08:00 - 18:00 • Arena Parc Central</div>
@@ -314,10 +448,10 @@ get_header();
               <div x-show="activeService === 'gmail'" x-transition class="space-y-3">
                 <div class="gmail-message p-3 rounded-lg">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-white font-medium text-sm">Confirmare Bilet - Maria I.</span>
-                    <span class="text-gmail-primary text-xs">Trimis</span>
+                    <span class="text-white font-medium text-sm"><?php echo esc_html( $t['ticket_confirm'] ); ?></span>
+                    <span class="text-gmail-primary text-xs"><?php echo esc_html( $t['sent'] ); ?></span>
                   </div>
-                  <div class="text-white/60 text-xs mb-2">Biletele tale pentru Summer Festival 2025...</div>
+                  <div class="text-white/60 text-xs mb-2"><?php echo esc_html( $t['your_tickets_for'] ); ?></div>
                   <div class="flex items-center gap-2">
                     <svg class="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
                     <span class="text-white/40 text-xs">bilete.pdf</span>
@@ -325,10 +459,10 @@ get_header();
                 </div>
                 <div class="gmail-message p-3 rounded-lg opacity-60">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-white font-medium text-sm">Reminder Eveniment</span>
-                    <span class="text-white/40 text-xs">Programat</span>
+                    <span class="text-white font-medium text-sm"><?php echo esc_html( $t['event_reminder'] ); ?></span>
+                    <span class="text-white/40 text-xs"><?php echo esc_html( $t['scheduled'] ); ?></span>
                   </div>
-                  <div class="text-white/60 text-xs">Se trimite mâine la 09:00</div>
+                  <div class="text-white/60 text-xs"><?php echo esc_html( $t['sends_tomorrow'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -341,7 +475,7 @@ get_header();
                 </div>
                 <div>
                   <div class="text-google-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs">Securizat</div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['secured'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -353,8 +487,8 @@ get_header();
                   <svg class="w-4 h-4 text-google-blue animate-sync-rotate" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </div>
                 <div>
-                  <div class="text-google-blue text-sm font-medium">Auto Sync</div>
-                  <div class="text-white/40 text-xs">Real-time</div>
+                  <div class="text-google-blue text-sm font-medium"><?php echo esc_html( $t['auto_sync'] ); ?></div>
+                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['realtime'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -369,9 +503,9 @@ get_header();
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-google-blue text-sm font-medium uppercase tracking-widest">Servicii Integrate</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Drive, Calendar,<br><span class="text-gradient-google">Gmail</span></h2>
-        <p class="text-lg text-white/60">Trei servicii esențiale, o singură integrare. Workflow-uri fluide în ecosistemul Google.</p>
+        <span class="text-google-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['services_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['services_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['services_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['services_desc'] ); ?></p>
       </div>
 
       <!-- Services Cards -->
@@ -387,24 +521,24 @@ get_header();
             </svg>
           </div>
           <h3 class="text-2xl font-semibold text-white mb-3">Google Drive</h3>
-          <p class="text-white/60 mb-6">Stochează rapoarte, exporturi și documente direct în Drive. Shared Drives pentru colaborare în echipă.</p>
+          <p class="text-white/60 mb-6"><?php echo esc_html( $t['drive_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Export automat rapoarte</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['drive_f1'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Shared Drives suport</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['drive_f2'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Link-uri partajabile</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['drive_f3'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">PDF, Excel, CSV</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['drive_f4'] ); ?></span>
             </div>
           </div>
         </div>
@@ -418,24 +552,24 @@ get_header();
             </svg>
           </div>
           <h3 class="text-2xl font-semibold text-white mb-3">Google Calendar</h3>
-          <p class="text-white/60 mb-6">Sincronizează evenimentele automat. Invitații, remindere și verificare disponibilitate.</p>
+          <p class="text-white/60 mb-6"><?php echo esc_html( $t['calendar_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Creare evenimente automate</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['calendar_f1'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Invitații participanți</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['calendar_f2'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Remindere automate</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['calendar_f3'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Calendare multiple</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['calendar_f4'] ); ?></span>
             </div>
           </div>
         </div>
@@ -449,24 +583,24 @@ get_header();
             </svg>
           </div>
           <h3 class="text-2xl font-semibold text-white mb-3">Gmail</h3>
-          <p class="text-white/60 mb-6">Trimite email-uri profesionale prin infrastructura Google. Confirmări, remindere, follow-up.</p>
+          <p class="text-white/60 mb-6"><?php echo esc_html( $t['gmail_desc'] ); ?></p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Email-uri tranzacționale</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['gmail_f1'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Template-uri HTML</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['gmail_f2'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Atașamente fișiere</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['gmail_f3'] ); ?></span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span class="text-white/70 text-sm">Urmărire livrare</span>
+              <span class="text-white/70 text-sm"><?php echo esc_html( $t['gmail_f4'] ); ?></span>
             </div>
           </div>
         </div>
@@ -478,9 +612,9 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-google-green text-sm font-medium uppercase tracking-widest">Flux de Date</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Sincronizare<br><span class="text-gradient-google">automată</span></h2>
-        <p class="text-lg text-white/60">Datele curg natural între Tixello și Google Workspace. Fără intervenție manuală.</p>
+        <span class="text-google-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['dataflow_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['dataflow_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['dataflow_title2'] ); ?></span></h2>
+        <p class="text-lg text-white/60"><?php echo esc_html( $t['dataflow_desc'] ); ?></p>
       </div>
 
       <!-- Flow Visualization -->
@@ -492,7 +626,7 @@ get_header();
               <span class="text-white font-display font-bold text-2xl">T</span>
             </div>
             <div class="text-white font-semibold">Tixello</div>
-            <div class="text-white/40 text-sm">Platforma de ticketing</div>
+            <div class="text-white/40 text-sm"><?php echo esc_html( $t['ticketing_platform'] ); ?></div>
           </div>
 
           <!-- Arrows -->
@@ -502,8 +636,8 @@ get_header();
               <svg class="w-4 h-4 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </div>
             <div class="text-center py-2 px-4 rounded-lg bg-dark-800/50 border border-white/10">
-              <div class="text-white/60 text-xs">Bidirecțional</div>
-              <div class="text-white text-sm font-medium">Real-time Sync</div>
+              <div class="text-white/60 text-xs"><?php echo esc_html( $t['bidirectional'] ); ?></div>
+              <div class="text-white text-sm font-medium"><?php echo esc_html( $t['realtime'] ); ?> Sync</div>
             </div>
             <div class="flex items-center gap-2 w-full">
               <svg class="w-4 h-4 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
@@ -534,7 +668,7 @@ get_header();
             <div class="w-10 h-10 rounded-lg bg-google-blue/20 flex items-center justify-center mx-auto mb-2">
               <svg class="w-5 h-5 text-google-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             </div>
-            <div class="text-white text-sm font-medium">Rapoarte</div>
+            <div class="text-white text-sm font-medium"><?php echo esc_html( $t['reports_flow'] ); ?></div>
             <div class="text-white/40 text-xs">→ Drive</div>
           </div>
 
@@ -542,7 +676,7 @@ get_header();
             <div class="w-10 h-10 rounded-lg bg-calendar-event/20 flex items-center justify-center mx-auto mb-2">
               <svg class="w-5 h-5 text-calendar-event" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
-            <div class="text-white text-sm font-medium">Evenimente</div>
+            <div class="text-white text-sm font-medium"><?php echo esc_html( $t['events_flow'] ); ?></div>
             <div class="text-white/40 text-xs">→ Calendar</div>
           </div>
 
@@ -550,7 +684,7 @@ get_header();
             <div class="w-10 h-10 rounded-lg bg-gmail-primary/20 flex items-center justify-center mx-auto mb-2">
               <svg class="w-5 h-5 text-gmail-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </div>
-            <div class="text-white text-sm font-medium">Email-uri</div>
+            <div class="text-white text-sm font-medium"><?php echo esc_html( $t['emails_flow'] ); ?></div>
             <div class="text-white/40 text-xs">→ Gmail</div>
           </div>
 
@@ -558,8 +692,8 @@ get_header();
             <div class="w-10 h-10 rounded-lg bg-google-green/20 flex items-center justify-center mx-auto mb-2">
               <svg class="w-5 h-5 text-google-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
             </div>
-            <div class="text-white text-sm font-medium">Webhooks</div>
-            <div class="text-white/40 text-xs">← Notificări</div>
+            <div class="text-white text-sm font-medium"><?php echo esc_html( $t['webhooks_flow'] ); ?></div>
+            <div class="text-white/40 text-xs">← <?php echo esc_html( $t['notifications'] ); ?></div>
           </div>
         </div>
       </div>
@@ -570,45 +704,45 @@ get_header();
   <section class="py-24 bg-dark-850 relative">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Productivitate<br><span class="text-gradient animate-shimmer">Google-style</span></h2>
+        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_label'] ); ?></span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-google-blue/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-blue/20 to-google-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Raportare Automatizată</h3>
-          <p class="text-white/50 text-sm">Rapoartele de vânzări se încarcă în Drive zilnic. Finance-ul accesează fără export manual.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_reporting'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_reporting_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-calendar-event/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-calendar-event/20 to-calendar-event/10 flex items-center justify-center mb-4"><span class="text-2xl">📅</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Programare Evenimente</h3>
-          <p class="text-white/50 text-sm">Sincronizează în calendar. Setup, demontare, timing - toată lumea vede același program.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_scheduling'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_scheduling_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-gmail-primary/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gmail-primary/20 to-gmail-primary/10 flex items-center justify-center mb-4"><span class="text-2xl">📧</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Comunicări Clienți</h3>
-          <p class="text-white/50 text-sm">Email-uri prin Gmail: confirmări, remindere, follow-up post-eveniment.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_comms'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_comms_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-google-yellow/30 transition-all duration-500 reveal">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-yellow/20 to-google-yellow/10 flex items-center justify-center mb-4"><span class="text-2xl">📁</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Partajare Echipă</h3>
-          <p class="text-white/50 text-sm">Shared Drives pentru materiale, contracte, checklist-uri. Colaborare în timp real.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_sharing'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_sharing_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-google-green/30 transition-all duration-500 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-green/20 to-google-green/10 flex items-center justify-center mb-4"><span class="text-2xl">🔗</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Actualizări Stakeholderi</h3>
-          <p class="text-white/50 text-sm">Link-uri live către rapoarte. Sponsorii văd date curente fără email-uri repetate.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_stakeholders'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_stakeholders_desc'] ); ?></p>
         </div>
 
         <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🔒</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Enterprise Security</h3>
-          <p class="text-white/50 text-sm">Service accounts, delegare domeniu, permisiuni granulare. Securitate Google.</p>
+          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_security'] ); ?></h3>
+          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_security_desc'] ); ?></p>
         </div>
       </div>
     </div>
@@ -628,7 +762,7 @@ get_header();
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "Echipa deja folosea <span class="text-gradient-google font-semibold">Google Workspace</span> zilnic. Acum rapoartele de vânzări apar automat în Drive, evenimentele în Calendar. Zero fricțiune."
+            "<?php echo $t['testimonial_quote']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
             <div class="google-ring" style="width: 56px; height: 56px;">
@@ -637,8 +771,8 @@ get_header();
               </div>
             </div>
             <div>
-              <div class="font-semibold text-white">Andrei M.</div>
-              <div class="text-white/50">Operations Lead, Jazz in the Park</div>
+              <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
+              <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
             </div>
           </div>
         </div>
@@ -652,8 +786,8 @@ get_header();
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: conic-gradient(from 0deg, rgba(66,133,244,0.2), rgba(52,168,83,0.2), rgba(251,188,5,0.2), rgba(234,67,53,0.2));"></div>
 
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Google<br><span class="text-gradient-google">Workspace</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Drive, Calendar, Gmail într-o singură integrare. Productivitate în ecosistemul Google.</p>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-google"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
+      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
         <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-white text-google-grey hover:bg-gray-100 hover:shadow-glow-google transition-all duration-300">
@@ -663,14 +797,14 @@ get_header();
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
           </svg>
-          Conectează cu Google
+          <?php echo esc_html( $t['cta_connect'] ); ?>
         </a>
         <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
-          Întrebări? Contactează-ne
+          <?php echo esc_html( $t['cta_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">OAuth 2.0 • Shared Drives • Service Accounts</p>
+      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['cta_footer'] ); ?></p>
     </div>
   </section>
 

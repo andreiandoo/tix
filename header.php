@@ -43,17 +43,17 @@
 			<nav class="flex items-center justify-between h-20">
 				
 				<!-- ====== LOGO ====== -->
-				<div class="site-branding flex-shrink-0 flex items-center gap-x-4">
+				<div class="flex items-center flex-shrink-0 site-branding gap-x-4">
 					<?php if ( has_custom_logo() ) : ?>
-						<div class="custom-logo-link w-8 block">
+						<div class="block w-8 custom-logo-link">
 							<?php the_custom_logo(); ?>
 						</div>
 					<?php else : ?>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2.5 group" rel="home">
-							<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
-								<span class="text-white font-bold text-base">tx</span>
+							<div class="flex items-center justify-center transition-shadow shadow-lg w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 shadow-violet-600/20 group-hover:shadow-violet-600/40">
+								<span class="text-base font-bold text-white">tx</span>
 							</div>
-							<span class="font-bold text-xl text-white">Tixello</span>
+							<span class="text-xl font-bold text-white">Tixello</span>
 						</a>
 					<?php endif; ?>
 
@@ -68,7 +68,7 @@
 
 						if ( ! empty($langs) && count($langs) > 1 ) :?>
 							<!-- Language Switcher -->
-							<div class="flex items-center gap-1 ml-2 px-1 py-1 rounded-lg bg-white/5">
+							<div class="flex items-center gap-1 px-1 py-1 ml-2 rounded-lg bg-white/5">
 								<?php foreach ( $langs as $lang ) :
 									$is_current = ! empty($lang['current_lang']);
 
@@ -93,7 +93,7 @@
 				</div>
 
 				<!-- ====== MAIN NAVIGATION (Desktop) ====== -->
-				<div id="site-navigation" class="main-navigation hidden xl:flex items-center gap-1">
+				<div id="site-navigation" class="items-center hidden gap-1 main-navigation xl:flex">
 					<?php
 					wp_nav_menu( array(
 						'theme_location'  => 'primary',
@@ -101,7 +101,7 @@
 					?>
 					
 					<!-- Separator -->
-					<div class="w-px h-5 bg-white/10 mx-3"></div>
+					<div class="w-px h-5 mx-3 bg-white/10"></div>
 					
 					<?php
 					wp_nav_menu( array(
@@ -116,16 +116,16 @@
 					
 					<!-- Search Button -->
 					<a class="hidden" href="<?php echo esc_url( home_url( '/cauta/' ) ); ?>" 
-					   class="search-trigger w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-violet/20 hover:border-brand-violet/30 transition-all group"
+					   class="flex items-center justify-center w-10 h-10 transition-all border search-trigger rounded-xl bg-white/5 border-white/10 hover:bg-brand-violet/20 hover:border-brand-violet/30 group"
 					   title="<?php esc_attr_e( 'Caută', 'tixello' ); ?>">
-						<svg class="w-5 h-5 text-white/60 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<svg class="w-5 h-5 transition-colors text-white/60 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
 						</svg>
 					</a>
 					
 					<!-- Conectare (Desktop) -->
 					<a href="https://core.tixello.com/tenant/login" target="_blank"
-					   class="hidden xl:block px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors">
+					   class="hidden px-4 py-2 text-sm font-medium transition-colors xl:block text-white/80 hover:text-white">
 						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
 					</a>
 					
@@ -140,7 +140,7 @@
 					
 					<!-- Mobile Menu Toggle -->
 					<button @click="mobileMenu = true" 
-							class="xl:hidden p-2 text-white/80 hover:text-white transition-colors"
+							class="p-2 transition-colors xl:hidden text-white/80 hover:text-white"
 							aria-label="Deschide meniul">
 						<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -174,22 +174,22 @@
              x-transition:leave-end="translate-x-full"
              style="display: none;">
             
-            <div class="p-6">
+            <div class="py-6">
 				<!-- Mobile Header -->
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center justify-between px-6 mb-6">
                     <?php if ( has_custom_logo() ) : ?>
-						<div class="custom-logo-link w-8 block">
+						<div class="block w-8 custom-logo-link">
 							<?php the_custom_logo(); ?>
 						</div>
 					<?php else : ?>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2.5 group" rel="home">
-							<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-600/20 group-hover:shadow-violet-600/40 transition-shadow">
-								<span class="text-white font-bold text-base">tx</span>
+							<div class="flex items-center justify-center transition-shadow shadow-lg w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 shadow-violet-600/20 group-hover:shadow-violet-600/40">
+								<span class="text-base font-bold text-white">tx</span>
 							</div>
-							<span class="font-bold text-xl text-white">Tixello</span>
+							<span class="text-xl font-bold text-white">Tixello</span>
 						</a>
 					<?php endif; ?>
-                    <button @click="mobileMenu = false" class="p-2 text-white/60 hover:text-white transition-colors">
+                    <button @click="mobileMenu = false" class="p-2 transition-colors text-white/60 hover:text-white">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -197,19 +197,19 @@
                 </div>
 				
 				<!-- Mobile CTAs -->
-				<div class="flex gap-3 mb-8">
+				<div class="flex gap-3 px-6 mb-8">
 					<a href="https://core.tixello.com/register" target="_blank"
-					   class="flex-1 text-center px-4 py-3 rounded-xl bg-brand-violet text-white text-sm font-semibold hover:bg-brand-violet/80 transition-colors">
+					   class="flex-1 px-4 py-3 text-sm font-semibold text-center text-white transition-colors rounded-xl bg-brand-violet hover:bg-brand-violet/80">
 						<?php esc_html_e( 'Începe Gratuit', 'tixello' ); ?>
 					</a>
-					<a href="https://core.tixello.com/login" target="_blank"
-					   class="flex-1 text-center px-4 py-3 rounded-xl bg-white/10 text-white text-sm font-medium border border-white/10 hover:bg-white/20 transition-colors">
+					<a href="https://core.tixello.com/tenant/login" target="_blank"
+					   class="flex-1 px-4 py-3 text-sm font-medium text-center text-white transition-colors border rounded-xl bg-white/10 border-white/10 hover:bg-white/20">
 						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
 					</a>
 				</div>
 				
 				<!-- Mobile Navigation -->
-				<div class="mobile-nav space-y-1" x-data="{ activeSubmenu: null }">
+				<div class="space-y-1 mobile-nav" x-data="{ activeSubmenu: null }">
 					<?php
 					wp_nav_menu( array(
 						'theme_location'  => 'mobile',
@@ -221,40 +221,6 @@
 					) );
 					?>
 				</div>
-
-				<?php 
-				if ( function_exists('pll_the_languages') ) :
-					$langs = pll_the_languages([
-						'raw'           => 1,
-						'echo'          => 0,
-						'hide_current'  => 0,
-						'hide_if_empty' => 0, // show all languages even if a page translation is missing
-					]);
-
-					if ( ! empty($langs) && count($langs) > 1 ) :?>
-						<!-- Language Switcher -->
-						<div class="flex items-center gap-1 ml-2 px-1 py-1 rounded-lg bg-white/5">
-							<?php foreach ( $langs as $lang ) :
-								$is_current = ! empty($lang['current_lang']);
-
-								$classes = $is_current
-									? 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors bg-violet-600 text-white'
-									: 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors text-white/60 hover:text-white hover:bg-white/10';
-
-								$label = strtoupper($lang['slug']); // RO / EN if your slugs are ro/en
-							?>
-								<a
-									href="<?php echo esc_url($lang['url']); ?>"
-									class="<?php echo esc_attr($classes); ?>"
-									hreflang="<?php echo esc_attr($lang['slug']); ?>"
-									lang="<?php echo esc_attr($lang['slug']); ?>"
-								>
-									<?php echo esc_html($label); ?>
-								</a>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; 
-				endif; ?>
 			</div>
 		</div>
 		

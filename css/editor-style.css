@@ -480,10 +480,6 @@
 .m-8 {
     margin: 2rem
 }
-.-mx-4 {
-    margin-left: -1rem;
-    margin-right: -1rem
-}
 .mx-1 {
     margin-left: 0.25rem;
     margin-right: 0.25rem
@@ -1026,6 +1022,9 @@
 .min-w-0 {
     min-width: 0px
 }
+.min-w-\[180px\] {
+    min-width: 180px
+}
 .min-w-\[200px\] {
     min-width: 200px
 }
@@ -1174,6 +1173,10 @@
 }
 .rotate-12 {
     --tw-rotate: 12deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+.rotate-180 {
+    --tw-rotate: 180deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 .rotate-45 {
@@ -4178,6 +4181,12 @@
 .bg-zinc-900\/80 {
     background-color: rgb(24 24 27 / 0.8)
 }
+.bg-zinc-900\/90 {
+    background-color: rgb(24 24 27 / 0.9)
+}
+.bg-zinc-900\/95 {
+    background-color: rgb(24 24 27 / 0.95)
+}
 .bg-zinc-950 {
     --tw-bg-opacity: 1;
     background-color: rgb(9 9 11 / var(--tw-bg-opacity))
@@ -5521,10 +5530,6 @@
 .via-black {
     --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to)
-}
-.via-black\/30 {
-    --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), rgb(0 0 0 / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to)
 }
 .via-black\/50 {
     --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
@@ -9228,6 +9233,9 @@ body {
     .sm\:h-\[400px\] {
         height: 400px
     }
+    .sm\:h-\[500px\] {
+        height: 500px
+    }
     .sm\:w-10 {
         width: 2.5rem
     }
@@ -9492,14 +9500,14 @@ body {
     .lg\:aspect-\[4\/3\] {
         aspect-ratio: 4/3
     }
+    .lg\:h-\[600px\] {
+        height: 600px
+    }
     .lg\:w-1\/3 {
         width: 33.333333%
     }
     .lg\:w-2\/3 {
         width: 66.666667%
-    }
-    .lg\:w-72 {
-        width: 18rem
     }
     .lg\:w-auto {
         width: auto

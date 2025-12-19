@@ -494,6 +494,81 @@ function tixello_fetch_events_core() {
 
 
 /**
+ * Calculate minimum ticket price excluding invitation-type tickets
+ * Returns the lowest price from ticket_types that are not invitations
+ *
+ * @param array $event The event array from API
+ * @return float|null The minimum price or null if no valid tickets
+ */
+function tixello_get_min_price_excluding_invitations( $event ) {
+    if ( ! is_array( $event ) ) {
+        return null;
+    }
+
+    $ticket_types = isset( $event['ticket_types'] ) && is_array( $event['ticket_types'] )
+        ? $event['ticket_types']
+        : [];
+
+    if ( empty( $ticket_types ) ) {
+        // Fall back to price_from if no ticket_types available
+        return isset( $event['price_from'] ) ? $event['price_from'] : null;
+    }
+
+    // Words that indicate invitation tickets (case-insensitive)
+    $invitation_keywords = [
+        'invitatie',
+        'invitație',
+        'invitation',
+        'invite',
+        'guest',
+        'complimentary',
+        'gratuit',
+        'free pass',
+        'vip gratis',
+    ];
+
+    $min_price = null;
+
+    foreach ( $ticket_types as $tt ) {
+        $name = isset( $tt['name'] ) ? strtolower( trim( $tt['name'] ) ) : '';
+
+        // Skip if ticket name contains invitation keywords
+        $is_invitation = false;
+        foreach ( $invitation_keywords as $keyword ) {
+            if ( strpos( $name, strtolower( $keyword ) ) !== false ) {
+                $is_invitation = true;
+                break;
+            }
+        }
+
+        if ( $is_invitation ) {
+            continue;
+        }
+
+        // Get the actual price (sale_price if available, otherwise regular price)
+        $price = null;
+        if ( isset( $tt['sale_price'] ) && $tt['sale_price'] !== null && $tt['sale_price'] > 0 ) {
+            $price = floatval( $tt['sale_price'] );
+        } elseif ( isset( $tt['price'] ) && $tt['price'] !== null ) {
+            $price = floatval( $tt['price'] );
+        }
+
+        // Skip tickets with no price or price of 0 (likely free/invitation)
+        if ( $price === null || $price <= 0 ) {
+            continue;
+        }
+
+        // Update minimum
+        if ( $min_price === null || $price < $min_price ) {
+            $min_price = $price;
+        }
+    }
+
+    return $min_price;
+}
+
+
+/**
  * Helper: formatează data din ISO în ceva uman (ex: 30 Nov 2025).
  */
 function tixello_format_event_date( $iso_string ) {
@@ -769,7 +844,8 @@ function tixello_events_by_type_shortcode( $atts ) {
                 $poster_url   = $full_storage_url( isset( $ev['poster_url'] ) ? $ev['poster_url'] : '' );
                 $start_date   = isset( $ev['start_date'] ) ? $ev['start_date'] : '';
                 $title        = isset( $ev['title'] ) ? $ev['title'] : '';
-                $price_from   = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                // Use min price excluding invitation tickets
+                $price_from   = tixello_get_min_price_excluding_invitations( $ev );
                 $venue_name   = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
 
                 // Parse date for badge
@@ -936,7 +1012,8 @@ function tixello_events_by_type_shortcode( $atts ) {
                     $end_date     = isset( $ev['end_date'] ) ? tixello_format_event_date( $ev['end_date'] ) : '';
                     $start_time   = isset( $ev['start_time'] ) ? tixello_format_event_time( $ev['start_time'] ) : '';
                     $title        = isset( $ev['title'] ) ? $ev['title'] : '';
-                    $price_from   = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                    // Use min price excluding invitation tickets
+                    $price_from   = tixello_get_min_price_excluding_invitations( $ev );
                     $venue_name   = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
                     $venue_addr   = isset( $ev['venue']['address'] ) ? $ev['venue']['address'] : '';
                     $venue_city   = isset( $ev['venue']['city'] ) ? $ev['venue']['city'] : '';
@@ -1113,7 +1190,7 @@ function tixello_search_events_ajax() {
         if ( $match ) {
             $poster_url = $full_storage_url( isset( $ev['poster_url'] ) ? $ev['poster_url'] : '' );
             $start_date = isset( $ev['start_date'] ) ? $ev['start_date'] : '';
-            $price_from = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+            $price_from = tixello_get_min_price_excluding_invitations( $ev );
 
             // Parse date
             $date_obj = $start_date ? DateTime::createFromFormat( 'Y-m-d', $start_date ) : null;
@@ -1526,23 +1603,45 @@ function tixello_ajax_load_artists() {
 }
 
 /**
- * Fetch artist genres list - extracts from artists data and caches
- * Returns array of genre names sorted alphabetically
+ * Fetch artist genres list - fetches directly from API
+ * Returns array of genre objects sorted alphabetically
  */
 function tixello_fetch_artist_genres_list() {
     // Check transient cache first
-    $cached = get_transient( 'tixello_artist_genres_list' );
-    if ( $cached !== false && is_array( $cached ) ) {
+    $cached = get_transient( 'tixello_artist_genres_list_v2' );
+    if ( $cached !== false && is_array( $cached ) && ! empty( $cached ) ) {
         return $cached;
     }
 
-    // Fetch first page of artists to extract genres
-    $result = tixello_fetch_artists_paginated( [
-        'page'     => 1,
-        'per_page' => 200,
-    ] );
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
-    $artists = isset( $result['artists'] ) ? $result['artists'] : [];
+    // Fetch artists and extract unique genres
+    $url = 'https://core.tixello.com/api/v1/public/artists?per_page=500';
+
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [
+                'X-API-Key' => $api_key,
+            ],
+            'timeout' => 30,
+        ]
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return tixello_get_fallback_artist_genres();
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        return tixello_get_fallback_artist_genres();
+    }
+
+    $artists = isset( $data['data'] ) ? $data['data'] : [];
     $genres_map = [];
 
     foreach ( $artists as $artist ) {
@@ -1560,16 +1659,46 @@ function tixello_fetch_artist_genres_list() {
         }
     }
 
+    // If no genres found, return fallback
+    if ( empty( $genres_map ) ) {
+        return tixello_get_fallback_artist_genres();
+    }
+
     // Sort alphabetically by name
     $genres = array_values( $genres_map );
     usort( $genres, function( $a, $b ) {
         return strcasecmp( $a['name'], $b['name'] );
     } );
 
-    // Cache for 10 minutes
-    set_transient( 'tixello_artist_genres_list', $genres, 10 * MINUTE_IN_SECONDS );
+    // Cache for 30 minutes
+    set_transient( 'tixello_artist_genres_list_v2', $genres, 30 * MINUTE_IN_SECONDS );
 
     return $genres;
+}
+
+/**
+ * Fallback artist genres if API doesn't return any
+ */
+function tixello_get_fallback_artist_genres() {
+    return [
+        ['id' => 1, 'name' => 'Alternative'],
+        ['id' => 2, 'name' => 'Blues'],
+        ['id' => 3, 'name' => 'Classical'],
+        ['id' => 4, 'name' => 'Country'],
+        ['id' => 5, 'name' => 'Dance'],
+        ['id' => 6, 'name' => 'Electronic'],
+        ['id' => 7, 'name' => 'Folk'],
+        ['id' => 8, 'name' => 'Hip Hop'],
+        ['id' => 9, 'name' => 'Jazz'],
+        ['id' => 10, 'name' => 'Latin'],
+        ['id' => 11, 'name' => 'Metal'],
+        ['id' => 12, 'name' => 'Pop'],
+        ['id' => 13, 'name' => 'R&B'],
+        ['id' => 14, 'name' => 'Reggae'],
+        ['id' => 15, 'name' => 'Rock'],
+        ['id' => 16, 'name' => 'Soul'],
+        ['id' => 17, 'name' => 'World'],
+    ];
 }
 
 /**

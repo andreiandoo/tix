@@ -164,7 +164,7 @@
              style="display: none;"></div>
         
         <!-- MOBILE MENU PANEL -->
-        <div class="fixed top-0 right-0 w-full max-w-sm h-full bg-zinc-900/98 backdrop-blur-xl z-[101] transform transition-transform duration-300 overflow-y-auto"
+        <div class="fixed top-0 right-0 w-full h-full bg-zinc-900/98 backdrop-blur-xl z-[101] transform transition-transform duration-300 overflow-y-auto"
              x-show="mobileMenu"
              x-transition:enter="ease-out"
              x-transition:enter-start="translate-x-full"
@@ -177,18 +177,9 @@
             <div class="py-6">
 				<!-- Mobile Header -->
                 <div class="flex items-center justify-between px-6 mb-6">
-                    <?php if ( has_custom_logo() ) : ?>
-						<div class="block w-8 custom-logo-link">
-							<?php the_custom_logo(); ?>
-						</div>
-					<?php else : ?>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2.5 group" rel="home">
-							<div class="flex items-center justify-center transition-shadow shadow-lg w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 shadow-violet-600/20 group-hover:shadow-violet-600/40">
-								<span class="text-base font-bold text-white">tx</span>
-							</div>
-							<span class="text-xl font-bold text-white">Tixello</span>
-						</a>
-					<?php endif; ?>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
+						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tixello-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-32 h-auto transition-opacity duration-300 group-hover:opacity-90">
+					</a>
                     <button @click="mobileMenu = false" class="p-2 transition-colors text-white/60 hover:text-white">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

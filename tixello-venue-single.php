@@ -690,7 +690,9 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
 
                     $date_label = tixello_format_event_date_display( $ev );
                     $time_label = tixello_format_event_time_display( $ev );
-                    $price_from = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                    $price_from = function_exists( 'tixello_get_min_price_excluding_invitations' )
+                        ? tixello_get_min_price_excluding_invitations( $ev )
+                        : ( isset( $ev['price_from'] ) ? $ev['price_from'] : null );
 
                     // Get event timestamp for date badge
                     $ts = tixello_get_event_timestamp( $ev );

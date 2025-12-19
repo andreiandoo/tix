@@ -225,7 +225,10 @@ if ( ! empty( $event['venue']['media']['image_url'] ) ) {
 }
 
 // Preț minim
-$price_from = $event['price_from'] ?? null;
+// Calculate minimum price excluding invitation tickets
+$price_from = function_exists( 'tixello_get_min_price_excluding_invitations' )
+    ? tixello_get_min_price_excluding_invitations( $event )
+    : ( $event['price_from'] ?? null );
 
 // Imagini
 $poster_url = $full_storage_url( $event['poster_url'] ?? '' );
@@ -912,7 +915,10 @@ if ( function_exists( 'tixello_fetch_events_core' ) ) {
                     $sim_title = $sim_ev['title'] ?? '';
                     $sim_poster = $full_storage_url( $sim_ev['poster_url'] ?? '' );
                     $sim_venue = $sim_ev['venue']['name'] ?? '';
-                    $sim_price = $sim_ev['price_from'] ?? null;
+                    // Use min price excluding invitation tickets
+                    $sim_price = function_exists( 'tixello_get_min_price_excluding_invitations' )
+                        ? tixello_get_min_price_excluding_invitations( $sim_ev )
+                        : ( $sim_ev['price_from'] ?? null );
                     $sim_date = $sim_ev['start_date'] ?? '';
                     $sim_day = tixello_event_day( $sim_date );
                     $sim_month = tixello_event_month_short( $sim_date );

@@ -554,7 +554,9 @@ if ( $same_as ) $schema['sameAs'] = $same_as;
                                 $ev_poster = ! empty( $ev['poster_url'] ) ? $full_url( $ev['poster_url'] ) : '';
                                 $ev_venue = $ev['venue']['name'] ?? '';
                                 $ev_city = $ev['venue']['city'] ?? '';
-                                $ev_price = $ev['price_from'] ?? null;
+                                $ev_price = function_exists( 'tixello_get_min_price_excluding_invitations' )
+                                    ? tixello_get_min_price_excluding_invitations( $ev )
+                                    : ( $ev['price_from'] ?? null );
                                 $ev_url = $ev_slug ? home_url( '/events/' . $ev_slug . '/' ) : '#';
                             ?>
                             <a href="<?php echo esc_url( $ev_url ); ?>" class="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-violet-500/30 transition-all group">

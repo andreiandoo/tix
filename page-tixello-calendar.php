@@ -48,6 +48,14 @@ if ( ! is_array( $events ) ) {
     $events = [];
 }
 
+// Pre-calculate price excluding invitation tickets for each event
+if ( function_exists( 'tixello_get_min_price_excluding_invitations' ) ) {
+    foreach ( $events as &$ev ) {
+        $ev['price_from'] = tixello_get_min_price_excluding_invitations( $ev );
+    }
+    unset( $ev );
+}
+
 // Parametri din URL pentru afișare lângă titlu
 $type_param  = isset( $_GET['type'] ) ? sanitize_text_field( wp_unslash( $_GET['type'] ) ) : '';
 $genre_param = isset( $_GET['genre'] ) ? sanitize_text_field( wp_unslash( $_GET['genre'] ) ) : '';

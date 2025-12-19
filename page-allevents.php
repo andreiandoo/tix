@@ -247,23 +247,66 @@ $featured_events = array_slice( $events_raw, 0, 2 );
                 </div>
 
                 <!-- Date Range -->
-                <div class="flex items-center gap-2">
-                    <button @click="showDatePicker = !showDatePicker"
+                <div class="relative">
+                    <button @click="showDatePicker = !showDatePicker; showLocationPicker = false"
                             class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all"
                             :class="selectedDate !== 'any' && 'bg-violet-600/20 border-violet-500/30 text-violet-400'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                         <span class="text-sm font-medium" x-text="dateLabel"></span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-4 h-4 transition-transform" :class="showDatePicker && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
+
+                    <!-- Date Picker Dropdown -->
+                    <div x-show="showDatePicker"
+                         @click.away="showDatePicker = false"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 -translate-y-2"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 -translate-y-2"
+                         class="absolute top-full left-0 mt-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50 overflow-hidden"
+                         style="display: none;">
+                        <button @click="selectedDate = 'any'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'any' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['any_date'] ); ?>
+                        </button>
+                        <button @click="selectedDate = 'today'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'today' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['today'] ); ?>
+                        </button>
+                        <button @click="selectedDate = 'tomorrow'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'tomorrow' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['tomorrow'] ); ?>
+                        </button>
+                        <button @click="selectedDate = 'weekend'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'weekend' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['this_weekend'] ); ?>
+                        </button>
+                        <button @click="selectedDate = 'week'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'week' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['this_week'] ); ?>
+                        </button>
+                        <button @click="selectedDate = 'month'; showDatePicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedDate === 'month' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['this_month'] ); ?>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Location -->
-                <div class="flex items-center gap-2">
-                    <button @click="showLocationPicker = !showLocationPicker"
+                <div class="relative">
+                    <button @click="showLocationPicker = !showLocationPicker; showDatePicker = false"
                             class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all"
                             :class="selectedLocation !== 'any' && 'bg-violet-600/20 border-violet-500/30 text-violet-400'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -271,10 +314,35 @@ $featured_events = array_slice( $events_raw, 0, 2 );
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                         <span class="text-sm font-medium" x-text="locationLabel"></span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-4 h-4 transition-transform" :class="showLocationPicker && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
+
+                    <!-- Location Picker Dropdown -->
+                    <div x-show="showLocationPicker"
+                         @click.away="showLocationPicker = false"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 -translate-y-2"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 -translate-y-2"
+                         class="absolute top-full left-0 mt-2 w-56 max-h-80 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50"
+                         style="display: none;">
+                        <button @click="selectedLocation = 'any'; showLocationPicker = false"
+                                class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                :class="selectedLocation === 'any' ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'">
+                            <?php echo esc_html( $t['any_location'] ); ?>
+                        </button>
+                        <template x-for="location in availableLocations" :key="location">
+                            <button @click="selectedLocation = location; showLocationPicker = false"
+                                    class="w-full px-4 py-3 text-left text-sm transition-colors"
+                                    :class="selectedLocation === location ? 'bg-violet-600/20 text-violet-400' : 'text-white/70 hover:bg-white/5 hover:text-white'"
+                                    x-text="location">
+                            </button>
+                        </template>
+                    </div>
                 </div>
 
                 <!-- More Filters -->
@@ -499,7 +567,9 @@ $featured_events = array_slice( $events_raw, 0, 2 );
                     $title = isset( $ev['title'] ) ? $ev['title'] : '';
                     $start_date = isset( $ev['start_date'] ) ? $ev['start_date'] : '';
                     $start_time = isset( $ev['start_time'] ) ? substr( $ev['start_time'], 0, 5 ) : '';
-                    $price_from = isset( $ev['price_from'] ) ? $ev['price_from'] : null;
+                    $price_from = function_exists( 'tixello_get_min_price_excluding_invitations' )
+                        ? tixello_get_min_price_excluding_invitations( $ev )
+                        : ( isset( $ev['price_from'] ) ? $ev['price_from'] : null );
                     $venue_name = isset( $ev['venue']['name'] ) ? $ev['venue']['name'] : '';
                     $venue_city = isset( $ev['venue']['city'] ) ? $ev['venue']['city'] : '';
 
@@ -654,6 +724,25 @@ function eventsPage() {
         selectedCategory: 'all',
         selectedGenre: 'all',
         sortBy: 'date_asc',
+
+        // Available locations (extracted from events)
+        availableLocations: [
+            'București',
+            'Cluj-Napoca',
+            'Timișoara',
+            'Iași',
+            'Constanța',
+            'Brașov',
+            'Sibiu',
+            'Oradea',
+            'Craiova',
+            'Galați',
+            'Arad',
+            'Ploiești',
+            'Târgu Mureș',
+            'Baia Mare',
+            'Buzău',
+        ],
 
         // View
         viewMode: 'grid',

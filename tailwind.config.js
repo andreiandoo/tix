@@ -650,6 +650,18 @@ module.exports = {
                 'commission-grow': 'commissionGrow 1s ease-out forwards',
                 'click-ripple': 'clickRipple 1s ease-out forwards',
                 'counter-up': 'counterUp 0.8s ease-out forwards',
+
+                // Pricing page animations
+                'gradient-flow': 'gradientFlow 8s ease infinite',
+                'gradient-flow-fast': 'gradientFlow 6s ease infinite',
+                'badge-shine': 'badgeShine 3s ease infinite',
+                'scroll-down': 'scrollDown 2s ease-in-out infinite',
+                'free-pulse': 'freePulse 2s ease-in-out infinite',
+                'glow-pulse-pricing': 'glowPulsePricing 4s ease-in-out infinite',
+
+                // Compare pages animations
+                'vs-pulse': 'vsPulse 3s ease-in-out infinite',
+                'scroll-x': 'scrollX 25s linear infinite',
             },
             keyframes: {
                 // Float
@@ -1205,6 +1217,44 @@ module.exports = {
                 counterUp: {
                 '0%': { transform: 'translateY(20px)', opacity: '0' },
                 '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+
+                // Pricing page keyframes
+                gradientFlow: {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                },
+                badgeShine: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' },
+                },
+                scrollDown: {
+                '0%, 100%': { transform: 'translateY(0)', opacity: '0.5' },
+                '50%': { transform: 'translateY(8px)', opacity: '1' },
+                },
+                freePulse: {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.05)' },
+                },
+                glowPulsePricing: {
+                '0%, 100%': { boxShadow: '0 0 30px rgba(139, 92, 246, 0.3), 0 0 60px rgba(6, 182, 212, 0.1)' },
+                '50%': { boxShadow: '0 0 50px rgba(139, 92, 246, 0.4), 0 0 80px rgba(6, 182, 212, 0.2)' },
+                },
+
+                // Compare pages keyframes
+                vsPulse: {
+                '0%, 100%': {
+                    boxShadow: '0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1)',
+                    transform: 'scale(1)',
+                },
+                '50%': {
+                    boxShadow: '0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2)',
+                    transform: 'scale(1.05)',
+                },
+                },
+                scrollX: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
                 },
             },
 

@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tixello vs Oveit - Comparație Platforme Ticketing</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        .hero-bg {
+            background: #09090b;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139, 92, 246, 0.12), transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 100%, rgba(6, 182, 212, 0.08), transparent);
+            pointer-events: none;
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+        }
+        
+        @keyframes gradient-flow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4, #10B981, #8B5CF6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 8s ease infinite;
+        }
+        
+        .gradient-text-emerald {
+            background: linear-gradient(135deg, #10B981, #34D399, #06B6D4, #10B981);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 6s ease infinite;
+        }
+        
+        @keyframes vs-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
+                transform: scale(1.05);
+            }
+        }
+        
+        .vs-pulse { animation: vs-pulse 3s ease-in-out infinite; }
+        
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .anim-fade-up { opacity: 0; animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-fade-in { opacity: 0; animation: fade-in 0.6s ease-out forwards; }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        
+        .comparison-row:hover { background: rgba(255, 255, 255, 0.02); }
+        .comparison-row:hover .winner-cell { background: rgba(16, 185, 129, 0.1); }
+        
+        @keyframes scroll-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .animate-scroll-x { animation: scroll-x 25s linear infinite; }
+        .animate-scroll-x:hover { animation-play-state: paused; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-float-delayed { animation: float 5s ease-in-out infinite; animation-delay: 2s; }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.5);
+        }
+        
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+        
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+        .btn-shine:hover::after { animation: shine 0.6s ease-out; }
+    </style>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">T</span>
+                    </div>
+                    <span class="text-xl font-bold text-white">Tixello</span>
+                </a>
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:inline-flex text-sm text-white/70 hover:text-white transition-colors px-4 py-2">Conectare</a>
+                    <a href="/signup" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors">Începe Gratuit</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-bg relative overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-24">
+        <div class="absolute inset-0 grid-pattern"></div>
+        <div class="absolute top-32 left-10 w-20 h-20 rounded-full bg-violet-500/10 blur-2xl animate-float"></div>
+        <div class="absolute top-48 right-20 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl animate-float-delayed"></div>
+        <div class="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-indigo-500/10 blur-2xl animate-float"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Breadcrumb -->
+            <div class="anim-fade-in flex items-center gap-2 text-sm text-white/40 mb-8">
+                <a href="/" class="hover:text-white/60 transition-colors">Acasă</a>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <a href="/compare" class="hover:text-white/60 transition-colors">Comparații</a>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-white/60">Oveit</span>
+            </div>
+            
+            <!-- VS Header -->
+            <div class="anim-fade-up delay-100 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                        <span class="text-white font-black text-2xl sm:text-3xl">T</span>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-2xl sm:text-3xl font-bold text-white">Tixello</p>
+                        <p class="text-sm text-emerald-400">Platformă B2B locală</p>
+                    </div>
+                </div>
+                
+                <div class="vs-pulse w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-violet-600/20 to-cyan-600/20 border border-violet-500/30 flex items-center justify-center">
+                    <span class="text-xl sm:text-2xl font-black text-white">VS</span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 flex items-center justify-center">
+                        <span class="text-indigo-400 font-black text-2xl sm:text-3xl">O</span>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-2xl sm:text-3xl font-bold text-white">Oveit</p>
+                        <p class="text-sm text-indigo-400">Cashless & Web3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main headline -->
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="anim-fade-up delay-200 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight mb-6">
+                    Comparație completă pentru
+                    <span class="gradient-text">organizatori de evenimente</span>
+                </h1>
+                
+                <p class="anim-fade-up delay-300 text-lg sm:text-xl text-white/60 max-w-3xl mx-auto mb-8">
+                    Păstrezi controlul și scazi costurile. Tixello îți virează banii direct în cont, îți oferă comision flexibil <span class="text-emerald-400 font-semibold">1-3%</span> 
+                    (poți să-l incluzi în preț sau să-l adaugi peste), admin dedicat și microservicii fiscale & analytics care cresc conversia. 
+                    <span class="text-white font-medium">SLA 99.99% • ~300ms timp de răspuns.</span>
+                </p>
+                
+                <!-- Quick stats -->
+                <div class="anim-fade-up delay-400 flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span class="text-white/70">Fără abonament</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span class="text-white/70">1-3% comision</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span class="text-white/70">eFactura automat</span>
+                    </div>
+                </div>
+                
+                <!-- CTA buttons -->
+                <div class="anim-fade-up delay-500 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#demo" class="btn-primary btn-shine w-full sm:w-auto px-8 py-4 rounded-xl text-white font-semibold text-lg">Programează un demo</a>
+                    <a href="#comparison" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/5 hover:border-white/30 transition-all">Vezi comparația completă</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== QUICK COMPARISON CARDS ==================== -->
+    <section class="relative py-16 sm:py-24 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Tixello: platformă B2B cu focus pe control, costuri & fiscalitate</h2>
+                <p class="text-white/50 max-w-3xl mx-auto">Fără abonament impus, comision 1-3%, cashflow direct și automatizări fiscale pentru piața locală. Tu decizi cum afișezi comisionul (inclus vs. peste) și optimizezi conversia pe cifre reale.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Cost Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-emerald-600/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Cost total pentru organizator</h3>
+                        <p class="text-sm text-white/50 mb-4">Tixello vs Oveit</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white/70">Tixello: 1-3%, fără abonament</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+                                <span class="text-sm text-white/70">Oveit: Abonament + 4%/vânzare</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fiscal Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-violet-600/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Control fiscal & documente</h3>
+                        <p class="text-sm text-white/50 mb-4">Tixello vs Oveit</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white/70">Tixello: Facturi + eFactura auto</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-white/30 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span class="text-sm text-white/70">Oveit: Focus cashless/Web3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cashflow Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-cyan-600/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Cashflow direct & flexibilitate</h3>
+                        <p class="text-sm text-white/50 mb-4">Tixello vs Oveit</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white/70">Tixello: Multi-processor, routing</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-indigo-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white/70">Oveit: Direct payments (Stripe)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-xs text-white/30 mt-8">* Valorile sunt orientative, rezumă accentul Tixello pe cost total, cashflow direct și fiscalitate automatizată vs. un model global axat pe cashless/Web3.</p>
+        </div>
+    </section>
+
+    <!-- ==================== DEMO CTA ==================== -->
+    <section class="relative py-16 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Vrei să vezi Tixello pe structura evenimentelor tale?</h2>
+            <p class="text-white/50 mb-8 max-w-2xl mx-auto">Într-un demo live îți arătăm exact cum arată costul total, cum se generează automat facturile & eFactura și cum urmărești conversia pe canale.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#demo" class="btn-primary btn-shine px-8 py-4 rounded-xl text-white font-semibold">Programează un demo</a>
+                <a href="#contact" class="px-8 py-4 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/5 transition-all">Cere ofertă personalizată</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VERDICT SECTION ==================== -->
+    <section class="relative py-20 sm:py-28 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-violet-400">TL;DR</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">TL;DR pentru organizatori</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- Oveit -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                            <span class="text-indigo-400 font-bold text-xl">O</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Ce este Oveit (pe scurt, factual)</h3>
+                            <p class="text-sm text-white/40">Din surse publice</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-white/60 mb-6 leading-relaxed">
+                        Oveit este o platformă de ticketing & plăți (inclusiv cashless NFC/RFID), cu opțiuni de plăți directe, NFT tickets și soluții pentru streaming/vânzări online. Are planuri pe abonament (ex. Pro <strong class="text-indigo-400">$199/lună</strong>) și, conform Knowledge Base, un comision <strong class="text-indigo-400">4%/vânzare</strong> pentru evenimente plătite sau peste 300 de participanți (în funcție de plan).
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50"><strong class="text-white/70">Ticketing & payments end-to-end</strong>, cu vânzări online, box office și parteneri; colectare de date la înregistrare.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50"><strong class="text-white/70">Plăți directe către organizatori</strong> (Stripe/PayPal, card, transfer bancar, chiar și crypto – „banii curg direct la ei").</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50"><strong class="text-indigo-400">Cashless NFC/RFID</strong> (Oveit Pay), portofele digitale/wristband, top-up, rapoarte în timp real.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50"><strong class="text-indigo-400">NFT tickets</strong> și ecosistem Web3; <strong class="text-white/70">Streams.live</strong> pentru conținut plătit/streaming.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50"><strong class="text-white/70">Seat maps</strong> (ex. sport/arenă) și analytics în timp real.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-white/50">Politici <strong class="text-white/70">GDPR</strong> publicate.</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-xs text-white/30 mt-6">Analiză bazată pe informații publice Oveit (site, Knowledge Base, interviuri).</p>
+                </div>
+                
+                <!-- Tixello -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 border border-emerald-500/20">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">T</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Tixello pe scurt</h3>
+                            <p class="text-sm text-emerald-400">Focus pe cost & fiscalitate locală</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-white/70 mb-6 leading-relaxed">
+                        Tixello pune accent pe cashflow-ul direct la organizator, comision 1-3% (fără costuri fixe impuse), fiscalitate automată pentru piața locală (facturi + eFactura), multi-processor plăți, tracking avansat și admin dedicat instalat pe serverul tău.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">Cashflow direct</strong> — banii ajung direct în contul tău</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">Comision 1-3%</strong> — fără abonament impus, plătești doar când vinzi</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">Admin dedicat</strong> pe serverul tău, GTM propriu</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">Multi-processor plăți</strong> cu fallback & routing</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">Facturare automată + eFactura</strong> și documente post-eveniment</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <p class="text-sm text-white/70"><strong class="text-white">SLA 99.99%</strong> și ~300ms timp de răspuns</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DETAILED COMPARISON SECTION ==================== -->
+    <section id="comparison" class="relative py-20 sm:py-28 bg-zinc-950 border-t border-white/5">
+        
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-violet-600/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+                    <span class="text-sm font-medium text-violet-400">Analiză detaliată</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    Diferențe care îți cresc <span class="gradient-text-emerald">profitul (și liniștea)</span>
+                </h2>
+                <p class="text-white/50 max-w-3xl mx-auto">Oveit excelează pe componente de cashless/NFC și Web3. Tixello se concentrează pe cost total mic, fiscalitate automată și control end-to-end pentru organizatorii din piața locală.</p>
+            </div>
+            
+            <!-- Comparison Items -->
+            <div class="space-y-8">
+                
+                <!-- Item 1: Costuri & model de comision -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">1) Costuri & model de comision</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Plătești doar când vinzi: <strong class="text-emerald-400">1-3%</strong> (1% exclusiv, 2% non-exclusiv, 3% dacă Tixello procesează tranzacțiile). 
+                            Comisionul îl poți include în preț sau îl poți adăuga peste, în funcție de strategia ta de conversie.
+                        </p>
+                        <p class="text-white/50 text-sm mb-4">Fără abonament impus, fără fee-uri „invizibile" pe tranzacție. Vezi clar, încă de la început, cât te costă.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">1-3% comision</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Fără abonament</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Transparent</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">1) Costuri & model de comision</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Are planuri pe abonament (ex. Pro <strong class="text-indigo-400">$199/lună</strong>) și, conform Knowledge Base, <strong class="text-indigo-400">4% per vânzare</strong> pentru evenimente plătite 
+                            sau peste 300 participanți (în funcție de plan).
+                        </p>
+                        <p class="text-white/50 text-sm mb-4">Dacă ești sensibil la fee-uri recurente sau la un % mai mare pe tranzacție, Tixello poate reduce semnificativ costul total de proprietate.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">$199/lună Pro</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">4%/vânzare</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2: Cashflow & plăți -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">2) Cashflow & plăți</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            <strong class="text-emerald-400">Payout direct</strong> în contul tău, nativ. Multi-processor plăți, fallback și routing, astfel încât să nu pierzi 
+                            conversie la probleme izolate de procesator.
+                        </p>
+                        <p class="text-white/50 text-sm mb-4">Poți controla cum apare comisionul (inclus vs. peste) și poți testa rapid variantele ca să vezi ce funcționează.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Payout direct</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Multi-processor</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Fallback</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">2) Cashflow & plăți</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Oferă <strong class="text-indigo-400">plăți directe către organizatori</strong> (Stripe/PayPal, card, transfer bancar, crypto) — „banii curg direct la ei". 
+                            Cashflow-ul este, în principiu, direct, dar fără accent pe multi-processor & routing local.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Direct payments</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Stripe/PayPal</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Crypto</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3: Fiscalitate & operațional -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">3) Fiscalitate & operațional</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Facturare automată, <strong class="text-emerald-400">eFactura</strong>, pachet de documente fiscale & legale post-eveniment — toate gândite pentru 
+                            contextul fiscal local. Ideal când ai volum mare de vânzări și vrei să dormi liniștit.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">eFactura</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Fiscalitate locală</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Automat</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">3) Fiscalitate & operațional</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Documentația publică pune accent pe <strong class="text-indigo-400">cashless/NFC, Web3/NFT și streaming</strong>; nu comunică explicit eFactura 
+                            sau automatizări fiscale specializate pentru România.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Focus global</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Web3/NFC</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4: Date & marketing -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">4) Date & marketing</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            <strong class="text-emerald-400">Admin dedicat</strong> (nu îl împarți cu nimeni), GTM propriu, tracking de surse & atribuiri, email marketing 
+                            din platformă, coduri promo, segmente, rapoarte live.
+                        </p>
+                        <p class="text-white/50 text-sm mb-4">Practic, ai un mini „growth stack" direct în soluția de ticketing, fără bricolaj între tool-uri.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">GTM propriu</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Email marketing</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Tracking</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">4) Date & marketing</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Permite colectare de date și rapoarte, este GDPR-compliant, însă <strong class="text-indigo-400">nu comunică public</strong> un stack de marketing 
+                            self-hosted (gen GTM propriu la nivel de tenant) similar Tixello.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">GDPR</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Rapoarte</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 5: Seating & tipuri de bilete -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-violet-500/10 to-violet-600/5 border border-violet-500/20 group hover:border-violet-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-violet-500/20 text-violet-400 text-xs font-medium">Comparabil</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">5) Seating & tipuri de bilete</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Hartă de locuri, blocare locuri/zone, tipuri multiple de bilete, personalizare bilete și control fin 
+                            asupra hărții — foarte util la venue-uri complexe sau turnee cu structuri diferite.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium">Seat maps</span>
+                            <span class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium">Blocare zone</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-violet-500/20 text-violet-400 text-xs font-medium">Comparabil</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">5) Seating & tipuri de bilete</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Oferă <strong class="text-indigo-400">seat maps</strong> (ex. sport/arenă) și analytics în timp real; focusul principal este pe infrastructura 
+                            globală de ticketing & payments.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Seat maps</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs font-medium">Sport/Arena</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 6: Cazuri de utilizare speciale -->
+                <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Tixello Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold">T</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">6) Cazuri de utilizare speciale</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Dacă vrei <strong class="text-emerald-400">fiscalitate automată, cost total mic și control de la A la Z</strong> pe piața locală, Tixello iese în față. 
+                            Ideal pentru organizatori care au nevoie de predictibilitate financiară și raportare impecabilă.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Piața locală</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Control A-Z</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Oveit Side -->
+                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border border-indigo-500/20 group hover:border-indigo-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-medium">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                <span class="text-indigo-400 font-bold">O</span>
+                            </div>
+                            <span class="text-lg font-bold text-white">Oveit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">6) Cazuri de utilizare speciale</h3>
+                        <p class="text-white/60 leading-relaxed mb-4">
+                            Dacă vrei <strong class="text-indigo-400">cashless/NFC și wallet la festival</strong>, Oveit are un pachet matur (Oveit Pay), plus <strong class="text-indigo-400">NFT tickets</strong> și 
+                            <strong class="text-indigo-400">Streams.live</strong> pentru Web3/streaming.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-medium">Oveit Pay</span>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-medium">NFT tickets</span>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-medium">Streams.live</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BENEFITS SECTION ==================== -->
+    <section class="relative py-20 sm:py-28 bg-zinc-900/30 border-t border-white/5 overflow-hidden">
+        
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/2 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
+            <div class="absolute top-1/2 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-emerald-400">Gândit pentru organizatori care vor control, nu dependență</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Ce câștigi practic cu Tixello</h2>
+                <p class="text-white/50 max-w-2xl mx-auto">Nu e doar o platformă de ticketing. Este infrastructura ta de venituri: costuri clare, cashflow direct, fiscalitate automată și analytics care te ajută să crești, nu doar să vinzi bilete.</p>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Benefit 1 -->
+                <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                            <span class="text-emerald-400 font-bold">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">Cost total mai mic & previzibil</h3>
+                            <p class="text-sm text-white/50 leading-relaxed">Fără abonament impus. Nu te trezești cu „surprize" pe factură: ai 1-3% comision și atât. Diferența față de abonamente + % mari pe tranzacție se vede imediat în profit.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                            <span class="text-emerald-400 font-bold">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">Conversie mai mare, pe cifre reale</h3>
+                            <p class="text-sm text-white/50 leading-relaxed">Poți testa rapid comision inclus vs. peste, vezi exact de unde vin vânzările și ce campanii ard buget fără să aducă bilete. Tracking granular & GTM propriu, nu „cutie neagră".</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                            <span class="text-emerald-400 font-bold">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">Zero corvoadă administrativă</h3>
+                            <p class="text-sm text-white/50 leading-relaxed">Facturi, eFactura, documente fiscale și legale la final de eveniment — toate generate automat. Echipa ta se concentrează pe line-up, nu pe Excel-uri și PDF-uri.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                            <span class="text-emerald-400 font-bold">4</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">Scalabil & sigur pentru seriile de evenimente</h3>
+                            <p class="text-sm text-white/50 leading-relaxed">SLA 99.99%, ~300ms timp de răspuns, multi-processor plăți și suport live în chat. Poți scala de la un eveniment mic la un festival fără să schimbi platforma.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMPARISON TABLE ==================== -->
+    <section class="relative py-20 sm:py-28 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Tabel comparativ (executive): Tixello vs Oveit</h2>
+                <p class="text-white/50">Focus Tixello: cost total & fiscalitate locală</p>
+            </div>
+            
+            <div class="rounded-2xl border border-white/10 overflow-hidden bg-white/[0.02]">
+                <div class="grid grid-cols-3 bg-white/[0.03]">
+                    <div class="p-4 sm:p-5 text-sm font-semibold text-white/40 border-r border-white/5">Criteriu</div>
+                    <div class="p-4 sm:p-5 text-center border-r border-white/5">
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-6 h-6 rounded bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-sm font-semibold text-white">Tixello</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-6 h-6 rounded bg-indigo-500/20 flex items-center justify-center"><span class="text-indigo-400 font-bold text-xs">O</span></div>
+                            <span class="text-sm font-semibold text-white">Oveit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divide-y divide-white/5">
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Model cost</div>
+                        <div class="p-4 sm:p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center">1-3% (fără abonament impus; plătești doar când vinzi)</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Planuri abonament (ex. Pro $199/lună) + în unele cazuri 4% per vânzare (KB)</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Cashflow</div>
+                        <div class="p-4 sm:p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center">Banii direct în contul tău; multi-processor, fallback & routing</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Plăți directe către organizator (Stripe/PayPal/card/bank/crypto)</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Fiscalitate</div>
+                        <div class="p-4 sm:p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center">Facturi + eFactura, documente fiscale/legale automat</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Accent pe cashless/NFC & Web3; nu comunicate public automatizări eFactura</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Admin & date</div>
+                        <div class="p-4 sm:p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center">Admin dedicat pe serverul tău; GTM propriu</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Colectare date & GDPR; fără detaliu public despre GTM self-hosted</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Seating</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 border-r border-white/5 text-center">Hartă + blocare locuri/zone, personalizare bilete</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Seat maps (ex. sport/arenă)</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">Specialități</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 border-r border-white/5 text-center">Optimizare cost/conversie & fiscalitate locală</div>
+                        <div class="p-4 sm:p-5 text-sm text-indigo-400 text-center">Cashless NFC/RFID, NFT tickets, Streams.live</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-4 sm:p-5 text-sm text-white/70 border-r border-white/5">SLA & performanță</div>
+                        <div class="p-4 sm:p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center">99.99% · ~300ms</div>
+                        <div class="p-4 sm:p-5 text-sm text-white/50 text-center">Nespecificat public</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mt-6 text-xs text-white/30 text-center">Citate cheie Oveit: Pricing (plan Pro $199/lună), Knowledge Base (4%/vânzare peste 300 participanți/plătit), Direct payments & integrare Stripe/PayPal, NFC/RFID cashless, NFT tickets, Streams.live, Seat maps, GDPR – conform documentației publice Oveit.</p>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="relative py-20 sm:py-28 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-violet-400">FAQ</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Întrebări frecvente despre Tixello vs Oveit</h2>
+            </div>
+            
+            <div class="space-y-4" x-data="{ open: 1 }">
+                
+                <!-- FAQ 1 -->
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all" :class="open === 1 ? 'bg-white/[0.03]' : 'bg-white/[0.01] hover:bg-white/[0.02]'">
+                    <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Oveit și Tixello plătesc direct în contul meu?</span>
+                        <svg class="w-5 h-5 text-white/50 flex-shrink-0 transition-transform duration-300" :class="open === 1 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 1" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 text-sm leading-relaxed">
+                            <p>Da. Oveit comunică direct payments (Stripe/PayPal/card/bank/crypto). Tixello pornește implicit cu payout direct în contul tău și adaugă multi-processor & routing pentru mai multă stabilitate în conversie.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all" :class="open === 2 ? 'bg-white/[0.03]' : 'bg-white/[0.01] hover:bg-white/[0.02]'">
+                    <button @click="open = open === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Există abonament lunar la Tixello?</span>
+                        <svg class="w-5 h-5 text-white/50 flex-shrink-0 transition-transform duration-300" :class="open === 2 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 2" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 text-sm leading-relaxed">
+                            <p>Nu impunem abonament. Modelul Tixello este 1-3% (plătești doar când vinzi). La Oveit, există planuri cu abonament (ex. $199/lună) și, conform Knowledge Base, în anumite condiții 4% per vânzare.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all" :class="open === 3 ? 'bg-white/[0.03]' : 'bg-white/[0.01] hover:bg-white/[0.02]'">
+                    <button @click="open = open === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Care platformă mă ajută mai mult la fiscalitate în România?</span>
+                        <svg class="w-5 h-5 text-white/50 flex-shrink-0 transition-transform duration-300" :class="open === 3 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 3" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 text-sm leading-relaxed">
+                            <p>Tixello: facturi + eFactura, documente post-eveniment generate automat. Oveit pune accent pe cashless/NFC și Web3 (NFT, Streams.live) și nu detaliază public automatizări fiscale pentru România.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all" :class="open === 4 ? 'bg-white/[0.03]' : 'bg-white/[0.01] hover:bg-white/[0.02]'">
+                    <button @click="open = open === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Am nevoie de cashless la festival. Ce aleg?</span>
+                        <svg class="w-5 h-5 text-white/50 flex-shrink-0 transition-transform duration-300" :class="open === 4 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 4" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 text-sm leading-relaxed">
+                            <p>Dacă vrei NFC/RFID „la cheie", Oveit are un pachet matur (Oveit Pay). Dacă prioritatea ta este cashflow direct, cost total mic și automatizări fiscale locale, Tixello este construit exact pentru asta. Poți combina strategii: Tixello ca platformă principală + soluții cashless dedicate acolo unde ai nevoie.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== OTHER COMPARISONS CAROUSEL ==================== -->
+    <section class="relative py-16 bg-zinc-950 border-t border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <h3 class="text-lg font-semibold text-white mb-2">Vezi și alte comparații Tixello:</h3>
+        </div>
+        
+        <div class="relative">
+            <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex overflow-hidden">
+                <div class="flex animate-scroll-x gap-4">
+                    <a href="/compare/eventbook-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center"><span class="text-rose-400 font-bold text-xs">Eb</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventbook.ro</p>
+                    </a>
+                    <a href="/compare/biletin" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center"><span class="text-pink-400 font-bold text-xs">Bi</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Biletin</p>
+                    </a>
+                    <a href="/compare/blt-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center"><span class="text-red-400 font-bold text-xs">BL</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">BLT.ro</p>
+                    </a>
+                    <a href="/compare/eventim" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">Ev</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventim</p>
+                    </a>
+                    <a href="/compare/evticket-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center"><span class="text-orange-400 font-bold text-xs">E</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">EvTicket.ro</p>
+                    </a>
+                    <a href="/compare/iticket" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold text-xs">iT</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">iTicket</p>
+                    </a>
+                    <a href="/compare/myticket" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold text-xs">M</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">MyTicket</p>
+                    </a>
+                    <!-- Duplicates for infinite scroll -->
+                    <a href="/compare/eventbook-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center"><span class="text-rose-400 font-bold text-xs">Eb</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventbook.ro</p>
+                    </a>
+                    <a href="/compare/biletin" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center"><span class="text-pink-400 font-bold text-xs">Bi</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Biletin</p>
+                    </a>
+                    <a href="/compare/blt-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center"><span class="text-red-400 font-bold text-xs">BL</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">BLT.ro</p>
+                    </a>
+                    <a href="/compare/eventim" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">Ev</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventim</p>
+                    </a>
+                    <a href="/compare/evticket-ro" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center"><span class="text-orange-400 font-bold text-xs">E</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">EvTicket.ro</p>
+                    </a>
+                    <a href="/compare/iticket" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold text-xs">iT</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">iTicket</p>
+                    </a>
+                    <a href="/compare/myticket" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold text-xs">M</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">MyTicket</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FINAL CTA ==================== -->
+    <section id="demo" class="relative py-24 sm:py-32 bg-gradient-to-b from-zinc-900/50 to-zinc-950 border-t border-white/5 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent"></div>
+            <div class="absolute top-1/2 left-1/4 w-64 h-64 bg-violet-600/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 right-1/4 w-64 h-64 bg-cyan-600/20 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/10 to-cyan-500/10 border border-violet-500/20 mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-sm font-medium text-white/70">Demo personalizat gratuit</span>
+            </div>
+            
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                Vrei control total, bani direct în cont
+                <span class="block gradient-text-emerald">și costuri previzibile?</span>
+            </h2>
+            
+            <p class="text-lg sm:text-xl text-white/50 mb-10 max-w-2xl mx-auto">
+                Programează un demo — îți arătăm cum Tixello scurtează drumul de la anunț la sold-out, cu focus pe cost total și fiscalitate.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                <a href="/demo" class="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-lg shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 transition-all hover:-translate-y-1 overflow-hidden btn-shine">
+                    <span class="relative">Programează un demo Tixello</span>
+                    <svg class="relative w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+            </div>
+            
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-white/40">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Fără obligații</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Demo în 24h</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Migrare gratuită</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECOND CTA ==================== -->
+    <section class="relative py-16 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Vrei să vezi Tixello pe un exemplu concret din portofoliul tău?</h2>
+            <p class="text-white/50 mb-8 max-w-2xl mx-auto">Spune-ne câteva detalii despre evenimentele tale (volum, tip de public, mix de canale), iar noi pregătim un demo personalizat, cu cifre de cost și scenarii de optimizare a conversiei.</p>
+            <a href="/contact" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/5 hover:border-white/30 transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                <span>Deschide formularul de contact</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== TRANSPARENCY NOTE ==================== -->
+    <section class="py-12 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
+                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+                <div>
+                    <h4 class="font-semibold text-white mb-1">Notă de transparență</h4>
+                    <p class="text-sm text-white/50 leading-relaxed">
+                        Analiza se bazează pe informații publice Oveit disponibile la 31 octombrie 2025 (site, Knowledge Base, interviuri). 
+                        Verifică mereu ultimele planuri și condiții comerciale direct la sursă, mai ales pentru abonamente și taxe pe tranzacție.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-sm">T</span></div>
+                    <span class="text-white font-semibold">Tixello</span>
+                </div>
+                <p class="text-sm text-white/40">© 2025 Tixello. Made with ❤️ for events, in the EU.</p>
+                <div class="flex items-center gap-6">
+                    <a href="/terms" class="text-sm text-white/40 hover:text-white/60 transition-colors">Termeni</a>
+                    <a href="/privacy" class="text-sm text-white/40 hover:text-white/60 transition-colors">Confidențialitate</a>
+                    <a href="/gdpr" class="text-sm text-white/40 hover:text-white/60 transition-colors">GDPR</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

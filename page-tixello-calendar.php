@@ -7,6 +7,53 @@
 get_header();
 
 // ==========================
+// 0. Multilanguage Support (Polylang)
+// ==========================
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+$locale = $current_lang === 'ro' ? 'ro-RO' : 'en-US';
+
+$t = [
+    // Page title
+    'search_results' => $current_lang === 'ro' ? 'Rezultate cautare' : 'Search results',
+    'filters' => $current_lang === 'ro' ? 'Filtre:' : 'Filters:',
+    'view_all' => $current_lang === 'ro' ? 'Vezi toate' : 'View all',
+
+    // Filter bar
+    'all_filters' => $current_lang === 'ro' ? 'Toate filtrele' : 'All filters',
+    'select_days' => $current_lang === 'ro' ? 'Selecteaza zilele' : 'Select days',
+    'all_days' => $current_lang === 'ro' ? 'Toate zilele' : 'All days',
+    'today' => $current_lang === 'ro' ? 'Astazi' : 'Today',
+    'tomorrow' => $current_lang === 'ro' ? 'Maine' : 'Tomorrow',
+    'next_7_days' => $current_lang === 'ro' ? 'Urmatoarele 7 zile' : 'Next 7 days',
+    'next_30_days' => $current_lang === 'ro' ? 'Urmatoarele 30 zile' : 'Next 30 days',
+
+    // Sorting
+    'upcoming' => $current_lang === 'ro' ? 'Urmatoare' : 'Upcoming',
+    'latest_events' => $current_lang === 'ro' ? 'Cele mai recente' : 'Latest Events',
+
+    // View modes
+    'card' => $current_lang === 'ro' ? 'Carduri' : 'Card',
+    'map' => $current_lang === 'ro' ? 'Harta' : 'Map',
+
+    // Events list
+    'no_events' => $current_lang === 'ro'
+        ? 'Nu exista evenimente care sa corespunda filtrelor selectate.'
+        : 'No events match the selected filters.',
+
+    // Day badge
+    'today_badge' => $current_lang === 'ro' ? 'Azi' : 'Today',
+
+    // Event statuses
+    'cancelled' => $current_lang === 'ro' ? 'Anulat' : 'Cancelled',
+    'postponed' => $current_lang === 'ro' ? 'Amanat' : 'Postponed',
+    'sold_out' => 'Sold-out',
+    'door_sales_only' => $current_lang === 'ro' ? 'Doar la intrare' : 'Door sales only',
+
+    // Price
+    'from_price' => $current_lang === 'ro' ? 'De la' : 'From',
+];
+
+// ==========================
 // 1. Preluare evenimente din Core Tixello
 // ==========================
 
@@ -82,12 +129,12 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-slate-900">
-                        Search results
+                        <?php echo esc_html( $t['search_results'] ); ?>
                     </h1>
 
                     <?php if ( $has_filters ) : ?>
                         <p class="mt-1 text-sm text-slate-500">
-                            Filters:
+                            <?php echo esc_html( $t['filters'] ); ?>
                             <span class="font-medium text-slate-700">
                                 <?php echo esc_html( $filters_label ); ?>
                             </span>
@@ -101,7 +148,7 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                             href="<?php echo $view_all_url; ?>"
                             class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition"
                         >
-                            View all
+                            <?php echo esc_html( $t['view_all'] ); ?>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -116,24 +163,24 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                         class="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700"
                     >
                         <span class="inline-block h-4 w-4 rounded-sm border border-slate-400"></span>
-                        <span>All filters</span>
+                        <span><?php echo esc_html( $t['all_filters'] ); ?></span>
                         <span class="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-blue-600 px-2 text-xs font-medium text-white">
                             1
                         </span>
                     </button>
 
                     <div class="flex items-center gap-2 text-sm">
-                        <span class="text-slate-700">Select days</span>
+                        <span class="text-slate-700"><?php echo esc_html( $t['select_days'] ); ?></span>
                         <select
                             x-model="dayFilter"
                             @change="onDayFilterChange"
                             class="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="all">All days</option>
-                            <option value="today">Today</option>
-                            <option value="tomorrow">Tomorrow</option>
-                            <option value="next7">Next 7 days</option>
-                            <option value="next30">Next 30 days</option>
+                            <option value="all"><?php echo esc_attr( $t['all_days'] ); ?></option>
+                            <option value="today"><?php echo esc_attr( $t['today'] ); ?></option>
+                            <option value="tomorrow"><?php echo esc_attr( $t['tomorrow'] ); ?></option>
+                            <option value="next7"><?php echo esc_attr( $t['next_7_days'] ); ?></option>
+                            <option value="next30"><?php echo esc_attr( $t['next_30_days'] ); ?></option>
                         </select>
                     </div>
                 </div>
@@ -146,8 +193,8 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                             @change="applyFilters"
                             class="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="upcoming">Upcoming</option>
-                            <option value="latest">Latest Events</option>
+                            <option value="upcoming"><?php echo esc_attr( $t['upcoming'] ); ?></option>
+                            <option value="latest"><?php echo esc_attr( $t['latest_events'] ); ?></option>
                         </select>
                     </div>
 
@@ -160,7 +207,7 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                             class="flex items-center gap-1 rounded-md px-3 py-1 transition"
                         >
                             <span class="inline-block h-3 w-3 rounded-sm border border-slate-500"></span>
-                            <span>Card</span>
+                            <span><?php echo esc_html( $t['card'] ); ?></span>
                         </button>
                         <button
                             type="button"
@@ -169,16 +216,17 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                             class="flex items-center gap-1 rounded-md px-3 py-1 transition"
                         >
                             <span class="inline-block h-3 w-3 rounded-full border border-slate-500"></span>
-                            <span>Map</span>
+                            <span><?php echo esc_html( $t['map'] ); ?></span>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Injectăm evenimentele în JS -->
+        <!-- Injectăm evenimentele și locale în JS -->
         <script>
             window.tixelloEvents = <?php echo wp_json_encode( $events ); ?>;
+            window.tixelloLocale = '<?php echo esc_js( $locale ); ?>';
         </script>
 
         <!-- CALENDAR / TIMELINE + SEARCH RESULTS -->
@@ -246,7 +294,7 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                                             class="mt-0.5 text-[9px] uppercase tracking-wide"
                                             :class="isSelectedDay(day) ? 'text-white' : 'text-blue-600'"
                                         >
-                                            Azi
+                                            <?php echo esc_html( $t['today_badge'] ); ?>
                                         </span>
 
                                         <span
@@ -273,7 +321,7 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
             <div class="border border-slate-200 rounded-2xl p-4 min-h-[80px] bg-white/70">
                 <template x-if="filteredEvents.length === 0">
                     <p class="text-sm text-slate-500">
-                        Nu există evenimente care să corespundă filtrelor selectate.
+                        <?php echo esc_html( $t['no_events'] ); ?>
                     </p>
                 </template>
 
@@ -319,25 +367,25 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                                                 x-show="event.isCancelled"
                                                 class="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-red-700"
                                             >
-                                                Anulat
+                                                <?php echo esc_html( $t['cancelled'] ); ?>
                                             </span>
                                             <span
                                                 x-show="!event.isCancelled && event.isPostponed"
                                                 class="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700"
                                             >
-                                                Amânat
+                                                <?php echo esc_html( $t['postponed'] ); ?>
                                             </span>
                                             <span
                                                 x-show="event.isSoldOut"
                                                 class="inline-flex items-center rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-800"
                                             >
-                                                Sold-out
+                                                <?php echo esc_html( $t['sold_out'] ); ?>
                                             </span>
                                             <span
                                                 x-show="event.doorSalesOnly"
                                                 class="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-blue-700"
                                             >
-                                                Doar la intrare
+                                                <?php echo esc_html( $t['door_sales_only'] ); ?>
                                             </span>
                                         </div>
                                     </div>
@@ -350,7 +398,7 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                                             x-show="event.priceFrom"
                                             class="mt-1 text-xs text-slate-600"
                                         >
-                                            De la
+                                            <?php echo esc_html( $t['from_price'] ); ?>
                                             <span class="font-semibold" x-text="event.priceFrom + ' RON'"></span>
                                         </p>
                                     </div>
@@ -434,12 +482,13 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                         const date    = this.parseEventDate(ev);
                         const dateStr = this.formatYmd(date);
 
-                        const prettyDate = date.toLocaleDateString('ro-RO', {
+                        const locale = window.tixelloLocale || 'en-US';
+                        const prettyDate = date.toLocaleDateString(locale, {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
                         });
-                        const prettyTime = date.toLocaleTimeString('ro-RO', {
+                        const prettyTime = date.toLocaleTimeString(locale, {
                             hour: '2-digit',
                             minute: '2-digit',
                         });
@@ -560,19 +609,20 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                         const hasPostponed = eventsForDay.some((ev) => ev.isPostponed);
                         const hasCancelled = eventsForDay.some((ev) => ev.isCancelled);
 
+                        const locale = window.tixelloLocale || 'en-US';
                         this.days.push({
                             date,
                             dateStr,
                             year,
                             monthIndex,
-                            weekdayShort: date.toLocaleDateString('ro-RO', { weekday: 'short' }),
+                            weekdayShort: date.toLocaleDateString(locale, { weekday: 'short' }),
                             day: date.getDate(),
                             isToday: dateStr === this.formatYmd(this.today),
                             hasEvents,
                             hasPostponed,
                             hasCancelled,
                             showMonthLabel,
-                            monthLabelFull: date.toLocaleDateString('ro-RO', { month: 'long' }),
+                            monthLabelFull: date.toLocaleDateString(locale, { month: 'long' }),
                         });
                     }
                 },
@@ -585,9 +635,10 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                         if (!byYear[day.year]) byYear[day.year] = {};
 
                         if (!byYear[day.year][day.monthIndex]) {
+                            const locale = window.tixelloLocale || 'en-US';
                             byYear[day.year][day.monthIndex] = {
                                 index: day.monthIndex,
-                                label: day.date.toLocaleDateString('ro-RO', { month: 'short' }),
+                                label: day.date.toLocaleDateString(locale, { month: 'short' }),
                                 eventCount: 0,
                             };
                         }
@@ -617,10 +668,11 @@ $view_all_url  = esc_url( home_url( '/search/' ) );
                         const key = day.year + '-' + day.monthIndex;
 
                         if (!blocks[key]) {
+                            const locale = window.tixelloLocale || 'en-US';
                             blocks[key] = {
                                 year: day.year,
                                 monthIndex: day.monthIndex,
-                                label: day.date.toLocaleDateString('ro-RO', { month: 'long' }),
+                                label: day.date.toLocaleDateString(locale, { month: 'long' }),
                                 days: [],
                             };
                         }

@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tixello vs iaBilet - Comparație Completă Platforme Ticketing România</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* ===== HERO BACKGROUND ===== */
+        .hero-bg {
+            background: #09090b;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139, 92, 246, 0.15), transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(6, 182, 212, 0.1), transparent),
+                radial-gradient(ellipse 40% 30% at 20% 80%, rgba(16, 185, 129, 0.08), transparent);
+            pointer-events: none;
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black, transparent);
+        }
+        
+        /* ===== GRADIENT ANIMATIONS ===== */
+        @keyframes gradient-flow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes gradient-rotate {
+            0% { --gradient-angle: 0deg; }
+            100% { --gradient-angle: 360deg; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4, #10B981, #8B5CF6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 8s ease infinite;
+        }
+        
+        .gradient-text-gold {
+            background: linear-gradient(135deg, #F59E0B, #FBBF24, #FCD34D, #F59E0B);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 6s ease infinite;
+        }
+        
+        .gradient-text-emerald {
+            background: linear-gradient(135deg, #10B981, #34D399, #06B6D4, #10B981);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 6s ease infinite;
+        }
+        
+        /* ===== VS BADGE ANIMATION ===== */
+        @keyframes vs-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15), 0 0 90px rgba(6, 182, 212, 0.1);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(139, 92, 246, 0.25), 0 0 120px rgba(6, 182, 212, 0.15);
+                transform: scale(1.08);
+            }
+        }
+        
+        @keyframes vs-ring {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .vs-pulse { animation: vs-pulse 3s ease-in-out infinite; }
+        
+        .vs-ring::before,
+        .vs-ring::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            animation: vs-ring 2s ease-out infinite;
+        }
+        
+        .vs-ring::after {
+            animation-delay: 1s;
+        }
+        
+        /* ===== FADE ANIMATIONS ===== */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fade-in-scale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .anim-fade-up { opacity: 0; animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-fade-in { opacity: 0; animation: fade-in 0.6s ease-out forwards; }
+        .anim-fade-in-scale { opacity: 0; animation: fade-in-scale 0.6s ease-out forwards; }
+        .anim-slide-left { opacity: 0; animation: slide-in-left 0.7s ease-out forwards; }
+        .anim-slide-right { opacity: 0; animation: slide-in-right 0.7s ease-out forwards; }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        
+        /* ===== FLOATING ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-2deg); }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+        .animate-float-delayed { animation: float-delayed 7s ease-in-out infinite; animation-delay: 2s; }
+        
+        /* ===== GLOW EFFECTS ===== */
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1);
+        }
+        
+        .glow-violet {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+        }
+        
+        .glow-yellow {
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.3), 0 0 40px rgba(234, 179, 8, 0.1);
+        }
+        
+        /* ===== CHART ANIMATIONS ===== */
+        @keyframes bar-grow {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        @keyframes bar-grow-y {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        
+        .bar-animate {
+            transform-origin: left;
+            animation: bar-grow 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .bar-animate-y {
+            transform-origin: bottom;
+            animation: bar-grow-y 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        /* ===== COUNTER ANIMATION ===== */
+        @keyframes count-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .counter-animate {
+            animation: count-up 0.5s ease-out forwards;
+        }
+        
+        /* ===== COMPARISON ROW HOVER ===== */
+        .comparison-row { transition: all 0.3s ease; }
+        .comparison-row:hover { background: rgba(255, 255, 255, 0.03); }
+        .comparison-row:hover .winner-cell { background: rgba(16, 185, 129, 0.15); }
+        
+        /* ===== CAROUSEL ===== */
+        @keyframes scroll-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .animate-scroll-x { animation: scroll-x 30s linear infinite; }
+        .animate-scroll-x:hover { animation-play-state: paused; }
+        
+        /* ===== BUTTON EFFECTS ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+        }
+        
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+        
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: translateX(-100%);
+        }
+        .btn-shine:hover::after { animation: shine 0.7s ease-out; }
+        
+        /* ===== CARD HOVER EFFECTS ===== */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+        
+        /* ===== PROGRESS BAR STYLES ===== */
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transform-origin: left;
+        }
+        
+        /* ===== FEATURE ICON HOVER ===== */
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* ===== TOOLTIP ===== */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+        
+        /* ===== RADAR CHART ===== */
+        .radar-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+        }
+        
+        /* ===== CONFETTI ===== */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 1000;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        
+        /* ===== NUMBER TICKER ===== */
+        @keyframes ticker {
+            0% { transform: translateY(100%); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+        }
+        
+        /* ===== SCROLL INDICATOR ===== */
+        @keyframes scroll-down {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(8px); opacity: 1; }
+        }
+        
+        .scroll-indicator {
+            animation: scroll-down 2s ease-in-out infinite;
+        }
+        
+        /* ===== GLASSMORPHISM ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== WINNER BADGE ===== */
+        @keyframes badge-shine {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .winner-badge {
+            background: linear-gradient(90deg, #10B981, #34D399, #10B981);
+            background-size: 200% 100%;
+            animation: badge-shine 3s ease infinite;
+        }
+        
+        /* ===== STAT NUMBER ===== */
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* ===== INTERACTIVE SWITCH ===== */
+        .switch-track {
+            transition: background-color 0.3s ease;
+        }
+        
+        .switch-thumb {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-200 antialiased">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">T</span>
+                    </div>
+                    <span class="text-xl font-bold text-white">Tixello</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#comparison" class="text-sm text-white/60 hover:text-white transition-colors">Comparație</a>
+                    <a href="#features" class="text-sm text-white/60 hover:text-white transition-colors">Funcții</a>
+                    <a href="#faq" class="text-sm text-white/60 hover:text-white transition-colors">FAQ</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="hidden sm:inline-flex text-sm text-white/70 hover:text-white transition-colors px-4 py-2">Conectare</a>
+                    <a href="/signup" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors">Începe Gratuit</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-bg relative overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-32 min-h-screen flex items-center">
+        <div class="absolute inset-0 grid-pattern"></div>
+        
+        <!-- Animated background elements -->
+        <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-violet-500/10 blur-3xl animate-float"></div>
+        <div class="absolute top-40 right-20 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl animate-float-delayed"></div>
+        <div class="absolute bottom-32 left-1/4 w-40 h-40 rounded-full bg-emerald-500/10 blur-3xl animate-float-slow"></div>
+        <div class="absolute bottom-20 right-1/3 w-24 h-24 rounded-full bg-yellow-500/10 blur-2xl animate-float"></div>
+        
+        <!-- Decorative lines -->
+        <div class="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent"></div>
+        <div class="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            
+            <!-- Breadcrumb -->
+            <div class="anim-fade-in flex items-center gap-2 text-sm text-white/40 mb-10">
+                <a href="/" class="hover:text-white/60 transition-colors">Acasă</a>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <a href="/compare" class="hover:text-white/60 transition-colors">Comparații</a>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-white/60">iaBilet</span>
+            </div>
+            
+            <!-- Main VS Header -->
+            <div class="anim-fade-up delay-100 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 mb-16">
+                
+                <!-- Tixello Card -->
+                <div class="anim-slide-left delay-200 relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative flex items-center gap-5 p-6 pr-10 rounded-2xl glass-strong">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-2xl shadow-violet-500/30">
+                            <span class="text-white font-black text-3xl sm:text-4xl">T</span>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-2xl sm:text-3xl font-bold text-white mb-1">Tixello</p>
+                            <p class="text-sm text-emerald-400 font-medium">Platformă B2B</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    Control total
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- VS Badge -->
+                <div class="relative">
+                    <div class="vs-pulse vs-ring relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-violet-600/30 to-cyan-600/30 border-2 border-violet-500/40 flex items-center justify-center z-10">
+                        <span class="text-2xl sm:text-3xl font-black text-white">VS</span>
+                    </div>
+                </div>
+                
+                <!-- iaBilet Card -->
+                <div class="anim-slide-right delay-200 relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative flex items-center gap-5 p-6 pl-10 rounded-2xl glass-strong">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-600/20 border border-yellow-500/20 flex items-center justify-center">
+                            <span class="text-yellow-400 font-black text-3xl sm:text-4xl">ia</span>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-2xl sm:text-3xl font-bold text-white mb-1">iaBilet</p>
+                            <p class="text-sm text-yellow-400 font-medium">Marketplace + Servicii</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-xs font-medium">
+                                    Rețea stabilită
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main headline -->
+            <div class="text-center max-w-5xl mx-auto">
+                <h1 class="anim-fade-up delay-300 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-8">
+                    <span class="block">Control & cashflow direct</span>
+                    <span class="block gradient-text">vs. marketplace cu rețea</span>
+                </h1>
+                
+                <p class="anim-fade-up delay-400 text-lg sm:text-xl lg:text-2xl text-white/60 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Tu păstrezi controlul. Cu Tixello, banii intră <strong class="text-emerald-400">direct în contul tău</strong>, 
+                    alegi comisionul <strong class="text-white">1-3%</strong> și ai admin dedicat + microservicii fiscale & analytics.
+                </p>
+                
+                <!-- Live stats badges -->
+                <div class="anim-fade-up delay-500 flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-12">
+                    <div class="flex items-center gap-3 px-5 py-3 rounded-full glass">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span class="text-sm font-medium text-white/80">SLA 99.99%</span>
+                    </div>
+                    <div class="flex items-center gap-3 px-5 py-3 rounded-full glass">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <span class="text-sm font-medium text-white/80">~300ms răspuns</span>
+                    </div>
+                    <div class="flex items-center gap-3 px-5 py-3 rounded-full glass">
+                        <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                        <span class="text-sm font-medium text-white/80">eFactura automat</span>
+                    </div>
+                </div>
+                
+                <!-- CTA buttons -->
+                <div class="anim-fade-up delay-600 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                    <a href="#demo" class="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl btn-primary btn-shine text-white font-semibold text-lg">
+                        <span>Programează un demo</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </a>
+                    <a href="#comparison" class="w-full sm:w-auto px-8 py-5 rounded-2xl border border-white/20 text-white font-semibold hover:bg-white/5 hover:border-white/30 transition-all">Vezi comparația completă</a>
+                </div>
+                
+                <!-- Scroll indicator -->
+                <div class="anim-fade-in delay-700 flex flex-col items-center gap-2 text-white/30">
+                    <span class="text-xs uppercase tracking-wider">Scroll pentru detalii</span>
+                    <svg class="w-5 h-5 scroll-indicator" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== QUICK STATS COMPARISON ==================== -->
+    <section class="relative py-20 bg-zinc-900/50 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span class="text-sm font-medium text-violet-400">Comparație rapidă</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">La o privire: Tixello vs iaBilet</h2>
+                <p class="text-white/50 max-w-2xl mx-auto">Vizualizare rapidă a diferențelor cheie între cele două platforme</p>
+            </div>
+            
+            <!-- Visual Comparison Bars -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-16" x-data="{ show: false }" x-intersect="show = true">
+                
+                <!-- Left: Tixello advantages -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                        Tixello
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <!-- Transparency -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Transparență comision</span>
+                                <span class="text-sm font-bold text-emerald-400">100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-emerald-500 to-emerald-400" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cashflow -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Cashflow direct</span>
+                                <span class="text-sm font-bold text-emerald-400">Direct</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-violet-500 to-violet-400" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 100%; animation-delay: 0.1s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- eFactura -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">eFactura automat</span>
+                                <span class="text-sm font-bold text-emerald-400">Da</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-cyan-500 to-cyan-400" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 100%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- SLA -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">SLA garantat</span>
+                                <span class="text-sm font-bold text-emerald-400">99.99%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-emerald-500 to-cyan-400" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 99.99%; animation-delay: 0.3s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Admin dedicat -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Admin dedicat</span>
+                                <span class="text-sm font-bold text-emerald-400">Per tenant</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-violet-500 to-cyan-400" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 100%; animation-delay: 0.4s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: iaBilet comparison -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <div class="w-6 h-6 rounded bg-yellow-500/20 flex items-center justify-center"><span class="text-yellow-400 font-bold text-xs">ia</span></div>
+                        iaBilet
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <!-- Transparency -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Transparență comision</span>
+                                <span class="text-sm font-medium text-yellow-400">"Redus"</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-yellow-500/60 to-yellow-400/60" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 40%;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cashflow -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Cashflow direct</span>
+                                <span class="text-sm font-medium text-white/40">Nepublic</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-white/20 to-white/10" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 20%; animation-delay: 0.1s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- eFactura -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">eFactura automat</span>
+                                <span class="text-sm font-medium text-white/40">La cerere</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-yellow-500/40 to-yellow-400/40" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 50%; animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- SLA -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">SLA garantat</span>
+                                <span class="text-sm font-medium text-white/40">Nepublic</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-white/20 to-white/10" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 15%; animation-delay: 0.3s;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Admin dedicat -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-white/70">Admin dedicat</span>
+                                <span class="text-sm font-medium text-yellow-400">Validator app</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill bg-gradient-to-r from-yellow-500/50 to-yellow-400/50" 
+                                     :class="show ? 'bar-animate' : ''" 
+                                     style="width: 60%; animation-delay: 0.4s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key metrics cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="card-hover p-6 rounded-2xl glass text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                    </div>
+                    <p class="text-4xl font-black text-white mb-2 stat-number">1-3%</p>
+                    <p class="text-sm text-white/50">Comision Tixello</p>
+                    <p class="text-xs text-emerald-400 mt-2">Transparent & public</p>
+                </div>
+                
+                <div class="card-hover p-6 rounded-2xl glass text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-violet-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                    </div>
+                    <p class="text-4xl font-black text-white mb-2 stat-number">300ms</p>
+                    <p class="text-sm text-white/50">Timp de răspuns</p>
+                    <p class="text-xs text-violet-400 mt-2">SLA 99.99%</p>
+                </div>
+                
+                <div class="card-hover p-6 rounded-2xl glass text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                    </div>
+                    <p class="text-4xl font-black text-white mb-2">Auto</p>
+                    <p class="text-sm text-white/50">eFactura</p>
+                    <p class="text-xs text-cyan-400 mt-2">+ documente post-event</p>
+                </div>
+                
+                <div class="card-hover p-6 rounded-2xl glass text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                    </div>
+                    <p class="text-4xl font-black text-white mb-2">0€</p>
+                    <p class="text-sm text-white/50">Dacă nu vinzi</p>
+                    <p class="text-xs text-yellow-400 mt-2">Ambele platforme</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VERDICT SECTION ==================== -->
+    <section class="relative py-24 bg-zinc-950 border-t border-white/5">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-20 left-10 w-64 h-64 bg-violet-600/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-80 h-80 bg-cyan-600/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-emerald-400">Verdict pe scurt</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Ce trebuie să știi</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- iaBilet Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8 rounded-3xl glass border border-yellow-500/10 h-full">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-600/20 border border-yellow-500/20 flex items-center justify-center">
+                                <span class="text-yellow-400 font-black text-2xl">ia</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">iaBilet pe scurt</h3>
+                                <p class="text-sm text-yellow-400">Din surse publice</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-white/60 mb-8 leading-relaxed text-lg">
+                            iaBilet este un <strong class="text-yellow-400">marketplace + suită de servicii</strong> pentru organizatori: comision redus și plătești doar când vinzi (comunicat public), 
+                            aplicații mobile, validator de bilete pe Android/iOS, integrări (API/plug-in) și tool-uri (inclusiv import QR extern, checkpoints, GTM/how-to).
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white mb-1">Promisiune cost</p>
+                                    <p class="text-sm text-white/50">„Plătești doar când vinzi", comision redus; zero costuri dacă nu vinzi; „site-ul tău de bilete" din aceeași infrastructură.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white mb-1">Scan & acces</p>
+                                    <p class="text-sm text-white/50">IB Validator (Android/iOS), conectare cu token din admin; suport pentru import coduri externe și checkpoints.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white mb-1">Metode de plată</p>
+                                    <p class="text-sm text-white/50"><strong class="text-yellow-400">Apple Pay & Google Pay native</strong> (comunicate public) + alte metode; unele evenimente au rate (Card Avantaj).</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                <div class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-white mb-1">Fiscal</p>
+                                    <p class="text-sm text-white/50">Ghid care explică că biletul e fiscalizat ca <strong class="text-yellow-400">factură simplificată</strong> (facturare clasică doar la cererea clientului).</p>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/10">
+                                <p class="text-sm text-yellow-400/80">
+                                    <strong>⚠️ Observație:</strong> Nu publică procentele exacte de comision, SLA sau un model standard de payout (direct vs. decont).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tixello Card -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-cyan-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 border border-emerald-500/20 h-full">
+                        
+                        <!-- Winner badge -->
+                        <div class="absolute -top-4 -right-4">
+                            <div class="winner-badge px-4 py-2 rounded-full text-white text-sm font-semibold shadow-lg shadow-emerald-500/30">
+                                ✓ Alegerea pentru control
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-xl shadow-violet-500/30">
+                                <span class="text-white font-black text-2xl">T</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Tixello pe scurt</h3>
+                                <p class="text-sm text-emerald-400">Platformă B2B pentru organizatori</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-white/70 mb-8 leading-relaxed text-lg">
+                            Tixello este <strong class="text-emerald-400">platformă B2B</strong>: cashflow direct, comision 1-3%, admin dedicat pe tenant, 
+                            facturare automată + eFactura, multi-processor plăți, tracking avansat și suport live.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">Cashflow direct</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">Comision 1-3%</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">Admin dedicat</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">eFactura auto</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">Multi-processor</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/[0.05] border border-emerald-500/10">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white font-medium">SLA 99.99%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                            <p class="text-sm text-emerald-400">
+                                <strong>✓ Avantaj cheie:</strong> Toate procentele, SLA și modelul de payout sunt publice și transparente. Poți testa inclus vs. peste pentru comision.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DETAILED COMPARISON ==================== -->
+    <section id="comparison" class="relative py-24 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+                    <span class="text-sm font-medium text-violet-400">Analiză detaliată</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    Diferențe care îți cresc <span class="gradient-text-emerald">profitul</span>
+                </h2>
+            </div>
+            
+            <div class="space-y-8">
+                
+                <!-- Comparison 1 -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="relative p-8 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="winner-badge px-3 py-1.5 rounded-full text-white text-xs font-semibold flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold text-lg">T</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">1) Cashflow & comisioane</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            Încasezi <strong class="text-emerald-400">direct în contul tău</strong>; plătești doar când vinzi; comision <strong class="text-emerald-400">1-3%</strong> 
+                            (1% exclusiv / 2% non-exclusiv / 3% când Tixello tranzacționează). 
+                            <strong class="text-white">Poți include comisionul în preț sau îl poți afișa peste</strong> — optimizezi conversia.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">1-3% transparent</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Payout direct</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Inclus vs. peste</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative p-8 rounded-3xl glass hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                                <span class="text-yellow-400 font-bold text-lg">ia</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">iaBilet</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">1) Cashflow & comisioane</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            Comision redus și „plătești doar când vinzi" comunicate public; <strong class="text-yellow-400">nu sunt publicate procentele exacte</strong>, SLA sau un payout model standard (direct/decont) în documentele publice.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">"Comision redus"</span>
+                            <span class="px-3 py-1.5 rounded-full bg-white/5 text-white/40 text-sm font-medium">Procente nepublice</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison 2 -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="relative p-8 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="winner-badge px-3 py-1.5 rounded-full text-white text-xs font-semibold flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold text-lg">T</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">2) Controlul platformei & al datelor</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            <strong class="text-emerald-400">Admin dedicat</strong> (nu-l împarți), GTM propriu, acces complet la date & analytics, export & integrări — 
+                            instalare plug & play pe serverul tău.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Admin dedicat</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">GTM propriu</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Self-hosted</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative p-8 rounded-3xl glass hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                                <span class="text-yellow-400 font-bold text-lg">ia</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">iaBilet</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">2) Controlul platformei & al datelor</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            Validator + tool-uri solide (<strong class="text-yellow-400">import coduri, checkpoints</strong>), GTM how-to; nu comunică public un admin self-hosted per organizator sau SLA.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">IB Validator</span>
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">Checkpoints</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison 3 -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="relative p-8 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="winner-badge px-3 py-1.5 rounded-full text-white text-xs font-semibold flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold text-lg">T</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">3) Plăți & conversie</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            <strong class="text-emerald-400">Multi-processor</strong> (routing & fallback) pentru aprobare mai bună; A/B pe „inclus vs. peste" la comision; e-mailing & segmente în platformă.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Multi-processor</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">A/B testing</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">E-mailing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative p-8 rounded-3xl glass hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                                <span class="text-yellow-400 font-bold text-lg">ia</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">iaBilet</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">3) Plăți & conversie</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            <strong class="text-yellow-400">Apple Pay/Google Pay native</strong> și opțiuni multiple de plată; unele evenimente cu rate (Card Avantaj). UX familiar pentru cumpărători.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">Apple/Google Pay</span>
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">Rate Card Avantaj</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison 4 -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="relative p-8 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all">
+                        <div class="absolute top-4 right-4">
+                            <span class="winner-badge px-3 py-1.5 rounded-full text-white text-xs font-semibold flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Câștigător
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                <span class="text-white font-bold text-lg">T</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">Tixello</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">4) Fiscalitate & operațional</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            Facturare automată, <strong class="text-emerald-400">eFactura</strong>, documente post-eveniment generate automat, chat live cu suport.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">eFactura auto</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Documente post-event</span>
+                            <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium">Chat live</span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative p-8 rounded-3xl glass hover:border-white/20 transition-all">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                                <span class="text-yellow-400 font-bold text-lg">ia</span>
+                            </div>
+                            <span class="text-xl font-bold text-white">iaBilet</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">4) Fiscalitate & operațional</h3>
+                        <p class="text-white/60 leading-relaxed mb-6">
+                            Ghid de fiscalizare (<strong class="text-yellow-400">bilet = factură simplificată</strong>; factură la cerere), help center extins.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">Factură simplificată</span>
+                            <span class="px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400/70 text-sm font-medium">Factură la cerere</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="features" class="relative py-24 bg-zinc-950 border-t border-white/5 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/2 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
+            <div class="absolute top-1/2 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-emerald-400">Beneficii concrete</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Ce câștigi, concret, cu Tixello</h2>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-emerald-500/30 transition-all">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-emerald-500/20 transition-all">
+                        <svg class="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cost total mai mic & predictibil</h3>
+                    <p class="text-white/50 leading-relaxed">Alegi 1-3%, fără abonamente impuse; poți testa inclus vs. peste pentru comision. Zero surprize la sfârșitul lunii.</p>
+                </div>
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-violet-500/30 transition-all">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-violet-600/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-violet-500/20 transition-all">
+                        <svg class="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Conversie mai mare</h3>
+                    <p class="text-white/50 leading-relaxed">Vezi exact de unde vin vânzările, optimizezi bugetele și scazi pierderile din ads cu tracking avansat și rapoarte live.</p>
+                </div>
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-cyan-500/30 transition-all">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-cyan-500/20 transition-all">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cashflow direct</h3>
+                    <p class="text-white/50 leading-relaxed">Nu aștepți cicluri de virare; banii ajung direct în contul tău de la fiecare vânzare. Lichiditate maximă.</p>
+                </div>
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-emerald-500/30 transition-all">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-emerald-500/20 transition-all">
+                        <svg class="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Zero corvoadă fiscală</h3>
+                    <p class="text-white/50 leading-relaxed">Facturi, eFactura și documente fiscale & legale generate automat. Te concentrezi pe eveniment, nu pe hârtii.</p>
+                </div>
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-violet-500/30 transition-all sm:col-span-2 lg:col-span-1">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-cyan-500/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-violet-500/20 transition-all">
+                        <svg class="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Scalabil & sigur</h3>
+                    <p class="text-white/50 leading-relaxed">SLA 99.99%, rapoarte live, editare rapidă, suport în timp real în chat — pentru 100 sau 100.000 de bilete.</p>
+                </div>
+                
+                <div class="feature-card card-hover group p-8 rounded-3xl glass hover:border-cyan-500/30 transition-all">
+                    <div class="feature-icon w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/10 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-cyan-500/20 transition-all">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Suport live & dedicat</h3>
+                    <p class="text-white/50 leading-relaxed">Chat live cu echipa, răspuns rapid, asistență în română. Nu te lasă niciodată singur când contează.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMPARISON TABLE ==================== -->
+    <section class="relative py-24 bg-zinc-900/30 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Tabel comparativ (executive)</h2>
+                <p class="text-white/50">Tixello vs iaBilet — toate criteriile importante</p>
+            </div>
+            
+            <div class="rounded-3xl border border-white/10 overflow-hidden glass">
+                <div class="grid grid-cols-3 bg-white/[0.05]">
+                    <div class="p-5 sm:p-6 text-sm font-semibold text-white/40 border-r border-white/5">Criteriu</div>
+                    <div class="p-5 sm:p-6 text-center border-r border-white/5">
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-sm">T</span></div>
+                            <span class="text-sm font-semibold text-white">Tixello</span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-yellow-500/20 flex items-center justify-center"><span class="text-yellow-400 font-bold text-sm">ia</span></div>
+                            <span class="text-sm font-semibold text-white">iaBilet</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divide-y divide-white/5">
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">Model cost</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">1-3% (plătești doar când vinzi; inclus vs. peste)</div>
+                        <div class="p-5 text-sm text-white/50 text-center">„Comision redus" + „plătești doar când vinzi"; procente exacte nepublice</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">Cashflow</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">Banii direct în contul tău; multi-processor</div>
+                        <div class="p-5 text-sm text-white/50 text-center">Necomunicat public (payout/decont) pentru organizatori</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">Admin & date</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">Admin dedicat pe tenant; GTM propriu; export</div>
+                        <div class="p-5 text-sm text-white/50 text-center">Validator iOS/Android, import coduri & checkpoints</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">Plăți</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">Mai mulți procesatori & routing (stabilitate)</div>
+                        <div class="p-5 text-sm text-yellow-400/70 text-center">Apple Pay/Google Pay native; uneori rate</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">Fiscalitate</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">Facturi + eFactura automat</div>
+                        <div class="p-5 text-sm text-white/50 text-center">Bilet = factură simplificată; factură la cerere</div>
+                    </div>
+                    <div class="grid grid-cols-3 comparison-row">
+                        <div class="p-5 text-sm text-white/70 border-r border-white/5 font-medium">SLA & performanță</div>
+                        <div class="p-5 text-sm text-emerald-400 border-r border-white/5 winner-cell text-center font-medium">99.99% · ~300ms</div>
+                        <div class="p-5 text-sm text-white/50 text-center">Necomunicat public</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section id="faq" class="relative py-24 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-sm font-medium text-violet-400">FAQ</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Întrebări frecvente despre Tixello vs iaBilet</h2>
+            </div>
+            
+            <div class="space-y-4" x-data="{ open: 1 }">
+                
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all glass" :class="open === 1 ? 'border-violet-500/30' : ''">
+                    <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">iaBilet publică procentele de comision pentru organizatori?</span>
+                        <svg class="w-5 h-5 text-violet-400 flex-shrink-0 transition-transform duration-300" :class="open === 1 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 1" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 leading-relaxed">
+                            Comunică „comision redus" și „plătești doar când vinzi", dar nu publică procentele exacte sau un SLA; termenii pentru organizatori sunt într-o pagină dedicată. La Tixello, comisionul e transparent: <strong class="text-emerald-400">1-3%</strong>.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all glass" :class="open === 2 ? 'border-violet-500/30' : ''">
+                    <button @click="open = open === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Pot scana bilete cu telefonul?</span>
+                        <svg class="w-5 h-5 text-violet-400 flex-shrink-0 transition-transform duration-300" :class="open === 2 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 2" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 leading-relaxed">
+                            Da. iaBilet are IB Validator (Android/iOS). Tixello oferă, de asemenea, scan & validare cu rapoarte live și blocări pe zone/rânduri — plus admin dedicat cu export complet.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all glass" :class="open === 3 ? 'border-violet-500/30' : ''">
+                    <button @click="open = open === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Ce metode de plată are iaBilet?</span>
+                        <svg class="w-5 h-5 text-violet-400 flex-shrink-0 transition-transform duration-300" :class="open === 3 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 3" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 leading-relaxed">
+                            Au anunțat <strong class="text-yellow-400">Apple Pay & Google Pay native</strong> și menționează „multe metode" (inclusiv rate pentru unele evenimente). Tixello te lasă să alegi mai mulți procesatori simultan pentru aprobare și conversie mai bună.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rounded-2xl border border-white/10 overflow-hidden transition-all glass" :class="open === 4 ? 'border-violet-500/30' : ''">
+                    <button @click="open = open === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-white pr-4">Cum stă treaba cu facturile?</span>
+                        <svg class="w-5 h-5 text-violet-400 flex-shrink-0 transition-transform duration-300" :class="open === 4 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="open === 4" x-collapse>
+                        <div class="px-6 pb-6 text-white/60 leading-relaxed">
+                            La iaBilet, biletul este factură simplificată; se emite factură la cerere. La Tixello, <strong class="text-emerald-400">facturare + eFactura și pachet de documente post-eveniment sunt automate</strong>.
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== OTHER COMPARISONS ==================== -->
+    <section class="relative py-16 bg-zinc-900/30 border-t border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <h3 class="text-lg font-semibold text-white mb-2">Vezi și alte comparații Tixello:</h3>
+        </div>
+        
+        <div class="relative">
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-zinc-900/80 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-zinc-900/80 to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex overflow-hidden">
+                <div class="flex animate-scroll-x gap-4">
+                    <a href="/compare/bilete-ro" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center"><span class="text-red-400 font-bold text-xs">B</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Bilete.ro</p>
+                    </a>
+                    <a href="/compare/livetickets" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-lime-500/20 flex items-center justify-center"><span class="text-lime-400 font-bold text-xs">L</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">LiveTickets</p>
+                    </a>
+                    <a href="/compare/ambilet" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-fuchsia-500/20 flex items-center justify-center"><span class="text-fuchsia-400 font-bold text-xs">a</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">amBilet</p>
+                    </a>
+                    <a href="/compare/getin" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center"><span class="text-orange-400 font-bold text-xs">G</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">get-in.ro</p>
+                    </a>
+                    <a href="/compare/eventim" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">Ev</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventim</p>
+                    </a>
+                    <a href="/compare/iticket" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold text-xs">iT</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">iTicket</p>
+                    </a>
+                    <a href="/compare/myticket" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold text-xs">M</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">MyTicket</p>
+                    </a>
+                    <a href="/compare/oveit" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center"><span class="text-indigo-400 font-bold text-xs">O</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Oveit</p>
+                    </a>
+                    <!-- Duplicates -->
+                    <a href="/compare/bilete-ro" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center"><span class="text-red-400 font-bold text-xs">B</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Bilete.ro</p>
+                    </a>
+                    <a href="/compare/livetickets" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-lime-500/20 flex items-center justify-center"><span class="text-lime-400 font-bold text-xs">L</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">LiveTickets</p>
+                    </a>
+                    <a href="/compare/ambilet" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-fuchsia-500/20 flex items-center justify-center"><span class="text-fuchsia-400 font-bold text-xs">a</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">amBilet</p>
+                    </a>
+                    <a href="/compare/getin" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center"><span class="text-orange-400 font-bold text-xs">G</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">get-in.ro</p>
+                    </a>
+                    <a href="/compare/eventim" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">Ev</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Eventim</p>
+                    </a>
+                    <a href="/compare/iticket" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold text-xs">iT</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">iTicket</p>
+                    </a>
+                    <a href="/compare/myticket" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold text-xs">M</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">MyTicket</p>
+                    </a>
+                    <a href="/compare/oveit" class="flex-shrink-0 w-56 p-4 rounded-xl glass hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold text-xs">T</span></div>
+                            <span class="text-white/40 text-sm">vs</span>
+                            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center"><span class="text-indigo-400 font-bold text-xs">O</span></div>
+                        </div>
+                        <p class="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">Oveit</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FINAL CTA ==================== -->
+    <section id="demo" class="relative py-32 bg-gradient-to-b from-zinc-950 to-zinc-900/50 border-t border-white/5 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent"></div>
+            <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+        </div>
+        
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-500/10 to-cyan-500/10 border border-violet-500/20 mb-10">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span class="text-sm font-medium text-white/70">Demo personalizat gratuit</span>
+            </div>
+            
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
+                Vrei control total, cashflow direct
+                <span class="block gradient-text-emerald">și costuri previzibile?</span>
+            </h2>
+            
+            <p class="text-xl sm:text-2xl text-white/50 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Programează un demo — îți arătăm cum Tixello scurtează drumul de la anunț la sold-out.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-16">
+                <a href="/demo" class="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-6 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-xl shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 transition-all hover:-translate-y-1 overflow-hidden btn-shine">
+                    <span class="relative">Programează un demo Tixello</span>
+                    <svg class="relative w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+            </div>
+            
+            <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-5 text-sm text-white/40">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Fără obligații</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Demo în 24h</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Migrare gratuită</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TRANSPARENCY NOTE ==================== -->
+    <section class="py-12 bg-zinc-900/50 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-start gap-4 p-6 rounded-2xl glass">
+                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+                <div>
+                    <h4 class="font-semibold text-white mb-2">Notă de transparență</h4>
+                    <p class="text-sm text-white/50 leading-relaxed">
+                        Analiza iaBilet se bazează pe informații publice consultate la 1 noiembrie 2025 (Servicii, T&C organizatori/clienți, Validator, Help GTM, tool-uri, Apple/Google Pay, Card Avantaj, ghid fiscalizare).
+                        Dacă reprezinți iaBilet și dorești clarificări, scrie-ne — actualizăm cu plăcere.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center"><span class="text-white font-bold">T</span></div>
+                    <span class="text-lg text-white font-semibold">Tixello</span>
+                </div>
+                <p class="text-sm text-white/40">© 2025 Tixello. Made with ❤️ for events, in the EU.</p>
+                <div class="flex items-center gap-6">
+                    <a href="/terms" class="text-sm text-white/40 hover:text-white/60 transition-colors">Termeni</a>
+                    <a href="/privacy" class="text-sm text-white/40 hover:text-white/60 transition-colors">Confidențialitate</a>
+                    <a href="/gdpr" class="text-sm text-white/40 hover:text-white/60 transition-colors">GDPR</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

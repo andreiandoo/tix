@@ -6,6 +6,52 @@
 
 get_header();
 
+// ==========================
+// Multilanguage Support (Polylang)
+// ==========================
+$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'en';
+
+$t = [
+    // Hero
+    'badge' => 'Tixello Blog',
+    'title' => $current_lang === 'ro' ? 'Informatii & Noutati' : 'Insights & Updates',
+    'subtitle' => $current_lang === 'ro'
+        ? 'Sfaturi, ghiduri si informatii din industrie pentru a te ajuta sa creezi evenimente de neuitat.'
+        : 'Tips, guides, and industry insights to help you create unforgettable events.',
+
+    // Search
+    'search_placeholder' => $current_lang === 'ro' ? 'Cauta articole...' : 'Search articles...',
+
+    // Categories
+    'all_posts' => $current_lang === 'ro' ? 'Toate articolele' : 'All Posts',
+
+    // Featured
+    'featured' => $current_lang === 'ro' ? 'Recomandat' : 'Featured',
+
+    // Reading time
+    'min_read' => $current_lang === 'ro' ? 'min lectura' : 'min read',
+
+    // Latest articles
+    'latest_articles' => $current_lang === 'ro' ? 'Ultimele articole' : 'Latest Articles',
+
+    // Empty state
+    'no_articles' => $current_lang === 'ro' ? 'Niciun articol inca' : 'No articles yet',
+    'check_back' => $current_lang === 'ro' ? 'Revino in curand pentru continut nou!' : 'Check back soon for new content!',
+
+    // Pagination
+    'previous' => $current_lang === 'ro' ? 'Inapoi' : 'Previous',
+    'next' => $current_lang === 'ro' ? 'Inainte' : 'Next',
+
+    // Newsletter
+    'newsletter_title' => $current_lang === 'ro' ? 'Fii la curent' : 'Stay in the Loop',
+    'newsletter_subtitle' => $current_lang === 'ro'
+        ? 'Primeste cele mai recente articole, actualizari de produs si informatii din industrie saptamanal.'
+        : 'Get the latest articles, product updates, and industry insights delivered to your inbox weekly.',
+    'email_placeholder' => $current_lang === 'ro' ? 'Introdu email-ul tau' : 'Enter your email',
+    'subscribe' => $current_lang === 'ro' ? 'Aboneaza-te' : 'Subscribe',
+    'no_spam' => $current_lang === 'ro' ? 'Fara spam, te poti dezabona oricand.' : 'No spam, unsubscribe anytime.',
+];
+
 // Get categories for filtering
 $categories = get_categories( array(
     'orderby'    => 'name',
@@ -96,13 +142,13 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
             <div class="text-center mb-12">
                 <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
                     <span>📚</span>
-                    <?php esc_html_e( 'Tixello Blog', 'tixello' ); ?>
+                    <?php echo esc_html( $t['badge'] ); ?>
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    <?php esc_html_e( 'Insights & Updates', 'tixello' ); ?>
+                    <?php echo esc_html( $t['title'] ); ?>
                 </h1>
                 <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto">
-                    <?php esc_html_e( 'Tips, guides, and industry insights to help you create unforgettable events.', 'tixello' ); ?>
+                    <?php echo esc_html( $t['subtitle'] ); ?>
                 </p>
             </div>
 
@@ -112,7 +158,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                     <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <input type="search" name="s" placeholder="<?php esc_attr_e( 'Search articles...', 'tixello' ); ?>" class="w-full pl-12 pr-4 py-3 rounded-xl bg-zinc-900/80 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 transition-all">
+                    <input type="search" name="s" placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>" class="w-full pl-12 pr-4 py-3 rounded-xl bg-zinc-900/80 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 transition-all">
                     <input type="hidden" name="post_type" value="post">
                 </form>
             </div>
@@ -124,7 +170,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
                 <a href="<?php echo esc_url( get_permalink() ); ?>" class="px-4 py-2 rounded-full <?php echo ! is_category() ? 'bg-violet-600 text-white' : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20'; ?> text-sm font-medium whitespace-nowrap transition-all">
-                    <?php esc_html_e( 'All Posts', 'tixello' ); ?>
+                    <?php echo esc_html( $t['all_posts'] ); ?>
                 </a>
                 <?php foreach ( $categories as $cat ) : ?>
                     <a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>" class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20 text-sm font-medium whitespace-nowrap transition-all">
@@ -162,7 +208,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                     </div>
                     <div>
                         <div class="flex items-center gap-3 mb-4">
-                            <span class="px-3 py-1 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-400 text-xs font-medium"><?php esc_html_e( 'Featured', 'tixello' ); ?></span>
+                            <span class="px-3 py-1 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-400 text-xs font-medium"><?php echo esc_html( $t['featured'] ); ?></span>
                             <?php if ( $featured_cat_name ) : ?>
                                 <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-xs font-medium"><?php echo esc_html( $featured_cat_name ); ?></span>
                             <?php endif; ?>
@@ -177,7 +223,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                             <img src="<?php echo esc_url( $featured_avatar ); ?>" alt="<?php echo esc_attr( $featured_author ); ?>" class="w-10 h-10 rounded-full object-cover">
                             <div>
                                 <p class="font-medium text-white"><?php echo esc_html( $featured_author ); ?></p>
-                                <p class="text-sm text-white/50"><?php echo esc_html( get_the_date( 'M j, Y', $featured->ID ) ); ?> · <?php echo esc_html( $reading_time ); ?> <?php esc_html_e( 'min read', 'tixello' ); ?></p>
+                                <p class="text-sm text-white/50"><?php echo esc_html( get_the_date( 'M j, Y', $featured->ID ) ); ?> · <?php echo esc_html( $reading_time ); ?> <?php echo esc_html( $t['min_read'] ); ?></p>
                             </div>
                         </div>
                     </div>
@@ -191,7 +237,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
     <section class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-white"><?php esc_html_e( 'Latest Articles', 'tixello' ); ?></h2>
+                <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['latest_articles'] ); ?></h2>
             </div>
 
             <?php if ( $blog_query->have_posts() ) : ?>
@@ -232,7 +278,7 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                             </p>
                             <div class="flex items-center justify-between text-sm">
                                 <span class="text-white/40"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></span>
-                                <span class="text-white/40"><?php echo esc_html( $reading_time ); ?> <?php esc_html_e( 'min read', 'tixello' ); ?></span>
+                                <span class="text-white/40"><?php echo esc_html( $reading_time ); ?> <?php echo esc_html( $t['min_read'] ); ?></span>
                             </div>
                         </div>
                     </article>
@@ -251,8 +297,8 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                     'format'    => '?paged=%#%',
                     'current'   => max( 1, $paged ),
                     'total'     => $blog_query->max_num_pages,
-                    'prev_text' => '&larr; ' . __( 'Previous', 'tixello' ),
-                    'next_text' => __( 'Next', 'tixello' ) . ' &rarr;',
+                    'prev_text' => '&larr; ' . esc_html( $t['previous'] ),
+                    'next_text' => esc_html( $t['next'] ) . ' &rarr;',
                     'type'      => 'list',
                     'before_page_number' => '',
                     'after_page_number'  => '',
@@ -268,8 +314,8 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-white mb-2"><?php esc_html_e( 'No articles yet', 'tixello' ); ?></h3>
-                <p class="text-white/50"><?php esc_html_e( 'Check back soon for new content!', 'tixello' ); ?></p>
+                <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['no_articles'] ); ?></h3>
+                <p class="text-white/50"><?php echo esc_html( $t['check_back'] ); ?></p>
             </div>
             <?php endif; wp_reset_postdata(); ?>
         </div>
@@ -284,10 +330,10 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
 
                 <div class="relative text-center max-w-2xl mx-auto">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
-                        <?php esc_html_e( 'Stay in the Loop', 'tixello' ); ?>
+                        <?php echo esc_html( $t['newsletter_title'] ); ?>
                     </h2>
                     <p class="text-white/60 mb-8">
-                        <?php esc_html_e( 'Get the latest articles, product updates, and industry insights delivered to your inbox weekly.', 'tixello' ); ?>
+                        <?php echo esc_html( $t['newsletter_subtitle'] ); ?>
                     </p>
 
                     <?php
@@ -297,14 +343,14 @@ function tixello_get_category_color( $cat_slug, $type = 'bg' ) {
                     else :
                     ?>
                     <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                        <input type="email" placeholder="<?php esc_attr_e( 'Enter your email', 'tixello' ); ?>" class="flex-1 px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
+                        <input type="email" placeholder="<?php echo esc_attr( $t['email_placeholder'] ); ?>" class="flex-1 px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all">
                         <button type="submit" class="px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 transition-colors whitespace-nowrap">
-                            <?php esc_html_e( 'Subscribe', 'tixello' ); ?>
+                            <?php echo esc_html( $t['subscribe'] ); ?>
                         </button>
                     </form>
                     <?php endif; ?>
 
-                    <p class="text-xs text-white/40 mt-4"><?php esc_html_e( 'No spam, unsubscribe anytime.', 'tixello' ); ?></p>
+                    <p class="text-xs text-white/40 mt-4"><?php echo esc_html( $t['no_spam'] ); ?></p>
                 </div>
             </div>
         </div>

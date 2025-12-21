@@ -1,7 +1,7 @@
 <?php
-/**
- * Template Name: Compare - amBilet
- */
+/*
+Template Name: Tixello vs amBilet
+*/
 
 // Include the comparisons data
 require_once get_template_directory() . '/comparewith/tixello-comparisons-data.php';

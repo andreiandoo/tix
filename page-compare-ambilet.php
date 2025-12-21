@@ -4,7 +4,7 @@ Template Name: Tixello vs amBilet
 */
 
 // Include the comparisons data
-require_once get_template_directory() . '/comparewith/tixello-comparisons-data.php';
+require_once get_template_directory() . '/tixello-comparisons-data.php';
 
 $lang = function_exists('pll_current_language') ? pll_current_language() : 'ro';
 $t = tixello_get_comparison_translations();

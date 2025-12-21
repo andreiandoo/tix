@@ -53,17 +53,17 @@ function tixello_get_comparisons_data() {
         ],
         'biletin' => [
             'slug' => 'biletin',
-            'name' => 'Biletin',
-            'icon_letter' => 'Bt',
-            'icon_bg' => 'bg-orange-500/20',
-            'icon_text' => 'text-orange-400',
+            'name' => 'Biletin.ro',
+            'icon_letter' => 'B',
+            'icon_bg' => 'bg-pink-500/20',
+            'icon_text' => 'text-pink-400',
             'tagline' => [
-                'ro' => 'Platformă ticketing',
-                'en' => 'Ticketing platform',
+                'ro' => '4-6% comision',
+                'en' => '4-6% commission',
             ],
             'description' => [
-                'ro' => 'Biletin oferă soluții de ticketing pentru evenimente.',
-                'en' => 'Biletin offers ticketing solutions for events.',
+                'ro' => 'Biletin.ro este o platformă de ticketing/marketplace care oferă panou de administrare pentru organizatori.',
+                'en' => 'Biletin.ro is a ticketing/marketplace platform that offers an admin panel for organizers.',
             ],
         ],
         'blt' => [

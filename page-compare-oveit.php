@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Tixello vs iTicket
+Template Name: Tixello vs Oveit
 */
 
 // Include the comparisons data
@@ -8,114 +8,114 @@ require_once get_template_directory() . '/tixello-comparisons-data.php';
 
 $lang = function_exists('pll_current_language') ? pll_current_language() : 'ro';
 $t = tixello_get_comparison_translations();
-$competitor = tixello_get_comparison_by_slug('iticket');
-$carousel_items = tixello_get_carousel_comparisons('iticket');
+$competitor = tixello_get_comparison_by_slug('oveit');
+$carousel_items = tixello_get_carousel_comparisons('oveit');
 
 // Competitor-specific content
 $competitor_content = [
     'ro' => [
-        'verdict_text' => 'iTicket.ro este un marketplace / platforma online care intermediaza vanzarea de bilete pentru evenimente; biletele sunt livrate ca PDF prin e-mail si in sectiunea "Biletele mele", iar responsabilitatea fata de participanti apartine organizatorilor care listeaza pe platforma.',
+        'verdict_text' => 'Oveit este o platformă de ticketing & plăți (inclusiv cashless NFC/RFID), cu opțiuni de plăți directe, NFT tickets și soluții pentru streaming/vânzări online. Are planuri pe abonament (ex. Pro <strong class="text-indigo-400">$199/lună</strong>) și, conform Knowledge Base, un comision <strong class="text-indigo-400">4%/vânzare</strong> pentru evenimente plătite sau peste 300 de participanți (în funcție de plan).',
         'verdict_points' => [
-            'Este prezentat ca <strong class="text-white/70">"platforma de ticketing online"</strong>; biletele se trimit in PDF pe e-mail dupa finalizarea comenzii si se regasesc in "Biletele mele".',
-            'iTicket <strong class="text-white/70">"intermediaza vanzarea"</strong>; organizatorii poarta raspunderea pentru evenimente.',
-            'Unele evenimente indica explicit <strong class="text-sky-400">"+ taxe"</strong> la pretul afisat catre client.',
-            'Politica de confidentialitate si datele de contact sunt publice (<strong class="text-white/70">iTicket Online SRL, Bucuresti</strong>).',
-            'Context regional: comunicare oficiala si in <strong class="text-white/70">Republica Moldova</strong> (lider local), cu prezenta declarata si in Romania.',
-            'Pe site <strong class="text-sky-400">nu sunt publicate</strong> procentele de comision pentru organizatori, payout direct sau SLA (verificat la 31 octombrie 2025).',
+            '<strong class="text-white/70">Ticketing & payments end-to-end</strong>, cu vânzări online, box office și parteneri; colectare de date la înregistrare.',
+            '<strong class="text-white/70">Plăți directe către organizatori</strong> (Stripe/PayPal, card, transfer bancar, chiar și crypto — „banii curg direct la ei").',
+            '<strong class="text-indigo-400">Cashless NFC/RFID</strong> (Oveit Pay), portofele digitale/wristband, top-up, rapoarte în timp real.',
+            '<strong class="text-indigo-400">NFT tickets</strong> și ecosistem Web3; <strong class="text-white/70">Streams.live</strong> pentru conținut plătit/streaming.',
+            '<strong class="text-white/70">Seat maps</strong> (ex. sport/arenă) și analytics în timp real.',
+            'Politici <strong class="text-white/70">GDPR</strong> publicate.',
         ],
-        'compare_1_tixello' => 'Incasezi <strong class="text-emerald-400">direct in contul tau</strong>; platesti doar cand vinzi; comision <strong class="text-emerald-400">1-3%</strong> (1% exclusiv / 2% non-exclusiv / 3% daca Tixello proceseaza tranzactiile). Poti include comisionul in pret sau il poti afisa peste — optimizezi conversia cum vrei.',
-        'compare_1_competitor' => 'Rol de intermediere; pe paginile publice <strong class="text-sky-400">nu sunt comunicate procente</strong> pentru organizatori si nici un payout model standard (decont / varsare). Aceste detalii se clarifica la nivel de contract, nu din start pe site.',
-        'compare_2_tixello' => '<strong class="text-emerald-400">Admin dedicat</strong> (nu-l imparti), GTM propriu, acces complet la date & analytics, export & integrari — instalare aproape plug & play pe serverul tau.',
-        'compare_2_competitor' => 'Marketplace cu cont de utilizator; politicile GDPR si datele de contact sunt publice, dar <strong class="text-sky-400">nu exista o pagina care sa detalieze un admin dedicat</strong> self-hosted sau drepturi extinse de date pentru organizator, in stil SaaS B2B self-service.',
-        'compare_3_tixello' => 'Facturare automata, <strong class="text-emerald-400">eFactura</strong>, documente fiscale & legale post-eveniment, multi-processor plati (fallback & routing), tracking avansat al surselor, chat live.',
-        'compare_3_competitor' => 'Comunicarea este orientata pe vanzarea de bilete si informatii pentru clienti. <strong class="text-sky-400">Nu sunt publice detalii despre eFactura</strong> sau automatizari fiscale pentru Romania; sarcina fiscala ramane in mare parte la organizator.',
-        'compare_4_tixello' => '<strong class="text-emerald-400">Harti de locuri</strong> cu blocari pe zone/randuri, tipuri multiple de bilete (early bird, pachete), emailing, coduri promo, segmente si rapoarte live pe conversie — toate in acelasi panou.',
-        'compare_4_competitor' => 'Livrare e-ticket PDF pe e-mail si in cont ("Biletele mele"); anumite evenimente afiseaza <strong class="text-sky-400">pret + taxe</strong>. Focus pe simplitatea vanzarii, cu mai putine detalii publice despre optimizarea conversiei la nivel de panou organizator.',
+        'compare_1_tixello' => 'Plătești doar când vinzi: <strong class="text-emerald-400">1-3%</strong> (1% exclusiv, 2% non-exclusiv, 3% dacă Tixello procesează tranzacțiile). Comisionul îl poți include în preț sau îl poți adăuga peste, în funcție de strategia ta de conversie. Fără abonament impus, fără fee-uri „invizibile" pe tranzacție.',
+        'compare_1_competitor' => 'Are planuri pe abonament (ex. Pro <strong class="text-indigo-400">$199/lună</strong>) și, conform Knowledge Base, <strong class="text-indigo-400">4% per vânzare</strong> pentru evenimente plătite sau peste 300 participanți (în funcție de plan). Dacă ești sensibil la fee-uri recurente sau la un % mai mare pe tranzacție, Tixello poate reduce semnificativ costul total de proprietate.',
+        'compare_2_tixello' => '<strong class="text-emerald-400">Payout direct</strong> în contul tău, nativ. Multi-processor plăți, fallback și routing, astfel încât să nu pierzi conversie la probleme izolate de procesator. Poți controla cum apare comisionul (inclus vs. peste) și poți testa rapid variantele.',
+        'compare_2_competitor' => 'Oferă <strong class="text-indigo-400">plăți directe către organizatori</strong> (Stripe/PayPal, card, transfer bancar, crypto) — „banii curg direct la ei". Cashflow-ul este, în principiu, direct, dar fără accent pe multi-processor & routing local.',
+        'compare_3_tixello' => 'Facturare automată, <strong class="text-emerald-400">eFactura</strong>, pachet de documente fiscale & legale post-eveniment — toate gândite pentru contextul fiscal local. Ideal când ai volum mare de vânzări și vrei să dormi liniștit.',
+        'compare_3_competitor' => 'Documentația publică pune accent pe <strong class="text-indigo-400">cashless/NFC, Web3/NFT și streaming</strong>; nu comunică explicit eFactura sau automatizări fiscale specializate pentru România.',
+        'compare_4_tixello' => '<strong class="text-emerald-400">Admin dedicat</strong> (nu îl împarți cu nimeni), GTM propriu, tracking de surse & atribuiri, email marketing din platformă, coduri promo, segmente, rapoarte live. Practic, ai un mini „growth stack" direct în soluția de ticketing.',
+        'compare_4_competitor' => 'Permite colectare de date și rapoarte, este GDPR-compliant, însă <strong class="text-indigo-400">nu comunică public</strong> un stack de marketing self-hosted (gen GTM propriu la nivel de tenant) similar Tixello.',
         'table' => [
-            'cost_tixello' => '1-3% (platesti doar cand vinzi; inclus in pret sau peste)',
-            'cost_competitor' => 'Nespecificat public pentru organizatori',
-            'cashflow_tixello' => 'Banii direct in contul tau; multi-processor, fallback',
-            'cashflow_competitor' => 'Intermediere; payout / decont necomunicat public',
-            'admin_tixello' => 'Admin dedicat pe tenant; GTM propriu; export',
-            'admin_competitor' => 'Marketplace; politici GDPR publice, fara admin self-hosted',
+            'cost_tixello' => '1-3% (fără abonament impus; plătești doar când vinzi)',
+            'cost_competitor' => 'Planuri abonament (ex. Pro $199/lună) + 4%/vânzare (KB)',
+            'cashflow_tixello' => 'Banii direct în contul tău; multi-processor, fallback & routing',
+            'cashflow_competitor' => 'Plăți directe (Stripe/PayPal/card/bank/crypto)',
+            'admin_tixello' => 'Admin dedicat pe serverul tău; GTM propriu',
+            'admin_competitor' => 'Colectare date & GDPR; fără GTM self-hosted public',
             'delivery_tixello' => 'e-ticket + wallet; rapoarte live, email & promo',
-            'delivery_competitor' => 'E-ticket PDF; preturi la unele evenimente cu "+ taxe"',
-            'fiscal_tixello' => 'Facturi + eFactura, documente post-eveniment',
-            'fiscal_competitor' => 'Necomunicat public (eFactura / automatizari fiscale)',
-            'refund_tixello' => 'Flexibila; integrata in dashboard',
-            'refund_competitor' => 'Necomunicat public',
+            'delivery_competitor' => 'Seat maps (sport/arenă); analytics în timp real',
+            'fiscal_tixello' => 'Facturi + eFactura, documente fiscale/legale automat',
+            'fiscal_competitor' => 'Accent pe cashless/NFC & Web3; eFactura necomunicată',
+            'refund_tixello' => 'Flexibilă; integrată în dashboard',
+            'refund_competitor' => 'Nedocumentat public',
             'sla_tixello' => '99.99% · ~300ms',
-            'sla_competitor' => 'Necomunicat public',
+            'sla_competitor' => 'Nespecificat public',
         ],
         'faq' => [
             [
-                'q' => 'iTicket imi vireaza banii direct in cont?',
-                'a' => 'Pe paginile publice iTicket nu descrie un payout model standard; mentioneaza rolul de intermediere si responsabilitatea organizatorilor pentru evenimente. La Tixello, payout-ul este gandit din start ca bani direct in contul tau.',
+                'q' => 'Oveit și Tixello plătesc direct în contul meu?',
+                'a' => 'Da. Oveit comunică direct payments (Stripe/PayPal/card/bank/crypto). Tixello pornește implicit cu payout direct în contul tău și adaugă multi-processor & routing pentru mai multă stabilitate în conversie.',
             ],
             [
-                'q' => 'Publica iTicket comisioanele pentru organizatori?',
-                'a' => 'Nu am identificat procente publice pentru comisionul organizatorilor pe iticket.ro. La Tixello, comisionul este transparent: 1-3%, astfel incat poti evalua rapid costul total al schimbarii.',
+                'q' => 'Există abonament lunar la Tixello?',
+                'a' => 'Nu impunem abonament. Modelul Tixello este 1-3% (plătești doar când vinzi). La Oveit, există planuri cu abonament (ex. $199/lună) și, conform Knowledge Base, în anumite condiții 4% per vânzare.',
             ],
             [
-                'q' => 'Cum primesc biletul pe iTicket comparativ cu Tixello?',
-                'a' => 'Pe iTicket, biletul se livreaza PDF pe e-mail si apare in "Biletele mele". In Tixello, poti livra e-ticket customizat, cu brandingul tau, plus alte formate sau canale, in functie de setup-ul tau.',
+                'q' => 'Care platformă mă ajută mai mult la fiscalitate în România?',
+                'a' => 'Tixello: facturi + eFactura, documente post-eveniment generate automat. Oveit pune accent pe cashless/NFC și Web3 (NFT, Streams.live) și nu detaliază public automatizări fiscale pentru România.',
             ],
             [
-                'q' => 'Aveti automatizari fiscale (eFactura) in Tixello?',
-                'a' => 'Da. Tixello automatizeaza facturarea, eFactura si documentele post-eveniment. Pe iTicket, nu am gasit mentiuni publice despre eFactura sau automatizari fiscale pentru Romania (conform verificarilor la 31 octombrie 2025).',
+                'q' => 'Am nevoie de cashless la festival. Ce aleg?',
+                'a' => 'Dacă vrei NFC/RFID „la cheie", Oveit are un pachet matur (Oveit Pay). Dacă prioritatea ta este cashflow direct, cost total mic și automatizări fiscale locale, Tixello este construit exact pentru asta. Poți combina strategii: Tixello ca platformă principală + soluții cashless dedicate acolo unde ai nevoie.',
             ],
         ],
     ],
     'en' => [
-        'verdict_text' => 'iTicket.ro is a marketplace / online platform that intermediates ticket sales for events; tickets are delivered as PDF via email and in the "My Tickets" section, and the responsibility towards participants belongs to the organizers who list on the platform.',
+        'verdict_text' => 'Oveit is a ticketing & payments platform (including cashless NFC/RFID), with direct payment options, NFT tickets and streaming/online sales solutions. It has subscription plans (e.g. Pro <strong class="text-indigo-400">$199/month</strong>) and, according to Knowledge Base, a <strong class="text-indigo-400">4%/sale</strong> commission for paid events or over 300 attendees (depending on plan).',
         'verdict_points' => [
-            'It is presented as an <strong class="text-white/70">"online ticketing platform"</strong>; tickets are sent as PDF via email after order completion and can be found in "My Tickets".',
-            'iTicket <strong class="text-white/70">"intermediates the sale"</strong>; organizers bear the responsibility for events.',
-            'Some events explicitly indicate <strong class="text-sky-400">"+ taxes"</strong> on the price displayed to the customer.',
-            'Privacy policy and contact details are public (<strong class="text-white/70">iTicket Online SRL, Bucharest</strong>).',
-            'Regional context: official communication also in <strong class="text-white/70">Republic of Moldova</strong> (local leader), with declared presence in Romania.',
-            'On the site <strong class="text-sky-400">commission percentages are not published</strong> for organizers, direct payout or SLA (verified on October 31, 2025).',
+            '<strong class="text-white/70">End-to-end ticketing & payments</strong>, with online sales, box office and partners; data collection at registration.',
+            '<strong class="text-white/70">Direct payments to organizers</strong> (Stripe/PayPal, card, bank transfer, even crypto — "money flows directly to them").',
+            '<strong class="text-indigo-400">Cashless NFC/RFID</strong> (Oveit Pay), digital wallets/wristbands, top-up, real-time reports.',
+            '<strong class="text-indigo-400">NFT tickets</strong> and Web3 ecosystem; <strong class="text-white/70">Streams.live</strong> for paid content/streaming.',
+            '<strong class="text-white/70">Seat maps</strong> (e.g. sports/arena) and real-time analytics.',
+            '<strong class="text-white/70">GDPR</strong> policies published.',
         ],
-        'compare_1_tixello' => 'You collect <strong class="text-emerald-400">directly in your account</strong>; you pay only when you sell; commission <strong class="text-emerald-400">1-3%</strong> (1% exclusive / 2% non-exclusive / 3% when Tixello processes transactions). You can include the commission in the price or display it on top — optimize conversion as you want.',
-        'compare_1_competitor' => 'Intermediation role; on public pages <strong class="text-sky-400">percentages are not communicated</strong> for organizers nor a standard payout model (settlement / transfer). These details are clarified at contract level, not upfront on the site.',
-        'compare_2_tixello' => '<strong class="text-emerald-400">Dedicated admin</strong> (not shared), own GTM, full access to data & analytics, export & integrations — almost plug & play installation on your server.',
-        'compare_2_competitor' => 'Marketplace with user account; GDPR policies and contact details are public, but <strong class="text-sky-400">there is no page detailing a dedicated admin</strong> self-hosted or extended data rights for organizers, in SaaS B2B self-service style.',
-        'compare_3_tixello' => 'Automatic invoicing, <strong class="text-emerald-400">e-invoicing</strong>, fiscal & legal documents post-event, multi-processor payments (fallback & routing), advanced source tracking, live chat.',
-        'compare_3_competitor' => 'Communication is oriented towards ticket sales and customer information. <strong class="text-sky-400">No public details about e-invoicing</strong> or fiscal automations for Romania; the fiscal burden largely remains with the organizer.',
-        'compare_4_tixello' => '<strong class="text-emerald-400">Seat maps</strong> with zone/row blocking, multiple ticket types (early bird, packages), emailing, promo codes, segments and live conversion reports — all in the same panel.',
-        'compare_4_competitor' => 'E-ticket PDF delivery via email and in account ("My Tickets"); some events display <strong class="text-sky-400">price + taxes</strong>. Focus on sales simplicity, with fewer public details about conversion optimization at organizer panel level.',
+        'compare_1_tixello' => 'You pay only when you sell: <strong class="text-emerald-400">1-3%</strong> (1% exclusive, 2% non-exclusive, 3% if Tixello processes transactions). You can include the commission in the price or add it on top, depending on your conversion strategy. No mandatory subscription, no "invisible" transaction fees.',
+        'compare_1_competitor' => 'Has subscription plans (e.g. Pro <strong class="text-indigo-400">$199/month</strong>) and, according to Knowledge Base, <strong class="text-indigo-400">4% per sale</strong> for paid events or over 300 attendees (depending on plan). If you are sensitive to recurring fees or a higher % per transaction, Tixello can significantly reduce total cost of ownership.',
+        'compare_2_tixello' => '<strong class="text-emerald-400">Direct payout</strong> to your account, natively. Multi-processor payments, fallback and routing, so you don\'t lose conversion on isolated processor issues. You can control how the commission appears (included vs. on top) and quickly test variants.',
+        'compare_2_competitor' => 'Offers <strong class="text-indigo-400">direct payments to organizers</strong> (Stripe/PayPal, card, bank transfer, crypto) — "money flows directly to them". Cashflow is, in principle, direct, but without emphasis on multi-processor & local routing.',
+        'compare_3_tixello' => 'Automatic invoicing, <strong class="text-emerald-400">e-invoicing</strong>, fiscal & legal documents package post-event — all designed for the local fiscal context. Ideal when you have high sales volume and want peace of mind.',
+        'compare_3_competitor' => 'Public documentation emphasizes <strong class="text-indigo-400">cashless/NFC, Web3/NFT and streaming</strong>; does not explicitly communicate e-invoicing or specialized fiscal automations for Romania.',
+        'compare_4_tixello' => '<strong class="text-emerald-400">Dedicated admin</strong> (you don\'t share it with anyone), own GTM, source & attribution tracking, email marketing from platform, promo codes, segments, live reports. Essentially, you have a mini "growth stack" directly in the ticketing solution.',
+        'compare_4_competitor' => 'Allows data collection and reports, is GDPR-compliant, but <strong class="text-indigo-400">does not publicly communicate</strong> a self-hosted marketing stack (like own GTM at tenant level) similar to Tixello.',
         'table' => [
-            'cost_tixello' => '1-3% (pay only when you sell; included or on top)',
-            'cost_competitor' => 'Not publicly specified for organizers',
-            'cashflow_tixello' => 'Money directly to your account; multi-processor, fallback',
-            'cashflow_competitor' => 'Intermediation; payout / settlement not publicly communicated',
-            'admin_tixello' => 'Dedicated admin per tenant; own GTM; export',
-            'admin_competitor' => 'Marketplace; public GDPR policies, no self-hosted admin',
+            'cost_tixello' => '1-3% (no mandatory subscription; pay only when you sell)',
+            'cost_competitor' => 'Subscription plans (e.g. Pro $199/month) + 4%/sale (KB)',
+            'cashflow_tixello' => 'Money directly to your account; multi-processor, fallback & routing',
+            'cashflow_competitor' => 'Direct payments (Stripe/PayPal/card/bank/crypto)',
+            'admin_tixello' => 'Dedicated admin on your server; own GTM',
+            'admin_competitor' => 'Data collection & GDPR; no public self-hosted GTM',
             'delivery_tixello' => 'e-ticket + wallet; live reports, email & promo',
-            'delivery_competitor' => 'E-ticket PDF; prices at some events with "+ taxes"',
-            'fiscal_tixello' => 'Invoices + e-invoicing, post-event documents',
-            'fiscal_competitor' => 'Not publicly communicated (e-invoicing / fiscal automations)',
+            'delivery_competitor' => 'Seat maps (sports/arena); real-time analytics',
+            'fiscal_tixello' => 'Invoices + e-invoicing, fiscal/legal documents auto',
+            'fiscal_competitor' => 'Focus on cashless/NFC & Web3; e-invoicing not communicated',
             'refund_tixello' => 'Flexible; integrated in dashboard',
-            'refund_competitor' => 'Not publicly communicated',
+            'refund_competitor' => 'Not publicly documented',
             'sla_tixello' => '99.99% · ~300ms',
-            'sla_competitor' => 'Not publicly communicated',
+            'sla_competitor' => 'Not publicly specified',
         ],
         'faq' => [
             [
-                'q' => 'Does iTicket transfer money directly to my account?',
-                'a' => 'On public pages, iTicket does not describe a standard payout model; it mentions the intermediation role and organizers\' responsibility for events. At Tixello, payout is designed from the start as money directly to your account.',
+                'q' => 'Do Oveit and Tixello pay directly to my account?',
+                'a' => 'Yes. Oveit communicates direct payments (Stripe/PayPal/card/bank/crypto). Tixello starts by default with direct payout to your account and adds multi-processor & routing for more conversion stability.',
             ],
             [
-                'q' => 'Does iTicket publish commissions for organizers?',
-                'a' => 'We did not identify public percentages for organizer commission on iticket.ro. At Tixello, the commission is transparent: 1-3%, so you can quickly evaluate the total cost of switching.',
+                'q' => 'Is there a monthly subscription at Tixello?',
+                'a' => 'We don\'t impose a subscription. The Tixello model is 1-3% (pay only when you sell). At Oveit, there are subscription plans (e.g. $199/month) and, according to Knowledge Base, in certain conditions 4% per sale.',
             ],
             [
-                'q' => 'How do I receive the ticket on iTicket compared to Tixello?',
-                'a' => 'On iTicket, the ticket is delivered as PDF via email and appears in "My Tickets". In Tixello, you can deliver customized e-tickets with your branding, plus other formats or channels, depending on your setup.',
+                'q' => 'Which platform helps me more with fiscal compliance in Romania?',
+                'a' => 'Tixello: invoices + e-invoicing, post-event documents generated automatically. Oveit focuses on cashless/NFC and Web3 (NFT, Streams.live) and does not publicly detail fiscal automations for Romania.',
             ],
             [
-                'q' => 'Do you have fiscal automations (e-invoicing) in Tixello?',
-                'a' => 'Yes. Tixello automates invoicing, e-invoicing and post-event documents. On iTicket, we did not find public mentions about e-invoicing or fiscal automations for Romania (as of October 31, 2025 verification).',
+                'q' => 'I need cashless at festivals. What should I choose?',
+                'a' => 'If you want NFC/RFID "turnkey", Oveit has a mature package (Oveit Pay). If your priority is direct cashflow, low total cost and local fiscal automations, Tixello is built exactly for that. You can combine strategies: Tixello as main platform + dedicated cashless solutions where needed.',
             ],
         ],
     ],
@@ -135,7 +135,7 @@ get_header();
         <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);"></div>
         <div class="absolute w-20 h-20 rounded-full top-32 left-10 bg-violet-500/10 blur-2xl animate-float"></div>
         <div class="absolute w-32 h-32 rounded-full top-48 right-20 bg-cyan-500/10 blur-2xl animate-float-delayed"></div>
-        <div class="absolute w-24 h-24 rounded-full bottom-20 left-1/4 bg-sky-500/10 blur-2xl animate-float"></div>
+        <div class="absolute w-24 h-24 rounded-full bottom-20 left-1/4 bg-indigo-500/10 blur-2xl animate-float"></div>
 
         <div class="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
@@ -165,7 +165,7 @@ get_header();
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl <?php echo esc_attr($competitor['icon_bg']); ?> border border-sky-500/20 flex items-center justify-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl <?php echo esc_attr($competitor['icon_bg']); ?> border border-indigo-500/20 flex items-center justify-center">
                         <span class="<?php echo esc_attr($competitor['icon_text']); ?> font-black text-2xl sm:text-3xl"><?php echo esc_html($competitor['icon_letter']); ?></span>
                     </div>
                     <div class="text-left">
@@ -234,62 +234,60 @@ get_header();
                         <div class="space-y-3">
                             <div class="flex items-center gap-3">
                                 <svg class="flex-shrink-0 w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                                <span class="text-sm text-white/70">Tixello: 1-3% transparent</span>
+                                <span class="text-sm text-white/70">Tixello: 1-3%, <?php echo $lang === 'en' ? 'no subscription' : 'fără abonament'; ?></span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <svg class="flex-shrink-0 w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
-                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: <?php echo $lang === 'en' ? 'Not publicly specified' : 'Nespecificat public'; ?></span>
+                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: <?php echo $lang === 'en' ? 'Subscription + 4%/sale' : 'Abonament + 4%/vânzare'; ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Transparency Card -->
+                <!-- Fiscal Card -->
                 <div class="relative group">
                     <div class="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-violet-500/20 to-violet-600/5 rounded-2xl blur-xl group-hover:opacity-100"></div>
                     <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 transition-all duration-300">
                         <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-violet-500/10">
-                            <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
                         </div>
-                        <h3 class="mb-2 text-lg font-bold text-white"><?php echo $lang === 'en' ? 'Commission & payout transparency' : 'Transparenta comisioane & payout'; ?></h3>
+                        <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['card_fiscal']); ?></h3>
                         <p class="mb-4 text-sm text-white/50">Tixello vs <?php echo esc_html($competitor['name']); ?></p>
                         <div class="space-y-3">
                             <div class="flex items-center gap-3">
                                 <svg class="flex-shrink-0 w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                                <span class="text-sm text-white/70">Tixello: <?php echo $lang === 'en' ? 'Direct cashflow' : 'Cashflow direct'; ?></span>
+                                <span class="text-sm text-white/70">Tixello: <?php echo $lang === 'en' ? 'Invoices + auto eFactura' : 'Facturi + eFactura auto'; ?></span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <svg class="flex-shrink-0 w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
-                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: <?php echo $lang === 'en' ? 'Payout not communicated' : 'Payout necomunicat'; ?></span>
+                                <svg class="flex-shrink-0 w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: <?php echo $lang === 'en' ? 'Focus cashless/Web3' : 'Focus cashless/Web3'; ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Platform Card -->
+                <!-- Cashflow Card -->
                 <div class="relative group">
                     <div class="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-cyan-500/20 to-cyan-600/5 rounded-2xl blur-xl group-hover:opacity-100"></div>
                     <div class="relative p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/30 transition-all duration-300">
                         <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-cyan-500/10">
-                            <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
                         </div>
-                        <h3 class="mb-2 text-lg font-bold text-white"><?php echo $lang === 'en' ? 'Platform control & local fiscality' : 'Control platforma & fiscalitate locala'; ?></h3>
+                        <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['card_cashflow']); ?></h3>
                         <p class="mb-4 text-sm text-white/50">Tixello vs <?php echo esc_html($competitor['name']); ?></p>
                         <div class="space-y-3">
                             <div class="flex items-center gap-3">
                                 <svg class="flex-shrink-0 w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                                <span class="text-sm text-white/70">Tixello: <?php echo $lang === 'en' ? 'Dedicated admin, eFactura' : 'Admin dedicat, eFactura'; ?></span>
+                                <span class="text-sm text-white/70">Tixello: <?php echo $lang === 'en' ? 'Multi-processor, routing' : 'Multi-processor, routing'; ?></span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <svg class="flex-shrink-0 w-5 h-5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: Marketplace</span>
+                                <svg class="flex-shrink-0 w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-sm text-white/70"><?php echo esc_html($competitor['name']); ?>: <?php echo $lang === 'en' ? 'Direct payments (Stripe)' : 'Direct payments (Stripe)'; ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <p class="mt-8 text-xs text-center text-white/30">* <?php echo $lang === 'en' ? 'Values are indicative and reflect the difference in approach: Tixello prioritizes direct cashflow, clear commission and automatic fiscality; iTicket is oriented on marketplace and intermediation.' : 'Valorile sunt orientative si reflecta diferenta de abordare: Tixello prioritizeaza cashflow direct, comision clar si fiscalitate automata; iTicket este orientat pe marketplace si intermediere.'; ?></p>
         </div>
     </section>
 
@@ -297,7 +295,7 @@ get_header();
     <section class="relative py-16 border-t bg-zinc-950 border-white/5">
         <div class="max-w-4xl px-4 mx-auto text-center sm:px-6 lg:px-8">
             <h2 class="mb-4 text-2xl font-bold text-white sm:text-3xl"><?php echo esc_html($t['demo_title']); ?></h2>
-            <p class="max-w-2xl mx-auto mb-8 text-white/50"><?php echo $lang === 'en' ? 'In a live demo we compare the costs and cashflow of Tixello vs. a marketplace like iTicket, on real scenarios: festival, venue or tour.' : 'Intr-un demo live comparam costurile si cashflow-ul Tixello vs. un marketplace de tip iTicket, pe scenarii reale: festival, venue sau turneu.'; ?></p>
+            <p class="max-w-2xl mx-auto mb-8 text-white/50"><?php echo esc_html($t['demo_desc']); ?></p>
             <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="#demo" class="px-8 py-4 font-semibold text-white transition-all shadow-lg rounded-xl bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 shadow-violet-500/30"><?php echo esc_html($t['cta_demo']); ?></a>
                 <a href="#contact" class="px-8 py-4 font-semibold text-white transition-all border rounded-xl border-white/20 hover:bg-white/5"><?php echo esc_html($t['cta_offer']); ?></a>
@@ -326,25 +324,23 @@ get_header();
                             <span class="<?php echo esc_attr($competitor['icon_text']); ?> font-bold text-xl"><?php echo esc_html($competitor['icon_letter']); ?></span>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-white"><?php echo esc_html($competitor['name']); ?> <?php echo $lang === 'en' ? 'in brief (factual)' : 'pe scurt (factual)'; ?></h3>
+                            <h3 class="text-xl font-bold text-white"><?php echo $lang === 'en' ? 'What is Oveit (briefly, factual)' : 'Ce este Oveit (pe scurt, factual)'; ?></h3>
                             <p class="text-sm text-white/40"><?php echo esc_html($t['verdict_competitor_subtitle']); ?></p>
                         </div>
                     </div>
 
                     <p class="mb-6 leading-relaxed text-white/60"><?php echo $content['verdict_text']; ?></p>
 
-                    <p class="mb-6 text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'On public pages, commission percentages for organizers, payout model to organizers or an SLA are not communicated.' : 'Pe paginile publice nu sunt comunicate procente de comision pentru organizatori, modelul de payout catre organizatori sau un SLA.'; ?></p>
-
                     <div class="space-y-4">
                         <?php foreach ($content['verdict_points'] as $point) : ?>
                         <div class="flex items-start gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 flex-shrink-0"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
                             <p class="text-sm text-white/50"><?php echo $point; ?></p>
                         </div>
                         <?php endforeach; ?>
                     </div>
 
-                    <p class="mt-6 text-xs text-white/30"><?php echo $lang === 'en' ? 'Information extracted from iticket.ro pages (Terms & conditions, Privacy, Contact and event pages) consulted on October 31, 2025.' : 'Informatii extrase din paginile iticket.ro (Termeni & conditii, Privacy, Contact si pagini de eveniment) consultate la 31 octombrie 2025.'; ?></p>
+                    <p class="mt-6 text-xs text-white/30"><?php echo $lang === 'en' ? 'Analysis based on public Oveit information (website, Knowledge Base, interviews).' : 'Analiză bazată pe informații publice Oveit (site, Knowledge Base, interviuri).'; ?></p>
                 </div>
 
                 <!-- Tixello -->
@@ -354,15 +350,15 @@ get_header();
                             <span class="text-xl font-bold text-white">T</span>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-white"><?php echo esc_html($t['verdict_tixello_title']); ?></h3>
-                            <p class="text-sm text-emerald-400"><?php echo esc_html($t['verdict_tixello_subtitle']); ?></p>
+                            <h3 class="text-xl font-bold text-white"><?php echo $lang === 'en' ? 'Tixello in brief' : 'Tixello pe scurt'; ?></h3>
+                            <p class="text-sm text-emerald-400"><?php echo $lang === 'en' ? 'Focus on cost & local fiscal' : 'Focus pe cost & fiscalitate locală'; ?></p>
                         </div>
                     </div>
 
                     <p class="mb-6 leading-relaxed text-white/70">
                         <?php echo $lang === 'en'
-                            ? 'Tixello is a B2B solution for organizers: direct cashflow, 1-3% commission, dedicated admin, automatic invoicing + e-invoicing, multi-processor payments, advanced tracking and live support.'
-                            : 'Tixello este o solutie B2B pentru organizatori: cashflow direct, comision 1-3%, admin dedicat, facturare automata + eFactura, multi-processor plati, tracking avansat si suport live.'; ?>
+                            ? 'Tixello focuses on direct cashflow to organizer, 1-3% commission (no mandatory fixed costs), automatic fiscal compliance for the local market (invoices + e-invoicing), multi-processor payments, advanced tracking and dedicated admin installed on your server.'
+                            : 'Tixello pune accent pe cashflow-ul direct la organizator, comision 1-3% (fără costuri fixe impuse), fiscalitate automată pentru piața locală (facturi + eFactura), multi-processor plăți, tracking avansat și admin dedicat instalat pe serverul tău.'; ?>
                     </p>
 
                     <div class="space-y-4">
@@ -415,7 +411,7 @@ get_header();
                 <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
                     <?php echo esc_html($t['detailed_title']); ?> <span class="text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text"><?php echo esc_html($t['detailed_title_gradient']); ?></span>
                 </h2>
-                <p class="max-w-3xl mx-auto text-white/50"><?php echo $lang === 'en' ? 'iTicket offers you access to a marketplace. Tixello moves the center of gravity to you: direct cashflow, low commission and automatic fiscality, which you can rely on in budgets and reports.' : 'iTicket iti ofera acces la marketplace. Tixello muta centrul de gravitatie la tine: cashflow direct, comision mic si fiscalitate automata, pe care te poti baza in bugete si rapoarte.'; ?></p>
+                <p class="max-w-3xl mx-auto text-white/50"><?php echo $lang === 'en' ? 'Oveit excels in cashless/NFC and Web3 components. Tixello focuses on low total cost, automatic fiscal compliance and end-to-end control for organizers in the local market.' : 'Oveit excelează pe componente de cashless/NFC și Web3. Tixello se concentrează pe cost total mic, fiscalitate automată și control end-to-end pentru organizatorii din piața locală.'; ?></p>
             </div>
 
             <!-- Comparison Items -->
@@ -439,11 +435,10 @@ get_header();
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_1_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_1_tixello']; ?></p>
-                        <p class="mb-4 text-sm text-white/50"><?php echo $lang === 'en' ? 'You know from the first moment how much you lose on commissions and how much you keep in the organization.' : 'Stii din prima clipa cat pierzi pe comisioane si cat pastrezi in organizatie.'; ?></p>
                         <div class="flex flex-wrap gap-2">
                             <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">1-3% <?php echo $lang === 'en' ? 'commission' : 'comision'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Direct cashflow' : 'Cashflow direct'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Transparent</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'No subscription' : 'Fără abonament'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Transparent' : 'Transparent'; ?></span>
                         </div>
                     </div>
 
@@ -458,13 +453,13 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_1_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_1_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Intermediation' : 'Intermediere'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Payout not specified' : 'Payout nespecificat'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">$199/<?php echo $lang === 'en' ? 'month' : 'lună'; ?> Pro</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">4%/<?php echo $lang === 'en' ? 'sale' : 'vânzare'; ?></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 2: Controlul platformei -->
+                <!-- Item 2: Cashflow & plăți -->
                 <div class="grid items-stretch gap-6 lg:grid-cols-2">
                     <div class="relative p-6 transition-all border sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 group hover:border-emerald-500/40">
                         <div class="absolute top-4 right-4">
@@ -481,11 +476,10 @@ get_header();
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_2_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_2_tixello']; ?></p>
-                        <p class="mb-4 text-sm text-white/50"><?php echo $lang === 'en' ? 'You are not a "user" in a marketplace, you are the owner of your own platform instance.' : 'Nu esti un "user" intr-un marketplace, esti proprietarul propriei instante de platforma.'; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Dedicated admin' : 'Admin dedicat'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Own GTM' : 'GTM propriu'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Self-hosted</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Direct payout' : 'Payout direct'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Multi-processor</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Fallback</span>
                         </div>
                     </div>
 
@@ -499,13 +493,14 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_2_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_2_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">Marketplace</span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'User account' : 'Cont utilizator'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">Direct payments</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">Stripe/PayPal</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">Crypto</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 3: Fiscalitate & operational -->
+                <!-- Item 3: Fiscalitate & operațional -->
                 <div class="grid items-stretch gap-6 lg:grid-cols-2">
                     <div class="relative p-6 transition-all border sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 group hover:border-emerald-500/40">
                         <div class="absolute top-4 right-4">
@@ -522,11 +517,10 @@ get_header();
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_3_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_3_tixello']; ?></p>
-                        <p class="mb-4 text-sm text-white/50"><?php echo $lang === 'en' ? 'Instead of rebuilding the same reports at each edition, you have them ready from the platform.' : 'In loc sa reconstruiesti aceleasi rapoarte la fiecare editie, le ai gata din platforma.'; ?></p>
                         <div class="flex flex-wrap gap-2">
                             <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">eFactura</span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Multi-processor</span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Chat live</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Local fiscal' : 'Fiscalitate locală'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Automatic' : 'Automat'; ?></span>
                         </div>
                     </div>
 
@@ -540,13 +534,13 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_3_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_3_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Sales oriented' : 'Orientat vanzari'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'eFactura not communicated' : 'eFactura necomunicata'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Global focus' : 'Focus global'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">Web3/NFC</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 4: UX & conversie -->
+                <!-- Item 4: Date & marketing -->
                 <div class="grid items-stretch gap-6 lg:grid-cols-2">
                     <div class="relative p-6 transition-all border sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 group hover:border-emerald-500/40">
                         <div class="absolute top-4 right-4">
@@ -564,9 +558,9 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_4_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_4_tixello']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Seat maps</span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Promo codes' : 'Coduri promo'; ?></span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Live reports' : 'Rapoarte live'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"><?php echo $lang === 'en' ? 'Own GTM' : 'GTM propriu'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Email marketing</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400">Tracking</span>
                         </div>
                     </div>
 
@@ -580,8 +574,8 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_4_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_4_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">E-ticket PDF</span>
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">+ <?php echo $lang === 'en' ? 'taxes' : 'taxe'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40">GDPR</span>
+                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Reports' : 'Rapoarte'; ?></span>
                         </div>
                     </div>
                 </div>
@@ -606,57 +600,48 @@ get_header();
                     <span class="text-sm font-medium text-emerald-400"><?php echo esc_html($t['benefits_badge']); ?></span>
                 </div>
                 <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl"><?php echo esc_html($t['benefits_title']); ?></h2>
-                <p class="max-w-2xl mx-auto text-white/50"><?php echo $lang === 'en' ? 'From costs to cashflow and fiscality, Tixello is built to reduce friction, not just issue tickets.' : 'De la costuri la cashflow si fiscalitate, Tixello este construit sa reduca frictiunea, nu doar sa emita bilete.'; ?></p>
             </div>
 
-            <div class="grid max-w-4xl gap-6 mx-auto sm:grid-cols-2">
+            <div class="grid max-w-5xl gap-6 mx-auto sm:grid-cols-2 lg:grid-cols-3">
 
                 <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10">
-                            <span class="font-bold text-emerald-400">1</span>
-                        </div>
-                        <div>
-                            <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_1_title']); ?></h3>
-                            <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'Choose 1-3%, no imposed subscriptions. Decide how to display the commission (included vs. on top) and you can very clearly align your pricing policy with your communication strategy.' : 'Alegi 1-3%, fara abonamente impuse. Decizi cum afisezi comisionul (inclus vs. peste) si poti alinia foarte clar politica de pret cu strategia ta de comunicare.'; ?></p>
-                        </div>
+                    <div class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-emerald-500/10">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
+                    <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_1_title']); ?></h3>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['benefit_1_desc']); ?></p>
                 </div>
 
                 <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10">
-                            <span class="font-bold text-emerald-400">2</span>
-                        </div>
-                        <div>
-                            <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_2_title']); ?></h3>
-                            <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'See exactly where sales come from, optimize marketing budgets and reduce ad losses. Segments, promo codes and live reports - all in one place.' : 'Vezi exact de unde vin vanzarile, optimizezi bugetele de marketing si scazi pierderile din ads. Segmente, coduri promo si rapoarte live - toate in acelasi loc.'; ?></p>
-                        </div>
+                    <div class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-emerald-500/10">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
                     </div>
+                    <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_2_title']); ?></h3>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['benefit_2_desc']); ?></p>
                 </div>
 
                 <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10">
-                            <span class="font-bold text-emerald-400">3</span>
-                        </div>
-                        <div>
-                            <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_3_title']); ?></h3>
-                            <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'No waiting for transfer cycles; money goes directly to your account. Invoices, eFactura and post-event documents are generated automatically, so the team can focus on audience experience.' : 'Nu astepti cicluri de virare; banii ajung direct in contul tau. Facturi, eFactura si documente post-eveniment se genereaza automat, astfel incat echipa se poate concentra pe experienta publicului.'; ?></p>
-                        </div>
+                    <div class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-emerald-500/10">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
                     </div>
+                    <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_3_title']); ?></h3>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['benefit_3_desc']); ?></p>
                 </div>
 
                 <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all">
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10">
-                            <span class="font-bold text-emerald-400">4</span>
-                        </div>
-                        <div>
-                            <h3 class="mb-2 text-lg font-bold text-white"><?php echo $lang === 'en' ? 'Scalable & secure for event series' : 'Scalabil & sigur pentru seriile de evenimente'; ?></h3>
-                            <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'SLA 99.99%, ~300ms response time, live reports, quick editing and real-time support - so you can grow the number of events without changing your ticketing infrastructure.' : 'SLA 99.99%, ~300ms timp de raspuns, rapoarte live, editare rapida si suport in timp real - astfel incat poti creste numarul de evenimente fara sa-ti schimbi infrastructura de ticketing.'; ?></p>
-                        </div>
+                    <div class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-emerald-500/10">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
                     </div>
+                    <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_4_title']); ?></h3>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['benefit_4_desc']); ?></p>
+                </div>
+
+                <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-emerald-500/10">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                    </div>
+                    <h3 class="mb-2 text-lg font-bold text-white"><?php echo esc_html($t['benefit_5_title']); ?></h3>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['benefit_5_desc']); ?></p>
                 </div>
 
             </div>
@@ -669,7 +654,6 @@ get_header();
 
             <div class="mb-12 text-center">
                 <h2 class="mb-3 text-2xl font-bold text-white sm:text-3xl"><?php echo esc_html($t['table_title']); ?> <?php echo esc_html($competitor['name']); ?></h2>
-                <p class="text-white/50"><?php echo $lang === 'en' ? 'Cost, cashflow, operation & fiscality' : 'Cost, cashflow, operare & fiscalitate'; ?></p>
             </div>
 
             <div class="rounded-2xl border border-white/10 overflow-hidden bg-white/[0.02]">
@@ -706,7 +690,7 @@ get_header();
                         <div class="p-4 text-sm text-center sm:p-5 text-white/50"><?php echo esc_html($content['table']['admin_competitor']); ?></div>
                     </div>
                     <div class="grid grid-cols-3 hover:bg-white/[0.02] transition-colors">
-                        <div class="p-4 text-sm border-r sm:p-5 text-white/70 border-white/5"><?php echo $lang === 'en' ? 'Seating & operation' : 'Seating & operare'; ?></div>
+                        <div class="p-4 text-sm border-r sm:p-5 text-white/70 border-white/5"><?php echo esc_html($t['table_delivery']); ?></div>
                         <div class="p-4 text-sm text-center border-r sm:p-5 text-emerald-400 border-white/5 bg-emerald-500/5"><?php echo esc_html($content['table']['delivery_tixello']); ?></div>
                         <div class="p-4 text-sm text-center sm:p-5 text-white/50"><?php echo esc_html($content['table']['delivery_competitor']); ?></div>
                     </div>
@@ -716,14 +700,17 @@ get_header();
                         <div class="p-4 text-sm text-center sm:p-5 text-white/50"><?php echo esc_html($content['table']['fiscal_competitor']); ?></div>
                     </div>
                     <div class="grid grid-cols-3 hover:bg-white/[0.02] transition-colors">
+                        <div class="p-4 text-sm border-r sm:p-5 text-white/70 border-white/5"><?php echo esc_html($t['table_refund']); ?></div>
+                        <div class="p-4 text-sm text-center border-r sm:p-5 text-emerald-400 border-white/5 bg-emerald-500/5"><?php echo esc_html($content['table']['refund_tixello']); ?></div>
+                        <div class="p-4 text-sm text-center sm:p-5 text-white/50"><?php echo esc_html($content['table']['refund_competitor']); ?></div>
+                    </div>
+                    <div class="grid grid-cols-3 hover:bg-white/[0.02] transition-colors">
                         <div class="p-4 text-sm border-r sm:p-5 text-white/70 border-white/5"><?php echo esc_html($t['table_sla']); ?></div>
                         <div class="p-4 text-sm text-center border-r sm:p-5 text-emerald-400 border-white/5 bg-emerald-500/5"><?php echo esc_html($content['table']['sla_tixello']); ?></div>
                         <div class="p-4 text-sm text-center sm:p-5 text-white/50"><?php echo esc_html($content['table']['sla_competitor']); ?></div>
                     </div>
                 </div>
             </div>
-
-            <p class="mt-6 text-xs text-center text-white/30"><?php echo $lang === 'en' ? 'Quotes: Terms & conditions (platform, e-ticket PDF, intermediation & organizer responsibility), Privacy/Contact (iTicket Online SRL), event pages with "+ taxes" - according to iticket.ro (verified on October 31, 2025).' : 'Citate: Termeni & conditii (platforma, e-ticket PDF, intermediere & responsabilitatea organizatorilor), Privacy/Contact (iTicket Online SRL), pagini de eveniment cu "+ taxe" - conform iticket.ro (verificat la 31 octombrie 2025).'; ?></p>
         </div>
     </section>
 
@@ -813,7 +800,7 @@ get_header();
                 <span class="block text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text"><?php echo esc_html($t['final_title_gradient']); ?></span>
             </h2>
 
-            <p class="max-w-2xl mx-auto mb-10 text-lg sm:text-xl text-white/50"><?php echo $lang === 'en' ? 'Schedule a demo - we show you how Tixello shortens the path from announcement to sold-out and what it means, concretely, to move from an intermediation model to direct cashflow, on your real events.' : 'Programeaza un demo - iti aratam cum Tixello scurteaza drumul de la anunt la sold-out si ce inseamna, concret, sa treci de la un model de intermediere la cashflow direct, pe evenimentele tale reale.'; ?></p>
+            <p class="max-w-2xl mx-auto mb-10 text-lg sm:text-xl text-white/50"><?php echo esc_html($t['final_desc']); ?></p>
 
             <div class="flex flex-col items-center justify-center gap-4 mb-12 sm:flex-row">
                 <a href="<?php echo home_url('/demo'); ?>" class="relative inline-flex items-center justify-center w-full gap-3 px-8 py-5 overflow-hidden text-lg font-semibold text-white transition-all shadow-2xl group sm:w-auto rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-1">
@@ -839,18 +826,6 @@ get_header();
         </div>
     </section>
 
-    <!-- ==================== SECOND CTA ==================== -->
-    <section class="relative py-16 border-t bg-zinc-950 border-white/5">
-        <div class="max-w-4xl px-4 mx-auto text-center sm:px-6 lg:px-8">
-            <h2 class="mb-4 text-2xl font-bold text-white sm:text-3xl"><?php echo $lang === 'en' ? 'Want to see Tixello on a concrete example from your portfolio?' : 'Vrei sa vezi Tixello pe un exemplu concret din portofoliul tau?'; ?></h2>
-            <p class="max-w-2xl mx-auto mb-8 text-white/50"><?php echo $lang === 'en' ? 'Tell us some details about your events, and we prepare a personalized Tixello vs iTicket demo: cost simulation, cashflow and conversion impact, on real numbers.' : 'Spune-ne cateva detalii despre evenimentele tale, iar noi pregatim un demo personalizat Tixello vs iTicket: simulare de cost, cashflow si impact pe conversie, pe cifre reale.'; ?></p>
-            <a href="<?php echo home_url('/contact'); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all border rounded-xl border-white/20 hover:bg-white/5 hover:border-white/30">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                <span><?php echo $lang === 'en' ? 'Open contact form' : 'Deschide formularul de contact'; ?></span>
-            </a>
-        </div>
-    </section>
-
     <!-- ==================== TRANSPARENCY NOTE ==================== -->
     <section class="py-12 border-t bg-zinc-900/30 border-white/5">
         <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
@@ -858,7 +833,7 @@ get_header();
                 <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
                 <div>
                     <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
-                    <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'The iTicket analysis is based on public information consulted on October 31, 2025 (pages: Terms & conditions, Privacy, Contact, plus verifications on event pages with "+ taxes"). If you represent iTicket and want clarifications or updates, write to us - we update with pleasure.' : 'Analiza iTicket se bazeaza pe informatii publice consultate la 31 octombrie 2025 (pagini: Termeni & conditii, Privacy, Contact, plus verificari pe pagini de eveniment cu "+ taxe"). Daca reprezinti iTicket si doresti clarificari sau actualizari, scrie-ne - actualizam cu placere.'; ?></p>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo $lang === 'en' ? 'Analysis based on public Oveit information available on October 31, 2025 (website, Knowledge Base, interviews). Always check the latest plans and commercial conditions directly at the source, especially for subscriptions and transaction fees.' : 'Analiza se bazează pe informații publice Oveit disponibile la 31 octombrie 2025 (site, Knowledge Base, interviuri). Verifică mereu ultimele planuri și condiții comerciale direct la sursă, mai ales pentru abonamente și taxe pe tranzacție.'; ?></p>
                 </div>
             </div>
         </div>

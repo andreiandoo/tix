@@ -1,0 +1,439 @@
+<?php
+/*
+Template Name: Politica Date Client
+*/
+get_header();
+?>
+
+<main class="bg-zinc-950 text-zinc-300 antialiased">
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-violet-400 font-medium">Pentru cumpărători de bilete</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Politica de confidențialitate</h1>
+                </div>
+            </div>
+            <p class="text-lg text-white/60 max-w-2xl">
+                Acest document explică cum sunt procesate datele tale personale când achiziționezi bilete
+                prin site-uri alimentate de platforma Tixello.
+            </p>
+            <p class="text-sm text-white/40 mt-4">Versiune: 1.0 | Ultima actualizare: Decembrie 2025</p>
+        </div>
+    </header>
+
+    <!-- Important Notice -->
+    <div class="bg-violet-500/10 border-b border-violet-500/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+                </div>
+                <div>
+                    <h2 class="font-semibold text-white mb-2">Ce trebuie să știi</h2>
+                    <p class="text-white/70 text-sm leading-relaxed">
+                        Când cumperi un bilet de pe site-ul unui organizator de evenimente, datele tale sunt procesate atât de
+                        <strong class="text-white">Organizatorul evenimentului</strong> cât și de <strong class="text-white">Tixello</strong>
+                        ca furnizor al platformei de ticketing. <strong class="text-violet-400">Toate datele trec prin infrastructura Tixello</strong>,
+                        ceea ce înseamnă că avem acces tehnic la informațiile tale pentru a asigura funcționarea serviciului.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="prose prose-invert prose-zinc max-w-none">
+
+                <!-- Cine suntem -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">1</span>
+                        Cine procesează datele tale
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-6">
+                            Există doi actori principali implicați în procesarea datelor tale:
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                                        <span class="text-emerald-400 text-xs font-bold">O</span>
+                                    </div>
+                                    <h3 class="font-semibold text-white">Organizatorul</h3>
+                                </div>
+                                <p class="text-sm text-white/60 mb-3">Este <strong class="text-white">operatorul de date</strong> — decide ce date se colectează și în ce scop.</p>
+                                <p class="text-xs text-white/40">Datele de contact ale organizatorului sunt afișate pe pagina evenimentului.</p>
+                            </div>
+
+                            <div class="p-5 rounded-xl bg-white/[0.02] border border-violet-500/20">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">T</span>
+                                    </div>
+                                    <h3 class="font-semibold text-white">Tixello</h3>
+                                </div>
+                                <p class="text-sm text-white/60 mb-3">Este <strong class="text-white">împuternicitul</strong> — procesează datele în numele organizatorului și furnizează platforma.</p>
+                                <p class="text-xs text-white/40">Tixello S.R.L. | contact@tixello.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ce date colectăm -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">2</span>
+                        Ce date sunt colectate
+                    </h2>
+                    <div class="space-y-6">
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                                Date de identificare
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Nume și prenume</strong> — pentru emiterea biletului și validare la intrare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Adresa de email</strong> — pentru trimiterea biletului și comunicări despre eveniment</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Număr de telefon</strong> — dacă organizatorul îl solicită, pentru urgențe sau modificări</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Adresa</strong> — dacă organizatorul îl solicită, pentru facturare sau livrare fizică</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+                                Date de plată
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Referința tranzacției</strong> — pentru confirmarea plății și suport</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Ultimele 4 cifre ale cardului</strong> — pentru identificarea metodei de plată (opțional)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Suma și data plății</strong> — pentru evidențe contabile</span>
+                                </li>
+                            </ul>
+                            <div class="mt-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                                <p class="text-sm text-emerald-400">
+                                    <strong>Important:</strong> Datele complete ale cardului (număr, CVV) NU sunt stocate de Tixello sau de organizator.
+                                    Acestea sunt procesate direct de furnizorul de plăți (Stripe, PayU, Netopia, EuPlătesc).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
+                                Date despre achiziție
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Evenimentul și tipul biletului</strong> — ce ai cumpărat</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Data și ora achiziției</strong> — când ai cumpărat</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Codul QR al biletului</strong> — pentru validare la intrare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Statusul validării</strong> — dacă biletul a fost scanat/folosit</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                                Date tehnice
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Adresa IP</strong> — pentru securitate și detectarea fraudelor</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Tipul de browser și dispozitiv</strong> — pentru optimizarea experienței</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Paginile vizitate</strong> — pentru analytics și îmbunătățiri</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-violet-400 mt-1">•</span>
+                                    <span><strong class="text-white">Sursa traficului</strong> — de unde ai aflat de eveniment (UTM, referrer)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accesul Tixello -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">3</span>
+                        Accesul Tixello la datele tale
+                    </h2>
+                    <div class="p-6 rounded-2xl bg-violet-500/5 border border-violet-500/20">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white mb-2">Transparență completă</h3>
+                                <p class="text-white/70 leading-relaxed">
+                                    <strong class="text-white">Toate datele tale trec prin serverele Tixello.</strong>
+                                    Ca furnizor al platformei de ticketing, avem acces tehnic la toate informațiile procesate în sistem, inclusiv:
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Datele de identificare
+                            </div>
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Istoricul complet de achiziții
+                            </div>
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Comunicările prin platformă
+                            </div>
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Comportamentul pe site
+                            </div>
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Datele de plată (fără card complet)
+                            </div>
+                            <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 text-sm text-white/60">
+                                Statusul biletelor tale
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                            <h4 class="font-medium text-white mb-2">De ce avem acest acces?</h4>
+                            <ul class="space-y-2 text-sm text-white/60">
+                                <li>• Pentru a asigura funcționarea corectă a platformei</li>
+                                <li>• Pentru a oferi suport tehnic organizatorilor și, indirect, ție</li>
+                                <li>• Pentru detectarea și prevenirea fraudelor</li>
+                                <li>• Pentru îmbunătățirea serviciilor și remedierea erorilor</li>
+                                <li>• Pentru conformitate legală (eFactura, ANAF, autorități)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cât timp păstrăm datele -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">4</span>
+                        Cât timp păstrăm datele
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02]">
+                                <div class="w-16 text-center flex-shrink-0">
+                                    <span class="text-2xl font-bold text-violet-400">3 ani</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Date de identificare și achiziție</h4>
+                                    <p class="text-sm text-white/50">De la data evenimentului, pentru suport și eventuale dispute.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02]">
+                                <div class="w-16 text-center flex-shrink-0">
+                                    <span class="text-2xl font-bold text-violet-400">10 ani</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Date fiscale și de facturare</h4>
+                                    <p class="text-sm text-white/50">Conform legislației contabile și fiscale române.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02]">
+                                <div class="w-16 text-center flex-shrink-0">
+                                    <span class="text-2xl font-bold text-violet-400">90 zile</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Loguri tehnice și de securitate</h4>
+                                    <p class="text-sm text-white/50">Pentru detectarea incidentelor și debugging.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Drepturile tale -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">5</span>
+                        Drepturile tale
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-6">
+                            Conform GDPR, ai următoarele drepturi:
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul de acces</h4>
+                                <p class="text-sm text-white/50">Să afli ce date avem despre tine și să primești o copie.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul la rectificare</h4>
+                                <p class="text-sm text-white/50">Să corectezi datele incorecte sau incomplete.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul la ștergere</h4>
+                                <p class="text-sm text-white/50">Să ceri ștergerea datelor (cu excepțiile legale).</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul la restricționare</h4>
+                                <p class="text-sm text-white/50">Să limitezi procesarea în anumite situații.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul la portabilitate</h4>
+                                <p class="text-sm text-white/50">Să primești datele într-un format structurat.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Dreptul de opoziție</h4>
+                                <p class="text-sm text-white/50">Să te opui procesării în scop de marketing.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 rounded-xl bg-violet-500/10 border border-violet-500/20">
+                            <h4 class="font-medium text-white mb-2">Cum îți exerciți drepturile</h4>
+                            <p class="text-sm text-white/60 mb-3">
+                                Trimite o cerere la <a href="mailto:privacy@tixello.com" class="text-violet-400 hover:text-violet-300">privacy@tixello.com</a>
+                                sau contactează direct organizatorul evenimentului.
+                            </p>
+                            <p class="text-xs text-white/40">
+                                Răspundem în maximum 30 de zile. Pentru solicitări complexe, termenul poate fi extins cu încă 60 de zile, cu notificare.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Securitate -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">6</span>
+                        Securitatea datelor
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Implementăm măsuri tehnice și organizatorice pentru protejarea datelor:
+                        </p>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Criptare în tranzit și în repaus</strong> — SSL/TLS pentru toate conexiunile</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Acces bazat pe roluri</strong> — doar personalul autorizat are acces</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Backup-uri regulate</strong> — date protejate împotriva pierderii</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Monitorizare și alertare</strong> — detectarea incidentelor în timp real</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Centre de date în UE</strong> — datele nu părăsesc Uniunea Europeană</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Plângeri -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">7</span>
+                        Plângeri
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Dacă consideri că datele tale sunt procesate incorect, poți:
+                        </p>
+                        <ol class="space-y-3 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">1</span>
+                                <span>Să ne contactezi la <a href="mailto:privacy@tixello.com" class="text-violet-400 hover:text-violet-300">privacy@tixello.com</a> — încercăm să rezolvăm direct</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">2</span>
+                                <span>Să depui o plângere la <strong class="text-white">ANSPDCP</strong> (Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal)</span>
+                            </li>
+                        </ol>
+                        <div class="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <p class="text-sm text-white/50">
+                                <strong class="text-white">ANSPDCP</strong><br>
+                                B-dul G-ral. Gheorghe Magheru 28-30, București<br>
+                                <a href="https://www.dataprotection.ro" target="_blank" class="text-violet-400 hover:text-violet-300">www.dataprotection.ro</a>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section class="mb-16">
+                    <div class="p-6 rounded-2xl bg-violet-500/5 border border-violet-500/20">
+                        <h3 class="font-semibold text-white mb-4">Contact pentru protecția datelor</h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-white/70 mb-2"><strong class="text-white">Tixello S.R.L.</strong></p>
+                                <p class="text-sm text-white/50">Operator de platformă</p>
+                                <a href="mailto:privacy@tixello.com" class="text-violet-400 hover:text-violet-300 text-sm">privacy@tixello.com</a>
+                            </div>
+                            <div>
+                                <p class="text-sm text-white/70 mb-2"><strong class="text-white">Organizatorul evenimentului</strong></p>
+                                <p class="text-sm text-white/50">Operator de date pentru evenimentul tău</p>
+                                <p class="text-xs text-white/40 mt-1">Contactează-l direct — datele sunt pe pagina evenimentului.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<?php get_footer(); ?>

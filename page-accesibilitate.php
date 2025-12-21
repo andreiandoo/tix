@@ -1,0 +1,345 @@
+<?php
+/*
+Template Name: Accesibilitate
+*/
+get_header();
+?>
+
+<main class="bg-zinc-950 text-zinc-300 antialiased">
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-cyan-400 font-medium">Angajamentul nostru</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Accesibilitate</h1>
+                </div>
+            </div>
+            <p class="text-lg text-white/60 max-w-2xl">
+                Ne angajăm să facem Tixello accesibil tuturor utilizatorilor, indiferent de abilitățile lor.
+                Credem că toată lumea merită acces egal la experiențele pe care le facilitează platforma noastră.
+            </p>
+            <p class="text-sm text-white/40 mt-4">Ultima actualizare: Decembrie 2025</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="prose prose-invert prose-zinc max-w-none">
+
+                <!-- Angajamentul nostru -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">1</span>
+                        Angajamentul nostru
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            La Tixello, credem că accesul la evenimente și la cultura live nu ar trebui să fie limitat de bariere digitale.
+                            Ne străduim continuu să îmbunătățim accesibilitatea platformei noastre pentru a servi toți utilizatorii,
+                            inclusiv persoanele cu dizabilități.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            Urmăm liniile directoare <strong class="text-white">WCAG 2.1 (Web Content Accessibility Guidelines)</strong>
+                            la nivel AA ca standard minim și lucrăm pentru a depăși aceste cerințe acolo unde este posibil.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Ce am implementat -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">2</span>
+                        Ce am implementat
+                    </h2>
+
+                    <div class="space-y-6">
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                Accesibilitate vizuală
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Contrast ridicat:</strong> Respectăm raportul de contrast minim de 4.5:1 pentru text și 3:1 pentru elemente grafice mari</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Text redimensionabil:</strong> Textul poate fi mărit până la 200% fără pierderea funcționalității</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Fără dependență de culoare:</strong> Informațiile nu sunt transmise exclusiv prin culoare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Text alternativ:</strong> Toate imaginile informative au atribute alt descriptive</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                                Navigare cu tastatura
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Navigare completă:</strong> Toate funcționalitățile sunt accesibile doar cu tastatura</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Indicatori de focus vizibili:</strong> Elementele active sunt clar evidențiate</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Ordine logică de tab:</strong> Navigarea urmează o secvență logică și previzibilă</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Skip links:</strong> Linkuri pentru a sări la conținutul principal</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg>
+                                Tehnologii asistive
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Compatibilitate screen reader:</strong> Testat cu NVDA, JAWS și VoiceOver</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Landmark-uri ARIA:</strong> Structură semantică clară pentru navigare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Etichete ARIA:</strong> Elemente interactive clar etichetate</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Live regions:</strong> Anunțuri pentru actualizări dinamice de conținut</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                                Responsive și mobil
+                            </h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Design responsive:</strong> Funcționează pe orice dimensiune de ecran</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Orientare flexibilă:</strong> Suport pentru portrait și landscape</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span><strong class="text-white">Zone tactile adecvate:</strong> Butoane și linkuri cu dimensiuni minime de 44x44px</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Funcționalități specifice -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">3</span>
+                        Funcționalități specifice pentru accesibilitate
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Checkout simplificat</h4>
+                                <p class="text-sm text-white/50">Proces de achiziție clar, cu pași evidențiați și feedback pentru erori.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Bilete digitale clare</h4>
+                                <p class="text-sm text-white/50">Coduri QR cu contrast ridicat și text citibil pentru validare.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Formulare accesibile</h4>
+                                <p class="text-sm text-white/50">Etichete clare, validare în timp real și mesaje de eroare descriptive.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Timp adecvat</h4>
+                                <p class="text-sm text-white/50">Timeout-uri generoase și opțiunea de extindere pentru procese care necesită timp.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ce lucrăm -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">4</span>
+                        La ce lucrăm
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Accesibilitatea este un proces continuu. În prezent, lucrăm la:
+                        </p>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs font-bold flex-shrink-0 mt-0.5">→</span>
+                                <span>Îmbunătățirea accesibilității hărților de locuri interactive</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs font-bold flex-shrink-0 mt-0.5">→</span>
+                                <span>Adăugarea de subtitrări pentru conținutul video promoțional</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs font-bold flex-shrink-0 mt-0.5">→</span>
+                                <span>Extinderea testării cu utilizatori care folosesc tehnologii asistive</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs font-bold flex-shrink-0 mt-0.5">→</span>
+                                <span>Documentație și ghiduri de accesibilitate pentru organizatorii de evenimente</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Pentru organizatori -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">5</span>
+                        Recomandări pentru organizatori
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Dacă ești organizator și folosești Tixello, te încurajăm să:
+                        </p>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Adaugi <strong class="text-white">text alternativ</strong> pentru toate imaginile evenimentului</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Menționezi <strong class="text-white">facilitățile de accesibilitate</strong> disponibile la locație</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Oferi <strong class="text-white">bilete pentru însoțitori</strong> persoanelor cu dizabilități severe</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Specifici dacă evenimentul include <strong class="text-white">interpretare în limbajul semnelor</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Furnizezi <strong class="text-white">date de contact pentru solicitări de accesibilitate</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Compatibilitate browsere -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">6</span>
+                        Compatibilitate
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Platforma Tixello este optimizată pentru:
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Browsere</h4>
+                                <ul class="text-sm text-white/50 space-y-1">
+                                    <li>Chrome (ultimele 2 versiuni)</li>
+                                    <li>Firefox (ultimele 2 versiuni)</li>
+                                    <li>Safari (ultimele 2 versiuni)</li>
+                                    <li>Edge (ultimele 2 versiuni)</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h4 class="font-medium text-white mb-2">Tehnologii asistive</h4>
+                                <ul class="text-sm text-white/50 space-y-1">
+                                    <li>NVDA (Windows)</li>
+                                    <li>JAWS (Windows)</li>
+                                    <li>VoiceOver (macOS, iOS)</li>
+                                    <li>TalkBack (Android)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feedback -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">7</span>
+                        Feedback și asistență
+                    </h2>
+                    <div class="p-6 rounded-2xl bg-cyan-500/5 border border-cyan-500/20">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Apreciem orice feedback legat de accesibilitate. Dacă întâmpini bariere sau ai sugestii de îmbunătățire, contactează-ne:
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                                <a href="mailto:accessibility@tixello.com" class="text-cyan-400 hover:text-cyan-300">accessibility@tixello.com</a>
+                            </div>
+                        </div>
+                        <p class="text-white/50 text-sm mt-4">
+                            Răspundem în maximum 5 zile lucrătoare și lucrăm activ pentru a rezolva problemele raportate.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Cadru legal -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm font-bold">8</span>
+                        Cadru legal
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Această declarație de accesibilitate a fost pregătită în conformitate cu:
+                        </p>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <span class="text-cyan-400">→</span>
+                                <span>Directiva UE 2016/2102 privind accesibilitatea site-urilor web</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-cyan-400">→</span>
+                                <span>Legea nr. 114/2022 privind accesibilitatea produselor și serviciilor (transpunerea Directivei EAA)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-cyan-400">→</span>
+                                <span>Standardul EN 301 549 și WCAG 2.1 nivel AA</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<?php get_footer(); ?>

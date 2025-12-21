@@ -1,0 +1,386 @@
+<?php
+/*
+Template Name: Termeni si Conditii
+*/
+get_header();
+?>
+
+<main class="bg-zinc-950 text-zinc-300 antialiased">
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-violet-400 font-medium">Document legal</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Termeni și condiții</h1>
+                </div>
+            </div>
+            <p class="text-lg text-white/60 max-w-2xl">
+                Acești termeni guvernează utilizarea platformei Tixello și a site-urilor asociate.
+                Prin accesarea platformei, accepți acești termeni.
+            </p>
+            <p class="text-sm text-white/40 mt-4">Versiune: 2.0 | Ultima actualizare: Decembrie 2025</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="prose prose-invert prose-zinc max-w-none">
+
+                <!-- Despre Tixello -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">1</span>
+                        Despre Tixello
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            <strong class="text-white">Tixello</strong> este o platformă de ticketing B2B care oferă organizatorilor de evenimente
+                            infrastructura tehnică pentru vânzarea de bilete online. Platforma este operată de:
+                        </p>
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <p class="text-white font-medium">Tixello S.R.L.</p>
+                            <p class="text-white/50 text-sm mt-1">Înregistrată în România</p>
+                            <p class="text-white/50 text-sm">Email: contact@tixello.com</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Definiții -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">2</span>
+                        Definiții
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <dl class="space-y-4">
+                            <div>
+                                <dt class="font-semibold text-white">„Platformă"</dt>
+                                <dd class="text-white/60 mt-1">Site-ul tixello.com, aplicațiile asociate, API-urile și toate serviciile oferite de Tixello.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-white">„Utilizator"</dt>
+                                <dd class="text-white/60 mt-1">Orice persoană care accesează sau utilizează Platforma, indiferent de rol.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-white">„Organizator"</dt>
+                                <dd class="text-white/60 mt-1">Persoana juridică sau fizică care utilizează Tixello pentru a vinde bilete.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-white">„Participant" / „Cumpărător"</dt>
+                                <dd class="text-white/60 mt-1">Persoana care achiziționează bilete prin intermediul Platformei.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-white">„Site Tenant"</dt>
+                                <dd class="text-white/60 mt-1">Site-ul de vânzare bilete al unui Organizator, alimentat de infrastructura Tixello.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <!-- Acceptarea termenilor -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">3</span>
+                        Acceptarea termenilor
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Prin accesarea sau utilizarea Platformei, confirmi că:
+                        </p>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Ai citit și înțeles acești termeni</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Ești de acord să fii obligat de acești termeni</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Ai capacitatea juridică de a încheia acest acord</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Ai cel puțin 18 ani sau vârsta legală minimă din jurisdicția ta</span>
+                            </li>
+                        </ul>
+                        <p class="text-white/50 text-sm mt-4">
+                            Dacă nu ești de acord cu acești termeni, te rugăm să nu utilizezi Platforma.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Documente conexe -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">4</span>
+                        Documente conexe
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Acești termeni trebuie citiți împreună cu următoarele documente, care fac parte integrantă din acord:
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <a href="<?php echo home_url('/politica-date-client/'); ?>" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-violet-500/30 transition-colors group">
+                                <p class="font-medium text-white group-hover:text-violet-400 transition-colors">Politica de confidențialitate</p>
+                                <p class="text-xs text-white/40 mt-1">Cum procesăm datele personale</p>
+                            </a>
+                            <a href="<?php echo home_url('/acceptable-use-policy/'); ?>" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-violet-500/30 transition-colors group">
+                                <p class="font-medium text-white group-hover:text-violet-400 transition-colors">Politica de utilizare acceptabilă</p>
+                                <p class="text-xs text-white/40 mt-1">Ce este și ce nu este permis</p>
+                            </a>
+                            <a href="<?php echo home_url('/termeni-organizatori/'); ?>" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-violet-500/30 transition-colors group">
+                                <p class="font-medium text-white group-hover:text-violet-400 transition-colors">Termeni pentru organizatori</p>
+                                <p class="text-xs text-white/40 mt-1">Termeni specifici pentru organizatori</p>
+                            </a>
+                            <a href="<?php echo home_url('/info-cumparatori/'); ?>" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-violet-500/30 transition-colors group">
+                                <p class="font-medium text-white group-hover:text-violet-400 transition-colors">Informații pentru cumpărători</p>
+                                <p class="text-xs text-white/40 mt-1">Ghid pentru participanți</p>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Serviciile noastre -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">5</span>
+                        Serviciile noastre
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Tixello oferă o platformă de ticketing care permite:
+                        </p>
+                        <ul class="space-y-2 text-white/70 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">→</span>
+                                <span><strong class="text-white">Organizatorilor:</strong> să creeze evenimente, să configureze tipuri de bilete, să proceseze plăți și să gestioneze participanții</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">→</span>
+                                <span><strong class="text-white">Participanților:</strong> să descopere evenimente, să achiziționeze bilete și să le primească digital</span>
+                            </li>
+                        </ul>
+                        <p class="text-white/50 text-sm">
+                            <strong class="text-white">Important:</strong> Tixello este furnizor de tehnologie. Organizatorii sunt responsabili pentru evenimentele lor,
+                            prețuri, politici de rambursare și respectarea legii.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Achiziția de bilete -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">6</span>
+                        Achiziția de bilete
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-3">6.1 Contractul de vânzare</h3>
+                            <p class="text-white/70 leading-relaxed">
+                                Când achiziționezi un bilet, contractul de vânzare este între tine și <strong class="text-white">Organizatorul evenimentului</strong>,
+                                nu cu Tixello. Tixello facilitează tranzacția ca furnizor de platformă.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-3">6.2 Prețuri</h3>
+                            <p class="text-white/70 leading-relaxed">
+                                Prețurile biletelor sunt stabilite de Organizatori. Pot include taxe de serviciu, care sunt afișate înainte de finalizarea comenzii.
+                                Toate prețurile includ TVA unde este aplicabil.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-3">6.3 Plata</h3>
+                            <p class="text-white/70 leading-relaxed">
+                                Plățile sunt procesate prin furnizori terți autorizați (Stripe, PayU, Netopia, EuPlătesc).
+                                Datele cardului nu sunt stocate de Tixello. Tranzacțiile sunt securizate prin criptare SSL/TLS și 3D Secure.
+                            </p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-legal">
+                            <h3 class="font-semibold text-white mb-3">6.4 Livrarea biletelor</h3>
+                            <p class="text-white/70 leading-relaxed">
+                                Biletele sunt livrate electronic, pe email, imediat după confirmarea plății.
+                                Fiecare bilet conține un cod QR unic pentru validare la intrare.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rambursări -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">7</span>
+                        Rambursări și anulări
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            <strong class="text-white">Politica de rambursare este stabilită de fiecare Organizator.</strong>
+                            Tixello nu poate procesa rambursări fără acordul Organizatorului.
+                        </p>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Pentru solicitări de rambursare:
+                        </p>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">1.</span>
+                                <span>Contactează direct Organizatorul evenimentului</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">2.</span>
+                                <span>Verifică politica de rambursare afișată pe pagina evenimentului</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">3.</span>
+                                <span>Păstrează numărul comenzii și emailul de confirmare</span>
+                            </li>
+                        </ul>
+                        <div class="mt-4 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+                            <p class="text-sm text-yellow-400">
+                                <strong>Dreptul de retragere:</strong> Conform legislației UE, biletele pentru evenimente cu dată fixă pot fi exceptate
+                                de la dreptul de retragere de 14 zile, conform articolului 16 litera (l) din Directiva 2011/83/UE.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Proprietate intelectuală -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">8</span>
+                        Proprietate intelectuală
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Platforma Tixello, inclusiv codul, designul, logo-urile, mărcile și conținutul original, sunt proprietatea Tixello S.R.L.
+                            sau a licențiatorilor noștri și sunt protejate de legile drepturilor de autor și ale mărcilor.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            Nu ai dreptul să reproduci, distribui, modifici sau creezi lucrări derivate fără acordul nostru scris.
+                            Utilizarea platformei nu îți conferă niciun drept de proprietate intelectuală.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Limitarea răspunderii -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">9</span>
+                        Limitarea răspunderii
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Tixello este furnizor de platformă tehnologică. <strong class="text-white">Nu suntem responsabili pentru:</strong>
+                        </p>
+                        <ul class="space-y-2 text-white/70 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-400">✕</span>
+                                <span>Calitatea, siguranța sau legalitatea evenimentelor organizate de terți</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-400">✕</span>
+                                <span>Anularea, modificarea sau reprogramarea evenimentelor</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-400">✕</span>
+                                <span>Acțiunile sau omisiunile Organizatorilor</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-400">✕</span>
+                                <span>Pierderi indirecte, consecvențiale sau punitive</span>
+                            </li>
+                        </ul>
+                        <p class="text-white/70 leading-relaxed">
+                            Platforma este oferită „așa cum este". În măsura permisă de lege, excludem orice garanții implicite.
+                            Răspunderea noastră maximă nu poate depăși suma pe care ai plătit-o pentru serviciile noastre în ultimele 12 luni.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Modificări -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">10</span>
+                        Modificări ale termenilor
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Ne rezervăm dreptul de a modifica acești termeni. Modificările vor fi:
+                        </p>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Publicate pe această pagină cu data actualizării</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>Comunicate prin email utilizatorilor înregistrați pentru modificări semnificative</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span>În vigoare la 30 de zile de la publicare (pentru modificări substanțiale)</span>
+                            </li>
+                        </ul>
+                        <p class="text-white/50 text-sm mt-4">
+                            Continuarea utilizării platformei după această perioadă constituie acceptarea noilor termeni.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Legea aplicabilă -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">11</span>
+                        Legea aplicabilă și jurisdicție
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Acești termeni sunt guvernați de <strong class="text-white">legea română</strong>.
+                        </p>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Orice dispută care nu poate fi rezolvată amiabil va fi supusă jurisdicției exclusive a
+                            <strong class="text-white">instanțelor competente din România</strong>.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            Pentru consumatorii din UE: Aveți dreptul de a vă adresa și
+                            <a href="https://ec.europa.eu/consumers/odr" target="_blank" class="text-violet-400 hover:text-violet-300">platformei ODR</a>
+                            pentru soluționarea alternativă a disputelor.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section class="mb-16">
+                    <div class="p-6 rounded-2xl bg-violet-500/5 border border-violet-500/20">
+                        <h3 class="font-semibold text-white mb-3">Contact</h3>
+                        <p class="text-white/70 text-sm mb-4">
+                            Pentru întrebări legate de acești termeni:
+                        </p>
+                        <div class="space-y-2">
+                            <p class="text-white/70 text-sm">
+                                <strong class="text-white">Email:</strong> <a href="mailto:legal@tixello.com" class="text-violet-400 hover:text-violet-300">legal@tixello.com</a>
+                            </p>
+                            <p class="text-white/70 text-sm">
+                                <strong class="text-white">Suport general:</strong> <a href="mailto:support@tixello.com" class="text-violet-400 hover:text-violet-300">support@tixello.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<?php get_footer(); ?>

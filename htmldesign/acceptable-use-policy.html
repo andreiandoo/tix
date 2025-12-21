@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politica de utilizare acceptabilă | Tixello</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+
+<body class="font-body bg-zinc-950 text-zinc-300 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">T</span>
+                    </div>
+                    <span class="text-lg font-bold text-white">Tixello</span>
+                </a>
+                <a href="/" class="text-sm text-white/60 hover:text-white transition-colors">← Înapoi acasă</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-red-400 font-medium">Document legal</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Politica de utilizare acceptabilă</h1>
+                </div>
+            </div>
+            <p class="text-lg text-white/60 max-w-2xl">
+                Această politică definește ce este și ce nu este permis pe platforma Tixello. Se aplică tuturor utilizatorilor: organizatori, participanți și vizitatori.
+            </p>
+            <p class="text-sm text-white/40 mt-4">Versiune: 1.0 | Ultima actualizare: Decembrie 2025</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="prose prose-invert prose-zinc max-w-none">
+                
+                <!-- Introducere -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6">Introducere</h2>
+                    <div class="p-6 rounded-2xl glass">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Tixello oferă o platformă de ticketing care permite organizatorilor să vândă bilete, iar participanților să le achiziționeze. 
+                            Pentru a menține un mediu sigur, legal și de încredere, toți utilizatorii trebuie să respecte această politică de utilizare acceptabilă.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            Încălcarea acestei politici poate duce la <strong class="text-white">suspendarea sau închiderea contului</strong>, 
+                            <strong class="text-white">anularea evenimentelor</strong>, <strong class="text-white">reținerea fondurilor</strong> și, 
+                            unde este cazul, <strong class="text-white">sesizarea autorităților competente</strong>.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Activități interzise -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                        Activități strict interzise
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        
+                        <div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
+                            <h3 class="font-bold text-white mb-4">1. Activități ilegale</h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Evenimente care promovează sau facilitează activități ilegale</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Vânzarea de bilete pentru evenimente fictive sau frauduloase</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Spălare de bani sau alte infracțiuni financiare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Evaziune fiscală sau falsificarea documentelor fiscale</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Încălcarea drepturilor de autor sau a mărcilor înregistrate</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
+                            <h3 class="font-bold text-white mb-4">2. Conținut dăunător sau discriminatoriu</h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Evenimente care promovează ura, violența sau discriminarea pe bază de rasă, etnie, religie, gen, orientare sexuală sau dizabilități</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Conținut pornografic sau sexual explicit (cu excepția evenimentelor pentru adulți marcate corespunzător și legale)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Conținut care exploatează sau pune în pericol minorii</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Promovarea substanțelor ilegale sau a consumului de droguri</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
+                            <h3 class="font-bold text-white mb-4">3. Fraudă și înșelăciune</h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Prezentarea falsă a identității sau a calificărilor organizatorului</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Promisiuni false sau informații înșelătoare despre eveniment</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Scheme piramidale sau marketing multinivel fraudulos</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Utilizarea datelor cumpărătorilor pentru scopuri neautorizate</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Revânzarea neautorizată de bilete la prețuri umflate (scalping) când este interzis de organizator</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
+                            <h3 class="font-bold text-white mb-4">4. Abuz tehnic</h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Atacuri DDoS sau încercări de a compromite infrastructura</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Scraping automat fără autorizație</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Încercări de a ocoli măsurile de securitate sau de limitare</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Utilizarea API-ului în moduri neconforme cu documentația</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Introducerea de malware, viruși sau cod malițios</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
+                            <h3 class="font-bold text-white mb-4">5. Spam și abuz de comunicare</h3>
+                            <ul class="space-y-2 text-white/70">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Trimiterea de emailuri nesolicitate în masă</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Colectarea adreselor de email pentru scopuri de spam</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-400 mt-1">✕</span>
+                                    <span>Crearea de conturi multiple pentru a ocoli restricțiile</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Responsabilități organizatori -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Responsabilitățile organizatorilor
+                    </h2>
+                    <div class="p-6 rounded-2xl glass">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Organizatorii care folosesc Tixello au responsabilități suplimentare:
+                        </p>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Informații corecte</strong> — descrieri precise ale evenimentului, prețuri clare, date și locații reale</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Autorizații legale</strong> — toate autorizațiile și licențele necesare pentru organizarea evenimentului</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Protecția datelor</strong> — respectarea GDPR și tratamentul corespunzător al datelor participanților</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Fiscalitate</strong> — emiterea documentelor fiscale conform legislației române</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Comunicare</strong> — răspuns prompt la întrebările și plângerile participanților</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Rambursări</strong> — politică clară și corectă de rambursare, comunicată înainte de achiziție</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Consecințe -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+                        Consecințele încălcării
+                    </h2>
+                    <div class="p-6 rounded-2xl glass">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            În funcție de gravitatea încălcării, Tixello poate lua următoarele măsuri:
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                                <span class="px-2 py-1 rounded bg-yellow-500/20 text-yellow-400 text-xs font-bold">AVERTISMENT</span>
+                                <p class="text-white/70 text-sm">Notificare și cerere de remediere pentru încălcări minore sau prima abatere</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-orange-500/5 border border-orange-500/20">
+                                <span class="px-2 py-1 rounded bg-orange-500/20 text-orange-400 text-xs font-bold">SUSPENDARE</span>
+                                <p class="text-white/70 text-sm">Suspendarea temporară a contului sau evenimentului până la clarificarea situației</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                                <span class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-xs font-bold">ÎNCHIDERE</span>
+                                <p class="text-white/70 text-sm">Închiderea permanentă a contului pentru încălcări grave sau repetate</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                                <span class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-xs font-bold">REȚINERE FONDURI</span>
+                                <p class="text-white/70 text-sm">Reținerea temporară sau permanentă a fondurilor în caz de fraudă</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                                <span class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-xs font-bold">ACȚIUNE LEGALĂ</span>
+                                <p class="text-white/70 text-sm">Sesizarea autorităților pentru activități ilegale</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Raportare -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5"/></svg>
+                        Raportarea încălcărilor
+                    </h2>
+                    <div class="p-6 rounded-2xl glass">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Dacă observi o încălcare a acestei politici, te rugăm să ne contactezi:
+                        </p>
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <p class="text-white font-medium mb-2">Email pentru raportări:</p>
+                            <a href="mailto:abuse@tixello.com" class="text-violet-400 hover:text-violet-300">abuse@tixello.com</a>
+                        </div>
+                        <p class="text-white/50 text-sm mt-4">
+                            Toate raportările sunt investigate. Poți raporta anonim, dar furnizarea datelor de contact ne ajută să urmărim cazul.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Modificări -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6">Modificări ale politicii</h2>
+                    <div class="p-6 rounded-2xl glass">
+                        <p class="text-white/70 leading-relaxed">
+                            Ne rezervăm dreptul de a modifica această politică. Modificările semnificative vor fi comunicate prin email utilizatorilor activi 
+                            și vor fi publicate pe site cu cel puțin 30 de zile înainte de intrarea în vigoare. Continuarea utilizării platformei după această 
+                            perioadă constituie acceptarea noilor termeni.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">T</span>
+                    </div>
+                    <span class="text-white font-semibold">Tixello</span>
+                </div>
+                <p class="text-sm text-white/40">© 2025 Tixello. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

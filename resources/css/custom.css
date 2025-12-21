@@ -382,6 +382,202 @@ article > *:not(.entry-content),
     50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
 }
 
+/* ================================================
+   COMPARE PAGES - STYLES
+   ================================================ */
+
+/* Hero Background for Compare */
+.hero-compare-bg {
+    background: #09090b;
+    position: relative;
+}
+.hero-compare-bg::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background:
+        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(139, 92, 246, 0.12), transparent 50%),
+        radial-gradient(ellipse 50% 50% at 90% 80%, rgba(6, 182, 212, 0.08), transparent),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(16, 185, 129, 0.08), transparent);
+}
+
+/* Grid Pattern Overlay */
+.grid-pattern {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black, transparent);
+}
+
+/* Gradient Text - Compare Pages */
+@keyframes gradient-flow-compare {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.gradient-text-compare {
+    background: linear-gradient(135deg, #8B5CF6, #06B6D4, #10B981, #8B5CF6);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-flow-compare 8s ease infinite;
+}
+
+.gradient-text-emerald-compare {
+    background: linear-gradient(135deg, #10B981, #34D399, #06B6D4, #10B981);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-flow-compare 6s ease infinite;
+}
+
+/* Glass Effect - Compare */
+.glass-compare {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-compare-strong {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Compare Card Hover Effects */
+.compare-card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.compare-card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+.compare-card-hover:hover .card-glow {
+    @apply opacity-100;
+}
+.compare-card-hover:hover .card-arrow {
+    transform: translateX(4px);
+}
+.compare-card-hover:hover .vs-badge {
+    transform: scale(1.1);
+}
+
+/* Featured Card Glow */
+@keyframes featured-card-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.2), 0 0 60px rgba(139, 92, 246, 0.1); }
+    50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.15); }
+}
+
+.featured-card-compare {
+    animation: featured-card-glow 4s ease-in-out infinite;
+}
+
+/* Button Styles - Compare */
+.btn-compare-primary {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    @apply transition-all duration-300;
+}
+.btn-compare-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+}
+
+@keyframes btn-shine-anim {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+}
+
+.btn-shine-compare {
+    @apply relative overflow-hidden;
+}
+.btn-shine-compare::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+}
+.btn-shine-compare:hover::after {
+    animation: btn-shine-anim 0.6s ease-out;
+}
+
+/* Scroll Indicator */
+@keyframes scroll-down-anim {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(8px); opacity: 1; }
+}
+
+.scroll-indicator-compare {
+    animation: scroll-down-anim 2s ease-in-out infinite;
+}
+
+/* Marquee Animation */
+@keyframes marquee-anim {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-compare {
+    animation: marquee-anim 30s linear infinite;
+}
+.animate-marquee-compare:hover {
+    animation-play-state: paused;
+}
+
+/* Stagger Delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.15s; }
+.stagger-3 { animation-delay: 0.2s; }
+.stagger-4 { animation-delay: 0.25s; }
+.stagger-5 { animation-delay: 0.3s; }
+.stagger-6 { animation-delay: 0.35s; }
+.stagger-7 { animation-delay: 0.4s; }
+.stagger-8 { animation-delay: 0.45s; }
+.stagger-9 { animation-delay: 0.5s; }
+.stagger-10 { animation-delay: 0.55s; }
+
+/* Counter Font */
+.counter-compare {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Filter Button */
+.filter-btn-compare {
+    @apply transition-all duration-300;
+}
+.filter-btn-compare.active {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.5);
+    @apply text-violet-400;
+}
+
+/* ================================================
+   LEGAL PAGES - STYLES
+   ================================================ */
+
+/* Legal page glass effect */
+.glass-legal {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Legal gradient text */
+.gradient-text-legal {
+    background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ================================================
+   COMMON STYLES
+   ================================================ */
+
 .entry-content, .block-editor-block-list__layout {
     h1 {
         @apply text-2xl;

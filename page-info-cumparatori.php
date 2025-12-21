@@ -1,0 +1,271 @@
+<?php
+/*
+Template Name: Info Cumparatori
+*/
+get_header();
+?>
+
+<main class="bg-zinc-950 text-zinc-300 antialiased">
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-violet-400 font-medium">Ghid pentru participanți</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Informații pentru cumpărători</h1>
+                </div>
+            </div>
+            <p class="text-lg text-white/60 max-w-2xl">
+                Ai achiziționat sau intenționezi să achiziționezi un bilet printr-un site alimentat de Tixello? Aici găsești tot ce trebuie să știi.
+            </p>
+            <p class="text-sm text-white/40 mt-4">Ultima actualizare: Decembrie 2025</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="prose prose-invert prose-zinc max-w-none">
+
+                <!-- Ce este Tixello -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">1</span>
+                        Ce este Tixello?
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            <strong class="text-white">Tixello</strong> este o platformă de ticketing B2B care oferă organizatorilor de evenimente infrastructura tehnică pentru a vinde bilete online.
+                            Dacă ai cumpărat un bilet de pe site-ul unui eveniment, festival, teatru sau orice altă locație și ai văzut logo-ul Tixello sau ai primit un email de la sistemul nostru,
+                            înseamnă că acel organizator folosește platforma noastră.
+                        </p>
+                        <p class="text-white/70 leading-relaxed">
+                            <strong class="text-white">Important:</strong> Tixello este furnizorul de tehnologie. Organizatorul evenimentului este cel care stabilește prețurile, politica de rambursare,
+                            detaliile evenimentului și orice alte condiții legate de participare.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Cum funcționează -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">2</span>
+                        Cum funcționează achiziția?
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="p-5 rounded-xl glass-legal">
+                            <h3 class="font-semibold text-white mb-2">Selectezi biletele</h3>
+                            <p class="text-white/60 text-sm">Alegi tipul de bilet, cantitatea și, dacă e cazul, locul din sală. Prețurile sunt stabilite de organizator.</p>
+                        </div>
+                        <div class="p-5 rounded-xl glass-legal">
+                            <h3 class="font-semibold text-white mb-2">Completezi datele</h3>
+                            <p class="text-white/60 text-sm">Introduci numele, emailul și alte informații cerute de organizator. Aceste date sunt necesare pentru a-ți emite biletul și a te contacta dacă apar modificări.</p>
+                        </div>
+                        <div class="p-5 rounded-xl glass-legal">
+                            <h3 class="font-semibold text-white mb-2">Plătești securizat</h3>
+                            <p class="text-white/60 text-sm">Plata se face prin procesatori autorizați (Stripe, PayU, Netopia, EuPlătesc sau alții). Datele cardului nu sunt stocate de Tixello sau de organizator.</p>
+                        </div>
+                        <div class="p-5 rounded-xl glass-legal">
+                            <h3 class="font-semibold text-white mb-2">Primești biletul</h3>
+                            <p class="text-white/60 text-sm">După plată, primești automat pe email biletul în format PDF cu cod QR. Îl poți prezenta de pe telefon sau printat.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Biletul tău -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">3</span>
+                        Biletul tău
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <h3 class="font-semibold text-white mb-4">Fiecare bilet conține:</h3>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Cod QR unic</strong> — scanat la intrare pentru validare</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Detalii eveniment</strong> — data, ora, locația, tipul biletului</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Numele titularului</strong> — dacă organizatorul solicită bilete nominale</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong class="text-white">Număr de ordine</strong> — pentru orice comunicare cu organizatorul</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+                            <p class="text-sm text-yellow-400">
+                                <strong>Nu partaja codul QR!</strong> Fiecare cod poate fi scanat o singură dată. Dacă îl partajezi, riscă să fie folosit de altcineva înainte să ajungi tu.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Nu am primit biletul -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">4</span>
+                        Nu am primit biletul. Ce fac?
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <ol class="space-y-4 text-white/70">
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">1</span>
+                                <span><strong class="text-white">Verifică folderul Spam/Junk</strong> — emailurile automate ajung uneori acolo</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">2</span>
+                                <span><strong class="text-white">Așteaptă câteva minute</strong> — procesarea plății poate dura până la 5 minute</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">3</span>
+                                <span><strong class="text-white">Verifică adresa de email</strong> — ai tastat corect? Uneori greșelile de tipar sunt problema</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 text-xs font-bold flex-shrink-0">4</span>
+                                <span><strong class="text-white">Contactează organizatorul</strong> — datele de contact sunt de obicei pe site-ul evenimentului</span>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- Rambursări -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">5</span>
+                        Rambursări și anulări
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            <strong class="text-white">Politica de rambursare este stabilită de fiecare organizator în parte.</strong> Tixello, ca furnizor de tehnologie, nu poate autoriza rambursări din proprie inițiativă.
+                        </p>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Pentru orice solicitare de rambursare:
+                        </p>
+                        <ul class="space-y-2 text-white/70 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">→</span>
+                                <span>Contactează direct organizatorul evenimentului</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">→</span>
+                                <span>Menționează numărul de comandă</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-violet-400">→</span>
+                                <span>Verifică T&C de pe site-ul evenimentului pentru politica lor specifică</span>
+                            </li>
+                        </ul>
+                        <p class="text-white/70 leading-relaxed">
+                            În cazul anulării evenimentului de către organizator, acesta este responsabil pentru comunicarea și procesarea rambursărilor.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Securitatea plăților -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">6</span>
+                        Securitatea plăților
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Plățile sunt procesate prin furnizori autorizați și certificați PCI-DSS:
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <p class="font-medium text-white mb-1">Stripe</p>
+                                <p class="text-xs text-white/40">Procesor internațional</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <p class="font-medium text-white mb-1">PayU</p>
+                                <p class="text-xs text-white/40">Procesor regional</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <p class="font-medium text-white mb-1">Netopia</p>
+                                <p class="text-xs text-white/40">Procesor românesc</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <p class="font-medium text-white mb-1">EuPlătesc</p>
+                                <p class="text-xs text-white/40">Procesor românesc</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-2 text-white/70">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Datele cardului nu sunt stocate</strong> de Tixello sau de organizator</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">Conexiuni criptate SSL/TLS</strong> pentru toate tranzacțiile</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                <span><strong class="text-white">3D Secure</strong> pentru autentificarea tranzacțiilor</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Datele tale -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">7</span>
+                        Datele tale personale
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Când achiziționezi un bilet, datele tale sunt procesate atât de <strong class="text-white">organizatorul evenimentului</strong> cât și de <strong class="text-white">Tixello</strong> ca furnizor de infrastructură.
+                        </p>
+                        <p class="text-white/70 leading-relaxed mb-4">
+                            Respectăm prevederile GDPR și ale legislației române privind protecția datelor. Pentru detalii complete, consultă:
+                        </p>
+                        <a href="<?php echo home_url('/politica-date-client/'); ?>" class="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors">
+                            <span>Politica de confidențialitate pentru cumpărători</span>
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section class="mb-16">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 text-sm font-bold">8</span>
+                        Contact și suport
+                    </h2>
+                    <div class="p-6 rounded-2xl glass-legal">
+                        <p class="text-white/70 leading-relaxed mb-6">
+                            Pentru întrebări legate de:
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h3 class="font-semibold text-white mb-2">Eveniment specific</h3>
+                                <p class="text-sm text-white/50">Contactează organizatorul — datele sunt pe site-ul evenimentului sau pe bilet.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <h3 class="font-semibold text-white mb-2">Platforma Tixello</h3>
+                                <p class="text-sm text-white/50">Pentru întrebări generale despre cum funcționează sistemul.</p>
+                                <a href="mailto:support@tixello.com" class="text-sm text-violet-400 hover:text-violet-300 mt-2 inline-block">support@tixello.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<?php get_footer(); ?>

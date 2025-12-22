@@ -52,16 +52,54 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $share_tw    = "https://twitter.com/intent/tweet?url={$share_url}&text={$share_title}";
     $share_li    = "https://www.linkedin.com/shareArticle?mini=true&url={$share_url}&title={$share_title}";
 
-    // Get table of contents from headings
+    // Helper function to generate slug from text
+    if ( ! function_exists( 'tixello_generate_heading_id' ) ) {
+        function tixello_generate_heading_id( $text ) {
+            $text = strip_tags( $text );
+            $text = strtolower( $text );
+            $text = preg_replace( '/[^a-z0-9\s-]/', '', $text ); // Remove special chars
+            $text = preg_replace( '/[\s_]+/', '-', $text ); // Replace spaces with hyphens
+            $text = preg_replace( '/-+/', '-', $text ); // Remove multiple hyphens
+            $text = trim( $text, '-' );
+            return $text ?: 'heading-' . uniqid();
+        }
+    }
+
+    // Get table of contents from h2 and h3 headings (with or without id)
     $toc_items = array();
-    if ( preg_match_all( '/<h2[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)<\/h2>/is', $post_content, $matches, PREG_SET_ORDER ) ) {
+    $processed_content = $post_content;
+
+    // Match h2 and h3 tags with or without id attribute
+    if ( preg_match_all( '/<(h[23])([^>]*)>(.*?)<\/\1>/is', $post_content, $matches, PREG_SET_ORDER ) ) {
         foreach ( $matches as $match ) {
+            $tag = $match[1]; // h2 or h3
+            $attrs = $match[2]; // attributes
+            $title = strip_tags( $match[3] );
+            $level = $tag === 'h2' ? 2 : 3;
+
+            // Check if id already exists in attributes
+            if ( preg_match( '/id=["\']([^"\']+)["\']/', $attrs, $id_match ) ) {
+                $id = $id_match[1];
+            } else {
+                // Generate id from title
+                $id = tixello_generate_heading_id( $title );
+
+                // Inject id into the heading tag in processed content
+                $original_tag = $match[0];
+                $new_tag = "<{$tag}{$attrs} id=\"{$id}\">{$match[3]}</{$tag}>";
+                $processed_content = str_replace( $original_tag, $new_tag, $processed_content );
+            }
+
             $toc_items[] = array(
-                'id'    => $match[1],
-                'title' => strip_tags( $match[2] ),
+                'id'    => $id,
+                'title' => $title,
+                'level' => $level,
             );
         }
     }
+
+    // Update post content with injected ids
+    $post_content = $processed_content;
 
     // Related posts
     $related_args = array(
@@ -171,8 +209,10 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
                         <?php if ( ! empty( $toc_items ) ) : ?>
                         <p class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4"><?php esc_html_e( 'On this page', 'tixello' ); ?></p>
                         <nav class="space-y-2 mb-8">
-                            <?php foreach ( $toc_items as $index => $item ) : ?>
-                                <a href="#<?php echo esc_attr( $item['id'] ); ?>" class="block text-sm <?php echo $index === 0 ? 'text-violet-400' : 'text-white/50'; ?> hover:text-white transition-colors toc-link" data-target="<?php echo esc_attr( $item['id'] ); ?>">
+                            <?php foreach ( $toc_items as $index => $item ) :
+                                $indent_class = isset( $item['level'] ) && $item['level'] === 3 ? 'pl-3 text-xs' : 'text-sm';
+                            ?>
+                                <a href="#<?php echo esc_attr( $item['id'] ); ?>" class="block <?php echo esc_attr( $indent_class ); ?> <?php echo $index === 0 ? 'text-violet-400' : 'text-white/50'; ?> hover:text-white transition-colors toc-link" data-target="<?php echo esc_attr( $item['id'] ); ?>">
                                     <?php echo esc_html( $item['title'] ); ?>
                                 </a>
                             <?php endforeach; ?>
@@ -204,7 +244,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
                 <!-- Main Content -->
                 <div class="lg:col-span-9 prose prose-lg prose-invert max-w-none article-content">
-                    <?php the_content(); ?>
+                    <?php echo apply_filters( 'the_content', $post_content ); ?>
 
                     <!-- CTA Box (if ACF field exists or default) -->
                     <div class="my-12 p-8 rounded-2xl bg-gradient-to-br from-violet-600/20 via-pink-600/10 to-cyan-600/20 border border-violet-500/20 not-prose">

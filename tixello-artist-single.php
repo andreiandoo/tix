@@ -141,8 +141,8 @@ $location = $city && $country ? "$city, $country" : ( $city ?: $country );
 // Types & Genres
 $types = [];
 if ( ! empty( $artist['artist_types'] ) ) {
-    foreach ( $artist['artist_types'] as $t ) {
-        if ( ! empty( $t['name'] ) ) $types[] = $t['name'];
+    foreach ( $artist['artist_types'] as $at ) {
+        if ( ! empty( $at['name'] ) ) $types[] = $at['name'];
     }
 }
 $types_label = $types ? implode( ' · ', $types ) : 'Artist';

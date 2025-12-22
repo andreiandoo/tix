@@ -65,17 +65,15 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
         }
     }
 
-    // Get table of contents from h2 and h3 headings (with or without id)
+    // Get table of contents from h2 headings only (with or without id)
     $toc_items = array();
     $processed_content = $post_content;
 
-    // Match h2 and h3 tags with or without id attribute
-    if ( preg_match_all( '/<(h[23])([^>]*)>(.*?)<\/\1>/is', $post_content, $matches, PREG_SET_ORDER ) ) {
+    // Match h2 tags with or without id attribute
+    if ( preg_match_all( '/<h2([^>]*)>(.*?)<\/h2>/is', $post_content, $matches, PREG_SET_ORDER ) ) {
         foreach ( $matches as $match ) {
-            $tag = $match[1]; // h2 or h3
-            $attrs = $match[2]; // attributes
-            $title = strip_tags( $match[3] );
-            $level = $tag === 'h2' ? 2 : 3;
+            $attrs = $match[1]; // attributes
+            $title = strip_tags( $match[2] );
 
             // Check if id already exists in attributes
             if ( preg_match( '/id=["\']([^"\']+)["\']/', $attrs, $id_match ) ) {
@@ -86,14 +84,13 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
                 // Inject id into the heading tag in processed content
                 $original_tag = $match[0];
-                $new_tag = "<{$tag}{$attrs} id=\"{$id}\">{$match[3]}</{$tag}>";
+                $new_tag = "<h2{$attrs} id=\"{$id}\">{$match[2]}</h2>";
                 $processed_content = str_replace( $original_tag, $new_tag, $processed_content );
             }
 
             $toc_items[] = array(
                 'id'    => $id,
                 'title' => $title,
-                'level' => $level,
             );
         }
     }
@@ -194,10 +191,8 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
                         <?php if ( ! empty( $toc_items ) ) : ?>
                         <p class="mb-4 text-xs font-semibold tracking-wider uppercase text-white/40"><?php esc_html_e( 'On this page', 'tixello' ); ?></p>
                         <nav class="mb-8 space-y-2">
-                            <?php foreach ( $toc_items as $index => $item ) :
-                                $indent_class = isset( $item['level'] ) && $item['level'] === 3 ? 'pl-3 text-xs' : 'text-sm';
-                            ?>
-                                <a href="#<?php echo esc_attr( $item['id'] ); ?>" class="block <?php echo esc_attr( $indent_class ); ?> <?php echo $index === 0 ? 'text-violet-400' : 'text-white/50'; ?> hover:text-white transition-colors toc-link" data-target="<?php echo esc_attr( $item['id'] ); ?>">
+                            <?php foreach ( $toc_items as $index => $item ) : ?>
+                                <a href="#<?php echo esc_attr( $item['id'] ); ?>" class="block text-sm <?php echo $index === 0 ? 'text-violet-400' : 'text-white/50'; ?> hover:text-white transition-colors toc-link" data-target="<?php echo esc_attr( $item['id'] ); ?>">
                                     <?php echo esc_html( $item['title'] ); ?>
                                 </a>
                             <?php endforeach; ?>

@@ -105,7 +105,7 @@ get_header();
   .counter-value { font-variant-numeric: tabular-nums; }
 </style>
 
-<div class="font-body bg-dark-900 text-zinc-200 overflow-x-hidden noise-bg">
+<div class="font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
 
   <!-- HERO -->
   <section class="min-h-screen flex items-center pt-20 relative overflow-hidden hero-gradient">

@@ -198,33 +198,33 @@ get_header();
   @keyframes bounceSoft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 </style>
 
-<div class="font-body bg-dark-900 text-zinc-200 overflow-x-hidden noise-bg">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden hero-gradient">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden hero-gradient">
     <div class="spotlight -top-20 left-[20%] rotate-[15deg] opacity-60"></div>
     <div class="spotlight -top-20 right-[20%] -rotate-[15deg] opacity-60"></div>
 
     <div class="float-element top-32 left-[8%] animate-float">
-      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-indigo/20 to-brand-blue/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-3xl">🏛️</div>
+      <div class="flex items-center justify-center w-16 h-16 text-3xl border rounded-2xl bg-gradient-to-br from-brand-indigo/20 to-brand-blue/20 backdrop-blur-sm border-white/10">🏛️</div>
     </div>
     <div class="float-element top-48 right-[12%] animate-float-slow" style="animation-delay: 1s;">
-      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-blue/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-2xl">🎭</div>
+      <div class="flex items-center justify-center text-2xl border w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-blue/20 backdrop-blur-sm border-white/10">🎭</div>
     </div>
     <div class="float-element bottom-40 left-[15%] animate-float-fast" style="animation-delay: 0.5s;">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-violet/20 to-brand-indigo/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-xl">💺</div>
+      <div class="flex items-center justify-center w-12 h-12 text-xl border rounded-xl bg-gradient-to-br from-brand-violet/20 to-brand-indigo/20 backdrop-blur-sm border-white/10">💺</div>
     </div>
     <div class="float-element bottom-32 right-[8%] animate-float" style="animation-delay: 2s;">
-      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-cyan/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-2xl">📍</div>
+      <div class="flex items-center justify-center text-2xl border w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-cyan/20 backdrop-blur-sm border-white/10">📍</div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-20 relative z-10">
+    <div class="relative z-10 max-w-6xl px-6 py-20 mx-auto lg:px-8">
       <div class="text-center">
         <div class="reveal inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-brand-indigo/10 border border-brand-indigo/20 mb-8">
-          <div class="w-6 h-6 rounded-lg bg-brand-indigo/30 flex items-center justify-center">
+          <div class="flex items-center justify-center w-6 h-6 rounded-lg bg-brand-indigo/30">
             <svg class="w-4 h-4 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
-          <span class="text-brand-indigo text-sm font-medium">Soluția completă pentru locații</span>
+          <span class="text-sm font-medium text-brand-indigo">Soluția completă pentru locații</span>
         </div>
 
         <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[1.05] reveal reveal-delay-1">
@@ -232,56 +232,56 @@ get_header();
           <span class="text-gradient">Un Partener Real.</span>
         </h1>
 
-        <p class="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-8 leading-relaxed reveal reveal-delay-2">
+        <p class="max-w-3xl mx-auto mb-8 text-xl leading-relaxed md:text-2xl text-white/60 reveal reveal-delay-2">
           Ai investit totul în locația ta. <strong class="text-white">Ticketing-ul tău ar trebui să fie la înălțimea acestui angajament.</strong> Control complet, zero compromisuri.
         </p>
 
         <div class="flex flex-wrap justify-center gap-3 mb-12 reveal reveal-delay-3">
-          <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-brand-indigo/10 hover:border-brand-indigo/20 hover:text-white transition-all cursor-default">🎭 Teatre</span>
-          <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-brand-blue/10 hover:border-brand-blue/20 hover:text-white transition-all cursor-default">🎵 Săli de Concerte</span>
-          <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-brand-cyan/10 hover:border-brand-cyan/20 hover:text-white transition-all cursor-default">🏟️ Arene</span>
-          <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-brand-violet/10 hover:border-brand-violet/20 hover:text-white transition-all cursor-default">🎨 Centre Culturale</span>
-          <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-brand-green/10 hover:border-brand-green/20 hover:text-white transition-all cursor-default">🍷 Cluburi</span>
+          <span class="px-4 py-2 text-sm transition-all border rounded-full cursor-default bg-white/5 border-white/10 text-white/60 hover:bg-brand-indigo/10 hover:border-brand-indigo/20 hover:text-white">🎭 Teatre</span>
+          <span class="px-4 py-2 text-sm transition-all border rounded-full cursor-default bg-white/5 border-white/10 text-white/60 hover:bg-brand-blue/10 hover:border-brand-blue/20 hover:text-white">🎵 Săli de Concerte</span>
+          <span class="px-4 py-2 text-sm transition-all border rounded-full cursor-default bg-white/5 border-white/10 text-white/60 hover:bg-brand-cyan/10 hover:border-brand-cyan/20 hover:text-white">🏟️ Arene</span>
+          <span class="px-4 py-2 text-sm transition-all border rounded-full cursor-default bg-white/5 border-white/10 text-white/60 hover:bg-brand-violet/10 hover:border-brand-violet/20 hover:text-white">🎨 Centre Culturale</span>
+          <span class="px-4 py-2 text-sm transition-all border rounded-full cursor-default bg-white/5 border-white/10 text-white/60 hover:bg-brand-green/10 hover:border-brand-green/20 hover:text-white">🍷 Cluburi</span>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-12 reveal reveal-delay-3">
+        <div class="flex flex-wrap justify-center gap-8 mb-12 md:gap-16 reveal reveal-delay-3">
           <div class="text-center" x-data="{ count: 0 }" x-init="setTimeout(() => { let interval = setInterval(() => { if(count < 100) count++; else clearInterval(interval); }, 15) }, 500)">
-            <div class="text-4xl md:text-5xl font-display font-bold text-gradient counter-value"><span x-text="count"></span>%</div>
-            <div class="text-white/50 text-sm">White-label complet</div>
+            <div class="text-4xl font-bold md:text-5xl font-display text-gradient counter-value"><span x-text="count"></span>%</div>
+            <div class="text-sm text-white/50">White-label complet</div>
           </div>
-          <div class="hidden sm:block w-px h-16 bg-white/10"></div>
+          <div class="hidden w-px h-16 sm:block bg-white/10"></div>
           <div class="text-center" x-data="{ count: 0 }" x-init="setTimeout(() => { let interval = setInterval(() => { if(count < 50) count++; else clearInterval(interval); }, 40) }, 700)">
-            <div class="text-4xl md:text-5xl font-display font-bold text-gradient counter-value"><span x-text="count"></span>+</div>
-            <div class="text-white/50 text-sm">Promotori gestionați</div>
+            <div class="text-4xl font-bold md:text-5xl font-display text-gradient counter-value"><span x-text="count"></span>+</div>
+            <div class="text-sm text-white/50">Promotori gestionați</div>
           </div>
-          <div class="hidden sm:block w-px h-16 bg-white/10"></div>
+          <div class="hidden w-px h-16 sm:block bg-white/10"></div>
           <div class="text-center" x-data="{ count: 0 }" x-init="setTimeout(() => { let interval = setInterval(() => { if(count < 6) count++; else clearInterval(interval); }, 250) }, 900)">
-            <div class="text-4xl md:text-5xl font-display font-bold text-gradient counter-value"><span x-text="count"></span></div>
-            <div class="text-white/50 text-sm">Configurații de layout</div>
+            <div class="text-4xl font-bold md:text-5xl font-display text-gradient counter-value"><span x-text="count"></span></div>
+            <div class="text-sm text-white/50">Configurații de layout</div>
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-4">
-          <a href="<?php echo esc_url(home_url('/demo')); ?>" class="group cta-primary inline-flex items-center justify-center gap-3 font-semibold text-lg px-8 py-4 rounded-full text-white">
+        <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-4">
+          <a href="<?php echo esc_url(home_url('/demo')); ?>" class="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-white rounded-full group cta-primary">
             <span>Programează un Demo</span>
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
-          <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-8 py-4 rounded-full bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all">
+          <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold text-white transition-all border rounded-full bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             <span>Contactează Vânzări</span>
           </a>
         </div>
 
         <div class="flex flex-wrap justify-center gap-6 mt-12 reveal">
-          <div class="flex items-center gap-2 text-white/40 text-sm">
+          <div class="flex items-center gap-2 text-sm text-white/40">
             <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             <span>Implementare asistată</span>
           </div>
-          <div class="flex items-center gap-2 text-white/40 text-sm">
+          <div class="flex items-center gap-2 text-sm text-white/40">
             <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             <span>Migrare date inclusă</span>
           </div>
-          <div class="flex items-center gap-2 text-white/40 text-sm">
+          <div class="flex items-center gap-2 text-sm text-white/40">
             <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             <span>Training echipă</span>
           </div>
@@ -289,91 +289,91 @@ get_header();
       </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-soft">
-      <div class="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+    <div class="absolute -translate-x-1/2 bottom-8 left-1/2 animate-bounce-soft">
+      <div class="flex items-start justify-center w-6 h-10 p-2 border-2 rounded-full border-white/20">
         <div class="w-1.5 h-3 rounded-full bg-white/40 animate-pulse"></div>
       </div>
     </div>
   </section>
 
   <!-- THE CHALLENGE -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-850 to-dark-900"></div>
 
-    <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-16 reveal">
-        <span class="inline-block px-4 py-2 rounded-full bg-brand-rose/10 text-brand-rose text-sm font-medium mb-4">🎯 Provocarea</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+    <div class="relative z-10 max-w-5xl px-6 mx-auto lg:px-8">
+      <div class="mb-16 text-center reveal">
+        <span class="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-brand-rose/10 text-brand-rose">🎯 Provocarea</span>
+        <h2 class="mb-6 text-4xl font-bold text-white font-display md:text-5xl">
           A conduce o locație înseamnă să<br><span class="text-gradient">jonglezi cu totul.</span>
         </h2>
-        <p class="text-xl text-white/50 max-w-2xl mx-auto">
+        <p class="max-w-2xl mx-auto text-xl text-white/50">
           Platformele generice te tratează ca pe un client oarecare. Nu înțeleg că <strong class="text-white">locația ta este vedeta</strong>—nu evenimentele care trec prin ea.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-        <div class="p-5 rounded-2xl bg-dark-800/50 border border-white/5 reveal">
-          <div class="text-2xl mb-3">🎨</div>
-          <h3 class="text-white font-semibold mb-1">Identitatea locației</h3>
-          <p class="text-white/50 text-sm">Nu brandingul unei platforme</p>
+      <div class="grid gap-4 mb-16 md:grid-cols-2 lg:grid-cols-3">
+        <div class="p-5 border rounded-2xl bg-dark-800/50 border-white/5 reveal">
+          <div class="mb-3 text-2xl">🎨</div>
+          <h3 class="mb-1 font-semibold text-white">Identitatea locației</h3>
+          <p class="text-sm text-white/50">Nu brandingul unei platforme</p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-dark-800/50 border border-white/5 reveal reveal-delay-1">
-          <div class="text-2xl mb-3">👥</div>
-          <h3 class="text-white font-semibold mb-1">Multipli promotori</h3>
-          <p class="text-white/50 text-sm">Fără haos și confuzie</p>
+        <div class="p-5 border rounded-2xl bg-dark-800/50 border-white/5 reveal reveal-delay-1">
+          <div class="mb-3 text-2xl">👥</div>
+          <h3 class="mb-1 font-semibold text-white">Multipli promotori</h3>
+          <p class="text-sm text-white/50">Fără haos și confuzie</p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-dark-800/50 border border-white/5 reveal reveal-delay-2">
-          <div class="text-2xl mb-3">👁️</div>
-          <h3 class="text-white font-semibold mb-1">Vizibilitate completă</h3>
-          <p class="text-white/50 text-sm">În tot ce se întâmplă</p>
+        <div class="p-5 border rounded-2xl bg-dark-800/50 border-white/5 reveal reveal-delay-2">
+          <div class="mb-3 text-2xl">👁️</div>
+          <h3 class="mb-1 font-semibold text-white">Vizibilitate completă</h3>
+          <p class="text-sm text-white/50">În tot ce se întâmplă</p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-dark-800/50 border border-white/5 reveal">
-          <div class="text-2xl mb-3">🤝</div>
-          <h3 class="text-white font-semibold mb-1">Relații cu clienții</h3>
-          <p class="text-white/50 text-sm">Protejate și întărite</p>
+        <div class="p-5 border rounded-2xl bg-dark-800/50 border-white/5 reveal">
+          <div class="mb-3 text-2xl">🤝</div>
+          <h3 class="mb-1 font-semibold text-white">Relații cu clienții</h3>
+          <p class="text-sm text-white/50">Protejate și întărite</p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-dark-800/50 border border-white/5 reveal reveal-delay-1">
-          <div class="text-2xl mb-3">📈</div>
-          <h3 class="text-white font-semibold mb-1">Creștere venituri</h3>
-          <p class="text-white/50 text-sm">Fără muncă suplimentară</p>
+        <div class="p-5 border rounded-2xl bg-dark-800/50 border-white/5 reveal reveal-delay-1">
+          <div class="mb-3 text-2xl">📈</div>
+          <h3 class="mb-1 font-semibold text-white">Creștere venituri</h3>
+          <p class="text-sm text-white/50">Fără muncă suplimentară</p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-gradient-to-br from-brand-indigo/10 to-brand-blue/5 border border-brand-indigo/20 reveal reveal-delay-2">
-          <div class="text-2xl mb-3">✨</div>
-          <h3 class="text-white font-semibold mb-1">Tixello livrează</h3>
-          <p class="text-brand-indigo text-sm font-medium">Toate acestea și mai mult</p>
+        <div class="p-5 border rounded-2xl bg-gradient-to-br from-brand-indigo/10 to-brand-blue/5 border-brand-indigo/20 reveal reveal-delay-2">
+          <div class="mb-3 text-2xl">✨</div>
+          <h3 class="mb-1 font-semibold text-white">Tixello livrează</h3>
+          <p class="text-sm font-medium text-brand-indigo">Toate acestea și mai mult</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FEATURES BENTO -->
-  <section class="py-32 relative overflow-hidden bg-dark-850">
+  <section class="relative py-32 overflow-hidden bg-dark-850">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-b from-brand-indigo/10 to-transparent rounded-full blur-[150px] pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-20 reveal">
-        <span class="inline-block px-4 py-2 rounded-full bg-brand-indigo/10 text-brand-indigo text-sm font-medium mb-4">🏛️ Construit pentru Locații</span>
-        <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">
+    <div class="relative z-10 px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="mb-20 text-center reveal">
+        <span class="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-brand-indigo/10 text-brand-indigo">🏛️ Construit pentru Locații</span>
+        <h2 class="mb-6 text-4xl font-bold text-white font-display md:text-6xl">
           Funcționalități care<br><span class="text-gradient">înțeleg nevoile tale.</span>
         </h2>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
+      <div class="grid gap-6 lg:grid-cols-3">
 
         <!-- White Label -->
-        <div class="glow-card p-8 lg:col-span-2" style="--glow-color: rgba(99, 102, 241, 0.15); --border-color: rgba(99, 102, 241, 0.3);">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="p-8 glow-card lg:col-span-2" style="--glow-color: rgba(99, 102, 241, 0.15); --border-color: rgba(99, 102, 241, 0.3);">
+          <div class="grid items-center gap-8 md:grid-cols-2">
             <div>
-              <div class="feature-icon bg-gradient-to-br from-brand-indigo to-brand-violet mb-6">
+              <div class="mb-6 feature-icon bg-gradient-to-br from-brand-indigo to-brand-violet">
                 <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
               </div>
-              <h3 class="font-display text-2xl font-bold text-white mb-3">Brandul Tău, Domeniul Tău</h3>
-              <p class="text-white/50 mb-4">Când cineva cumpără un bilet, își amintește de locația ta—nu de un site de ticketing.</p>
+              <h3 class="mb-3 text-2xl font-bold text-white font-display">Brandul Tău, Domeniul Tău</h3>
+              <p class="mb-4 text-white/50">Când cineva cumpără un bilet, își amintește de locația ta—nu de un site de ticketing.</p>
               <ul class="space-y-2">
                 <li class="flex items-center gap-2 text-sm text-white/70"><svg class="w-4 h-4 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>numelocatieita.ro</li>
                 <li class="flex items-center gap-2 text-sm text-white/70"><svg class="w-4 h-4 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Email-uri și bilete cu brand propriu</li>
@@ -381,24 +381,24 @@ get_header();
               </ul>
             </div>
             <div>
-              <div class="dashboard-mockup p-4">
+              <div class="p-4 dashboard-mockup">
                 <div class="flex items-center gap-2 mb-4">
-                  <div class="w-8 h-8 rounded-lg bg-brand-indigo flex items-center justify-center text-white font-bold text-sm">TN</div>
+                  <div class="flex items-center justify-center w-8 h-8 text-sm font-bold text-white rounded-lg bg-brand-indigo">TN</div>
                   <div>
-                    <div class="text-white text-sm font-medium">Teatrul Național</div>
-                    <div class="text-white/40 text-xs">teatrul-national.ro</div>
+                    <div class="text-sm font-medium text-white">Teatrul Național</div>
+                    <div class="text-xs text-white/40">teatrul-national.ro</div>
                   </div>
                 </div>
-                <div class="h-24 rounded-lg bg-gradient-to-br from-brand-indigo/30 to-brand-blue/20 mb-3 flex items-center justify-center">
-                  <span class="text-white/60 text-sm">Header Personalizat</span>
+                <div class="flex items-center justify-center h-24 mb-3 rounded-lg bg-gradient-to-br from-brand-indigo/30 to-brand-blue/20">
+                  <span class="text-sm text-white/60">Header Personalizat</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                  <div class="h-16 rounded-lg bg-white/5 border border-white/10 p-2">
-                    <div class="text-white/30 text-xs mb-1">Eveniment</div>
-                    <div class="h-2 w-20 rounded bg-white/20"></div>
+                  <div class="h-16 p-2 border rounded-lg bg-white/5 border-white/10">
+                    <div class="mb-1 text-xs text-white/30">Eveniment</div>
+                    <div class="w-20 h-2 rounded bg-white/20"></div>
                   </div>
-                  <div class="h-16 rounded-lg bg-brand-indigo/20 border border-brand-indigo/30 flex items-center justify-center">
-                    <span class="text-white text-xs font-medium">Cumpără →</span>
+                  <div class="flex items-center justify-center h-16 border rounded-lg bg-brand-indigo/20 border-brand-indigo/30">
+                    <span class="text-xs font-medium text-white">Cumpără →</span>
                   </div>
                 </div>
               </div>
@@ -407,42 +407,42 @@ get_header();
         </div>
 
         <!-- Multi-Promoter -->
-        <div class="glow-card p-8" style="--glow-color: rgba(6, 182, 212, 0.15); --border-color: rgba(6, 182, 212, 0.3);">
-          <div class="feature-icon bg-gradient-to-br from-brand-cyan to-brand-blue mb-6">
+        <div class="p-8 glow-card" style="--glow-color: rgba(6, 182, 212, 0.15); --border-color: rgba(6, 182, 212, 0.3);">
+          <div class="mb-6 feature-icon bg-gradient-to-br from-brand-cyan to-brand-blue">
             <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
-          <h3 class="font-display text-2xl font-bold text-white mb-3">Multi-Promotor</h3>
-          <p class="text-white/50 mb-4">Portaluri separate pentru fiecare partener. Ei gestionează, tu supraveghezi.</p>
+          <h3 class="mb-3 text-2xl font-bold text-white font-display">Multi-Promotor</h3>
+          <p class="mb-4 text-white/50">Portaluri separate pentru fiecare partener. Ei gestionează, tu supraveghezi.</p>
 
-          <div class="space-y-2 mt-4">
-            <div class="promoter-card flex items-center justify-between">
+          <div class="mt-4 space-y-2">
+            <div class="flex items-center justify-between promoter-card">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm">🎵</div>
-                <span class="text-white/80 text-sm">Jazz Events</span>
+                <div class="flex items-center justify-center w-8 h-8 text-sm rounded-lg bg-brand-cyan/20">🎵</div>
+                <span class="text-sm text-white/80">Jazz Events</span>
               </div>
-              <span class="text-brand-green text-xs">Activ</span>
+              <span class="text-xs text-brand-green">Activ</span>
             </div>
-            <div class="promoter-card flex items-center justify-between">
+            <div class="flex items-center justify-between promoter-card">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-violet/20 flex items-center justify-center text-sm">🎭</div>
-                <span class="text-white/80 text-sm">Teatru Independent</span>
+                <div class="flex items-center justify-center w-8 h-8 text-sm rounded-lg bg-brand-violet/20">🎭</div>
+                <span class="text-sm text-white/80">Teatru Independent</span>
               </div>
-              <span class="text-brand-green text-xs">Activ</span>
+              <span class="text-xs text-brand-green">Activ</span>
             </div>
           </div>
         </div>
 
         <!-- Seating Maps -->
-        <div class="glow-card p-8" style="--glow-color: rgba(124, 58, 237, 0.15); --border-color: rgba(124, 58, 237, 0.3);">
-          <div class="feature-icon bg-gradient-to-br from-brand-violet to-brand-indigo mb-6">
+        <div class="p-8 glow-card" style="--glow-color: rgba(124, 58, 237, 0.15); --border-color: rgba(124, 58, 237, 0.3);">
+          <div class="mb-6 feature-icon bg-gradient-to-br from-brand-violet to-brand-indigo">
             <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
           </div>
-          <h3 class="font-display text-2xl font-bold text-white mb-3">Hărți de Locuri</h3>
-          <p class="text-white/50 mb-4">Constructor vizual cu multiple configurații salvate.</p>
+          <h3 class="mb-3 text-2xl font-bold text-white font-display">Hărți de Locuri</h3>
+          <p class="mb-4 text-white/50">Constructor vizual cu multiple configurații salvate.</p>
 
-          <div class="mt-4 p-4 rounded-xl bg-dark-900/50">
-            <div class="venue-stage h-6 w-full mb-3 flex items-center justify-center">
-              <span class="text-white/40 text-xs uppercase tracking-wider">Scenă</span>
+          <div class="p-4 mt-4 rounded-xl bg-dark-900/50">
+            <div class="flex items-center justify-center w-full h-6 mb-3 venue-stage">
+              <span class="text-xs tracking-wider uppercase text-white/40">Scenă</span>
             </div>
             <div class="flex flex-col items-center gap-1">
               <div class="flex gap-1">
@@ -464,38 +464,38 @@ get_header();
         </div>
 
         <!-- Box Office -->
-        <div class="glow-card p-8 lg:col-span-2" style="--glow-color: rgba(16, 185, 129, 0.15); --border-color: rgba(16, 185, 129, 0.3);">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="p-8 glow-card lg:col-span-2" style="--glow-color: rgba(16, 185, 129, 0.15); --border-color: rgba(16, 185, 129, 0.3);">
+          <div class="grid items-center gap-8 md:grid-cols-2">
             <div>
-              <div class="feature-icon bg-gradient-to-br from-brand-green to-brand-cyan mb-6">
+              <div class="mb-6 feature-icon bg-gradient-to-br from-brand-green to-brand-cyan">
                 <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               </div>
-              <h3 class="font-display text-2xl font-bold text-white mb-3">Box Office 2025</h3>
-              <p class="text-white/50 mb-4">Vânzările walk-up contează. Tabletele devin terminale profesionale cu inventar unificat.</p>
+              <h3 class="mb-3 text-2xl font-bold text-white font-display">Box Office 2025</h3>
+              <p class="mb-4 text-white/50">Vânzările walk-up contează. Tabletele devin terminale profesionale cu inventar unificat.</p>
 
               <div class="grid grid-cols-3 gap-2 mt-6">
-                <div class="p-2 rounded-lg bg-dark-800/50 text-center"><div class="text-brand-green text-lg font-bold">💳</div><div class="text-white/40 text-xs">Card</div></div>
-                <div class="p-2 rounded-lg bg-dark-800/50 text-center"><div class="text-brand-green text-lg font-bold">💵</div><div class="text-white/40 text-xs">Cash</div></div>
-                <div class="p-2 rounded-lg bg-dark-800/50 text-center"><div class="text-brand-green text-lg font-bold">📱</div><div class="text-white/40 text-xs">Mobile</div></div>
+                <div class="p-2 text-center rounded-lg bg-dark-800/50"><div class="text-lg font-bold text-brand-green">💳</div><div class="text-xs text-white/40">Card</div></div>
+                <div class="p-2 text-center rounded-lg bg-dark-800/50"><div class="text-lg font-bold text-brand-green">💵</div><div class="text-xs text-white/40">Cash</div></div>
+                <div class="p-2 text-center rounded-lg bg-dark-800/50"><div class="text-lg font-bold text-brand-green">📱</div><div class="text-xs text-white/40">Mobile</div></div>
               </div>
             </div>
             <div>
               <div class="pos-terminal">
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-white font-medium">Box Office</span>
-                  <span class="px-2 py-1 rounded-full bg-brand-green/10 text-brand-green text-xs">Online</span>
+                  <span class="font-medium text-white">Box Office</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-brand-green/10 text-brand-green">Online</span>
                 </div>
-                <div class="space-y-2 mb-4">
-                  <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800"><span class="text-white/70 text-sm">Concert Jazz - VIP</span><span class="text-white font-medium">x2</span></div>
-                  <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800"><span class="text-white/70 text-sm">Parcare</span><span class="text-white font-medium">x1</span></div>
+                <div class="mb-4 space-y-2">
+                  <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800"><span class="text-sm text-white/70">Concert Jazz - VIP</span><span class="font-medium text-white">x2</span></div>
+                  <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800"><span class="text-sm text-white/70">Parcare</span><span class="font-medium text-white">x1</span></div>
                 </div>
                 <div class="flex items-center justify-between pt-3 border-t border-white/10">
-                  <span class="text-white font-medium">Total</span>
-                  <span class="text-2xl font-display font-bold text-brand-green">389 RON</span>
+                  <span class="font-medium text-white">Total</span>
+                  <span class="text-2xl font-bold font-display text-brand-green">389 RON</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mt-4">
-                  <button class="p-3 rounded-lg bg-white/5 text-white/60 text-sm">Card</button>
-                  <button class="p-3 rounded-lg bg-brand-green text-white text-sm font-medium">Încasează</button>
+                  <button class="p-3 text-sm rounded-lg bg-white/5 text-white/60">Card</button>
+                  <button class="p-3 text-sm font-medium text-white rounded-lg bg-brand-green">Încasează</button>
                 </div>
               </div>
             </div>
@@ -503,60 +503,60 @@ get_header();
         </div>
 
         <!-- Analytics -->
-        <div class="glow-card p-8" style="--glow-color: rgba(59, 130, 246, 0.15); --border-color: rgba(59, 130, 246, 0.3);">
-          <div class="feature-icon bg-gradient-to-br from-brand-blue to-brand-sky mb-6">
+        <div class="p-8 glow-card" style="--glow-color: rgba(59, 130, 246, 0.15); --border-color: rgba(59, 130, 246, 0.3);">
+          <div class="mb-6 feature-icon bg-gradient-to-br from-brand-blue to-brand-sky">
             <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
-          <h3 class="font-display text-2xl font-bold text-white mb-3">Vizibilitate Totală</h3>
-          <p class="text-white/50 mb-4">Dashboard-uri cross-eveniment, performanța promotorilor, analize prezență.</p>
+          <h3 class="mb-3 text-2xl font-bold text-white font-display">Vizibilitate Totală</h3>
+          <p class="mb-4 text-white/50">Dashboard-uri cross-eveniment, performanța promotorilor, analize prezență.</p>
 
-          <div class="bg-dark-900/50 rounded-xl p-3 mt-4">
+          <div class="p-3 mt-4 bg-dark-900/50 rounded-xl">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-white/50 text-xs">Această lună</span>
-              <span class="text-brand-blue text-xs font-medium">+18%</span>
+              <span class="text-xs text-white/50">Această lună</span>
+              <span class="text-xs font-medium text-brand-blue">+18%</span>
             </div>
-            <div class="flex items-end gap-1 h-16">
-              <div class="chart-bar flex-1 bg-brand-blue/50 rounded-t" style="height: 50%;"></div>
-              <div class="chart-bar flex-1 bg-brand-blue/60 rounded-t" style="height: 70%;"></div>
-              <div class="chart-bar flex-1 bg-brand-blue/70 rounded-t" style="height: 55%;"></div>
-              <div class="chart-bar flex-1 bg-brand-blue/80 rounded-t" style="height: 85%;"></div>
-              <div class="chart-bar flex-1 bg-brand-blue rounded-t" style="height: 100%;"></div>
+            <div class="flex items-end h-16 gap-1">
+              <div class="flex-1 rounded-t chart-bar bg-brand-blue/50" style="height: 50%;"></div>
+              <div class="flex-1 rounded-t chart-bar bg-brand-blue/60" style="height: 70%;"></div>
+              <div class="flex-1 rounded-t chart-bar bg-brand-blue/70" style="height: 55%;"></div>
+              <div class="flex-1 rounded-t chart-bar bg-brand-blue/80" style="height: 85%;"></div>
+              <div class="flex-1 rounded-t chart-bar bg-brand-blue" style="height: 100%;"></div>
             </div>
           </div>
         </div>
 
         <!-- Revenue Split -->
-        <div class="glow-card p-8" style="--glow-color: rgba(245, 158, 11, 0.15); --border-color: rgba(245, 158, 11, 0.3);">
-          <div class="feature-icon bg-gradient-to-br from-brand-amber to-brand-orange mb-6">
+        <div class="p-8 glow-card" style="--glow-color: rgba(245, 158, 11, 0.15); --border-color: rgba(245, 158, 11, 0.3);">
+          <div class="mb-6 feature-icon bg-gradient-to-br from-brand-amber to-brand-orange">
             <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="font-display text-2xl font-bold text-white mb-3">Partajare Venituri</h3>
-          <p class="text-white/50 mb-4">Configurare automată, calcule transparente. Fără dispute.</p>
+          <h3 class="mb-3 text-2xl font-bold text-white font-display">Partajare Venituri</h3>
+          <p class="mb-4 text-white/50">Configurare automată, calcule transparente. Fără dispute.</p>
 
-          <div class="space-y-3 mt-4">
+          <div class="mt-4 space-y-3">
             <div>
-              <div class="flex items-center justify-between text-sm mb-1"><span class="text-white/70">Locație</span><span class="text-brand-amber font-medium">30%</span></div>
+              <div class="flex items-center justify-between mb-1 text-sm"><span class="text-white/70">Locație</span><span class="font-medium text-brand-amber">30%</span></div>
               <div class="revenue-bar"><div class="revenue-fill bg-gradient-to-r from-brand-amber to-brand-orange" style="width: 30%;"></div></div>
             </div>
             <div>
-              <div class="flex items-center justify-between text-sm mb-1"><span class="text-white/70">Promotor</span><span class="text-brand-violet font-medium">70%</span></div>
+              <div class="flex items-center justify-between mb-1 text-sm"><span class="text-white/70">Promotor</span><span class="font-medium text-brand-violet">70%</span></div>
               <div class="revenue-bar"><div class="revenue-fill bg-gradient-to-r from-brand-violet to-brand-indigo" style="width: 70%;"></div></div>
             </div>
           </div>
         </div>
 
         <!-- Permissions -->
-        <div class="glow-card p-8" style="--glow-color: rgba(244, 63, 94, 0.15); --border-color: rgba(244, 63, 94, 0.3);">
-          <div class="feature-icon bg-gradient-to-br from-brand-rose to-brand-orange mb-6">
+        <div class="p-8 glow-card" style="--glow-color: rgba(244, 63, 94, 0.15); --border-color: rgba(244, 63, 94, 0.3);">
+          <div class="mb-6 feature-icon bg-gradient-to-br from-brand-rose to-brand-orange">
             <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
-          <h3 class="font-display text-2xl font-bold text-white mb-3">Control Permisiuni</h3>
-          <p class="text-white/50 mb-4">Fiecare rol primește exact accesul de care are nevoie.</p>
+          <h3 class="mb-3 text-2xl font-bold text-white font-display">Control Permisiuni</h3>
+          <p class="mb-4 text-white/50">Fiecare rol primește exact accesul de care are nevoie.</p>
 
-          <div class="space-y-2 mt-4">
-            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-white/70 text-sm">📊 Marketing</span><span class="text-white/40 text-xs">Rapoarte</span></div>
-            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-white/70 text-sm">🎫 Box Office</span><span class="text-white/40 text-xs">Vânzări</span></div>
-            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-white/70 text-sm">🚪 Staff Ușă</span><span class="text-white/40 text-xs">Scanare</span></div>
+          <div class="mt-4 space-y-2">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-sm text-white/70">📊 Marketing</span><span class="text-xs text-white/40">Rapoarte</span></div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-sm text-white/70">🎫 Box Office</span><span class="text-xs text-white/40">Vânzări</span></div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-dark-800/50"><span class="text-sm text-white/70">🚪 Staff Ușă</span><span class="text-xs text-white/40">Scanare</span></div>
           </div>
         </div>
 
@@ -565,35 +565,35 @@ get_header();
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="py-32 relative overflow-hidden bg-dark-850">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <span class="inline-block px-4 py-2 rounded-full bg-brand-indigo/10 text-brand-indigo text-sm font-medium mb-4">💬 Testimoniale</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white">Ce spun proprietarii de locații</h2>
+  <section class="relative py-32 overflow-hidden bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="mb-16 text-center reveal">
+        <span class="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-brand-indigo/10 text-brand-indigo">💬 Testimoniale</span>
+        <h2 class="text-4xl font-bold text-white font-display md:text-5xl">Ce spun proprietarii de locații</h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="grid gap-6 md:grid-cols-3">
         <div class="testimonial-card reveal">
-          <p class="text-white/70 text-lg leading-relaxed mb-6 relative z-10">"Înainte de Tixello, foloseam trei sisteme diferite și tot alergam după promotori pentru rapoarte. <strong class="text-white">Acum totul rulează printr-o singură platformă.</strong>"</p>
+          <p class="relative z-10 mb-6 text-lg leading-relaxed text-white/70">"Înainte de Tixello, foloseam trei sisteme diferite și tot alergam după promotori pentru rapoarte. <strong class="text-white">Acum totul rulează printr-o singură platformă.</strong>"</p>
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-indigo to-brand-blue flex items-center justify-center text-white text-lg">🎭</div>
-            <div><div class="text-white font-medium">Alexandru M.</div><div class="text-white/40 text-sm">Manager Teatru, București</div></div>
+            <div class="flex items-center justify-center w-12 h-12 text-lg text-white rounded-full bg-gradient-to-br from-brand-indigo to-brand-blue">🎭</div>
+            <div><div class="font-medium text-white">Alexandru M.</div><div class="text-sm text-white/40">Manager Teatru, București</div></div>
           </div>
         </div>
 
         <div class="testimonial-card reveal reveal-delay-1">
-          <p class="text-white/70 text-lg leading-relaxed mb-6 relative z-10">"Sistemul de hărți de locuri înțelege într-adevăr spațiul nostru. <strong class="text-white">Avem șase configurații diferite</strong> și putem comuta între ele instant."</p>
+          <p class="relative z-10 mb-6 text-lg leading-relaxed text-white/70">"Sistemul de hărți de locuri înțelege într-adevăr spațiul nostru. <strong class="text-white">Avem șase configurații diferite</strong> și putem comuta între ele instant."</p>
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-white text-lg">🎵</div>
-            <div><div class="text-white font-medium">Maria V.</div><div class="text-white/40 text-sm">Director Operațiuni, Sală de Concerte</div></div>
+            <div class="flex items-center justify-center w-12 h-12 text-lg text-white rounded-full bg-gradient-to-br from-brand-cyan to-brand-blue">🎵</div>
+            <div><div class="font-medium text-white">Maria V.</div><div class="text-sm text-white/40">Director Operațiuni, Sală de Concerte</div></div>
           </div>
         </div>
 
         <div class="testimonial-card reveal reveal-delay-2">
-          <p class="text-white/70 text-lg leading-relaxed mb-6 relative z-10">"Promotorii noștri adoră să aibă propriul portal. Se simt independenți, <strong class="text-white">dar noi menținem controlul.</strong> Este echilibrul perfect."</p>
+          <p class="relative z-10 mb-6 text-lg leading-relaxed text-white/70">"Promotorii noștri adoră să aibă propriul portal. Se simt independenți, <strong class="text-white">dar noi menținem controlul.</strong> Este echilibrul perfect."</p>
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center text-white text-lg">🎨</div>
-            <div><div class="text-white font-medium">Cristian P.</div><div class="text-white/40 text-sm">Proprietar, Centru de Arte Multi-Spațiu</div></div>
+            <div class="flex items-center justify-center w-12 h-12 text-lg text-white rounded-full bg-gradient-to-br from-brand-violet to-brand-indigo">🎨</div>
+            <div><div class="font-medium text-white">Cristian P.</div><div class="text-sm text-white/40">Proprietar, Centru de Arte Multi-Spațiu</div></div>
           </div>
         </div>
       </div>
@@ -601,56 +601,56 @@ get_header();
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="py-32 relative overflow-hidden">
-    <div class="max-w-3xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Implementare <span class="text-gradient">fără stress</span></h2>
-        <p class="text-white/50 text-lg">Te ghidăm la fiecare pas.</p>
+  <section class="relative py-32 overflow-hidden">
+    <div class="max-w-3xl px-6 mx-auto lg:px-8">
+      <div class="mb-16 text-center reveal">
+        <h2 class="mb-4 text-4xl font-bold text-white font-display md:text-5xl">Implementare <span class="text-gradient">fără stress</span></h2>
+        <p class="text-lg text-white/50">Te ghidăm la fiecare pas.</p>
       </div>
 
       <div class="space-y-8">
-        <div class="timeline-step flex gap-6 reveal">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-indigo to-brand-violet flex items-center justify-center text-white font-display font-bold text-2xl flex-shrink-0">1</div>
-          <div class="flex-1 pt-2"><h3 class="text-white font-semibold text-lg mb-1">Îți cartografiem locația</h3><p class="text-white/50">Echipa noastră construiește hărțile de locuri și configurațiile cu precizie.</p></div>
+        <div class="flex gap-6 timeline-step reveal">
+          <div class="flex items-center justify-center flex-shrink-0 w-16 h-16 text-2xl font-bold text-white rounded-2xl bg-gradient-to-br from-brand-indigo to-brand-violet font-display">1</div>
+          <div class="flex-1 pt-2"><h3 class="mb-1 text-lg font-semibold text-white">Îți cartografiem locația</h3><p class="text-white/50">Echipa noastră construiește hărțile de locuri și configurațiile cu precizie.</p></div>
         </div>
 
-        <div class="timeline-step flex gap-6 reveal reveal-delay-1">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-violet to-brand-blue flex items-center justify-center text-white font-display font-bold text-2xl flex-shrink-0">2</div>
-          <div class="flex-1 pt-2"><h3 class="text-white font-semibold text-lg mb-1">Îți migrăm datele</h3><p class="text-white/50">Istoricul clienților din sistemele anterioare se transferă perfect.</p></div>
+        <div class="flex gap-6 timeline-step reveal reveal-delay-1">
+          <div class="flex items-center justify-center flex-shrink-0 w-16 h-16 text-2xl font-bold text-white rounded-2xl bg-gradient-to-br from-brand-violet to-brand-blue font-display">2</div>
+          <div class="flex-1 pt-2"><h3 class="mb-1 text-lg font-semibold text-white">Îți migrăm datele</h3><p class="text-white/50">Istoricul clienților din sistemele anterioare se transferă perfect.</p></div>
         </div>
 
-        <div class="timeline-step flex gap-6 reveal reveal-delay-2">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-cyan flex items-center justify-center text-white font-display font-bold text-2xl flex-shrink-0">3</div>
-          <div class="flex-1 pt-2"><h3 class="text-white font-semibold text-lg mb-1">Îți antrenăm echipa</h3><p class="text-white/50">Staff-ul, promotorii și box office-ul se pun la curent rapid.</p></div>
+        <div class="flex gap-6 timeline-step reveal reveal-delay-2">
+          <div class="flex items-center justify-center flex-shrink-0 w-16 h-16 text-2xl font-bold text-white rounded-2xl bg-gradient-to-br from-brand-blue to-brand-cyan font-display">3</div>
+          <div class="flex-1 pt-2"><h3 class="mb-1 text-lg font-semibold text-white">Îți antrenăm echipa</h3><p class="text-white/50">Staff-ul, promotorii și box office-ul se pun la curent rapid.</p></div>
         </div>
 
-        <div class="timeline-step flex gap-6 reveal reveal-delay-3">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-cyan to-brand-green flex items-center justify-center text-white font-display font-bold text-2xl flex-shrink-0">4</div>
-          <div class="flex-1 pt-2"><h3 class="text-white font-semibold text-lg mb-1">Mergi live! 🚀</h3><p class="text-white/50">Lansare cu suport complet la dispoziție.</p></div>
+        <div class="flex gap-6 timeline-step reveal reveal-delay-3">
+          <div class="flex items-center justify-center flex-shrink-0 w-16 h-16 text-2xl font-bold text-white rounded-2xl bg-gradient-to-br from-brand-cyan to-brand-green font-display">4</div>
+          <div class="flex-1 pt-2"><h3 class="mb-1 text-lg font-semibold text-white">Mergi live! 🚀</h3><p class="text-white/50">Lansare cu suport complet la dispoziție.</p></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0">
       <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-indigo/20 rounded-full blur-[150px]"></div>
       <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-brand-cyan/20 rounded-full blur-[150px]"></div>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+    <div class="relative z-10 max-w-4xl px-6 mx-auto text-center lg:px-8">
       <div class="reveal">
-        <div class="text-6xl mb-6">🏛️</div>
-        <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6">Locația ta este unică.<br><span class="text-gradient">Ticketing-ul tău la fel.</span></h2>
-        <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto">Platformele generice te forțează în tiparul lor. <strong class="text-white">Tixello se adaptează la modul în care operezi efectiv.</strong></p>
+        <div class="mb-6 text-6xl">🏛️</div>
+        <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl">Locația ta este unică.<br><span class="text-gradient">Ticketing-ul tău la fel.</span></h2>
+        <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60">Platformele generice te forțează în tiparul lor. <strong class="text-white">Tixello se adaptează la modul în care operezi efectiv.</strong></p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <a href="<?php echo esc_url(home_url('/demo')); ?>" class="group cta-primary inline-flex items-center justify-center gap-3 font-semibold text-lg px-10 py-5 rounded-full text-white">
+        <div class="flex flex-col justify-center gap-4 mb-8 sm:flex-row">
+          <a href="<?php echo esc_url(home_url('/demo')); ?>" class="inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-semibold text-white rounded-full group cta-primary">
             <span>Programează un Demo</span>
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
-          <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-5 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">Contactează Vânzări</a>
+          <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-5 text-lg font-semibold text-white transition-all border rounded-full bg-white/10 border-white/20 hover:bg-white/20">Contactează Vânzări</a>
         </div>
 
         <div class="flex flex-wrap justify-center gap-6">
@@ -659,7 +659,7 @@ get_header();
           <div class="flex items-center gap-2 text-white/40"><svg class="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Suport dedicat</span></div>
         </div>
 
-        <p class="text-white/30 text-sm mt-12">Tixello alimentează locații de la teatre intime de 100 de locuri<br>la centre de arte performative multi-sală.</p>
+        <p class="mt-12 text-sm text-white/30">Tixello alimentează locații de la teatre intime de 100 de locuri<br>la centre de arte performative multi-sală.</p>
       </div>
     </div>
   </section>

@@ -11,6 +11,98 @@
 
 </div>
 
+<?php
+// ==========================
+// Footer Multilanguage Support (Polylang)
+// ==========================
+$footer_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'ro';
+
+$footer_t = [
+	'brand_desc' => $footer_lang === 'ro'
+		? 'Platforma completa de ticketing pentru organizatori de evenimente din Romania si Europa.'
+		: 'The complete ticketing platform for event organizers in Romania and Europe.',
+	'company' => $footer_lang === 'ro' ? 'Companie' : 'Company',
+	'resources' => $footer_lang === 'ro' ? 'Resurse' : 'Resources',
+	'quick_links' => $footer_lang === 'ro' ? 'Link-uri rapide' : 'Quick Links',
+	'compare_title' => $footer_lang === 'ro' ? 'Compara Tixello cu' : 'Compare Tixello with',
+	'made_with_love' => $footer_lang === 'ro' ? 'Facut cu dragoste pentru evenimente, in UE' : 'Made with love for events, in the EU',
+];
+
+// Carousel items for Compare section
+$carousel_items = [
+	[
+		'slug' => 'iabilet',
+		'name' => 'iaBilet',
+		'icon_bg' => 'bg-yellow-500/20',
+		'icon_text' => 'text-yellow-400',
+		'icon_letter' => 'ia',
+	],
+	[
+		'slug' => 'bilete-ro',
+		'name' => 'Bilete.ro',
+		'icon_bg' => 'bg-red-500/20',
+		'icon_text' => 'text-red-400',
+		'icon_letter' => 'B',
+	],
+	[
+		'slug' => 'livetickets',
+		'name' => 'LiveTickets',
+		'icon_bg' => 'bg-lime-500/20',
+		'icon_text' => 'text-lime-400',
+		'icon_letter' => 'L',
+	],
+	[
+		'slug' => 'ambilet',
+		'name' => 'amBilet',
+		'icon_bg' => 'bg-fuchsia-500/20',
+		'icon_text' => 'text-fuchsia-400',
+		'icon_letter' => 'a',
+	],
+	[
+		'slug' => 'getin',
+		'name' => 'get-in.ro',
+		'icon_bg' => 'bg-orange-500/20',
+		'icon_text' => 'text-orange-400',
+		'icon_letter' => 'G',
+	],
+	[
+		'slug' => 'eventim',
+		'name' => 'Eventim',
+		'icon_bg' => 'bg-blue-500/20',
+		'icon_text' => 'text-blue-400',
+		'icon_letter' => 'Ev',
+	],
+	[
+		'slug' => 'iticket',
+		'name' => 'iTicket',
+		'icon_bg' => 'bg-sky-500/20',
+		'icon_text' => 'text-sky-400',
+		'icon_letter' => 'iT',
+	],
+	[
+		'slug' => 'myticket',
+		'name' => 'MyTicket',
+		'icon_bg' => 'bg-teal-500/20',
+		'icon_text' => 'text-teal-400',
+		'icon_letter' => 'M',
+	],
+	[
+		'slug' => 'oveit',
+		'name' => 'Oveit',
+		'icon_bg' => 'bg-indigo-500/20',
+		'icon_text' => 'text-indigo-400',
+		'icon_letter' => 'O',
+	],
+	[
+		'slug' => 'entertix',
+		'name' => 'Entertix',
+		'icon_bg' => 'bg-amber-500/20',
+		'icon_text' => 'text-amber-400',
+		'icon_letter' => 'E',
+	],
+];
+?>
+
 <footer id="colophon" class="relative border-t site-footer bg-zinc-950 border-white/5" role="contentinfo">
 	<?php do_action( 'tailpress_footer' ); ?>
 
@@ -25,17 +117,17 @@
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
 					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tixello-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-32 h-auto transition-opacity duration-300 group-hover:opacity-90">
 				</a>
-				
+
 				<p class="max-w-xs mb-6 text-sm leading-relaxed text-white/50">
-					Platforma completă de ticketing pentru organizatori de evenimente din România și Europa.
+					<?php echo esc_html( $footer_t['brand_desc'] ); ?>
 				</p>
-				
+
 				<!-- Trust Badges -->
 				<div class="flex items-center gap-4 mb-6">
 					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/GDPR.svg" alt="GDPR icon" class="inline w-24 h-16">
 					<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/ISO.svg" alt="ISO icon" class="inline w-24 h-16 ml-1">
 				</div>
-				
+
 				<!-- Social Links -->
 				<div class="flex items-center gap-3">
 					<a href="#" class="flex items-center justify-center w-10 h-10 transition-all border rounded-xl bg-white/5 border-white/10 text-white/60 hover:text-white hover:bg-violet-600/20 hover:border-violet-500/30">
@@ -54,7 +146,7 @@
 			</div>
 
 			<div class="fmenu">
-				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase">Company</h4>
+				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['company'] ); ?></h4>
 				<?php
 				wp_nav_menu(
 					array(
@@ -69,7 +161,7 @@
 				?>
 			</div>
 			<div class="fmenu">
-				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase">Resources</h4>
+				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['resources'] ); ?></h4>
 				<?php
 				wp_nav_menu(
 					array(
@@ -84,7 +176,7 @@
 				?>
 			</div>
 			<div class="fmenu">
-				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase">Quick Links</h4>
+				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['quick_links'] ); ?></h4>
 				<?php
 				wp_nav_menu(
 					array(
@@ -99,7 +191,7 @@
 				?>
 			</div>
 			<div class="fmenu">
-				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase">Resources</h4>
+				<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['resources'] ); ?></h4>
 				<?php
 				wp_nav_menu(
 					array(
@@ -117,24 +209,31 @@
 
 		<!-- Compare Section -->
 		<div class="pt-8 mt-12 border-t border-white/5">
-			<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase">Compare Tixello with</h4>
-			<div class="flex flex-wrap gap-2">
-				<?php
-				wp_nav_menu(
-					array(
-						'container_id'    => 'footer-alternatives',
-						'container_class' => '',
-						'menu_class'      => 'flex flex-wrap items-center gap-x-6 gap-y-2 font-semibold text-slate-800 hover:text-slate-900',
-						'theme_location'  => 'footer_alternatives',
-						'li_class'        => 'px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:text-white hover:bg-violet-600/10 hover:border-violet-500/30 transition-all',
-						'fallback_cb'     => false,
-					)
-				);
-				?>
+			<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['compare_title'] ); ?></h4>
+			<div class="flex overflow-hidden">
+				<div class="flex animate-scroll-x gap-4 hover:[animation-play-state:paused]">
+					<?php
+					// Render carousel items twice for infinite scroll effect
+					for ($i = 0; $i < 2; $i++) :
+						foreach ($carousel_items as $item) :
+					?>
+					<a href="<?php echo home_url('/compare/' . $item['slug']); ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+						<div class="flex items-center gap-3 mb-2">
+							<div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500"><span class="text-xs font-bold text-white">T</span></div>
+							<span class="text-sm text-white/40">vs</span>
+							<div class="w-8 h-8 rounded-lg <?php echo esc_attr($item['icon_bg']); ?> flex items-center justify-center"><span class="<?php echo esc_attr($item['icon_text']); ?> font-bold text-xs"><?php echo esc_html($item['icon_letter']); ?></span></div>
+						</div>
+						<p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
+					</a>
+					<?php
+						endforeach;
+					endfor;
+					?>
+				</div>
 			</div>
 		</div>
-	</div>		
-	
+	</div>
+
 	<div class="border-t border-white/5 bg-zinc-950/50">
 		<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -144,7 +243,7 @@
 					</a>
 					<div class="">
 						<span class="text-slate-500">
-							Made with love for events, in the EU <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
+							<?php echo esc_html( $footer_t['made_with_love'] ); ?> <img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/eu-flag.svg" alt="EU Flag" class="inline w-6 h-4 ml-1">
 						</span>
 					</div>
 				</div>

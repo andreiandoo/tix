@@ -23,6 +23,21 @@
 	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
+<?php
+// ==========================
+// Header Multilanguage Support (Polylang)
+// ==========================
+$header_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : 'ro';
+
+$header_t = [
+	'search' => $header_lang === 'ro' ? 'Cauta' : 'Search',
+	'login' => $header_lang === 'ro' ? 'Conectare' : 'Login',
+	'start_free' => $header_lang === 'ro' ? 'Incepe Gratuit' : 'Start Free',
+	'open_menu' => $header_lang === 'ro' ? 'Deschide meniul' : 'Open menu',
+	'close_menu' => $header_lang === 'ro' ? 'Inchide meniul' : 'Close menu',
+];
+?>
+
 <body <?php body_class( 'text-gray-900 antialiased font-body bg-dark-900 text-zinc-200 overflow-x-hidden' ); ?> x-data="{ mobileMenu: false }">
 <!-- Scroll Progress Bar -->
 <div class="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-meta-blue to-cyan-400 z-[1001]" id="scroll-progress"></div>
@@ -115,33 +130,33 @@
 					<?php //include get_template_directory() . '/bits/top-search.php'; ?>
 					
 					<!-- Search Button -->
-					<a class="hidden" href="<?php echo esc_url( home_url( '/cauta/' ) ); ?>" 
+					<a class="hidden" href="<?php echo esc_url( home_url( '/cauta/' ) ); ?>"
 					   class="flex items-center justify-center w-10 h-10 transition-all border search-trigger rounded-xl bg-white/5 border-white/10 hover:bg-brand-violet/20 hover:border-brand-violet/30 group"
-					   title="<?php esc_attr_e( 'Caută', 'tixello' ); ?>">
+					   title="<?php echo esc_attr( $header_t['search'] ); ?>">
 						<svg class="w-5 h-5 transition-colors text-white/60 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
 						</svg>
 					</a>
-					
-					<!-- Conectare (Desktop) -->
+
+					<!-- Login (Desktop) -->
 					<a href="https://core.tixello.com/tenant/login" target="_blank"
 					   class="hidden px-4 py-2 text-sm font-medium transition-colors xl:block text-white/80 hover:text-white">
-						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
+						<?php echo esc_html( $header_t['login'] ); ?>
 					</a>
-					
-					<!-- CTA: Începe Gratuit (Desktop) -->
+
+					<!-- CTA: Start Free (Desktop) -->
 					<a href="https://core.tixello.com/register" target="_blank"
 					   class="hidden xl:inline-flex cta-button items-center gap-2 px-5 py-2.5 rounded-full bg-brand-violet text-white text-sm font-semibold hover:bg-brand-violet/90 hover:shadow-lg hover:shadow-brand-violet/30 transition-all duration-300">
-						<?php esc_html_e( 'Începe Gratuit', 'tixello' ); ?>
+						<?php echo esc_html( $header_t['start_free'] ); ?>
 						<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
 						</svg>
 					</a>
-					
+
 					<!-- Mobile Menu Toggle -->
-					<button @click="mobileMenu = true" 
+					<button @click="mobileMenu = true"
 							class="p-2 transition-colors xl:hidden text-white/80 hover:text-white"
-							aria-label="Deschide meniul">
+							aria-label="<?php echo esc_attr( $header_t['open_menu'] ); ?>">
 						<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
 						</svg>
@@ -180,22 +195,22 @@
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 mb-6 group">
 						<img src="<?php echo get_stylesheet_directory_uri('') ?>/assets/images/tixello-white.svg" alt="<?php echo get_bloginfo( 'name' ); ?> Logo" class="w-32 h-auto transition-opacity duration-300 group-hover:opacity-90">
 					</a>
-                    <button @click="mobileMenu = false" class="p-2 transition-colors text-white/60 hover:text-white">
+                    <button @click="mobileMenu = false" class="p-2 transition-colors text-white/60 hover:text-white" aria-label="<?php echo esc_attr( $header_t['close_menu'] ); ?>">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
                 </div>
-				
+
 				<!-- Mobile CTAs -->
 				<div class="flex gap-3 px-6 mb-8">
 					<a href="https://core.tixello.com/register" target="_blank"
 					   class="flex-1 px-4 py-3 text-sm font-semibold text-center text-white transition-colors rounded-xl bg-brand-violet hover:bg-brand-violet/80">
-						<?php esc_html_e( 'Începe Gratuit', 'tixello' ); ?>
+						<?php echo esc_html( $header_t['start_free'] ); ?>
 					</a>
 					<a href="https://core.tixello.com/tenant/login" target="_blank"
 					   class="flex-1 px-4 py-3 text-sm font-medium text-center text-white transition-colors border rounded-xl bg-white/10 border-white/10 hover:bg-white/20">
-						<?php esc_html_e( 'Conectare', 'tixello' ); ?>
+						<?php echo esc_html( $header_t['login'] ); ?>
 					</a>
 				</div>
 				

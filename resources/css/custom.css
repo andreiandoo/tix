@@ -527,6 +527,16 @@ article > *:not(.entry-content),
     animation-play-state: paused;
 }
 
+/* Infinite Scroll X Animation (Footer Carousel) */
+@keyframes scroll-x {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-x {
+    animation: scroll-x 40s linear infinite;
+}
+
 /* Stagger Delays */
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.15s; }

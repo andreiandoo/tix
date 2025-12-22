@@ -32,7 +32,7 @@ $footer_t = [
 $carousel_items = [
 	[
 		'slug' => 'iabilet',
-		'name' => 'iaBilet',
+		'name' => 'iaBilet.ro',
 		'icon_bg' => 'bg-yellow-500/20',
 		'icon_text' => 'text-yellow-400',
 		'icon_letter' => 'ia',
@@ -46,14 +46,14 @@ $carousel_items = [
 	],
 	[
 		'slug' => 'livetickets',
-		'name' => 'LiveTickets',
+		'name' => 'LiveTickets.ro',
 		'icon_bg' => 'bg-lime-500/20',
 		'icon_text' => 'text-lime-400',
 		'icon_letter' => 'L',
 	],
 	[
 		'slug' => 'ambilet',
-		'name' => 'amBilet',
+		'name' => 'amBilet.ro',
 		'icon_bg' => 'bg-fuchsia-500/20',
 		'icon_text' => 'text-fuchsia-400',
 		'icon_letter' => 'a',
@@ -67,35 +67,35 @@ $carousel_items = [
 	],
 	[
 		'slug' => 'eventim',
-		'name' => 'Eventim',
+		'name' => 'Eventim.ro',
 		'icon_bg' => 'bg-blue-500/20',
 		'icon_text' => 'text-blue-400',
 		'icon_letter' => 'Ev',
 	],
 	[
 		'slug' => 'iticket',
-		'name' => 'iTicket',
+		'name' => 'iTicket.ro',
 		'icon_bg' => 'bg-sky-500/20',
 		'icon_text' => 'text-sky-400',
 		'icon_letter' => 'iT',
 	],
 	[
 		'slug' => 'myticket',
-		'name' => 'MyTicket',
+		'name' => 'MyTicket.ro',
 		'icon_bg' => 'bg-teal-500/20',
 		'icon_text' => 'text-teal-400',
 		'icon_letter' => 'M',
 	],
 	[
 		'slug' => 'oveit',
-		'name' => 'Oveit',
+		'name' => 'Oveit.ro',
 		'icon_bg' => 'bg-indigo-500/20',
 		'icon_text' => 'text-indigo-400',
 		'icon_letter' => 'O',
 	],
 	[
 		'slug' => 'entertix',
-		'name' => 'Entertix',
+		'name' => 'Entertix.ro',
 		'icon_bg' => 'bg-amber-500/20',
 		'icon_text' => 'text-amber-400',
 		'icon_letter' => 'E',
@@ -209,7 +209,7 @@ $carousel_items = [
 
 		<!-- Compare Section -->
 		<div class="pt-8 mt-12 border-t border-white/5">
-			<h4 class="mb-4 text-sm font-bold tracking-wider text-white uppercase"><?php echo esc_html( $footer_t['compare_title'] ); ?></h4>
+			<h4 class="mb-6 text-lg tracking-wider lowercase text-slate-500"><?php echo esc_html( $footer_t['compare_title'] ); ?></h4>
 			<div class="flex overflow-hidden">
 				<div class="flex animate-scroll-x gap-4 hover:[animation-play-state:paused]">
 					<?php
@@ -217,12 +217,7 @@ $carousel_items = [
 					for ($i = 0; $i < 2; $i++) :
 						foreach ($carousel_items as $item) :
 					?>
-					<a href="<?php echo home_url('/compare/' . $item['slug']); ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
-						<div class="flex items-center gap-3 mb-2">
-							<div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500"><span class="text-xs font-bold text-white">T</span></div>
-							<span class="text-sm text-white/40">vs</span>
-							<div class="w-8 h-8 rounded-lg <?php echo esc_attr($item['icon_bg']); ?> flex items-center justify-center"><span class="<?php echo esc_attr($item['icon_text']); ?> font-bold text-xs"><?php echo esc_html($item['icon_letter']); ?></span></div>
-						</div>
+					<a href="<?php if ($footer_lang === 'ro') : echo home_url('/compara/ro/' . $item['slug']); else : echo home_url('/compare/' . $item['slug']); endif; ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
 						<p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
 					</a>
 					<?php
@@ -235,7 +230,7 @@ $carousel_items = [
 	</div>
 
 	<div class="border-t border-white/5 bg-zinc-950/50">
-		<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+		<div class="px-4 py-6 mx-auto container-site sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 				<div class="flex items-center gap-x-4">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2.5 group">
@@ -247,8 +242,8 @@ $carousel_items = [
 						</span>
 					</div>
 				</div>
+				<span class="text-sm text-white/40">&copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-					<span class="text-sm text-white/40">Copyright &copy; <?php echo date_i18n( 'Y' );?> <?php echo get_bloginfo( 'name' );?></span>
 					<div class="fmenu">
 						<?php
 						wp_nav_menu(

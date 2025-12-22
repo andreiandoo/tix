@@ -217,7 +217,7 @@ $carousel_items = [
 					for ($i = 0; $i < 2; $i++) :
 						foreach ($carousel_items as $item) :
 					?>
-					<a href="<?php if ($footer_lang === 'ro') : echo home_url('/compara/ro/' . $item['slug']); else : echo home_url('/compare/' . $item['slug']); endif; ?>" class="flex-shrink-0 py-2 px-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+					<a href="<?php if ($footer_lang === 'ro') : echo home_url('/ro/compara/' . $item['slug']); else : echo home_url('/compare/' . $item['slug']); endif; ?>" class="flex-shrink-0 py-2 px-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
 						<p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
 					</a>
 					<?php

@@ -1228,13 +1228,28 @@ add_action( 'wp_ajax_nopriv_tixello_search_events', 'tixello_search_events_ajax'
 
 
 /**
- * 1) Rewrite pentru /events/{slug}/
+ * 1) Rewrite pentru /events/{slug}/ (with multilingual support)
  */
 add_action( 'init', function () {
     // Tag de query pentru slug
     add_rewrite_tag( '%tixello_event_slug%', '([^&]+)' );
 
-    // URL: /events/slug-ul-evenimentului/
+    // Get available language slugs for Polylang
+    $lang_slugs = array();
+    if ( function_exists( 'pll_languages_list' ) ) {
+        $lang_slugs = pll_languages_list( array( 'fields' => 'slug' ) );
+    }
+
+    // Add language-prefixed rules first (higher priority)
+    foreach ( $lang_slugs as $lang_slug ) {
+        add_rewrite_rule(
+            '^' . $lang_slug . '/events/([^/]+)/?$',
+            'index.php?tixello_event_slug=$matches[1]&lang=' . $lang_slug,
+            'top'
+        );
+    }
+
+    // URL: /events/slug-ul-evenimentului/ (default language)
     add_rewrite_rule(
         '^events/([^/]+)/?$',
         'index.php?tixello_event_slug=$matches[1]',
@@ -1307,6 +1322,7 @@ function tixello_get_event_by_slug( $slug ) {
 
 /**
  * 1) Rewrite pentru /artists/{slug}/ and /artists/letter/{letter}/ and /artists/genre/{genre}/
+ *    (with multilingual support)
  */
 add_action( 'init', 'tixello_register_artist_rewrite' );
 
@@ -1317,14 +1333,44 @@ function tixello_register_artist_rewrite() {
     add_rewrite_tag( '%tixello_artist_letter%', '([^&]+)' );
     add_rewrite_tag( '%tixello_artist_genre%', '([^&]+)' );
 
-    // URL: /artists/letter/A/ - filter by letter
+    // Get available language slugs for Polylang
+    $lang_slugs = array();
+    if ( function_exists( 'pll_languages_list' ) ) {
+        $lang_slugs = pll_languages_list( array( 'fields' => 'slug' ) );
+    }
+
+    // Add language-prefixed rules first (higher priority)
+    foreach ( $lang_slugs as $lang_slug ) {
+        // Language-prefixed letter filter
+        add_rewrite_rule(
+            '^' . $lang_slug . '/artists/letter/([^/]+)/?$',
+            'index.php?tixello_artist_letter=$matches[1]&lang=' . $lang_slug,
+            'top'
+        );
+
+        // Language-prefixed genre filter
+        add_rewrite_rule(
+            '^' . $lang_slug . '/artists/genre/([^/]+)/?$',
+            'index.php?tixello_artist_genre=$matches[1]&lang=' . $lang_slug,
+            'top'
+        );
+
+        // Language-prefixed single artist
+        add_rewrite_rule(
+            '^' . $lang_slug . '/artists/([^/]+)/?$',
+            'index.php?tixello_artist_slug=$matches[1]&lang=' . $lang_slug,
+            'top'
+        );
+    }
+
+    // URL: /artists/letter/A/ - filter by letter (default language)
     add_rewrite_rule(
         '^artists/letter/([^/]+)/?$',
         'index.php?tixello_artist_letter=$matches[1]',
         'top'
     );
 
-    // URL: /artists/genre/rock/ - filter by genre
+    // URL: /artists/genre/rock/ - filter by genre (default language)
     add_rewrite_rule(
         '^artists/genre/([^/]+)/?$',
         'index.php?tixello_artist_genre=$matches[1]',
@@ -1811,13 +1857,29 @@ if ( ! function_exists( 'tixello_format_number_short' ) ) {
  */
 
 /**
- * 1) Rewrite pentru /venues/{slug}/
+ * 1) Rewrite pentru /venues/{slug}/ (with multilingual support)
  */
 add_action( 'init', 'tixello_register_venue_rewrite' );
 
 function tixello_register_venue_rewrite() {
     add_rewrite_tag( '%tixello_venue_slug%', '([^&]+)' );
 
+    // Get available language slugs for Polylang
+    $lang_slugs = array();
+    if ( function_exists( 'pll_languages_list' ) ) {
+        $lang_slugs = pll_languages_list( array( 'fields' => 'slug' ) );
+    }
+
+    // Add language-prefixed rules first (higher priority)
+    foreach ( $lang_slugs as $lang_slug ) {
+        add_rewrite_rule(
+            '^' . $lang_slug . '/venues/([^/]+)/?$',
+            'index.php?tixello_venue_slug=$matches[1]&lang=' . $lang_slug,
+            'top'
+        );
+    }
+
+    // URL: /venues/slug-ul-venue-ului/ (default language)
     add_rewrite_rule(
         '^venues/([^/]+)/?$',
         'index.php?tixello_venue_slug=$matches[1]',

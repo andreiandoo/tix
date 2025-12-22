@@ -81,6 +81,24 @@ $header_t = [
 							'hide_if_empty' => 0, // show all languages even if a page translation is missing
 						]);
 
+						// Check if we're on a dynamic API page (artists, events, venues)
+						$dynamic_page_type = null;
+						$dynamic_slug = null;
+
+						if ( $artist_slug = get_query_var( 'tixello_artist_slug' ) ) {
+							$dynamic_page_type = 'artists';
+							$dynamic_slug = $artist_slug;
+						} elseif ( $event_slug = get_query_var( 'tixello_event_slug' ) ) {
+							$dynamic_page_type = 'events';
+							$dynamic_slug = $event_slug;
+						} elseif ( $venue_slug = get_query_var( 'tixello_venue_slug' ) ) {
+							$dynamic_page_type = 'venues';
+							$dynamic_slug = $venue_slug;
+						}
+
+						// Get default language for URL construction
+						$default_lang = function_exists('pll_default_language') ? pll_default_language() : 'ro';
+
 						if ( ! empty($langs) && count($langs) > 1 ) :?>
 							<!-- Language Switcher -->
 							<div class="flex items-center gap-1 px-1 py-1 ml-2 rounded-lg bg-white/5">
@@ -92,9 +110,23 @@ $header_t = [
 										: 'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors text-white/60 hover:text-white hover:bg-white/10';
 
 									$label = strtoupper($lang['slug']); // RO / EN if your slugs are ro/en
+
+									// For dynamic pages, construct the URL manually
+									if ( $dynamic_page_type && $dynamic_slug ) {
+										// If target language is the default, no prefix needed
+										if ( $lang['slug'] === $default_lang ) {
+											$lang_url = home_url( '/' . $dynamic_page_type . '/' . $dynamic_slug . '/' );
+										} else {
+											// Add language prefix for non-default languages
+											$lang_url = home_url( '/' . $lang['slug'] . '/' . $dynamic_page_type . '/' . $dynamic_slug . '/' );
+										}
+									} else {
+										// Use Polylang's URL for regular pages
+										$lang_url = $lang['url'];
+									}
 								?>
 									<a
-										href="<?php echo esc_url($lang['url']); ?>"
+										href="<?php echo esc_url($lang_url); ?>"
 										class="<?php echo esc_attr($classes); ?>"
 										hreflang="<?php echo esc_attr($lang['slug']); ?>"
 										lang="<?php echo esc_attr($lang['slug']); ?>"
@@ -103,7 +135,7 @@ $header_t = [
 									</a>
 								<?php endforeach; ?>
 							</div>
-						<?php endif; 
+						<?php endif;
 					endif; ?>
 				</div>
 

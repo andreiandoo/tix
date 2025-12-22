@@ -458,7 +458,7 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_1_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_1_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-pink-500/10 text-pink-400">4-6% <?php echo $lang === 'en' ? 'commission' : 'comision'; ?></span>
+                            <span class="px-3 py-1 text-xs font-medium text-pink-400 rounded-full bg-pink-500/10">4-6% <?php echo $lang === 'en' ? 'commission' : 'comision'; ?></span>
                             <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'Payout unclear' : 'Payout neclar'; ?></span>
                         </div>
                     </div>
@@ -538,7 +538,7 @@ get_header();
                         <h3 class="mb-3 text-xl font-bold text-white"><?php echo esc_html($t['compare_3_title']); ?></h3>
                         <p class="mb-4 leading-relaxed text-white/60"><?php echo $content['compare_3_competitor']; ?></p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-pink-500/10 text-pink-400">Cashless (NFC)</span>
+                            <span class="px-3 py-1 text-xs font-medium text-pink-400 rounded-full bg-pink-500/10">Cashless (NFC)</span>
                             <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-white/40"><?php echo $lang === 'en' ? 'eFactura not communicated' : 'eFactura necomunicata'; ?></span>
                         </div>
                     </div>
@@ -567,7 +567,7 @@ get_header();
                         </div>
                     </div>
 
-                    <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-violet-500/10 to-violet-600/5 border border-violet-500/20 hover:border-violet-500/40 transition-all">
+                    <div class="relative p-6 transition-all border sm:p-8 rounded-2xl bg-gradient-to-br from-violet-500/10 to-violet-600/5 border-violet-500/20 hover:border-violet-500/40">
                         <div class="absolute top-4 right-4">
                             <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full bg-violet-500/20 text-violet-400">
                                 <?php echo $lang === 'en' ? 'Comparable' : 'Comparabil'; ?>
@@ -753,6 +753,19 @@ get_header();
         </div>
     </section>
 
+    <!-- ==================== TRANSPARENCY NOTE ==================== -->
+    <section class="py-12 bg-zinc-900/30">
+        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
+                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+                <div>
+                    <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['transparency_text']); ?></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ==================== OTHER COMPARISONS CAROUSEL ==================== -->
     <section class="relative py-16 overflow-hidden border-t bg-zinc-950 border-white/5">
         <div class="px-4 mx-auto mb-8 max-w-7xl sm:px-6 lg:px-8">
@@ -835,18 +848,7 @@ get_header();
         </div>
     </section>
 
-    <!-- ==================== TRANSPARENCY NOTE ==================== -->
-    <section class="py-12 border-t bg-zinc-900/30 border-white/5">
-        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
-                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
-                <div>
-                    <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
-                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['transparency_text']); ?></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
 </main>
 

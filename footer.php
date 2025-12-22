@@ -19,13 +19,13 @@ $footer_lang = function_exists( 'pll_current_language' ) ? pll_current_language(
 
 $footer_t = [
 	'brand_desc' => $footer_lang === 'ro'
-		? 'Platforma completa de ticketing pentru organizatori de evenimente din Romania si Europa.'
+		? 'Platforma completă de ticketing pentru organizatori de evenimente din România și Europa.'
 		: 'The complete ticketing platform for event organizers in Romania and Europe.',
 	'company' => $footer_lang === 'ro' ? 'Companie' : 'Company',
 	'resources' => $footer_lang === 'ro' ? 'Resurse' : 'Resources',
 	'quick_links' => $footer_lang === 'ro' ? 'Link-uri rapide' : 'Quick Links',
-	'compare_title' => $footer_lang === 'ro' ? 'Compara Tixello cu' : 'Compare Tixello with',
-	'made_with_love' => $footer_lang === 'ro' ? 'Facut cu dragoste pentru evenimente, in UE' : 'Made with love for events, in the EU',
+	'compare_title' => $footer_lang === 'ro' ? 'Compară Tixello cu alte platforme' : 'Compare Tixello with other platforms',
+	'made_with_love' => $footer_lang === 'ro' ? 'Făcut cu dragoste pentru evenimente, în UE' : 'Made with love for events, in the EU',
 ];
 
 // Carousel items for Compare section
@@ -209,7 +209,7 @@ $carousel_items = [
 
 		<!-- Compare Section -->
 		<div class="pt-8 mt-12 border-t border-white/5">
-			<h4 class="mb-6 text-lg tracking-wider lowercase text-slate-500"><?php echo esc_html( $footer_t['compare_title'] ); ?></h4>
+			<h4 class="mb-6 text-lg tracking-wider text-center lowercase text-slate-500"><?php echo esc_html( $footer_t['compare_title'] ); ?></h4>
 			<div class="flex overflow-hidden">
 				<div class="flex animate-scroll-x gap-4 hover:[animation-play-state:paused]">
 					<?php
@@ -217,7 +217,7 @@ $carousel_items = [
 					for ($i = 0; $i < 2; $i++) :
 						foreach ($carousel_items as $item) :
 					?>
-					<a href="<?php if ($footer_lang === 'ro') : echo home_url('/compara/ro/' . $item['slug']); else : echo home_url('/compare/' . $item['slug']); endif; ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
+					<a href="<?php if ($footer_lang === 'ro') : echo home_url('/compara/ro/' . $item['slug']); else : echo home_url('/compare/' . $item['slug']); endif; ?>" class="flex-shrink-0 py-2 px-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
 						<p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
 					</a>
 					<?php

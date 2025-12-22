@@ -278,7 +278,7 @@ foreach ( $venues as $v ) {
 $total_venues = count( $js_venues );
 ?>
 
-<main id="primary" class="site-main bg-zinc-950 text-zinc-200 antialiased">
+<main id="primary" class="antialiased site-main bg-zinc-950 text-zinc-200">
 
     <!-- Injectăm venues în JS -->
     <script>
@@ -289,19 +289,10 @@ $total_venues = count( $js_venues );
     <section class="relative overflow-hidden">
         <!-- Background effects -->
         <div class="absolute inset-0 bg-gradient-to-b from-violet-600/5 via-transparent to-transparent"></div>
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 rounded-full left-1/4 w-96 h-96 bg-violet-600/10 blur-3xl"></div>
+        <div class="absolute rounded-full top-20 right-1/4 w-80 h-80 bg-cyan-600/10 blur-3xl"></div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-sm mb-8">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
-                <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span class="text-white/70"><?php echo esc_html( $t['venues'] ); ?></span>
-            </nav>
-
+        <div class="relative px-4 pt-16 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- Title -->
             <div class="max-w-3xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6">
@@ -309,11 +300,11 @@ $total_venues = count( $js_venues );
                     <span class="text-sm font-medium text-indigo-400"><?php echo esc_html( $t['badge'] ); ?></span>
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                <h1 class="mb-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                     <?php echo esc_html( $t['hero_title'] ); ?>
                 </h1>
 
-                <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
+                <p class="text-lg leading-relaxed sm:text-xl text-white/60">
                     <?php echo esc_html( $t['hero_subtitle'] ); ?>
                 </p>
             </div>
@@ -325,11 +316,11 @@ $total_venues = count( $js_venues );
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- Map Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div class="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-white mb-2"><?php echo esc_html( $t['map_title'] ); ?></h2>
+                    <h2 class="mb-2 text-2xl font-bold text-white"><?php echo esc_html( $t['map_title'] ); ?></h2>
                     <p class="text-white/60"><?php echo esc_html( $t['map_subtitle'] ); ?></p>
                 </div>
                 <div class="flex items-center gap-4">
@@ -362,7 +353,7 @@ $total_venues = count( $js_venues );
 
             <!-- Map Container -->
             <div x-show="showMap" x-collapse>
-                <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-zinc-900/50">
+                <div class="relative overflow-hidden border rounded-2xl border-white/10 bg-zinc-900/50">
                     <!-- Map -->
                     <div id="venues-map" class="w-full h-[400px] sm:h-[500px] lg:h-[600px]"></div>
 
@@ -379,7 +370,7 @@ $total_venues = count( $js_venues );
                     <!-- Selected Venue Card -->
                     <div x-show="selectedVenue" x-transition
                          class="absolute top-4 right-4 z-[1000] w-72 p-4 rounded-xl bg-zinc-900/95 backdrop-blur-sm border border-white/10 shadow-xl">
-                        <button @click="selectedVenue = null" class="absolute top-2 right-2 p-1 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors">
+                        <button @click="selectedVenue = null" class="absolute p-1 transition-colors rounded-lg top-2 right-2 hover:bg-white/10 text-white/40 hover:text-white">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
@@ -387,22 +378,22 @@ $total_venues = count( $js_venues );
                         <template x-if="selectedVenue">
                             <div>
                                 <template x-if="selectedVenue.image">
-                                    <img :src="selectedVenue.image" :alt="selectedVenue.name" class="w-full h-32 object-cover rounded-lg mb-3">
+                                    <img :src="selectedVenue.image" :alt="selectedVenue.name" class="object-cover w-full h-32 mb-3 rounded-lg">
                                 </template>
-                                <h4 class="font-semibold text-white mb-1" x-text="selectedVenue.name"></h4>
-                                <p class="text-sm text-white/60 mb-3">
+                                <h4 class="mb-1 font-semibold text-white" x-text="selectedVenue.name"></h4>
+                                <p class="mb-3 text-sm text-white/60">
                                     <span x-text="selectedVenue.city"></span>
                                     <template x-if="selectedVenue.country">
                                         <span>, <span x-text="selectedVenue.country"></span></span>
                                     </template>
                                 </p>
                                 <template x-if="selectedVenue.capacity">
-                                    <p class="text-xs text-white/40 mb-3">
+                                    <p class="mb-3 text-xs text-white/40">
                                         <span x-text="selectedVenue.capacity.toLocaleString()"></span> <?php echo esc_html( $t['seats'] ); ?>
                                     </p>
                                 </template>
                                 <a :href="selectedVenue.slug ? '<?php echo esc_url( home_url( '/venues/' ) ); ?>' + selectedVenue.slug + '/' : '#'"
-                                   class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+                                   class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-violet-600 hover:bg-violet-500">
                                     <?php echo esc_html( $t['view_venue'] ); ?>
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -457,7 +448,7 @@ $total_venues = count( $js_venues );
                             // Custom marker icon
                             const venueIcon = L.divIcon({
                                 className: 'custom-venue-marker',
-                                html: `<div class="w-8 h-8 rounded-full bg-violet-600 border-2 border-white shadow-lg flex items-center justify-center">
+                                html: `<div class="flex items-center justify-center w-8 h-8 border-2 border-white rounded-full shadow-lg bg-violet-600">
                                     <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                     </svg>
@@ -562,34 +553,34 @@ $total_venues = count( $js_venues );
     >
         <!-- ==================== SEARCH & FILTERS ==================== -->
         <div class="sticky top-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-y border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+            <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
 
                     <!-- Search -->
-                    <div class="relative flex-1 max-w-xl w-full">
-                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="relative flex-1 w-full max-w-xl">
+                        <svg class="absolute w-5 h-5 -translate-y-1/2 left-4 top-1/2 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                         <input type="text"
                                x-model="search"
                                placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
-                               class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
+                               class="w-full py-3 pl-12 pr-4 text-white transition-all border rounded-xl bg-white/5 border-white/10 placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10">
                     </div>
 
                     <!-- Stats & Filters -->
                     <div class="flex items-center gap-4">
                         <!-- Stats badge -->
-                        <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-violet-600/10 border border-violet-500/20">
+                        <div class="flex items-center gap-2 px-4 py-2 border rounded-xl bg-violet-600/10 border-violet-500/20">
                             <span class="text-2xl font-bold text-white" x-text="filteredVenues.length"><?php echo $total_venues; ?></span>
                             <span class="text-sm text-white/60"><?php echo esc_html( $t['venues_label'] ); ?></span>
                         </div>
 
                         <!-- View toggle -->
-                        <div class="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
+                        <div class="items-center hidden gap-1 p-1 border rounded-lg sm:flex bg-white/5 border-white/10">
                             <button
                                 @click="viewMode = 'grid'"
                                 :class="viewMode === 'grid' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'"
-                                class="p-2 rounded-md transition-colors">
+                                class="p-2 transition-colors rounded-md">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                                 </svg>
@@ -597,7 +588,7 @@ $total_venues = count( $js_venues );
                             <button
                                 @click="viewMode = 'list'"
                                 :class="viewMode === 'list' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'"
-                                class="p-2 rounded-md transition-colors">
+                                class="p-2 transition-colors rounded-md">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                                 </svg>
@@ -619,7 +610,7 @@ $total_venues = count( $js_venues );
                 </div>
 
                 <!-- Letter Filter Row -->
-                <div x-show="showLetterFilter" x-collapse class="mt-4 pt-4 border-t border-white/5">
+                <div x-show="showLetterFilter" x-collapse class="pt-4 mt-4 border-t border-white/5">
                     <div class="flex flex-wrap gap-1.5">
                         <button
                             type="button"
@@ -649,7 +640,7 @@ $total_venues = count( $js_venues );
 
         <!-- ==================== VENUES GRID ==================== -->
         <div class="py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
                 <!-- Results info -->
                 <div class="flex items-center justify-between mb-6">
@@ -662,11 +653,11 @@ $total_venues = count( $js_venues );
                 </div>
 
                 <!-- Grid View -->
-                <div x-show="viewMode === 'grid'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div x-show="viewMode === 'grid'" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <template x-for="venue in displayedVenues" :key="venue.id">
                         <a
                             :href="venue.slug ? '<?php echo esc_url( home_url( '/venues/' ) ); ?>' + venue.slug + '/' : '#'"
-                            class="group relative bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-violet-500/30 hover:bg-zinc-900/80 transition-all duration-300"
+                            class="relative overflow-hidden transition-all duration-300 border group bg-zinc-900/50 rounded-2xl border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80"
                         >
                             <!-- Image -->
                             <div class="aspect-[4/3] relative overflow-hidden">
@@ -674,11 +665,11 @@ $total_venues = count( $js_venues );
                                     <img
                                         :src="venue.image"
                                         :alt="venue.name"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                                         loading="lazy">
                                 </template>
                                 <template x-if="!venue.image">
-                                    <div class="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+                                    <div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900">
                                         <span class="text-5xl font-bold text-white/20" x-text="venue.name.charAt(0)"></span>
                                     </div>
                                 </template>
@@ -694,9 +685,9 @@ $total_venues = count( $js_venues );
 
                             <!-- Content -->
                             <div class="p-4">
-                                <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1 line-clamp-1" x-text="venue.name"></h3>
+                                <h3 class="mb-1 font-semibold text-white transition-colors group-hover:text-violet-400 line-clamp-1" x-text="venue.name"></h3>
                                 <p class="text-sm text-white/50 flex items-center gap-1.5 mb-3">
-                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="flex-shrink-0 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
@@ -734,15 +725,15 @@ $total_venues = count( $js_venues );
                     <template x-for="venue in displayedVenues" :key="venue.id">
                         <a
                             :href="venue.slug ? '<?php echo esc_url( home_url( '/venues/' ) ); ?>' + venue.slug + '/' : '#'"
-                            class="group flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80 transition-all duration-300"
+                            class="flex items-center gap-4 p-4 transition-all duration-300 border group bg-zinc-900/50 rounded-xl border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80"
                         >
                             <!-- Thumbnail -->
-                            <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-800">
+                            <div class="flex-shrink-0 w-20 h-20 overflow-hidden rounded-lg bg-zinc-800">
                                 <template x-if="venue.image">
-                                    <img :src="venue.image" :alt="venue.name" class="w-full h-full object-cover" loading="lazy">
+                                    <img :src="venue.image" :alt="venue.name" class="object-cover w-full h-full" loading="lazy">
                                 </template>
                                 <template x-if="!venue.image">
-                                    <div class="w-full h-full flex items-center justify-center">
+                                    <div class="flex items-center justify-center w-full h-full">
                                         <span class="text-2xl font-bold text-white/20" x-text="venue.name.charAt(0)"></span>
                                     </div>
                                 </template>
@@ -750,9 +741,9 @@ $total_venues = count( $js_venues );
 
                             <!-- Content -->
                             <div class="flex-1 min-w-0">
-                                <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors mb-1" x-text="venue.name"></h3>
+                                <h3 class="mb-1 font-semibold text-white transition-colors group-hover:text-violet-400" x-text="venue.name"></h3>
                                 <p class="text-sm text-white/50 flex items-center gap-1.5">
-                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="flex-shrink-0 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
@@ -764,7 +755,7 @@ $total_venues = count( $js_venues );
                             </div>
 
                             <!-- Stats -->
-                            <div class="hidden sm:flex items-center gap-6 text-sm text-white/40">
+                            <div class="items-center hidden gap-6 text-sm sm:flex text-white/40">
                                 <template x-if="venue.capacity">
                                     <div class="flex items-center gap-1.5">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -776,7 +767,7 @@ $total_venues = count( $js_venues );
                             </div>
 
                             <!-- Arrow -->
-                            <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-5 h-5 transition-colors text-white/30 group-hover:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
@@ -784,15 +775,15 @@ $total_venues = count( $js_venues );
                 </div>
 
                 <!-- Empty State -->
-                <div x-show="filteredVenues.length === 0" class="text-center py-16">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
+                <div x-show="filteredVenues.length === 0" class="py-16 text-center">
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-white/5">
                         <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_venue_found'] ); ?></h3>
-                    <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
-                    <button @click="search = ''; activeLetter = 'all'" class="px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+                    <h3 class="mb-2 text-lg font-semibold text-white"><?php echo esc_html( $t['no_venue_found'] ); ?></h3>
+                    <p class="mb-6 text-white/50"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
+                    <button @click="search = ''; activeLetter = 'all'" class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-violet-600 hover:bg-violet-500">
                         <?php echo esc_html( $t['reset_filters'] ); ?>
                     </button>
                 </div>
@@ -801,7 +792,7 @@ $total_venues = count( $js_venues );
                 <div x-show="displayedVenues.length < filteredVenues.length" class="mt-12 text-center">
                     <button
                         @click="loadMore()"
-                        class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-violet-600/20 hover:border-violet-500/30 transition-all duration-300">
+                        class="inline-flex items-center gap-2 px-8 py-4 font-medium text-white transition-all duration-300 border rounded-xl bg-white/5 border-white/10 hover:bg-violet-600/20 hover:border-violet-500/30">
                         <?php echo esc_html( $t['load_more'] ); ?>
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -817,31 +808,31 @@ $total_venues = count( $js_venues );
 
     <!-- ==================== CTA SECTION ==================== -->
     <section class="py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600/20 via-indigo-600/20 to-cyan-600/20 border border-white/10 p-8 lg:p-12">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="relative p-8 overflow-hidden border rounded-3xl bg-gradient-to-br from-violet-600/20 via-indigo-600/20 to-cyan-600/20 border-white/10 lg:p-12">
                 <!-- Background pattern -->
                 <div class="absolute inset-0 opacity-30">
-                    <div class="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"></div>
+                    <div class="absolute top-0 right-0 rounded-full w-96 h-96 bg-violet-500/20 blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 rounded-full w-80 h-80 bg-cyan-500/20 blur-3xl"></div>
                 </div>
 
-                <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                <div class="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
                     <div class="max-w-xl">
-                        <h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">
+                        <h2 class="mb-4 text-2xl font-bold text-white lg:text-3xl">
                             <?php echo esc_html( $t['cta_title'] ); ?>
                         </h2>
-                        <p class="text-white/60 text-lg">
+                        <p class="text-lg text-white/60">
                             <?php echo esc_html( $t['cta_subtitle'] ); ?>
                         </p>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300">
+                    <div class="flex flex-col gap-4 sm:flex-row">
+                        <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-xl bg-violet-600 hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25">
                             <?php echo esc_html( $t['add_venue'] ); ?>
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
                         </a>
-                        <a href="<?php echo esc_url( home_url( '/pentru-locatii/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-all duration-300">
+                        <a href="<?php echo esc_url( home_url( '/pentru-locatii/' ) ); ?>" class="inline-flex items-center justify-center gap-2 px-8 py-4 font-medium text-white transition-all duration-300 border rounded-xl bg-white/10 border-white/20 hover:bg-white/20">
                             <?php echo esc_html( $t['learn_more'] ); ?>
                         </a>
                     </div>

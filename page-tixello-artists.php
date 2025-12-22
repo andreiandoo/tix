@@ -124,37 +124,16 @@ foreach ( $genres_list as $genre ) {
 
 ?>
 
-<main id="primary" class="site-main bg-zinc-950 text-zinc-200 antialiased">
+<main id="primary" class="antialiased site-main bg-zinc-950 text-zinc-200">
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="relative overflow-hidden">
         <!-- Background effects -->
         <div class="absolute inset-0 bg-gradient-to-b from-pink-600/5 via-transparent to-transparent"></div>
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 rounded-full left-1/4 w-96 h-96 bg-pink-600/10 blur-3xl"></div>
+        <div class="absolute rounded-full top-20 right-1/4 w-80 h-80 bg-violet-600/10 blur-3xl"></div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-sm mb-8">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white/40 hover:text-white/70 transition-colors"><?php echo esc_html( $t['home'] ); ?></a>
-                <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span class="text-white/70"><?php echo esc_html( $t['artists'] ); ?></span>
-                <?php if ( $url_letter ) : ?>
-                    <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                    <span class="text-white/70"><?php echo esc_html( strtoupper( urldecode( $url_letter ) ) ); ?></span>
-                <?php endif; ?>
-                <?php if ( $url_genre ) : ?>
-                    <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                    <span class="text-white/70"><?php echo esc_html( urldecode( $url_genre ) ); ?></span>
-                <?php endif; ?>
-            </nav>
-
+        <div class="relative px-4 pt-16 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- Title -->
             <div class="max-w-3xl mb-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
@@ -163,39 +142,39 @@ foreach ( $genres_list as $genre ) {
                 </div>
 
                 <?php if ( $url_letter ) : ?>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h1 class="mb-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                         <?php echo esc_html( $t['filter_by_letter'] ); ?> "<?php echo esc_html( strtoupper( urldecode( $url_letter ) ) ); ?>"
                     </h1>
                 <?php elseif ( $url_genre ) : ?>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h1 class="mb-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                         <?php echo esc_html( $t['filter_by_genre'] ); ?>: <?php echo esc_html( urldecode( $url_genre ) ); ?>
                     </h1>
                 <?php else : ?>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h1 class="mb-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                         <?php echo esc_html( $t['hero_title'] ); ?>
                     </h1>
                 <?php endif; ?>
 
-                <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
-                    <?php echo sprintf( $t['hero_subtitle'], '<span class="text-white font-semibold">' . esc_html( $total_artists ) . '</span>' ); ?>
+                <p class="text-lg leading-relaxed sm:text-xl text-white/60">
+                    <?php echo sprintf( $t['hero_subtitle'], '<span class="font-semibold text-white">' . esc_html( $total_artists ) . '</span>' ); ?>
                 </p>
             </div>
 
             <!-- Stats - Instant Load from API stats -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div class="p-4 text-center border rounded-xl bg-zinc-900/50 border-white/5">
                     <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_artists ); ?></div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['total_artists'] ); ?></div>
                 </div>
-                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                <div class="p-4 text-center border rounded-xl bg-zinc-900/50 border-white/5">
                     <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_genres ); ?></div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['genres'] ); ?></div>
                 </div>
-                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                <div class="p-4 text-center border rounded-xl bg-zinc-900/50 border-white/5">
                     <div class="text-2xl font-bold text-white"><?php echo esc_html( $total_types ); ?></div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['artist_types'] ); ?></div>
                 </div>
-                <div class="p-4 rounded-xl bg-zinc-900/50 border border-white/5 text-center">
+                <div class="p-4 text-center border rounded-xl bg-zinc-900/50 border-white/5">
                     <div class="text-2xl font-bold text-pink-400" id="filtered-count">-</div>
                     <div class="text-xs text-white/50"><?php echo esc_html( $t['showing'] ); ?></div>
                 </div>
@@ -208,19 +187,19 @@ foreach ( $genres_list as $genre ) {
 
         <!-- ==================== SEARCH & FILTERS ==================== -->
         <section class="sticky top-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-y border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <div class="flex flex-col lg:flex-row gap-4">
+            <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="flex flex-col gap-4 lg:flex-row">
 
                     <!-- Search -->
                     <div class="relative flex-1">
-                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="absolute w-5 h-5 -translate-y-1/2 left-4 top-1/2 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                         <input type="text"
                                x-model="search"
                                @input.debounce.300ms="filterArtists()"
                                placeholder="<?php echo esc_attr( $t['search_placeholder'] ); ?>"
-                               class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all">
+                               class="w-full py-3 pl-12 pr-4 text-white transition-all border rounded-xl bg-white/5 border-white/10 placeholder-white/40 focus:outline-none focus:border-violet-500/50 focus:bg-white/10">
                     </div>
 
                     <!-- Genre Filter Dropdown -->
@@ -234,7 +213,7 @@ foreach ( $genres_list as $genre ) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
-                        <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-xl z-50">
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute left-0 z-50 w-64 mt-2 overflow-y-auto border shadow-xl top-full max-h-80 rounded-xl bg-zinc-900 border-white/10">
                             <button @click="setGenre('all'); open = false" class="block w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors" :class="activeGenre === 'all' ? 'text-violet-400' : 'text-white/70'">
                                 <?php echo esc_html( $t['all_genres'] ); ?>
                             </button>
@@ -245,13 +224,13 @@ foreach ( $genres_list as $genre ) {
                     </div>
 
                     <!-- View Toggle -->
-                    <div class="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
-                        <button @click="viewMode = 'grid'" :class="viewMode === 'grid' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'" class="p-2 rounded-md transition-colors">
+                    <div class="items-center hidden gap-1 p-1 border rounded-lg sm:flex bg-white/5 border-white/10">
+                        <button @click="viewMode = 'grid'" :class="viewMode === 'grid' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'" class="p-2 transition-colors rounded-md">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                             </svg>
                         </button>
-                        <button @click="viewMode = 'list'" :class="viewMode === 'list' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'" class="p-2 rounded-md transition-colors">
+                        <button @click="viewMode = 'list'" :class="viewMode === 'list' ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white hover:bg-white/10'" class="p-2 transition-colors rounded-md">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                             </svg>
@@ -263,22 +242,22 @@ foreach ( $genres_list as $genre ) {
 
         <!-- ==================== ALPHABETICAL FILTER ==================== -->
         <section class="border-b border-white/5 bg-zinc-900/30">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
                     <button @click="setLetter('all')"
                        :class="activeLetter === 'all' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
-                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
+                       class="flex items-center justify-center flex-shrink-0 w-10 h-10 text-sm font-semibold transition-all rounded-lg">
                         <?php echo esc_html( $t['all'] ); ?>
                     </button>
                     <button @click="setLetter('#')"
                        :class="activeLetter === '#' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
-                       class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
+                       class="flex items-center justify-center flex-shrink-0 w-10 h-10 text-sm font-semibold transition-all rounded-lg">
                         #
                     </button>
                     <?php foreach ( range( 'A', 'Z' ) as $letter ) : ?>
                         <button @click="setLetter('<?php echo $letter; ?>')"
                            :class="activeLetter === '<?php echo $letter; ?>' ? 'bg-violet-600 text-white' : 'text-white/50 hover:text-white hover:bg-white/5'"
-                           class="flex-shrink-0 w-10 h-10 rounded-lg text-sm font-semibold transition-all flex items-center justify-center">
+                           class="flex items-center justify-center flex-shrink-0 w-10 h-10 text-sm font-semibold transition-all rounded-lg">
                             <?php echo $letter; ?>
                         </button>
                     <?php endforeach; ?>
@@ -288,17 +267,17 @@ foreach ( $genres_list as $genre ) {
 
         <!-- ==================== GENRE PILLS ==================== -->
         <section class="border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
                     <button @click="setGenre('all')"
                        :class="activeGenre === 'all' ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'"
-                       class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors">
+                       class="flex-shrink-0 px-4 py-2 text-sm font-medium transition-colors rounded-full">
                         <?php echo esc_html( $t['all_genres'] ); ?>
                     </button>
                     <template x-for="genre in genres.slice(0, 15)" :key="genre">
                         <button @click="setGenre(genre)"
                            :class="activeGenre === genre ? 'bg-violet-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'"
-                           class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                           class="flex-shrink-0 px-4 py-2 text-sm font-medium transition-colors rounded-full"
                            x-text="genre">
                         </button>
                     </template>
@@ -308,18 +287,18 @@ foreach ( $genres_list as $genre ) {
 
         <!-- ==================== ALL ARTISTS GRID ==================== -->
         <section class="py-12 border-t border-white/5" id="all-artists">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
                 <!-- Results Header -->
                 <div class="flex items-center justify-between mb-8">
                     <div>
                         <h2 class="text-2xl font-bold text-white"><?php echo esc_html( $t['all_artists'] ); ?></h2>
-                        <p class="text-white/50 mt-1">
+                        <p class="mt-1 text-white/50">
                             <span x-show="!loading">
                                 <?php echo esc_html( $t['showing_of'] ); ?> <span class="text-white" x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span class="text-white" x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                             </span>
                             <span x-show="loading" class="flex items-center gap-2">
-                                <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
@@ -330,49 +309,49 @@ foreach ( $genres_list as $genre ) {
                 </div>
 
                 <!-- Loading Skeleton -->
-                <div x-show="loading && allArtists.length === 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                <div x-show="loading && allArtists.length === 0" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:gap-6">
                     <?php for ( $i = 0; $i < 12; $i++ ) : ?>
                     <div class="animate-pulse">
-                        <div class="aspect-square rounded-2xl bg-zinc-800/50 mb-3"></div>
-                        <div class="h-4 bg-zinc-800/50 rounded w-3/4 mb-2"></div>
-                        <div class="h-3 bg-zinc-800/50 rounded w-1/2"></div>
+                        <div class="mb-3 aspect-square rounded-2xl bg-zinc-800/50"></div>
+                        <div class="w-3/4 h-4 mb-2 rounded bg-zinc-800/50"></div>
+                        <div class="w-1/2 h-3 rounded bg-zinc-800/50"></div>
                     </div>
                     <?php endfor; ?>
                 </div>
 
                 <!-- Grid View -->
-                <div x-show="viewMode === 'grid' && displayedArtists.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6">
+                <div x-show="viewMode === 'grid' && displayedArtists.length > 0" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:gap-6">
                     <template x-for="artist in displayedArtists" :key="artist.id">
                         <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group">
-                            <div class="relative aspect-square rounded-2xl overflow-hidden mb-3">
+                            <div class="relative mb-3 overflow-hidden aspect-square rounded-2xl">
                                 <template x-if="artist.image">
-                                    <img :src="artist.image" :alt="artist.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                    <img :src="artist.image" :alt="artist.name" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" loading="lazy">
                                 </template>
                                 <template x-if="!artist.image">
-                                    <div class="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+                                    <div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900">
                                         <span class="text-4xl font-bold text-white/20" x-text="artist.name.charAt(0).toUpperCase()"></span>
                                     </div>
                                 </template>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/60 to-transparent group-hover:opacity-100"></div>
 
                                 <!-- Verified badge -->
                                 <template x-if="artist.verified">
-                                    <div class="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="absolute flex items-center justify-center w-6 h-6 transition-opacity bg-blue-500 rounded-full opacity-0 top-2 right-2 group-hover:opacity-100">
                                         <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                                     </div>
                                 </template>
 
                                 <!-- Play button on hover -->
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div class="w-12 h-12 rounded-full bg-violet-600 flex items-center justify-center shadow-lg shadow-violet-600/30">
+                                <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full shadow-lg bg-violet-600 shadow-violet-600/30">
                                         <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M8 5v14l11-7z"/>
                                         </svg>
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors truncate" x-text="artist.name"></h3>
-                            <p class="text-sm text-white/50 truncate" x-text="artist.genres.slice(0, 2).join(', ') || artist.country"></p>
+                            <h3 class="font-semibold text-white truncate transition-colors group-hover:text-violet-400" x-text="artist.name"></h3>
+                            <p class="text-sm truncate text-white/50" x-text="artist.genres.slice(0, 2).join(', ') || artist.country"></p>
                         </a>
                     </template>
                 </div>
@@ -380,14 +359,14 @@ foreach ( $genres_list as $genre ) {
                 <!-- List View -->
                 <div x-show="viewMode === 'list' && displayedArtists.length > 0" class="space-y-3">
                     <template x-for="artist in displayedArtists" :key="artist.id">
-                        <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="group flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80 transition-all duration-300">
+                        <a :href="artist.slug ? '<?php echo esc_url( home_url( '/artists/' ) ); ?>' + artist.slug + '/' : '#'" class="flex items-center gap-4 p-4 transition-all duration-300 border group bg-zinc-900/50 rounded-xl border-white/5 hover:border-violet-500/30 hover:bg-zinc-900/80">
                             <!-- Thumbnail -->
-                            <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-800">
+                            <div class="flex-shrink-0 w-16 h-16 overflow-hidden rounded-xl bg-zinc-800">
                                 <template x-if="artist.image">
-                                    <img :src="artist.image" :alt="artist.name" class="w-full h-full object-cover" loading="lazy">
+                                    <img :src="artist.image" :alt="artist.name" class="object-cover w-full h-full" loading="lazy">
                                 </template>
                                 <template x-if="!artist.image">
-                                    <div class="w-full h-full flex items-center justify-center">
+                                    <div class="flex items-center justify-center w-full h-full">
                                         <span class="text-xl font-bold text-white/20" x-text="artist.name.charAt(0).toUpperCase()"></span>
                                     </div>
                                 </template>
@@ -396,9 +375,9 @@ foreach ( $genres_list as $genre ) {
                             <!-- Content -->
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2">
-                                    <h3 class="font-semibold text-white group-hover:text-violet-400 transition-colors" x-text="artist.name"></h3>
+                                    <h3 class="font-semibold text-white transition-colors group-hover:text-violet-400" x-text="artist.name"></h3>
                                     <template x-if="artist.verified">
-                                        <div class="w-4 h-4 rounded-full bg-blue-500 flex items-center justify-center">
+                                        <div class="flex items-center justify-center w-4 h-4 bg-blue-500 rounded-full">
                                             <svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                                         </div>
                                     </template>
@@ -407,10 +386,10 @@ foreach ( $genres_list as $genre ) {
                             </div>
 
                             <!-- Location -->
-                            <div class="hidden sm:block text-sm text-white/40" x-text="[artist.city, artist.country].filter(Boolean).join(', ')"></div>
+                            <div class="hidden text-sm sm:block text-white/40" x-text="[artist.city, artist.country].filter(Boolean).join(', ')"></div>
 
                             <!-- Arrow -->
-                            <svg class="w-5 h-5 text-white/30 group-hover:text-violet-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-5 h-5 transition-colors text-white/30 group-hover:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
@@ -418,35 +397,35 @@ foreach ( $genres_list as $genre ) {
                 </div>
 
                 <!-- Empty State -->
-                <div x-show="!loading && filteredArtists.length === 0" class="text-center py-16">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
+                <div x-show="!loading && filteredArtists.length === 0" class="py-16 text-center">
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-white/5">
                         <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2"><?php echo esc_html( $t['no_artist_found'] ); ?></h3>
-                    <p class="text-white/50 mb-6"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
-                    <button @click="resetFilters()" class="inline-block px-4 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-500 transition-colors">
+                    <h3 class="mb-2 text-lg font-semibold text-white"><?php echo esc_html( $t['no_artist_found'] ); ?></h3>
+                    <p class="mb-6 text-white/50"><?php echo esc_html( $t['try_modify_filters'] ); ?></p>
+                    <button @click="resetFilters()" class="inline-block px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-violet-600 hover:bg-violet-500">
                         <?php echo esc_html( $t['reset_filters'] ); ?>
                     </button>
                 </div>
 
                 <!-- Load More -->
                 <div x-show="hasMore && !loading" class="flex flex-col items-center mt-12">
-                    <button @click="loadMore()" class="flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
+                    <button @click="loadMore()" class="flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all border rounded-xl bg-white/5 border-white/10 hover:bg-white/10">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                         <?php echo esc_html( $t['load_more'] ); ?>
                     </button>
-                    <p class="text-sm text-white/40 mt-3">
+                    <p class="mt-3 text-sm text-white/40">
                         <?php echo esc_html( $t['showing_of'] ); ?> <span x-text="displayedArtists.length"></span> <?php echo esc_html( $t['of'] ); ?> <span x-text="filteredArtists.length"></span> <?php echo esc_html( $t['artists_label'] ); ?>
                     </p>
                 </div>
 
                 <!-- Loading More Indicator -->
                 <div x-show="loadingMore" class="flex justify-center mt-8">
-                    <svg class="animate-spin h-8 w-8 text-violet-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-8 h-8 animate-spin text-violet-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -459,25 +438,25 @@ foreach ( $genres_list as $genre ) {
 
     <!-- ==================== CTA SECTION ==================== -->
     <section class="py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600/20 via-violet-600/20 to-cyan-600/20 border border-white/10 p-8 lg:p-12">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="relative p-8 overflow-hidden border rounded-3xl bg-gradient-to-br from-pink-600/20 via-violet-600/20 to-cyan-600/20 border-white/10 lg:p-12">
                 <div class="absolute inset-0 opacity-30">
-                    <div class="absolute top-0 right-0 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 w-80 h-80 bg-violet-500/20 rounded-full blur-3xl"></div>
+                    <div class="absolute top-0 right-0 rounded-full w-96 h-96 bg-pink-500/20 blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 rounded-full w-80 h-80 bg-violet-500/20 blur-3xl"></div>
                 </div>
 
-                <div class="relative text-center max-w-2xl mx-auto">
-                    <h2 class="text-2xl lg:text-4xl font-bold text-white mb-4">
+                <div class="relative max-w-2xl mx-auto text-center">
+                    <h2 class="mb-4 text-2xl font-bold text-white lg:text-4xl">
                         <?php echo esc_html( $t['are_you_artist'] ); ?>
                     </h2>
-                    <p class="text-white/60 text-lg mb-8">
+                    <p class="mb-8 text-lg text-white/60">
                         <?php echo esc_html( $t['cta_subtitle'] ); ?>
                     </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="px-8 py-4 rounded-xl bg-violet-600 text-white font-semibold hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25 transition-all duration-300">
+                    <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <a href="<?php echo esc_url( home_url( '/signup/' ) ); ?>" class="px-8 py-4 font-semibold text-white transition-all duration-300 rounded-xl bg-violet-600 hover:bg-violet-500 hover:shadow-lg hover:shadow-violet-600/25">
                             <?php echo esc_html( $t['register_as_artist'] ); ?>
                         </a>
-                        <a href="<?php echo esc_url( home_url( '/pentru-artisti/' ) ); ?>" class="px-8 py-4 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300">
+                        <a href="<?php echo esc_url( home_url( '/pentru-artisti/' ) ); ?>" class="px-8 py-4 font-semibold text-white transition-all duration-300 border rounded-xl bg-white/10 border-white/20 hover:bg-white/20">
                             <?php echo esc_html( $t['learn_more'] ); ?>
                         </a>
                     </div>

@@ -746,6 +746,19 @@ get_header();
         </div>
     </section>
 
+    <!-- ==================== TRANSPARENCY NOTE ==================== -->
+    <section class="py-12 bg-zinc-900/30">
+        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
+                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+                <div>
+                    <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
+                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['transparency_text']); ?></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ==================== OTHER COMPARISONS CAROUSEL ==================== -->
     <section class="relative py-16 overflow-hidden border-t bg-zinc-950 border-white/5">
         <div class="px-4 mx-auto mb-8 max-w-7xl sm:px-6 lg:px-8">
@@ -823,19 +836,6 @@ get_header();
                 <div class="flex items-center gap-2">
                     <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span><?php echo esc_html($t['final_stat_3']); ?></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== TRANSPARENCY NOTE ==================== -->
-    <section class="py-12 border-t bg-zinc-900/30 border-white/5">
-        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
-                <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
-                <div>
-                    <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
-                    <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['transparency_text']); ?></p>
                 </div>
             </div>
         </div>

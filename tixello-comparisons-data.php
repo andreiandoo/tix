@@ -22,8 +22,8 @@ function tixello_get_comparisons_data() {
 
     $comparisons = [
         'ambilet' => [
-            'slug' => 'ambilet',
-            'name' => 'amBilet',
+            'slug' => 'ambilet-ro',
+            'name' => 'AmBilet',
             'icon_letter' => 'a',
             'icon_bg' => 'bg-fuchsia-500/20',
             'icon_text' => 'text-fuchsia-400',
@@ -32,8 +32,8 @@ function tixello_get_comparisons_data() {
                 'en' => 'Ticketing marketplace',
             ],
             'description' => [
-                'ro' => 'amBilet este o platformă de ticketing care vinde online e-ticket (print-at-home) și, la unele evenimente, livrare prin curier.',
-                'en' => 'amBilet is a ticketing platform that sells online e-tickets (print-at-home) and, for some events, courier delivery.',
+                'ro' => 'AmBilet este o platformă de ticketing care vinde online e-ticket (print-at-home) și, la unele evenimente, livrare prin curier.',
+                'en' => 'AmBilet is a ticketing platform that sells online e-tickets (print-at-home) and, for some events, courier delivery.',
             ],
         ],
         'bilete-ro' => [
@@ -52,7 +52,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'biletin' => [
-            'slug' => 'biletin',
+            'slug' => 'biletin-ro',
             'name' => 'Biletin.ro',
             'icon_letter' => 'B',
             'icon_bg' => 'bg-pink-500/20',
@@ -67,7 +67,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'blt' => [
-            'slug' => 'blt',
+            'slug' => 'blt-ro',
             'name' => 'BLT',
             'icon_letter' => 'B',
             'icon_bg' => 'bg-purple-500/20',
@@ -82,7 +82,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'entertix' => [
-            'slug' => 'entertix',
+            'slug' => 'entertix-ro',
             'name' => 'Entertix',
             'icon_letter' => 'E',
             'icon_bg' => 'bg-amber-500/20',
@@ -97,7 +97,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'eventbook' => [
-            'slug' => 'eventbook',
+            'slug' => 'eventbook-ro',
             'name' => 'Eventbook.ro',
             'icon_letter' => 'Eb',
             'icon_bg' => 'bg-rose-500/20',
@@ -112,7 +112,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'eventim' => [
-            'slug' => 'eventim',
+            'slug' => 'eventim-ro',
             'name' => 'Eventim',
             'icon_letter' => 'Ev',
             'icon_bg' => 'bg-blue-500/20',
@@ -127,7 +127,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'evticket' => [
-            'slug' => 'evticket',
+            'slug' => 'evticket-ro',
             'name' => 'evTicket',
             'icon_letter' => 'eT',
             'icon_bg' => 'bg-emerald-500/20',
@@ -142,7 +142,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'getin' => [
-            'slug' => 'getin',
+            'slug' => 'get-in-ro',
             'name' => 'GetIn',
             'icon_letter' => 'G',
             'icon_bg' => 'bg-green-500/20',
@@ -157,7 +157,7 @@ function tixello_get_comparisons_data() {
             ],
         ],
         'iabilet' => [
-            'slug' => 'iabilet',
+            'slug' => 'iabilet-ro',
             'name' => 'iaBilet',
             'icon_letter' => 'iB',
             'icon_bg' => 'bg-yellow-500/20',
@@ -282,7 +282,7 @@ function tixello_get_comparison_translations() {
             // Headlines
             'headline_main' => 'Control real, cashflow direct și',
             'headline_gradient' => 'cost total mai mic',
-            'hero_description' => 'Păstrezi controlul și crești conversia. Cu Tixello, banii intră direct în contul tău, alegi comisionul <span class="text-emerald-400 font-semibold">1-3%</span> (îl poți include în preț sau adăuga peste), ai admin dedicat și microservicii fiscale & analytics care-ți reduc munca.',
+            'hero_description' => 'Păstrezi controlul și crești conversia. Cu Tixello, banii intră direct în contul tău, alegi comisionul <span class="font-semibold text-emerald-400">1-3%</span> (îl poți include în preț sau adăuga peste), ai admin dedicat și microservicii fiscale & analytics care-ți reduc munca.',
             'hero_stats' => 'SLA 99.99% • ~300ms timp de răspuns.',
 
             // Quick stats
@@ -391,7 +391,7 @@ function tixello_get_comparison_translations() {
             // Headlines
             'headline_main' => 'Real control, direct cashflow and',
             'headline_gradient' => 'lower total cost',
-            'hero_description' => 'Keep control and increase conversion. With Tixello, money goes directly to your account, you choose the <span class="text-emerald-400 font-semibold">1-3%</span> commission (you can include it in the price or add it on top), you have a dedicated admin and fiscal & analytics microservices that reduce your workload.',
+            'hero_description' => 'Keep control and increase conversion. With Tixello, money goes directly to your account, you choose the <span class="font-semibold text-emerald-400">1-3%</span> commission (you can include it in the price or add it on top), you have a dedicated admin and fiscal & analytics microservices that reduce your workload.',
             'hero_stats' => 'SLA 99.99% • ~300ms response time.',
 
             // Quick stats

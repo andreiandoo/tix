@@ -31,7 +31,7 @@ $footer_t = [
 // Carousel items for Compare section
 $carousel_items = [
 	[
-		'slug' => 'iabilet',
+		'slug' => 'iabilet-ro',
 		'name' => 'iaBilet.ro',
 		'icon_bg' => 'bg-yellow-500/20',
 		'icon_text' => 'text-yellow-400',
@@ -59,14 +59,14 @@ $carousel_items = [
 		'icon_letter' => 'a',
 	],
 	[
-		'slug' => 'getin',
+		'slug' => 'get-in-ro',
 		'name' => 'get-in.ro',
 		'icon_bg' => 'bg-orange-500/20',
 		'icon_text' => 'text-orange-400',
 		'icon_letter' => 'G',
 	],
 	[
-		'slug' => 'eventim',
+		'slug' => 'eventim-ro',
 		'name' => 'Eventim.ro',
 		'icon_bg' => 'bg-blue-500/20',
 		'icon_text' => 'text-blue-400',
@@ -100,6 +100,34 @@ $carousel_items = [
 		'icon_text' => 'text-amber-400',
 		'icon_letter' => 'E',
 	],
+	[
+		'slug' => 'biletin-ro',
+		'name' => 'Biletin.ro',
+		'icon_bg' => 'bg-rose-500/20',
+		'icon_text' => 'text-rose-400',
+		'icon_letter' => 'Bi',
+	],
+	[
+		'slug' => 'blt-ro',
+		'name' => 'BLT',
+		'icon_bg' => 'bg-violet-500/20',
+		'icon_text' => 'text-violet-400',
+		'icon_letter' => 'BLT',
+	],
+	[
+		'slug' => 'eventbook-ro',
+		'name' => 'EventBook',
+		'icon_bg' => 'bg-cyan-500/20',
+		'icon_text' => 'text-cyan-400',
+		'icon_letter' => 'EB',
+	],
+	[
+		'slug' => 'evticket-ro',
+		'name' => 'EvTicket.ro',
+		'icon_bg' => 'bg-green-500/20',
+		'icon_text' => 'text-green-400',
+		'icon_letter' => 'ET',
+	]
 ];
 ?>
 

@@ -8473,6 +8473,10 @@ video {
     --tw-text-opacity: 1;
     color: rgb(139 92 246 / var(--tw-text-opacity));
 }
+.text-violet-600{
+    --tw-text-opacity: 1;
+    color: rgb(124 58 237 / var(--tw-text-opacity));
+}
 .text-vip-dark{
     --tw-text-opacity: 1;
     color: rgb(28 28 28 / var(--tw-text-opacity));
@@ -9068,6 +9072,21 @@ article > *:not(.entry-content),
     margin-left: auto;
     margin-right: auto;
     max-width: 960px;
+}
+.bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.group-hover\:bg-violet-600\/20:hover {
+    background-color: rgba(139, 92, 246, 0.2);
+}
+.text-white\/70 {
+    color: rgba(255, 255, 255, 0.7);
+}
+.text-violet-600\80 {
+    color: rgba(139, 92, 246, 0.8);
+}
+.hover\:bg-violet-600\/10:hover {
+    background-color: rgba(139, 92, 246, 0.1);
 }
 /* ================================================
    MICRO PAGES - BASE STYLES
@@ -10245,9 +10264,6 @@ article > *:not(.entry-content),
 .hover\:border-violet-500\/40:hover{
     border-color: rgb(139 92 246 / 0.4);
 }
-.hover\:border-violet-500\/50:hover{
-    border-color: rgb(139 92 246 / 0.5);
-}
 .hover\:border-vip-gold\/30:hover{
     border-color: rgb(212 175 55 / 0.3);
 }
@@ -10554,11 +10570,6 @@ article > *:not(.entry-content),
 }
 .hover\:underline:hover{
     text-decoration-line: underline;
-}
-.hover\:shadow-\[0_25px_50px_-12px_rgba\(139\2c 92\2c 246\2c 0\.25\)\]:hover{
-    --tw-shadow: 0 25px 50px -12px rgba(139,92,246,0.25);
-    --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .hover\:shadow-\[0_8px_30px_rgba\(139\2c 92\2c 246\2c 0\.5\)\]:hover{
     --tw-shadow: 0 8px 30px rgba(139,92,246,0.5);
@@ -11323,11 +11334,6 @@ article > *:not(.entry-content),
         grid-column-start: auto;
     }
 
-    .lg\:-my-4{
-        margin-top: -1rem;
-        margin-bottom: -1rem;
-    }
-
     .lg\:mb-0{
         margin-bottom: 0px;
     }
@@ -11346,12 +11352,6 @@ article > *:not(.entry-content),
 
     .lg\:h-\[600px\]{
         height: 600px;
-    }
-
-    .lg\:scale-105{
-        --tw-scale-x: 1.05;
-        --tw-scale-y: 1.05;
-        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     }
 
     .lg\:grid-cols-12{

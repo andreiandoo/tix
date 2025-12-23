@@ -3,6 +3,22 @@ article > *:not(.entry-content),
     @apply mx-auto max-w-content;
 }
 
+.bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.group-hover\:bg-violet-600\/20:hover {
+    background-color: rgba(139, 92, 246, 0.2);
+}
+.text-white\/70 {
+    color: rgba(255, 255, 255, 0.7);
+}
+.text-violet-600\80 {
+    color: rgba(139, 92, 246, 0.8);
+}
+.hover\:bg-violet-600\/10:hover {
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
 /* ================================================
    MICRO PAGES - BASE STYLES
    ================================================ */
@@ -30,7 +46,7 @@ article > *:not(.entry-content),
 
 /* Reveal Animations */
 .reveal {
-    @apply opacity-0 transition-all duration-700;
+    @apply transition-all duration-700 opacity-0;
     transform: translateY(40px);
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -76,7 +92,7 @@ article > *:not(.entry-content),
 
 /* Base Button Styles */
 .btn {
-    @apply inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full transition-all duration-500 relative overflow-hidden;
+    @apply relative inline-flex items-center gap-2 px-8 py-4 overflow-hidden font-semibold transition-all duration-500 rounded-full;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-primary {
@@ -88,7 +104,7 @@ article > *:not(.entry-content),
     box-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
 }
 .btn-ghost {
-    @apply bg-transparent text-white border border-white/20;
+    @apply text-white bg-transparent border border-white/20;
 }
 .btn-ghost:hover {
     @apply bg-white/10 border-white/40;
@@ -102,7 +118,7 @@ article > *:not(.entry-content),
 }
 .feature-card::before {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    @apply absolute inset-0 transition-opacity duration-500 opacity-0;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(124, 58, 237, 0.15), transparent 50%);
     border-radius: inherit;
 }
@@ -122,7 +138,7 @@ article > *:not(.entry-content),
 
 /* Code Block */
 .code-block {
-    @apply bg-dark-800 rounded-xl overflow-hidden border border-white/10;
+    @apply overflow-hidden border bg-dark-800 rounded-xl border-white/10;
 }
 .code-header {
     @apply bg-dark-900 px-4 py-3 flex items-center gap-2 border-b border-white/[0.05];
@@ -148,13 +164,13 @@ article > *:not(.entry-content),
 
 /* Stat Card */
 .stat-card {
-    @apply text-center p-8;
+    @apply p-8 text-center;
 }
 .stat-value {
-    @apply font-display text-5xl font-bold leading-none;
+    @apply text-5xl font-bold leading-none font-display;
 }
 .stat-label {
-    @apply text-white/50 mt-2 text-sm;
+    @apply mt-2 text-sm text-white/50;
 }
 
 /* Pulse Glow Effect */
@@ -192,7 +208,7 @@ article > *:not(.entry-content),
 .video-tile {
     aspect-ratio: 16/10;
     background: linear-gradient(135deg, rgba(45, 140, 255, 0.2), rgba(45, 140, 255, 0.05));
-    @apply rounded-xl relative overflow-hidden border border-white/10;
+    @apply relative overflow-hidden border rounded-xl border-white/10;
 }
 .video-tile::before {
     content: '';
@@ -202,12 +218,12 @@ article > *:not(.entry-content),
 
 .zoom-window {
     background: #1a1a27;
-    @apply rounded-xl overflow-hidden;
+    @apply overflow-hidden rounded-xl;
     box-shadow: 0 50px 100px rgba(0,0,0,0.5);
 }
 .zoom-header {
     background: #232323;
-    @apply px-4 py-3 flex items-center justify-between;
+    @apply flex items-center justify-between px-4 py-3;
 }
 .zoom-dot {
     @apply w-3 h-3 rounded-full;
@@ -221,13 +237,13 @@ article > *:not(.entry-content),
 }
 .recording-badge::before {
     content: '';
-    @apply w-2 h-2 rounded-full bg-red-500;
+    @apply w-2 h-2 bg-red-500 rounded-full;
     animation: livePulse 1s infinite;
 }
 
 /* Live Indicator */
 .live-dot {
-    @apply w-2 h-2 rounded-full bg-red-500;
+    @apply w-2 h-2 bg-red-500 rounded-full;
     animation: livePulse 1.5s ease-in-out infinite;
 }
 @keyframes livePulse {
@@ -284,13 +300,13 @@ article > *:not(.entry-content),
     @apply bg-white/[0.03] border border-white/[0.08] rounded-2xl overflow-hidden mb-2;
 }
 .accordion-header {
-    @apply w-full px-6 py-5 flex justify-between items-center text-left bg-transparent border-none text-white font-semibold cursor-pointer transition-colors duration-300;
+    @apply flex items-center justify-between w-full px-6 py-5 font-semibold text-left text-white transition-colors duration-300 bg-transparent border-none cursor-pointer;
 }
 .accordion-header:hover {
     @apply bg-white/[0.03];
 }
 .accordion-content {
-    @apply px-6 pb-5 text-white/60 leading-relaxed;
+    @apply px-6 pb-5 leading-relaxed text-white/60;
 }
 .accordion-icon {
     @apply w-5 h-5 transition-transform duration-300 text-white/40;

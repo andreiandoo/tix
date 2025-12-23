@@ -52,8 +52,8 @@ $carousel_items = [
 		'icon_letter' => 'L',
 	],
 	[
-		'slug' => 'ambilet',
-		'name' => 'amBilet.ro',
+		'slug' => 'ambilet-ro',
+		'name' => 'AmBilet.ro',
 		'icon_bg' => 'bg-fuchsia-500/20',
 		'icon_text' => 'text-fuchsia-400',
 		'icon_letter' => 'a',
@@ -94,7 +94,7 @@ $carousel_items = [
 		'icon_letter' => 'O',
 	],
 	[
-		'slug' => 'entertix',
+		'slug' => 'entertix-ro',
 		'name' => 'Entertix.ro',
 		'icon_bg' => 'bg-amber-500/20',
 		'icon_text' => 'text-amber-400',

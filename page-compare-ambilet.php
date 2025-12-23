@@ -14,7 +14,7 @@ $carousel_items = tixello_get_carousel_comparisons('ambilet');
 // Competitor-specific content
 $competitor_content = [
     'ro' => [
-        'verdict_text' => 'amBilet este o platformă de ticketing care vinde online e-ticket (print-at-home) și, la unele evenimente, livrare prin curier (cost minim comunicat public). Plățile se procesează prin <strong class="text-fuchsia-400">EuPlătesc</strong> și/sau PayPal; retururile la anulări sunt operate prin procesatorul de plăți. Pe site nu sunt publicate procentele de comision pentru organizatori, SLA sau un model standard de payout.',
+        'verdict_text' => 'AmBilet este o platformă de ticketing care vinde online e-ticket (print-at-home) și, la unele evenimente, livrare prin curier (cost minim comunicat public). Plățile se procesează prin <strong class="text-fuchsia-400">EuPlătesc</strong> și/sau PayPal; retururile la anulări sunt operate prin procesatorul de plăți. Pe site nu sunt publicate procentele de comision pentru organizatori, SLA sau un model standard de payout.',
         'verdict_points' => [
             '<strong class="text-white/70">Cum lucrează cu organizatorii:</strong> listare "pe bază de contract" — trimitere CUI, date firmă, documente pentru contract. Proces administrativ mai formal.',
             '<strong class="text-white/70">Plăți & livrare:</strong> redirect pe pagina procesatorului; EuPlătesc este menționat ca furnizor principal de plăți; opțional curier (cost minim publicat).',
@@ -48,29 +48,29 @@ $competitor_content = [
         ],
         'faq' => [
             [
-                'q' => 'Ce comision percepe amBilet pentru organizatori?',
-                'a' => 'Nu am identificat procente publice pentru comisionul organizatorilor pe site-ul amBilet; condițiile par stabilite contractual. La Tixello, comisionul este transparent: 1-3%, fără abonamente sau costuri ascunse.',
+                'q' => 'Ce comision percepe AmBilet pentru organizatori?',
+                'a' => 'Nu am identificat procente publice pentru comisionul organizatorilor pe site-ul AmBilet; condițiile par stabilite contractual. La Tixello, comisionul este transparent: 1-3%, fără abonamente sau costuri ascunse.',
             ],
             [
-                'q' => 'Cum pot lista un eveniment pe amBilet?',
-                'a' => 'amBilet funcționează "pe bază de contract" — trebuie să trimiți CUI, date firmă și documente pentru semnarea contractului. La Tixello, onboarding-ul este rapid, fără birocrație excesivă, și poți lansa primul eveniment în câteva ore.',
+                'q' => 'Cum pot lista un eveniment pe AmBilet?',
+                'a' => 'AmBilet funcționează "pe bază de contract" — trebuie să trimiți CUI, date firmă și documente pentru semnarea contractului. La Tixello, onboarding-ul este rapid, fără birocrație excesivă, și poți lansa primul eveniment în câteva ore.',
             ],
             [
-                'q' => 'Pot primi banii direct în cont cu amBilet?',
-                'a' => 'amBilet procesează plățile prin EuPlătesc/PayPal, dar modelul de payout către organizatori nu este comunicat public. La Tixello, banii ajung direct în contul tău de la fiecare vânzare — nu aștepți cicluri de virare.',
+                'q' => 'Pot primi banii direct în cont cu AmBilet?',
+                'a' => 'AmBilet procesează plățile prin EuPlătesc/PayPal, dar modelul de payout către organizatori nu este comunicat public. La Tixello, banii ajung direct în contul tău de la fiecare vânzare — nu aștepți cicluri de virare.',
             ],
             [
-                'q' => 'Ce politică de retur are amBilet?',
-                'a' => 'Biletele de pe amBilet nu sunt rambursabile, cu excepția cazurilor de anulare sau amânare a evenimentului. Mutarea în aceeași localitate nu constituie motiv de refund. Retururile sunt procesate prin EuPlătesc/PayPal.',
+                'q' => 'Ce politică de retur are AmBilet?',
+                'a' => 'Biletele de pe AmBilet nu sunt rambursabile, cu excepția cazurilor de anulare sau amânare a evenimentului. Mutarea în aceeași localitate nu constituie motiv de refund. Retururile sunt procesate prin EuPlătesc/PayPal.',
             ],
             [
-                'q' => 'Ce taxe suplimentare vede clientul pe amBilet?',
-                'a' => 'Unele produse de pe amBilet arată explicit taxe incluse, precum "TaxaTicketing 2 lei" plus timbru muzical. La Tixello, poți decide dacă incluzi comisionul în preț sau îl afișezi separat — optimizezi conversia cum vrei.',
+                'q' => 'Ce taxe suplimentare vede clientul pe AmBilet?',
+                'a' => 'Unele produse de pe AmBilet arată explicit taxe incluse, precum "TaxaTicketing 2 lei" plus timbru muzical. La Tixello, poți decide dacă incluzi comisionul în preț sau îl afișezi separat — optimizezi conversia cum vrei.',
             ],
         ],
     ],
     'en' => [
-        'verdict_text' => 'amBilet is a ticketing platform that sells online e-tickets (print-at-home) and, for some events, courier delivery (minimum cost publicly communicated). Payments are processed through <strong class="text-fuchsia-400">EuPlătesc</strong> and/or PayPal; refunds for cancellations are operated through the payment processor. The site does not publish commission percentages for organizers, SLA or a standard payout model.',
+        'verdict_text' => 'AmBilet is a ticketing platform that sells online e-tickets (print-at-home) and, for some events, courier delivery (minimum cost publicly communicated). Payments are processed through <strong class="text-fuchsia-400">EuPlătesc</strong> and/or PayPal; refunds for cancellations are operated through the payment processor. The site does not publish commission percentages for organizers, SLA or a standard payout model.',
         'verdict_points' => [
             '<strong class="text-white/70">How they work with organizers:</strong> listing "on contract basis" — sending CUI, company data, documents for contract. More formal administrative process.',
             '<strong class="text-white/70">Payments & delivery:</strong> redirect to processor page; EuPlătesc is mentioned as main payment provider; optional courier (minimum cost published).',
@@ -104,24 +104,24 @@ $competitor_content = [
         ],
         'faq' => [
             [
-                'q' => 'What commission does amBilet charge organizers?',
-                'a' => 'We did not identify public percentages for organizer commission on the amBilet website; conditions seem to be set contractually. At Tixello, the commission is transparent: 1-3%, no subscriptions or hidden costs.',
+                'q' => 'What commission does AmBilet charge organizers?',
+                'a' => 'We did not identify public percentages for organizer commission on the AmBilet website; conditions seem to be set contractually. At Tixello, the commission is transparent: 1-3%, no subscriptions or hidden costs.',
             ],
             [
-                'q' => 'How can I list an event on amBilet?',
-                'a' => 'amBilet works "on contract basis" — you need to send CUI, company data and documents for signing the contract. At Tixello, onboarding is fast, without excessive bureaucracy, and you can launch your first event in a few hours.',
+                'q' => 'How can I list an event on AmBilet?',
+                'a' => 'AmBilet works "on contract basis" — you need to send CUI, company data and documents for signing the contract. At Tixello, onboarding is fast, without excessive bureaucracy, and you can launch your first event in a few hours.',
             ],
             [
-                'q' => 'Can I receive money directly in my account with amBilet?',
-                'a' => 'amBilet processes payments through EuPlătesc/PayPal, but the payout model to organizers is not publicly communicated. At Tixello, money goes directly to your account from each sale — no waiting for transfer cycles.',
+                'q' => 'Can I receive money directly in my account with AmBilet?',
+                'a' => 'AmBilet processes payments through EuPlătesc/PayPal, but the payout model to organizers is not publicly communicated. At Tixello, money goes directly to your account from each sale — no waiting for transfer cycles.',
             ],
             [
-                'q' => 'What refund policy does amBilet have?',
-                'a' => 'Tickets from amBilet are non-refundable, except for event cancellation or postponement. Moving in the same city is not a refund reason. Refunds are processed through EuPlătesc/PayPal.',
+                'q' => 'What refund policy does AmBilet have?',
+                'a' => 'Tickets from AmBilet are non-refundable, except for event cancellation or postponement. Moving in the same city is not a refund reason. Refunds are processed through EuPlătesc/PayPal.',
             ],
             [
-                'q' => 'What additional fees does the customer see on amBilet?',
-                'a' => 'Some amBilet products explicitly show included taxes, such as "TaxaTicketing 2 lei" plus music stamp. At Tixello, you can decide whether to include the commission in the price or display it separately — optimize conversion as you want.',
+                'q' => 'What additional fees does the customer see on AmBilet?',
+                'a' => 'Some AmBilet products explicitly show included taxes, such as "TaxaTicketing 2 lei" plus music stamp. At Tixello, you can decide whether to include the commission in the price or display it separately — optimize conversion as you want.',
             ],
         ],
     ],
@@ -144,15 +144,6 @@ get_header();
         <div class="absolute w-24 h-24 rounded-full bottom-20 left-1/4 bg-fuchsia-500/10 blur-2xl animate-float"></div>
 
         <div class="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-
-            <!-- Breadcrumb -->
-            <div class="flex items-center gap-2 mb-8 text-sm text-white/40 animate-fade-in">
-                <a href="<?php echo home_url(); ?>" class="transition-colors hover:text-white/60"><?php echo esc_html($t['breadcrumb_home']); ?></a>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                <a href="<?php echo home_url('/compare'); ?>" class="transition-colors hover:text-white/60"><?php echo esc_html($t['breadcrumb_comparisons']); ?></a>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                <span class="text-white/60"><?php echo esc_html($competitor['name']); ?></span>
-            </div>
 
             <!-- VS Header -->
             <div class="flex flex-col items-center justify-center gap-6 mb-12 lg:flex-row lg:gap-12 animate-fade-in-up">
@@ -747,47 +738,13 @@ get_header();
     </section>
 
     <!-- ==================== TRANSPARENCY NOTE ==================== -->
-    <section class="py-12 bg-zinc-900/30">
+    <section class="py-12 bg-zinc-950">
         <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
             <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
                 <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
                 <div>
                     <h4 class="mb-1 font-semibold text-white"><?php echo esc_html($t['transparency_title']); ?></h4>
                     <p class="text-sm leading-relaxed text-white/50"><?php echo esc_html($t['transparency_text']); ?></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== OTHER COMPARISONS CAROUSEL ==================== -->
-    <section class="relative py-16 overflow-hidden border-t bg-zinc-950 border-white/5">
-        <div class="px-4 mx-auto mb-8 max-w-7xl sm:px-6 lg:px-8">
-            <h3 class="mb-2 text-lg font-semibold text-white"><?php echo esc_html($t['carousel_title']); ?></h3>
-        </div>
-
-        <div class="relative">
-            <div class="absolute top-0 bottom-0 left-0 z-10 w-20 pointer-events-none bg-gradient-to-r from-zinc-950 to-transparent"></div>
-            <div class="absolute top-0 bottom-0 right-0 z-10 w-20 pointer-events-none bg-gradient-to-l from-zinc-950 to-transparent"></div>
-
-            <div class="flex overflow-hidden">
-                <div class="flex animate-scroll-x gap-4 hover:[animation-play-state:paused]">
-                    <?php
-                    // Render carousel items twice for infinite scroll effect
-                    for ($i = 0; $i < 2; $i++) :
-                        foreach ($carousel_items as $item) :
-                    ?>
-                    <a href="<?php echo home_url('/compare/' . $item['slug']); ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500"><span class="text-xs font-bold text-white">T</span></div>
-                            <span class="text-sm text-white/40">vs</span>
-                            <div class="w-8 h-8 rounded-lg <?php echo esc_attr($item['icon_bg']); ?> flex items-center justify-center"><span class="<?php echo esc_attr($item['icon_text']); ?> font-bold text-xs"><?php echo esc_html($item['icon_letter']); ?></span></div>
-                        </div>
-                        <p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
-                    </a>
-                    <?php
-                        endforeach;
-                    endfor;
-                    ?>
                 </div>
             </div>
         </div>

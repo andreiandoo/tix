@@ -147,15 +147,6 @@ get_header();
 
         <div class="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-            <!-- Breadcrumb -->
-            <div class="flex items-center gap-2 mb-8 text-sm text-white/40 animate-fade-in">
-                <a href="<?php echo home_url(); ?>" class="transition-colors hover:text-white/60"><?php echo esc_html($t['breadcrumb_home']); ?></a>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                <a href="<?php echo home_url('/compare'); ?>" class="transition-colors hover:text-white/60"><?php echo esc_html($t['breadcrumb_comparisons']); ?></a>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                <span class="text-white/60"><?php echo esc_html($competitor['name']); ?></span>
-            </div>
-
             <!-- VS Header -->
             <div class="flex flex-col items-center justify-center gap-6 mb-12 lg:flex-row lg:gap-12 animate-fade-in-up">
                 <div class="flex items-center gap-4">
@@ -755,7 +746,7 @@ get_header();
     </section>
 
     <!-- ==================== TRANSPARENCY NOTE ==================== -->
-    <section class="py-12 bg-zinc-900/30">
+    <section class="py-12 bg-zinc-950">
         <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
             <div class="flex items-start gap-4 p-6 rounded-xl bg-white/[0.02] border border-white/10">
                 <svg class="w-6 h-6 text-violet-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
@@ -766,40 +757,6 @@ get_header();
                             ? 'The Bilete.ro analysis is based on public information consulted on November 1, 2025 (pages: Terms & conditions, Payment, eBilet, Delivery, En Garde Insurance, plus Piletilevi news). If you represent Bilete.ro and would like clarifications, write to us - we will gladly update.'
                             : 'Analiza Bilete.ro se bazeaza pe informatii publice consultate la 1 noiembrie 2025 (pagini: Termeni & conditii, Plata, eBilet, Livrare, Asigurare En Garde, plus stiri despre Piletilevi). Daca reprezinti Bilete.ro si doresti clarificari, scrie-ne — actualizam cu placere.'; ?>
                     </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== OTHER COMPARISONS CAROUSEL ==================== -->
-    <section class="relative py-16 overflow-hidden border-t bg-zinc-950 border-white/5">
-        <div class="px-4 mx-auto mb-8 max-w-7xl sm:px-6 lg:px-8">
-            <h3 class="mb-2 text-lg font-semibold text-white"><?php echo esc_html($t['carousel_title']); ?></h3>
-        </div>
-
-        <div class="relative">
-            <div class="absolute top-0 bottom-0 left-0 z-10 w-20 pointer-events-none bg-gradient-to-r from-zinc-950 to-transparent"></div>
-            <div class="absolute top-0 bottom-0 right-0 z-10 w-20 pointer-events-none bg-gradient-to-l from-zinc-950 to-transparent"></div>
-
-            <div class="flex overflow-hidden">
-                <div class="flex animate-scroll-x gap-4 hover:[animation-play-state:paused]">
-                    <?php
-                    // Render carousel items twice for infinite scroll effect
-                    for ($i = 0; $i < 2; $i++) :
-                        foreach ($carousel_items as $item) :
-                    ?>
-                    <a href="<?php echo home_url('/compare/' . $item['slug']); ?>" class="flex-shrink-0 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-violet-500/30 hover:bg-white/[0.05] transition-all group">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500"><span class="text-xs font-bold text-white">T</span></div>
-                            <span class="text-sm text-white/40">vs</span>
-                            <div class="w-8 h-8 rounded-lg <?php echo esc_attr($item['icon_bg']); ?> flex items-center justify-center"><span class="<?php echo esc_attr($item['icon_text']); ?> font-bold text-xs"><?php echo esc_html($item['icon_letter']); ?></span></div>
-                        </div>
-                        <p class="text-sm font-medium text-white transition-colors group-hover:text-violet-400"><?php echo esc_html($item['name']); ?></p>
-                    </a>
-                    <?php
-                        endforeach;
-                    endfor;
-                    ?>
                 </div>
             </div>
         </div>

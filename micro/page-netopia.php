@@ -145,7 +145,7 @@ $t = [
     'installment_desc'   => $current_lang === 'ro' ? 'Pachete VIP accesibile prin parteneriatele Netopia cu băncile românești.' : 'Accessible VIP packages through Netopia partnerships with Romanian banks.',
 
     // Testimonial section
-    'testimonial_text'   => $current_lang === 'ro' ? 'Când am trecut la Netopia, <span class="text-gradient-netopia font-semibold">rata de abandon</span> la checkout a scăzut cu 28%. Românii au încredere în brand - îl văd peste tot online.' : 'When we switched to Netopia, <span class="text-gradient-netopia font-semibold">the abandonment rate</span> at checkout dropped by 28%. Romanians trust the brand - they see it everywhere online.',
+    'testimonial_text'   => $current_lang === 'ro' ? 'Când am trecut la Netopia, <span class="font-semibold text-gradient-netopia">rata de abandon</span> la checkout a scăzut cu 28%. Românii au încredere în brand - îl văd peste tot online.' : 'When we switched to Netopia, <span class="font-semibold text-gradient-netopia">the abandonment rate</span> at checkout dropped by 28%. Romanians trust the brand - they see it everywhere online.',
     'testimonial_role'   => $current_lang === 'ro' ? 'Event Manager, SAGA Festival' : 'Event Manager, SAGA Festival',
 
     // Final CTA
@@ -161,8 +161,6 @@ $t = [
 
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-netopia { background: linear-gradient(135deg, #00A99D 0%, #4DD4C3 50%, #00A99D 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
 
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
@@ -270,29 +268,29 @@ $t = [
   }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
   <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #002B7F, #FCD116, #CE1126);"></div>
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-netopia-teal/20 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-romania-blue/15 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating elements -->
-    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">🇷🇴</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">💳</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">🔒</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-30 animate-float">🇷🇴</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">💳</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">🔒</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-netopia-teal/10 border border-netopia-teal/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-netopia-teal/10 border-netopia-teal/20">
             <span class="text-xl">🇷🇴</span>
-            <span class="text-netopia-teal text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-netopia-teal"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -301,17 +299,17 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc_full']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-light text-white hover:scale-105 hover:shadow-glow-netopia transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-netopia-teal to-netopia-light hover:scale-105 hover:shadow-glow-netopia">
               <?php echo esc_html( $t['cta_connect'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#metode" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#metode" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_view_methods'] ); ?>
             </a>
           </div>
@@ -319,16 +317,16 @@ $t = [
           <!-- Stats -->
           <div class="grid grid-cols-3 gap-6">
             <div>
-              <div class="text-3xl font-display font-bold text-netopia-teal">15+</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_years'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-netopia-teal">15+</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_years'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-white">RON</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_currency'] ); ?></div>
+              <div class="text-3xl font-bold text-white font-display">RON</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_currency'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-brand-green">3DS</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_max_security'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-brand-green">3DS</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_max_security'] ); ?></div>
             </div>
           </div>
         </div>
@@ -346,37 +344,37 @@ $t = [
           }, 4000)">
 
             <!-- Main Checkout Card -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-3xl p-6 border border-netopia-teal/20 shadow-2xl">
+            <div class="p-6 border shadow-2xl bg-dark-800/80 backdrop-blur-xl rounded-3xl border-netopia-teal/20">
               <!-- Header -->
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-netopia-teal/20 flex items-center justify-center">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-netopia-teal/20">
                     <svg class="w-5 h-5 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">Netopia Payments</div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure_payment'] ); ?></div>
+                    <div class="font-semibold text-white">Netopia Payments</div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['secure_payment'] ); ?></div>
                   </div>
                 </div>
-                <div class="trust-badge px-3 py-1 rounded-full flex items-center gap-1">
+                <div class="flex items-center gap-1 px-3 py-1 rounded-full trust-badge">
                   <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                  <span class="text-netopia-teal text-xs font-medium"><?php echo esc_html( $t['secured'] ); ?></span>
+                  <span class="text-xs font-medium text-netopia-teal"><?php echo esc_html( $t['secured'] ); ?></span>
                 </div>
               </div>
 
               <!-- Romanian flag stripe -->
-              <div class="ro-flag-stripe rounded-full mb-6"></div>
+              <div class="mb-6 rounded-full ro-flag-stripe"></div>
 
               <!-- Amount -->
-              <div class="bg-dark-900/50 rounded-xl p-4 mb-6">
+              <div class="p-4 mb-6 bg-dark-900/50 rounded-xl">
                 <div class="flex items-center justify-between">
                   <div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['total_pay'] ); ?></div>
-                    <div class="text-3xl font-display font-bold text-white">175 <span class="text-lg text-netopia-teal">RON</span></div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['total_pay'] ); ?></div>
+                    <div class="text-3xl font-bold text-white font-display">175 <span class="text-lg text-netopia-teal">RON</span></div>
                   </div>
                   <div class="text-right">
-                    <div class="text-white/40 text-xs">2 <?php echo esc_html( $t['tickets'] ); ?></div>
-                    <div class="text-white/60 text-sm">Summer Fest 2025</div>
+                    <div class="text-xs text-white/40">2 <?php echo esc_html( $t['tickets'] ); ?></div>
+                    <div class="text-sm text-white/60">Summer Fest 2025</div>
                   </div>
                 </div>
               </div>
@@ -384,17 +382,17 @@ $t = [
               <!-- Step Indicator -->
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-2">
-                  <div :class="step >= 1 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">1</div>
+                  <div :class="step >= 1 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="flex items-center justify-center w-8 h-8 text-sm font-bold transition-all rounded-full">1</div>
                   <span :class="step >= 1 ? 'text-white' : 'text-white/40'" class="text-sm"><?php echo esc_html( $t['step_details'] ); ?></span>
                 </div>
                 <div class="flex-1 h-0.5 mx-2" :class="step >= 2 ? 'bg-netopia-teal' : 'bg-dark-700'"></div>
                 <div class="flex items-center gap-2">
-                  <div :class="step >= 2 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">2</div>
+                  <div :class="step >= 2 ? 'bg-netopia-teal text-white' : 'bg-dark-700 text-white/40'" class="flex items-center justify-center w-8 h-8 text-sm font-bold transition-all rounded-full">2</div>
                   <span :class="step >= 2 ? 'text-white' : 'text-white/40'" class="text-sm">3D Secure</span>
                 </div>
                 <div class="flex-1 h-0.5 mx-2" :class="step >= 3 ? 'bg-netopia-teal' : 'bg-dark-700'"></div>
                 <div class="flex items-center gap-2">
-                  <div :class="step >= 3 ? 'bg-brand-green text-white' : 'bg-dark-700 text-white/40'" class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all">
+                  <div :class="step >= 3 ? 'bg-brand-green text-white' : 'bg-dark-700 text-white/40'" class="flex items-center justify-center w-8 h-8 text-sm font-bold transition-all rounded-full">
                     <span x-show="step < 3">3</span>
                     <svg x-show="step >= 3" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                   </div>
@@ -404,30 +402,30 @@ $t = [
 
               <!-- Step 1: Card Details -->
               <div x-show="step === 1" x-transition class="space-y-4">
-                <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
-                  <div class="text-white/40 text-xs uppercase tracking-wider mb-2"><?php echo esc_html( $t['card_number_label'] ); ?></div>
+                <div class="p-4 border bg-dark-900/50 rounded-xl border-white/10">
+                  <div class="mb-2 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['card_number_label'] ); ?></div>
                   <div class="flex items-center gap-3">
-                    <span class="text-white font-mono">4532 •••• •••• 1234</span>
-                    <div class="ml-auto flex items-center gap-2">
+                    <span class="font-mono text-white">4532 •••• •••• 1234</span>
+                    <div class="flex items-center gap-2 ml-auto">
                       <svg class="w-8 h-5" viewBox="0 0 32 20"><rect fill="#1A1F71" width="32" height="20" rx="2"/><text x="5" y="14" fill="white" font-size="8" font-weight="bold">VISA</text></svg>
                     </div>
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                  <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
-                    <div class="text-white/40 text-xs uppercase tracking-wider mb-2"><?php echo esc_html( $t['expiry_label'] ); ?></div>
-                    <span class="text-white font-mono">12/28</span>
+                  <div class="p-4 border bg-dark-900/50 rounded-xl border-white/10">
+                    <div class="mb-2 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['expiry_label'] ); ?></div>
+                    <span class="font-mono text-white">12/28</span>
                   </div>
-                  <div class="bg-dark-900/50 rounded-xl p-4 border border-white/10">
-                    <div class="text-white/40 text-xs uppercase tracking-wider mb-2"><?php echo esc_html( $t['cvv_label'] ); ?></div>
-                    <span class="text-white font-mono">•••</span>
+                  <div class="p-4 border bg-dark-900/50 rounded-xl border-white/10">
+                    <div class="mb-2 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['cvv_label'] ); ?></div>
+                    <span class="font-mono text-white">•••</span>
                   </div>
                 </div>
               </div>
 
               <!-- Step 2: 3D Secure -->
-              <div x-show="step === 2" x-transition class="text-center py-8">
-                <div class="secure-3d inline-flex items-center gap-3 px-6 py-3 rounded-xl text-white mb-4">
+              <div x-show="step === 2" x-transition class="py-8 text-center">
+                <div class="inline-flex items-center gap-3 px-6 py-3 mb-4 text-white secure-3d rounded-xl">
                   <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                   <span class="font-semibold"><?php echo esc_html( $t['verification_3ds'] ); ?></span>
                 </div>
@@ -435,29 +433,29 @@ $t = [
                   <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                   <span><?php echo esc_html( $t['verifying_bank'] ); ?></span>
                 </div>
-                <div x-show="!processing" class="text-white/60 text-sm"><?php echo esc_html( $t['redirecting_bank'] ); ?></div>
+                <div x-show="!processing" class="text-sm text-white/60"><?php echo esc_html( $t['redirecting_bank'] ); ?></div>
               </div>
 
               <!-- Step 3: Confirmed -->
-              <div x-show="step === 3" x-transition class="text-center py-8">
-                <div class="w-16 h-16 rounded-full bg-brand-green/20 flex items-center justify-center mx-auto mb-4">
+              <div x-show="step === 3" x-transition class="py-8 text-center">
+                <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-brand-green/20">
                   <svg class="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
-                <div class="text-brand-green font-semibold text-lg mb-2"><?php echo esc_html( $t['payment_confirmed'] ); ?></div>
-                <div class="text-white/40 text-sm"><?php echo esc_html( $t['transaction'] ); ?> #TXN-2025-001234</div>
+                <div class="mb-2 text-lg font-semibold text-brand-green"><?php echo esc_html( $t['payment_confirmed'] ); ?></div>
+                <div class="text-sm text-white/40"><?php echo esc_html( $t['transaction'] ); ?> #TXN-2025-001234</div>
               </div>
 
               <!-- Trust badges -->
-              <div class="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-white/10">
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+              <div class="flex items-center justify-center gap-6 pt-4 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                   PCI DSS
                 </div>
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                   3D Secure
                 </div>
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <span class="text-sm">🇷🇴</span>
                   Netopia
                 </div>
@@ -465,20 +463,20 @@ $t = [
             </div>
 
             <!-- Floating Romanian Card -->
-            <div class="absolute -top-8 -right-8 w-56 ro-card p-4 shadow-card-ro animate-float z-10">
-              <div class="flex justify-between items-start mb-8">
+            <div class="absolute z-10 w-56 p-4 -top-8 -right-8 ro-card shadow-card-ro animate-float">
+              <div class="flex items-start justify-between mb-8">
                 <div class="ro-card-chip"></div>
                 <svg class="w-8 h-8 text-white/30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M9.5 16.5l7-4.5-7-4.5z"/></svg>
               </div>
-              <div class="text-white/70 font-mono text-sm tracking-wider mb-3">•••• •••• •••• 1234</div>
-              <div class="flex justify-between items-end">
+              <div class="mb-3 font-mono text-sm tracking-wider text-white/70">•••• •••• •••• 1234</div>
+              <div class="flex items-end justify-between">
                 <div>
                   <div class="text-white/40 text-[10px]"><?php echo esc_html( $t['holder'] ); ?></div>
-                  <div class="text-white/80 text-xs">ION POPESCU</div>
+                  <div class="text-xs text-white/80">ION POPESCU</div>
                 </div>
                 <div class="text-right">
                   <div class="text-white/40 text-[10px]"><?php echo esc_html( $t['expiry_card'] ); ?></div>
-                  <div class="text-white/80 text-xs">12/28</div>
+                  <div class="text-xs text-white/80">12/28</div>
                 </div>
               </div>
             </div>
@@ -486,12 +484,12 @@ $t = [
             <!-- Floating Trust Badge -->
             <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-netopia-teal/30 shadow-xl animate-float [animation-delay:1s] z-10">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-netopia-teal/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-netopia-teal/20">
                   <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
                 <div>
-                  <div class="text-netopia-teal text-sm font-medium">15+</div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['years_on_market'] ); ?></div>
+                  <div class="text-sm font-medium text-netopia-teal">15+</div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['years_on_market'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -502,114 +500,114 @@ $t = [
   </section>
 
   <!-- ==================== PAYMENT METHODS ==================== -->
-  <section class="py-24 relative overflow-hidden" id="metode">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="metode">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-netopia-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['payment_methods'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['all_ro_cards'] ); ?><br><span class="text-gradient-netopia"><?php echo esc_html( $t['all_ro_cards_sub'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-netopia-teal"><?php echo esc_html( $t['payment_methods'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['all_ro_cards'] ); ?><br><span class="text-gradient-netopia"><?php echo esc_html( $t['all_ro_cards_sub'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['all_ro_cards_desc'] ); ?></p>
       </div>
 
       <!-- Payment Methods Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <!-- Visa -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal">
           <div class="w-14 h-14 rounded-2xl bg-[#1A1F71]/20 flex items-center justify-center mb-4">
             <svg class="w-10 h-6" viewBox="0 0 48 16"><rect fill="#1A1F71" width="48" height="16" rx="2"/><text x="8" y="12" fill="white" font-size="10" font-weight="bold">VISA</text></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Visa</h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['visa_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Visa</h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['visa_desc'] ); ?></p>
         </div>
 
         <!-- Mastercard -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-1">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#EB001B]/20 to-[#F79E1B]/20 flex items-center justify-center mb-4">
             <svg class="w-10 h-10" viewBox="0 0 48 32"><circle cx="16" cy="16" r="12" fill="#EB001B"/><circle cx="32" cy="16" r="12" fill="#F79E1B"/><path d="M24 6c4 3 6.5 8 6.5 10s-2.5 7-6.5 10c-4-3-6.5-8-6.5-10s2.5-7 6.5-10z" fill="#FF5F00"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Mastercard</h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['mastercard_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Mastercard</h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['mastercard_desc'] ); ?></p>
         </div>
 
         <!-- Maestro -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-2">
           <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0066A1]/20 to-[#CC0000]/20 flex items-center justify-center mb-4">
             <svg class="w-10 h-10" viewBox="0 0 48 32"><circle cx="16" cy="16" r="12" fill="#0066A1"/><circle cx="32" cy="16" r="12" fill="#CC0000"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Maestro</h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['maestro_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Maestro</h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['maestro_desc'] ); ?></p>
         </div>
 
         <!-- Bank Transfer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-3">
-          <div class="w-14 h-14 rounded-2xl bg-netopia-teal/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-3">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-netopia-teal/20">
             <svg class="w-7 h-7 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['bank_transfer_title'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['bank_transfer_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['bank_transfer_title'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['bank_transfer_desc'] ); ?></p>
         </div>
       </div>
 
       <!-- Romanian Banks -->
       <div class="mt-12 reveal">
-        <div class="text-center mb-6">
-          <span class="text-white/40 text-sm"><?php echo esc_html( $t['banks_issued'] ); ?></span>
+        <div class="mb-6 text-center">
+          <span class="text-sm text-white/40"><?php echo esc_html( $t['banks_issued'] ); ?></span>
         </div>
         <div class="flex flex-wrap justify-center gap-4">
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">BCR</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">BRD</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">ING</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Raiffeisen</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">UniCredit</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">CEC Bank</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Banca Transilvania</div>
-          <div class="bank-logo px-4 py-2 rounded-lg text-white/50 text-sm">Alpha Bank</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">BCR</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">BRD</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">ING</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">Raiffeisen</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">UniCredit</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">CEC Bank</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">Banca Transilvania</div>
+          <div class="px-4 py-2 text-sm rounded-lg bank-logo text-white/50">Alpha Bank</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== 3D SECURE ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-brand-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['security'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">3D Secure<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['3d_mandatory'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['3d_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-brand-green"><?php echo esc_html( $t['security'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl">3D Secure<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['3d_mandatory'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['3d_desc'] ); ?></p>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-brand-green/20">
-              <div class="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center flex-shrink-0 animate-secure-pulse">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-brand-green/20">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-green/20 animate-secure-pulse">
                 <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-semibold"><?php echo esc_html( $t['liability_protect'] ); ?></span>
+                  <span class="font-semibold text-white"><?php echo esc_html( $t['liability_protect'] ); ?></span>
                   <span class="px-2 py-0.5 rounded-full bg-brand-green/20 text-brand-green text-xs"><?php echo esc_html( $t['active'] ); ?></span>
                 </div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['liability_desc'] ); ?></p>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['liability_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-netopia-teal/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-netopia-teal/20">
                 <svg class="w-6 h-6 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-semibold"><?php echo esc_html( $t['fraud_detect'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['fraud_desc'] ); ?></p>
+                <span class="font-semibold text-white"><?php echo esc_html( $t['fraud_detect'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['fraud_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-violet/20">
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <div>
-                <span class="text-white font-semibold"><?php echo esc_html( $t['pci_compliant'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['pci_desc'] ); ?></p>
+                <span class="font-semibold text-white"><?php echo esc_html( $t['pci_compliant'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['pci_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -617,24 +615,24 @@ $t = [
 
         <!-- Visual - 3D Secure Flow -->
         <div class="reveal reveal-delay-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-romania-blue/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-romania-blue/20">
                 <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['3d_flow'] ); ?></div>
-                <div class="text-white/40 text-xs"><?php echo esc_html( $t['3d_auth_steps'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['3d_flow'] ); ?></div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['3d_auth_steps'] ); ?></div>
               </div>
             </div>
 
             <div class="space-y-4">
               <!-- Step 1 -->
               <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
-                <div class="w-10 h-10 rounded-full bg-netopia-teal/20 flex items-center justify-center text-netopia-teal font-bold">1</div>
+                <div class="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-netopia-teal/20 text-netopia-teal">1</div>
                 <div class="flex-1">
-                  <div class="text-white font-medium"><?php echo esc_html( $t['step1_title'] ); ?></div>
-                  <div class="text-white/40 text-sm"><?php echo esc_html( $t['step1_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['step1_title'] ); ?></div>
+                  <div class="text-sm text-white/40"><?php echo esc_html( $t['step1_desc'] ); ?></div>
                 </div>
                 <svg class="w-5 h-5 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
@@ -644,13 +642,13 @@ $t = [
               </div>
 
               <!-- Step 2 -->
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-romania-blue/10 border border-romania-blue/30">
-                <div class="w-10 h-10 rounded-full bg-romania-blue/20 flex items-center justify-center text-white font-bold">2</div>
+              <div class="flex items-center gap-4 p-3 border rounded-lg bg-romania-blue/10 border-romania-blue/30">
+                <div class="flex items-center justify-center w-10 h-10 font-bold text-white rounded-full bg-romania-blue/20">2</div>
                 <div class="flex-1">
-                  <div class="text-white font-medium"><?php echo esc_html( $t['step2_title'] ); ?></div>
-                  <div class="text-white/40 text-sm"><?php echo esc_html( $t['step2_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['step2_title'] ); ?></div>
+                  <div class="text-sm text-white/40"><?php echo esc_html( $t['step2_desc'] ); ?></div>
                 </div>
-                <span class="px-2 py-1 rounded bg-romania-blue text-white text-xs font-bold">3DS</span>
+                <span class="px-2 py-1 text-xs font-bold text-white rounded bg-romania-blue">3DS</span>
               </div>
 
               <div class="flex justify-center">
@@ -658,11 +656,11 @@ $t = [
               </div>
 
               <!-- Step 3 -->
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-brand-green/10 border border-brand-green/30">
-                <div class="w-10 h-10 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green font-bold">✓</div>
+              <div class="flex items-center gap-4 p-3 border rounded-lg bg-brand-green/10 border-brand-green/30">
+                <div class="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-brand-green/20 text-brand-green">✓</div>
                 <div class="flex-1">
-                  <div class="text-brand-green font-medium"><?php echo esc_html( $t['step3_title'] ); ?></div>
-                  <div class="text-white/40 text-sm"><?php echo esc_html( $t['step3_desc'] ); ?></div>
+                  <div class="font-medium text-brand-green"><?php echo esc_html( $t['step3_title'] ); ?></div>
+                  <div class="text-sm text-white/40"><?php echo esc_html( $t['step3_desc'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -673,67 +671,67 @@ $t = [
   </section>
 
   <!-- ==================== TRANSACTION STATUS ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-netopia-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['txn_statuses'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['track_payments'] ); ?><br><span class="text-gradient-netopia"><?php echo esc_html( $t['every_payment'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-netopia-teal"><?php echo esc_html( $t['txn_statuses'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['track_payments'] ); ?><br><span class="text-gradient-netopia"><?php echo esc_html( $t['every_payment'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['txn_desc'] ); ?></p>
       </div>
 
       <!-- Status Flow -->
       <div class="max-w-4xl mx-auto reveal">
-        <div class="grid md:grid-cols-4 gap-4">
+        <div class="grid gap-4 md:grid-cols-4">
           <!-- Pending -->
-          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
-            <div class="w-14 h-14 rounded-2xl bg-brand-amber/20 flex items-center justify-center mx-auto mb-4">
+          <div class="p-6 text-center border bg-dark-800/50 rounded-2xl border-white/10">
+            <div class="flex items-center justify-center mx-auto mb-4 w-14 h-14 rounded-2xl bg-brand-amber/20">
               <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
-            <span class="status-pending px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $t['status_pending'] ); ?></span>
-            <div class="mt-3 text-white/50 text-sm"><?php echo esc_html( $t['code'] ); ?>: 0</div>
-            <p class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['status_pending_desc'] ); ?></p>
+            <span class="px-3 py-1 text-xs font-medium rounded-full status-pending"><?php echo esc_html( $t['status_pending'] ); ?></span>
+            <div class="mt-3 text-sm text-white/50"><?php echo esc_html( $t['code'] ); ?>: 0</div>
+            <p class="mt-2 text-xs text-white/40"><?php echo esc_html( $t['status_pending_desc'] ); ?></p>
           </div>
 
           <!-- Confirmed -->
-          <div class="bg-dark-800/50 rounded-2xl p-6 border border-netopia-teal/30 text-center relative overflow-hidden">
+          <div class="relative p-6 overflow-hidden text-center border bg-dark-800/50 rounded-2xl border-netopia-teal/30">
             <div class="absolute inset-0 bg-gradient-to-br from-netopia-teal/5 to-transparent"></div>
             <div class="relative">
-              <div class="w-14 h-14 rounded-2xl bg-netopia-teal/20 flex items-center justify-center mx-auto mb-4">
+              <div class="flex items-center justify-center mx-auto mb-4 w-14 h-14 rounded-2xl bg-netopia-teal/20">
                 <svg class="w-7 h-7 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
-              <span class="status-confirmed px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $t['status_confirmed'] ); ?></span>
-              <div class="mt-3 text-white/50 text-sm"><?php echo esc_html( $t['code'] ); ?>: 1</div>
-              <p class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['status_confirmed_desc'] ); ?></p>
+              <span class="px-3 py-1 text-xs font-medium rounded-full status-confirmed"><?php echo esc_html( $t['status_confirmed'] ); ?></span>
+              <div class="mt-3 text-sm text-white/50"><?php echo esc_html( $t['code'] ); ?>: 1</div>
+              <p class="mt-2 text-xs text-white/40"><?php echo esc_html( $t['status_confirmed_desc'] ); ?></p>
             </div>
           </div>
 
           <!-- Cancelled -->
-          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
-            <div class="w-14 h-14 rounded-2xl bg-brand-rose/20 flex items-center justify-center mx-auto mb-4">
+          <div class="p-6 text-center border bg-dark-800/50 rounded-2xl border-white/10">
+            <div class="flex items-center justify-center mx-auto mb-4 w-14 h-14 rounded-2xl bg-brand-rose/20">
               <svg class="w-7 h-7 text-brand-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </div>
-            <span class="status-cancelled px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $t['status_cancelled'] ); ?></span>
-            <div class="mt-3 text-white/50 text-sm"><?php echo esc_html( $t['code'] ); ?>: 4</div>
-            <p class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['status_cancelled_desc'] ); ?></p>
+            <span class="px-3 py-1 text-xs font-medium rounded-full status-cancelled"><?php echo esc_html( $t['status_cancelled'] ); ?></span>
+            <div class="mt-3 text-sm text-white/50"><?php echo esc_html( $t['code'] ); ?>: 4</div>
+            <p class="mt-2 text-xs text-white/40"><?php echo esc_html( $t['status_cancelled_desc'] ); ?></p>
           </div>
 
           <!-- Credited -->
-          <div class="bg-dark-800/50 rounded-2xl p-6 border border-white/10 text-center">
-            <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mx-auto mb-4">
+          <div class="p-6 text-center border bg-dark-800/50 rounded-2xl border-white/10">
+            <div class="flex items-center justify-center mx-auto mb-4 w-14 h-14 rounded-2xl bg-brand-violet/20">
               <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
             </div>
-            <span class="status-credited px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $t['status_credited'] ); ?></span>
-            <div class="mt-3 text-white/50 text-sm"><?php echo esc_html( $t['code'] ); ?>: 5</div>
-            <p class="text-white/40 text-xs mt-2"><?php echo esc_html( $t['status_credited_desc'] ); ?></p>
+            <span class="px-3 py-1 text-xs font-medium rounded-full status-credited"><?php echo esc_html( $t['status_credited'] ); ?></span>
+            <div class="mt-3 text-sm text-white/50"><?php echo esc_html( $t['code'] ); ?>: 5</div>
+            <p class="mt-2 text-xs text-white/40"><?php echo esc_html( $t['status_credited_desc'] ); ?></p>
           </div>
         </div>
 
         <!-- Webhook note -->
         <div class="mt-8 text-center">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800/50 border border-white/10">
+          <div class="inline-flex items-center gap-2 px-4 py-2 border rounded-full bg-dark-800/50 border-white/10">
             <svg class="w-4 h-4 text-netopia-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-            <span class="text-white/60 text-sm"><?php echo esc_html( $t['webhook_note'] ); ?></span>
+            <span class="text-sm text-white/60"><?php echo esc_html( $t['webhook_note'] ); ?></span>
           </div>
         </div>
       </div>
@@ -741,59 +739,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['use_cases'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['perfect_for'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['ro_market'] ); ?></span></h2>
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['use_cases'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['perfect_for'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['ro_market'] ); ?></span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-netopia-teal/20 to-netopia-mint/20 flex items-center justify-center mb-4"><span class="text-2xl">🎪</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['ro_events'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['ro_events_desc'] ); ?></p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-netopia-teal/20 to-netopia-mint/20"><span class="text-2xl">🎪</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['ro_events'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['ro_events_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎸</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['local_festivals'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['local_festivals_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10"><span class="text-2xl">🎸</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['local_festivals'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['local_festivals_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-romania-blue/20 to-romania-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['corporate_ro'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['corporate_ro_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-romania-blue/20 to-romania-blue/10"><span class="text-2xl">🏢</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['corporate_ro'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['corporate_ro_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🎤</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['ro_artists'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['ro_artists_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10"><span class="text-2xl">🎤</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['ro_artists'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['ro_artists_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">💱</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['multi_currency'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['multi_currency_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10"><span class="text-2xl">💱</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['multi_currency'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['multi_currency_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-netopia-teal/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">💳</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['installment_pay'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['installment_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-netopia-teal/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10"><span class="text-2xl">💳</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['installment_pay'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['installment_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-netopia-teal/10 to-netopia-mint/10 rounded-3xl p-8 md:p-12 border border-netopia-teal/20">
+        <div class="p-8 border bg-gradient-to-br from-netopia-teal/10 to-netopia-mint/10 rounded-3xl md:p-12 border-netopia-teal/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -801,11 +799,11 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial_text']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-netopia-teal to-netopia-mint"></div>
+            <div class="rounded-full w-14 h-14 bg-gradient-to-br from-netopia-teal to-netopia-mint"></div>
             <div>
               <div class="font-semibold text-white">Andrei M.</div>
               <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
@@ -817,27 +815,27 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-netopia-teal/20 via-transparent to-romania-blue/20"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,169,157,0.3) 0%, rgba(0,43,127,0.2) 100%);"></div>
 
-    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">🇷🇴</div>
+    <div class="absolute text-4xl top-20 left-20 opacity-20 animate-float">🇷🇴</div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['connect_title'] ); ?><br><span class="text-gradient-netopia">Netopia</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_cta_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal"><?php echo esc_html( $t['connect_title'] ); ?><br><span class="text-gradient-netopia">Netopia</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['final_cta_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-netopia-teal to-netopia-light text-white hover:scale-105 hover:shadow-glow-netopia transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-netopia-teal to-netopia-light hover:scale-105 hover:shadow-glow-netopia">
           <?php echo esc_html( $t['cta_connect'] ); ?>
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['questions_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

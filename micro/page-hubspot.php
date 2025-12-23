@@ -102,7 +102,7 @@ $t = [
     'support_desc'       => $current_lang === 'ro' ? 'Creează tichete HubSpot cu context achiziții. Suport informat.' : 'Create HubSpot tickets with purchase context. Informed support.',
 
     // Testimonial
-    'testimonial_text'   => $current_lang === 'ro' ? 'Echipa de marketing vede acum <span class="text-gradient-hubspot font-semibold">istoricul complet</span> al fiecărui client direct în HubSpot. Campaniile sunt mult mai targetate, iar rata de conversie a crescut cu 35%.' : 'The marketing team now sees the <span class="text-gradient-hubspot font-semibold">complete history</span> of each customer directly in HubSpot. Campaigns are much more targeted, and conversion rate increased by 35%.',
+    'testimonial_text'   => $current_lang === 'ro' ? 'Echipa de marketing vede acum <span class="font-semibold text-gradient-hubspot">istoricul complet</span> al fiecărui client direct în HubSpot. Campaniile sunt mult mai targetate, iar rata de conversie a crescut cu 35%.' : 'The marketing team now sees the <span class="font-semibold text-gradient-hubspot">complete history</span> of each customer directly in HubSpot. Campaigns are much more targeted, and conversion rate increased by 35%.',
     'testimonial_role'   => 'Marketing Director, Untold Festival',
 
     // Final CTA
@@ -117,8 +117,6 @@ $t = [
   ::selection { background: #FF7A59; color: white; }
 
   .text-gradient-hubspot { background: linear-gradient(135deg, #FF7A59 0%, #FF8F73 50%, #00BDA5 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
 
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
@@ -255,31 +253,31 @@ $t = [
   }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
   <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #FF7A59, #FF8F73, #00BDA5);"></div>
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-hubspot-orange/15 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-hubspot-teal/10 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating elements -->
-    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">👤</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">💼</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">🏢</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-30 animate-float">👤</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">💼</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">🏢</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-hubspot-orange/10 border border-hubspot-orange/20 mb-6">
-            <div class="hubspot-sprocket w-6 h-6" style="width: 24px; height: 24px;">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-hubspot-orange/10 border-hubspot-orange/20">
+            <div class="w-6 h-6 hubspot-sprocket" style="width: 24px; height: 24px;">
               <div class="w-2 h-2 bg-white rounded-full"></div>
             </div>
-            <span class="text-hubspot-orange text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-hubspot-orange"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -288,17 +286,17 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-hubspot-orange to-hubspot-coral text-white hover:scale-105 hover:shadow-glow-hubspot transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-hubspot-orange to-hubspot-coral hover:scale-105 hover:shadow-glow-hubspot">
               <?php echo esc_html( $t['cta_connect'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#obiecte" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#obiecte" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['see_objects'] ); ?>
             </a>
           </div>
@@ -306,16 +304,16 @@ $t = [
           <!-- Stats -->
           <div class="grid grid-cols-3 gap-6">
             <div>
-              <div class="text-3xl font-display font-bold text-hubspot-orange">Bi</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['bidirectional'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-hubspot-orange">Bi</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['bidirectional'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-white">OAuth</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['secured'] ); ?></div>
+              <div class="text-3xl font-bold text-white font-display">OAuth</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['secured'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-hubspot-teal">Real</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['real_time_sync'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-hubspot-teal">Real</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['real_time_sync'] ); ?></div>
             </div>
           </div>
         </div>
@@ -335,7 +333,7 @@ $t = [
           }, 3000)">
 
             <!-- Main Card -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-3xl p-6 border border-hubspot-orange/20 shadow-2xl">
+            <div class="p-6 border shadow-2xl bg-dark-800/80 backdrop-blur-xl rounded-3xl border-hubspot-orange/20">
               <!-- Header -->
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
@@ -343,8 +341,8 @@ $t = [
                     <div class="w-4 h-4 bg-white rounded-full"></div>
                   </div>
                   <div>
-                    <div class="text-white font-semibold">HubSpot CRM</div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['bi_sync'] ); ?></div>
+                    <div class="font-semibold text-white">HubSpot CRM</div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['bi_sync'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
@@ -354,20 +352,20 @@ $t = [
               </div>
 
               <!-- Sync Visual -->
-              <div class="flex items-center justify-between mb-6 py-4">
+              <div class="flex items-center justify-between py-4 mb-6">
                 <!-- Tixello Side -->
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-violet to-brand-cyan flex items-center justify-center">
-                    <span class="text-white font-display font-bold">T</span>
+                  <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-brand-violet to-brand-cyan">
+                    <span class="font-bold text-white font-display">T</span>
                   </div>
                   <div>
-                    <div class="text-white font-medium">Tixello</div>
-                    <div class="text-white/40 text-xs">Ticketing</div>
+                    <div class="font-medium text-white">Tixello</div>
+                    <div class="text-xs text-white/40">Ticketing</div>
                   </div>
                 </div>
 
                 <!-- Sync Arrows -->
-                <div class="flex-1 mx-4 relative h-8">
+                <div class="relative flex-1 h-8 mx-4">
                   <div class="absolute inset-y-0 left-0 right-0 flex items-center">
                     <!-- Arrow Right -->
                     <div class="flex-1 h-0.5 bg-gradient-to-r from-brand-violet/50 to-hubspot-orange/50 relative">
@@ -377,7 +375,7 @@ $t = [
                     </div>
                   </div>
                   <!-- Bidirectional indicator -->
-                  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1">
+                  <div class="absolute flex items-center gap-1 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                     <svg class="w-4 h-4 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
                     <svg class="w-4 h-4 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                   </div>
@@ -389,64 +387,64 @@ $t = [
                     <div class="w-4 h-4 bg-white rounded-full"></div>
                   </div>
                   <div>
-                    <div class="text-white font-medium">HubSpot</div>
-                    <div class="text-white/40 text-xs">CRM</div>
+                    <div class="font-medium text-white">HubSpot</div>
+                    <div class="text-xs text-white/40">CRM</div>
                   </div>
                 </div>
               </div>
 
               <!-- Synced Objects -->
               <div class="grid grid-cols-3 gap-3 mb-6">
-                <div class="bg-dark-900/50 rounded-xl p-3 text-center">
-                  <div class="w-8 h-8 rounded-lg bg-hubspot-orange/20 flex items-center justify-center mx-auto mb-2">
+                <div class="p-3 text-center bg-dark-900/50 rounded-xl">
+                  <div class="flex items-center justify-center w-8 h-8 mx-auto mb-2 rounded-lg bg-hubspot-orange/20">
                     <svg class="w-4 h-4 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                   </div>
                   <div class="text-lg font-bold text-white" x-text="contactsSynced.toLocaleString()">1,247</div>
-                  <div class="text-white/40 text-xs">Contacts</div>
+                  <div class="text-xs text-white/40">Contacts</div>
                 </div>
-                <div class="bg-dark-900/50 rounded-xl p-3 text-center">
-                  <div class="w-8 h-8 rounded-lg bg-hubspot-teal/20 flex items-center justify-center mx-auto mb-2">
+                <div class="p-3 text-center bg-dark-900/50 rounded-xl">
+                  <div class="flex items-center justify-center w-8 h-8 mx-auto mb-2 rounded-lg bg-hubspot-teal/20">
                     <svg class="w-4 h-4 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   </div>
                   <div class="text-lg font-bold text-white" x-text="dealsSynced">89</div>
-                  <div class="text-white/40 text-xs">Deals</div>
+                  <div class="text-xs text-white/40">Deals</div>
                 </div>
-                <div class="bg-dark-900/50 rounded-xl p-3 text-center">
-                  <div class="w-8 h-8 rounded-lg bg-hubspot-blue/20 flex items-center justify-center mx-auto mb-2">
+                <div class="p-3 text-center bg-dark-900/50 rounded-xl">
+                  <div class="flex items-center justify-center w-8 h-8 mx-auto mb-2 rounded-lg bg-hubspot-blue/20">
                     <svg class="w-4 h-4 text-hubspot-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                   </div>
                   <div class="text-lg font-bold text-white">34</div>
-                  <div class="text-white/40 text-xs">Companies</div>
+                  <div class="text-xs text-white/40">Companies</div>
                 </div>
               </div>
 
               <!-- Recent Synced Contact -->
-              <div class="contact-card rounded-xl p-3">
+              <div class="p-3 contact-card rounded-xl">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-full bg-hubspot-orange/20 flex items-center justify-center">
-                    <span class="text-hubspot-orange font-medium">MI</span>
+                  <div class="flex items-center justify-center w-10 h-10 rounded-full bg-hubspot-orange/20">
+                    <span class="font-medium text-hubspot-orange">MI</span>
                   </div>
                   <div class="flex-1">
-                    <div class="text-white font-medium">Maria Ionescu</div>
-                    <div class="text-white/40 text-xs">maria@exemplu.ro</div>
+                    <div class="font-medium text-white">Maria Ionescu</div>
+                    <div class="text-xs text-white/40">maria@exemplu.ro</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-hubspot-teal text-sm font-medium">€450</div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['total_purchases'] ); ?></div>
+                    <div class="text-sm font-medium text-hubspot-teal">€450</div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['total_purchases'] ); ?></div>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Floating OAuth Badge -->
-            <div class="absolute -top-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-brand-green/30 shadow-xl animate-float z-10">
+            <div class="absolute z-10 px-4 py-3 border shadow-xl -top-4 -left-4 bg-dark-800 rounded-xl border-brand-green/30 animate-float">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-green/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-green/20">
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <div>
-                  <div class="text-brand-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs">Securizat</div>
+                  <div class="text-sm font-medium text-brand-green">OAuth 2.0</div>
+                  <div class="text-xs text-white/40">Securizat</div>
                 </div>
               </div>
             </div>
@@ -454,12 +452,12 @@ $t = [
             <!-- Floating Automation Badge -->
             <div class="absolute -bottom-4 -right-4 bg-dark-800 rounded-xl px-4 py-3 border border-hubspot-teal/30 shadow-xl animate-float [animation-delay:1s] z-10">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-hubspot-teal/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-hubspot-teal/20">
                   <svg class="w-4 h-4 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <div>
-                  <div class="text-hubspot-teal text-sm font-medium">Workflows</div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['automation'] ); ?></div>
+                  <div class="text-sm font-medium text-hubspot-teal">Workflows</div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['automation'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -470,68 +468,68 @@ $t = [
   </section>
 
   <!-- ==================== HUBSPOT OBJECTS ==================== -->
-  <section class="py-24 relative overflow-hidden" id="obiecte">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="obiecte">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-hubspot-orange text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['objects_label'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-hubspot">Companies</span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-hubspot-orange"><?php echo esc_html( $t['objects_label'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-hubspot">Companies</span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['objects_desc'] ); ?></p>
       </div>
 
       <!-- Objects Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <!-- Contacts -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-orange/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-hubspot-orange/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-orange/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-hubspot-orange/20">
             <svg class="w-7 h-7 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Contacts</h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['contacts_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Contacts</h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['contacts_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Email</span>
-            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Name</span>
-            <span class="px-2 py-1 rounded bg-hubspot-orange/10 text-hubspot-orange text-xs">Phone</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-orange/10 text-hubspot-orange">Email</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-orange/10 text-hubspot-orange">Name</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-orange/10 text-hubspot-orange">Phone</span>
           </div>
         </div>
 
         <!-- Deals -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-teal/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-hubspot-teal/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-teal/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-hubspot-teal/20">
             <svg class="w-7 h-7 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Deals</h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['deals_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Deals</h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['deals_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-hubspot-teal/10 text-hubspot-teal text-xs">Amount</span>
-            <span class="px-2 py-1 rounded bg-hubspot-teal/10 text-hubspot-teal text-xs">Stage</span>
-            <span class="px-2 py-1 rounded bg-hubspot-teal/10 text-hubspot-teal text-xs">Pipeline</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-teal/10 text-hubspot-teal">Amount</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-teal/10 text-hubspot-teal">Stage</span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-teal/10 text-hubspot-teal">Pipeline</span>
           </div>
         </div>
 
         <!-- Companies -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-blue/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-hubspot-blue/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-blue/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-hubspot-blue/20">
             <svg class="w-7 h-7 text-hubspot-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Companies</h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['companies_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Companies</h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['companies_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs"><?php echo esc_html( $t['domain'] ); ?></span>
-            <span class="px-2 py-1 rounded bg-hubspot-blue/10 text-hubspot-blue text-xs"><?php echo esc_html( $t['industry'] ); ?></span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-blue/10 text-hubspot-blue"><?php echo esc_html( $t['domain'] ); ?></span>
+            <span class="px-2 py-1 text-xs rounded bg-hubspot-blue/10 text-hubspot-blue"><?php echo esc_html( $t['industry'] ); ?></span>
           </div>
         </div>
 
         <!-- Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-3">
-          <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-3">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-violet/20">
             <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2">Tickets</h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['tickets_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white">Tickets</h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['tickets_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs"><?php echo esc_html( $t['status'] ); ?></span>
-            <span class="px-2 py-1 rounded bg-brand-violet/10 text-brand-violet text-xs"><?php echo esc_html( $t['priority'] ); ?></span>
+            <span class="px-2 py-1 text-xs rounded bg-brand-violet/10 text-brand-violet"><?php echo esc_html( $t['status'] ); ?></span>
+            <span class="px-2 py-1 text-xs rounded bg-brand-violet/10 text-brand-violet"><?php echo esc_html( $t['priority'] ); ?></span>
           </div>
         </div>
       </div>
@@ -539,43 +537,43 @@ $t = [
   </section>
 
   <!-- ==================== PROPERTY MAPPING ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['mapping_label'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['mapping_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mapping_title_2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['mapping_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-hubspot-teal"><?php echo esc_html( $t['mapping_label'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['mapping_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mapping_title_2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['mapping_desc'] ); ?></p>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-hubspot-orange/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-hubspot-orange/20">
                 <svg class="w-6 h-6 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['standard_props'] ); ?></span>
-                <p class="text-white/50 text-sm">email, firstname, lastname, phone</p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['standard_props'] ); ?></span>
+                <p class="text-sm text-white/50">email, firstname, lastname, phone</p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-hubspot-teal/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-hubspot-teal/20">
                 <svg class="w-6 h-6 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['custom_props'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['custom_props_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['custom_props'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['custom_props_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-violet/20">
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['calc_props'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['calc_props_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['calc_props'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['calc_props_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -583,58 +581,58 @@ $t = [
 
         <!-- Visual - Property Mapping UI -->
         <div class="reveal reveal-delay-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-hubspot-orange/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-hubspot-orange/20">
                 <svg class="w-5 h-5 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['field_mapping'] ); ?></div>
-                <div class="text-white/40 text-xs">Tixello → HubSpot</div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['field_mapping'] ); ?></div>
+                <div class="text-xs text-white/40">Tixello → HubSpot</div>
               </div>
             </div>
 
             <!-- Mappings -->
             <div class="space-y-3">
               <div class="flex items-center gap-3">
-                <div class="flex-1 property-pill rounded-lg px-3 py-2">
-                  <div class="text-white/40 text-xs">Tixello</div>
-                  <div class="text-white font-mono text-sm">total_purchases</div>
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill">
+                  <div class="text-xs text-white/40">Tixello</div>
+                  <div class="font-mono text-sm text-white">total_purchases</div>
                 </div>
-                <svg class="w-5 h-5 text-hubspot-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                <div class="flex-1 property-pill hubspot rounded-lg px-3 py-2">
-                  <div class="text-hubspot-teal/60 text-xs">HubSpot</div>
-                  <div class="text-hubspot-teal font-mono text-sm">total_event_purchases</div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-3">
-                <div class="flex-1 property-pill rounded-lg px-3 py-2">
-                  <div class="text-white/40 text-xs">Tixello</div>
-                  <div class="text-white font-mono text-sm">last_event_date</div>
-                </div>
-                <svg class="w-5 h-5 text-hubspot-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                <div class="flex-1 property-pill hubspot rounded-lg px-3 py-2">
-                  <div class="text-hubspot-teal/60 text-xs">HubSpot</div>
-                  <div class="text-hubspot-teal font-mono text-sm">last_event_attended</div>
+                <svg class="flex-shrink-0 w-5 h-5 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill hubspot">
+                  <div class="text-xs text-hubspot-teal/60">HubSpot</div>
+                  <div class="font-mono text-sm text-hubspot-teal">total_event_purchases</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-3">
-                <div class="flex-1 property-pill rounded-lg px-3 py-2">
-                  <div class="text-white/40 text-xs">Tixello</div>
-                  <div class="text-white font-mono text-sm">favorite_type</div>
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill">
+                  <div class="text-xs text-white/40">Tixello</div>
+                  <div class="font-mono text-sm text-white">last_event_date</div>
                 </div>
-                <svg class="w-5 h-5 text-hubspot-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                <div class="flex-1 property-pill hubspot rounded-lg px-3 py-2">
-                  <div class="text-hubspot-teal/60 text-xs">HubSpot</div>
-                  <div class="text-hubspot-teal font-mono text-sm">preferred_category</div>
+                <svg class="flex-shrink-0 w-5 h-5 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill hubspot">
+                  <div class="text-xs text-hubspot-teal/60">HubSpot</div>
+                  <div class="font-mono text-sm text-hubspot-teal">last_event_attended</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill">
+                  <div class="text-xs text-white/40">Tixello</div>
+                  <div class="font-mono text-sm text-white">favorite_type</div>
+                </div>
+                <svg class="flex-shrink-0 w-5 h-5 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div class="flex-1 px-3 py-2 rounded-lg property-pill hubspot">
+                  <div class="text-xs text-hubspot-teal/60">HubSpot</div>
+                  <div class="font-mono text-sm text-hubspot-teal">preferred_category</div>
                 </div>
               </div>
             </div>
 
             <!-- Add mapping button -->
-            <button class="w-full mt-4 py-2 rounded-lg border border-dashed border-hubspot-orange/30 text-hubspot-orange/60 text-sm hover:border-hubspot-orange hover:text-hubspot-orange transition-colors">
+            <button class="w-full py-2 mt-4 text-sm transition-colors border border-dashed rounded-lg border-hubspot-orange/30 text-hubspot-orange/60 hover:border-hubspot-orange hover:text-hubspot-orange">
               <?php echo esc_html( $t['add_mapping'] ); ?>
             </button>
           </div>
@@ -644,67 +642,67 @@ $t = [
   </section>
 
   <!-- ==================== DEAL PIPELINE ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['pipeline_label'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['pipeline_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['pipeline_title_2'] ); ?></span></h2>
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-hubspot-teal"><?php echo esc_html( $t['pipeline_label'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['pipeline_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['pipeline_title_2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['pipeline_desc'] ); ?></p>
       </div>
 
       <!-- Pipeline Visual -->
       <div class="max-w-4xl mx-auto reveal">
-        <div class="flex gap-6 mb-8 overflow-x-auto pb-4">
+        <div class="flex gap-6 pb-4 mb-8 overflow-x-auto">
           <div class="pipeline-stage completed">
-            <div class="text-sm font-medium mb-1">Qualified</div>
+            <div class="mb-1 text-sm font-medium">Qualified</div>
             <div class="text-xs text-white/40">12 deals</div>
           </div>
           <div class="pipeline-stage completed">
-            <div class="text-sm font-medium mb-1">Meeting</div>
+            <div class="mb-1 text-sm font-medium">Meeting</div>
             <div class="text-xs text-white/40">8 deals</div>
           </div>
           <div class="pipeline-stage active">
-            <div class="text-sm font-medium mb-1">Proposal</div>
+            <div class="mb-1 text-sm font-medium">Proposal</div>
             <div class="text-xs opacity-80">5 deals</div>
           </div>
           <div class="pipeline-stage">
-            <div class="text-sm font-medium text-white mb-1">Negotiation</div>
+            <div class="mb-1 text-sm font-medium text-white">Negotiation</div>
             <div class="text-xs text-white/40">3 deals</div>
           </div>
           <div class="pipeline-stage">
-            <div class="text-sm font-medium text-white mb-1">Closed Won</div>
+            <div class="mb-1 text-sm font-medium text-white">Closed Won</div>
             <div class="text-xs text-white/40">€45,000</div>
           </div>
         </div>
 
         <!-- Sample Deal -->
-        <div class="bg-dark-800 rounded-2xl p-6 border border-hubspot-orange/20">
+        <div class="p-6 border bg-dark-800 rounded-2xl border-hubspot-orange/20">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-hubspot-teal/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-hubspot-teal/20">
                 <svg class="w-5 h-5 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['corp_tickets'] ); ?></div>
-                <div class="text-white/40 text-xs">TechCorp SRL • <?php echo esc_html( $t['tickets_count'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['corp_tickets'] ); ?></div>
+                <div class="text-xs text-white/40">TechCorp SRL • <?php echo esc_html( $t['tickets_count'] ); ?></div>
               </div>
             </div>
             <div class="text-right">
               <div class="text-2xl font-bold text-hubspot-teal">€5,000</div>
-              <div class="text-white/40 text-xs">Amount</div>
+              <div class="text-xs text-white/40">Amount</div>
             </div>
           </div>
 
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-hubspot-orange/20 flex items-center justify-center">
-                <span class="text-hubspot-orange text-xs">AP</span>
+              <div class="flex items-center justify-center w-6 h-6 rounded-full bg-hubspot-orange/20">
+                <span class="text-xs text-hubspot-orange">AP</span>
               </div>
-              <span class="text-white/60 text-sm">Alexandru P.</span>
+              <span class="text-sm text-white/60">Alexandru P.</span>
             </div>
             <div class="flex-1"></div>
-            <span class="px-3 py-1 rounded-full bg-hubspot-orange/20 text-hubspot-orange text-xs font-medium"><?php echo esc_html( $t['proposal_sent'] ); ?></span>
-            <span class="text-white/40 text-xs"><?php echo esc_html( $t['close_date'] ); ?></span>
+            <span class="px-3 py-1 text-xs font-medium rounded-full bg-hubspot-orange/20 text-hubspot-orange"><?php echo esc_html( $t['proposal_sent'] ); ?></span>
+            <span class="text-xs text-white/40"><?php echo esc_html( $t['close_date'] ); ?></span>
           </div>
         </div>
       </div>
@@ -712,29 +710,29 @@ $t = [
   </section>
 
   <!-- ==================== MARKETING AUTOMATION ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Visual - Workflow -->
-        <div class="reveal order-2 lg:order-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+        <div class="order-2 reveal lg:order-1">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-hubspot-teal/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-hubspot-teal/20">
                 <svg class="w-5 h-5 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['workflow_auto'] ); ?></div>
-                <div class="text-white/40 text-xs"><?php echo esc_html( $t['triggered_by'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['workflow_auto'] ); ?></div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['triggered_by'] ); ?></div>
               </div>
             </div>
 
             <!-- Workflow Steps -->
             <div class="space-y-3">
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-hubspot-orange/10 border border-hubspot-orange/30">
-                <div class="w-8 h-8 rounded-full bg-hubspot-orange flex items-center justify-center text-white text-sm font-bold">1</div>
+              <div class="flex items-center gap-4 p-3 border rounded-lg bg-hubspot-orange/10 border-hubspot-orange/30">
+                <div class="flex items-center justify-center w-8 h-8 text-sm font-bold text-white rounded-full bg-hubspot-orange">1</div>
                 <div>
-                  <div class="text-white font-medium"><?php echo esc_html( $t['trigger_ticket'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['trigger_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['trigger_ticket'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['trigger_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -743,10 +741,10 @@ $t = [
               </div>
 
               <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
-                <div class="w-8 h-8 rounded-full bg-hubspot-teal/20 flex items-center justify-center text-hubspot-teal text-sm font-bold">2</div>
+                <div class="flex items-center justify-center w-8 h-8 text-sm font-bold rounded-full bg-hubspot-teal/20 text-hubspot-teal">2</div>
                 <div>
-                  <div class="text-white font-medium"><?php echo esc_html( $t['email_confirm'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['email_confirm_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['email_confirm'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['email_confirm_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -755,10 +753,10 @@ $t = [
               </div>
 
               <div class="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50">
-                <div class="w-8 h-8 rounded-full bg-hubspot-teal/20 flex items-center justify-center text-hubspot-teal text-sm font-bold">3</div>
+                <div class="flex items-center justify-center w-8 h-8 text-sm font-bold rounded-full bg-hubspot-teal/20 text-hubspot-teal">3</div>
                 <div>
-                  <div class="text-white font-medium"><?php echo esc_html( $t['delay_3days'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['delay_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['delay_3days'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['delay_desc'] ); ?></div>
                 </div>
               </div>
 
@@ -766,11 +764,11 @@ $t = [
                 <svg class="w-4 h-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               </div>
 
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-brand-green/10 border border-brand-green/30">
-                <div class="w-8 h-8 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green text-sm font-bold">4</div>
+              <div class="flex items-center gap-4 p-3 border rounded-lg bg-brand-green/10 border-brand-green/30">
+                <div class="flex items-center justify-center w-8 h-8 text-sm font-bold rounded-full bg-brand-green/20 text-brand-green">4</div>
                 <div>
-                  <div class="text-white font-medium"><?php echo esc_html( $t['email_preevent'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['email_preevent_desc'] ); ?></div>
+                  <div class="font-medium text-white"><?php echo esc_html( $t['email_preevent'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['email_preevent_desc'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -778,10 +776,10 @@ $t = [
         </div>
 
         <!-- Content -->
-        <div class="reveal order-1 lg:order-2">
-          <span class="text-hubspot-teal text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['mkt_label'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['mkt_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mkt_title_2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['mkt_desc'] ); ?></p>
+        <div class="order-1 reveal lg:order-2">
+          <span class="text-sm font-medium tracking-widest uppercase text-hubspot-teal"><?php echo esc_html( $t['mkt_label'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['mkt_title_1'] ); ?><br><span class="text-gradient-hubspot"><?php echo esc_html( $t['mkt_title_2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['mkt_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -789,8 +787,8 @@ $t = [
                 <svg class="w-4 h-4 text-hubspot-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['email_sequences'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['sequences_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['email_sequences'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['sequences_desc'] ); ?></p>
               </div>
             </div>
 
@@ -799,8 +797,8 @@ $t = [
                 <svg class="w-4 h-4 text-hubspot-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['dynamic_segment'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['dynamic_segment'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['segment_desc'] ); ?></p>
               </div>
             </div>
 
@@ -809,8 +807,8 @@ $t = [
                 <svg class="w-4 h-4 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['lifecycle'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['lifecycle_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['lifecycle'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['lifecycle_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -820,59 +818,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['use_cases'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['hubspot_for'] ); ?> for<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['for_events'] ); ?></span></h2>
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['use_cases'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['hubspot_for'] ); ?> for<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['for_events'] ); ?></span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-orange/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-orange/20 to-hubspot-coral/20 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['mkt_segmentation'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_mkt_desc'] ); ?></p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-orange/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-orange/20 to-hubspot-coral/20"><span class="text-2xl">📊</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['mkt_segmentation'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['segment_mkt_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-teal/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-teal/20 to-hubspot-teal/10 flex items-center justify-center mb-4"><span class="text-2xl">💼</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['pipeline_case_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-teal/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-teal/20 to-hubspot-teal/10"><span class="text-2xl">💼</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['pipeline_case_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-hubspot-blue/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-blue/20 to-hubspot-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">🔄</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['client_lifecycle'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['lifecycle_case_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-hubspot-blue/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-hubspot-blue/20 to-hubspot-blue/10"><span class="text-2xl">🔄</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['client_lifecycle'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['lifecycle_case_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">⚡</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['mkt_automation'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['auto_case_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10"><span class="text-2xl">⚡</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['mkt_automation'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['auto_case_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['company_mgmt'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['company_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-amber/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10"><span class="text-2xl">🏢</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['company_mgmt'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['company_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">🎫</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['support_integration'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['support_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-green/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10"><span class="text-2xl">🎫</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['support_integration'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['support_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 bg-dark-850">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-hubspot-orange/10 to-hubspot-teal/10 rounded-3xl p-8 md:p-12 border border-hubspot-orange/20">
+        <div class="p-8 border bg-gradient-to-br from-hubspot-orange/10 to-hubspot-teal/10 rounded-3xl md:p-12 border-hubspot-orange/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -880,11 +878,11 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial_text']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-hubspot-orange to-hubspot-teal"></div>
+            <div class="rounded-full w-14 h-14 bg-gradient-to-br from-hubspot-orange to-hubspot-teal"></div>
             <div>
               <div class="font-semibold text-white">Elena D.</div>
               <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
@@ -896,25 +894,25 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-hubspot-orange/15 via-transparent to-hubspot-teal/15"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(255,122,89,0.2) 0%, rgba(0,189,165,0.1) 100%);"></div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title_1'] ); ?><br><span class="text-gradient-hubspot">HubSpot</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal"><?php echo esc_html( $t['cta_title_1'] ); ?><br><span class="text-gradient-hubspot">HubSpot</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-hubspot-orange to-hubspot-coral text-white hover:scale-105 hover:shadow-glow-hubspot transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-hubspot-orange to-hubspot-coral hover:scale-105 hover:shadow-glow-hubspot">
           <?php echo esc_html( $t['cta_connect'] ); ?>
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['questions_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

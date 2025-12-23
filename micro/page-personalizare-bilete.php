@@ -100,8 +100,8 @@ $t = [
 
 	// Testimonial
 	'testimonial_quote'       => $current_lang === 'ro'
-		? 'În sfârșit pot să fac bilete care <span class="text-gradient-canvas font-semibold">arată exact cum vreau</span>. Nu mai trebuie să rog pe nimeni să-mi facă design-ul. Drag-and-drop, salvez template-ul și gata. Clienții chiar le păstrează ca amintire!'
-		: 'I can finally create tickets that <span class="text-gradient-canvas font-semibold">look exactly how I want</span>. No more asking someone to do the design. Drag-and-drop, save the template and done. Customers actually keep them as souvenirs!',
+		? 'În sfârșit pot să fac bilete care <span class="font-semibold text-gradient-canvas">arată exact cum vreau</span>. Nu mai trebuie să rog pe nimeni să-mi facă design-ul. Drag-and-drop, salvez template-ul și gata. Clienții chiar le păstrează ca amintire!'
+		: 'I can finally create tickets that <span class="font-semibold text-gradient-canvas">look exactly how I want</span>. No more asking someone to do the design. Drag-and-drop, save the template and done. Customers actually keep them as souvenirs!',
 	'testimonial_author'      => 'Ioana M.',
 	'testimonial_role'        => $current_lang === 'ro' ? 'Event Manager, Club Control' : 'Event Manager, Club Control',
 
@@ -121,9 +121,6 @@ $t = [
 
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-canvas { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
-
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
@@ -218,11 +215,11 @@ $t = [
   }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
   <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #8b5cf6, #ec4899, #f97316);"></div>
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-canvas-purple/20 rounded-full -top-60 -left-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-canvas-pink/15 rounded-full bottom-0 -right-40 blur-[150px] pointer-events-none"></div>
@@ -239,15 +236,15 @@ $t = [
       <span class="font-mono text-2xl text-canvas-orange">{ }</span>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-canvas-purple/10 border border-canvas-purple/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-canvas-purple/10 border-canvas-purple/20">
             <svg class="w-5 h-5 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-            <span class="text-canvas-purple text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-canvas-purple"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -256,33 +253,33 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-canvas-purple to-canvas-pink text-white hover:scale-105 hover:shadow-glow-purple transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-canvas-purple to-canvas-pink hover:scale-105 hover:shadow-glow-purple">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               <?php echo esc_html( $t['cta_open_editor'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#functionalitati" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#functionalitati" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_features'] ); ?>
             </a>
           </div>
 
           <!-- Features mini -->
           <div class="flex flex-wrap gap-4">
-            <div class="flex items-center gap-2 text-white/50 text-sm">
+            <div class="flex items-center gap-2 text-sm text-white/50">
               <svg class="w-4 h-4 text-canvas-purple" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
               <span><?php echo esc_html( $t['feat_mm'] ); ?></span>
             </div>
-            <div class="flex items-center gap-2 text-white/50 text-sm">
+            <div class="flex items-center gap-2 text-sm text-white/50">
               <svg class="w-4 h-4 text-canvas-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
               <span><?php echo esc_html( $t['feat_export'] ); ?></span>
             </div>
-            <div class="flex items-center gap-2 text-white/50 text-sm">
+            <div class="flex items-center gap-2 text-sm text-white/50">
               <svg class="w-4 h-4 text-canvas-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
               <span><?php echo esc_html( $t['feat_variables'] ); ?></span>
             </div>
@@ -293,40 +290,40 @@ $t = [
         <div class="reveal reveal-delay-1">
           <div class="relative">
             <!-- Editor Window -->
-            <div class="editor-frame rounded-2xl overflow-hidden shadow-2xl">
+            <div class="overflow-hidden shadow-2xl editor-frame rounded-2xl">
               <!-- Title Bar -->
-              <div class="flex items-center justify-between px-4 py-3 bg-dark-800 border-b border-white/10">
+              <div class="flex items-center justify-between px-4 py-3 border-b bg-dark-800 border-white/10">
                 <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <div class="text-white/40 text-xs font-mono">summer-fest-vip.tpl</div>
+                <div class="font-mono text-xs text-white/40">summer-fest-vip.tpl</div>
                 <div class="flex items-center gap-2">
                   <span class="px-2 py-0.5 rounded bg-brand-green/20 text-brand-green text-xs"><?php echo esc_html( $t['saved'] ); ?></span>
                 </div>
               </div>
 
               <!-- Toolbar -->
-              <div class="editor-toolbar flex items-center gap-1 px-3 py-2">
-                <button class="tool-btn p-2 rounded"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg></button>
-                <button class="tool-btn active p-2 rounded"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg></button>
-                <button class="tool-btn p-2 rounded"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></button>
-                <button class="tool-btn p-2 rounded"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg></button>
-                <div class="w-px h-6 bg-white/10 mx-2"></div>
-                <button class="tool-btn p-2 rounded"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/></svg></button>
-                <div class="ml-auto flex items-center gap-2">
-                  <span class="text-white/40 text-xs">100%</span>
-                  <button class="tool-btn p-1 rounded"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></button>
+              <div class="flex items-center gap-1 px-3 py-2 editor-toolbar">
+                <button class="p-2 rounded tool-btn"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg></button>
+                <button class="p-2 rounded tool-btn active"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg></button>
+                <button class="p-2 rounded tool-btn"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></button>
+                <button class="p-2 rounded tool-btn"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg></button>
+                <div class="w-px h-6 mx-2 bg-white/10"></div>
+                <button class="p-2 rounded tool-btn"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/></svg></button>
+                <div class="flex items-center gap-2 ml-auto">
+                  <span class="text-xs text-white/40">100%</span>
+                  <button class="p-1 rounded tool-btn"><svg class="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></button>
                 </div>
               </div>
 
               <!-- Main Editor Area -->
               <div class="flex" style="height: 320px;">
                 <!-- Canvas Area -->
-                <div class="flex-1 canvas-bg p-6 flex items-center justify-center relative overflow-hidden">
+                <div class="relative flex items-center justify-center flex-1 p-6 overflow-hidden canvas-bg">
                   <!-- Rulers -->
-                  <div class="absolute top-0 left-8 right-0 h-6 ruler-h flex items-end">
+                  <div class="absolute top-0 right-0 flex items-end h-6 left-8 ruler-h">
                     <div class="flex gap-10 px-2">
                       <span class="text-[8px] text-white/30">0</span>
                       <span class="text-[8px] text-white/30">20</span>
@@ -335,22 +332,22 @@ $t = [
                       <span class="text-[8px] text-white/30">80mm</span>
                     </div>
                   </div>
-                  <div class="absolute left-0 top-8 bottom-0 w-6 ruler-v flex flex-col items-end pt-2">
+                  <div class="absolute bottom-0 left-0 flex flex-col items-end w-6 pt-2 top-8 ruler-v">
                     <span class="text-[8px] text-white/30 -rotate-90 origin-right">0</span>
                   </div>
 
                   <!-- Ticket Canvas -->
-                  <div class="ticket-preview rounded-lg relative" style="width: 280px; height: 100px;">
+                  <div class="relative rounded-lg ticket-preview" style="width: 280px; height: 100px;">
                     <!-- Bleed guide -->
-                    <div class="absolute -inset-1 bleed-zone rounded-lg pointer-events-none"></div>
+                    <div class="absolute rounded-lg pointer-events-none -inset-1 bleed-zone"></div>
                     <!-- Safe guide -->
-                    <div class="absolute inset-2 safe-zone rounded pointer-events-none"></div>
+                    <div class="absolute rounded pointer-events-none inset-2 safe-zone"></div>
 
                     <!-- Content -->
                     <div class="absolute inset-0 p-3">
                       <!-- Event name with selection -->
-                      <div class="relative inline-block selection-box px-1" style="top: 4px; left: 4px;">
-                        <span class="text-gray-900 font-bold text-sm">SUMMER FEST 2025</span>
+                      <div class="relative inline-block px-1 selection-box" style="top: 4px; left: 4px;">
+                        <span class="text-sm font-bold text-gray-900">SUMMER FEST 2025</span>
                         <div class="selection-handle handle-tl"></div>
                         <div class="selection-handle handle-tr"></div>
                         <div class="selection-handle handle-bl"></div>
@@ -358,17 +355,17 @@ $t = [
                       </div>
 
                       <!-- Date -->
-                      <div class="absolute text-gray-600 text-xs" style="top: 32px; left: 8px;">15 Aug 2025 • 18:00</div>
+                      <div class="absolute text-xs text-gray-600" style="top: 32px; left: 8px;">15 Aug 2025 • 18:00</div>
 
                       <!-- Venue -->
-                      <div class="absolute text-gray-500 text-xs" style="top: 48px; left: 8px;">Romexpo, București</div>
+                      <div class="absolute text-xs text-gray-500" style="top: 48px; left: 8px;">Romexpo, București</div>
 
                       <!-- Ticket type badge -->
                       <div class="absolute px-2 py-0.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded" style="bottom: 8px; left: 8px;">VIP PASS</div>
 
                       <!-- QR Code -->
-                      <div class="absolute bg-white p-1 rounded" style="top: 8px; right: 8px; width: 50px; height: 50px;">
-                        <div class="w-full h-full bg-gray-900 rounded-sm flex items-center justify-center">
+                      <div class="absolute p-1 bg-white rounded" style="top: 8px; right: 8px; width: 50px; height: 50px;">
+                        <div class="flex items-center justify-center w-full h-full bg-gray-900 rounded-sm">
                           <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h1v1h-1v-1zm-3 0h1v1h-1v-1zm6 0h1v1h-1v-1zm-3 3h1v1h-1v-1zm3 0h1v1h-1v-1zm-6 3h1v1h-1v-1zm3 0h1v1h-1v-1zm3 0h1v1h-1v-1z"/></svg>
                         </div>
                       </div>
@@ -380,33 +377,33 @@ $t = [
                 </div>
 
                 <!-- Sidebar - Layers -->
-                <div class="w-48 editor-sidebar p-3">
-                  <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['layers'] ); ?></div>
+                <div class="w-48 p-3 editor-sidebar">
+                  <div class="mb-3 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['layers'] ); ?></div>
                   <div class="space-y-1">
                     <div class="layer-item active rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white text-xs truncate"><?php echo esc_html( $t['layer_event_name'] ); ?></span>
-                      <svg class="w-3 h-3 text-white/30 ml-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                      <span class="text-xs text-white truncate"><?php echo esc_html( $t['layer_event_name'] ); ?></span>
+                      <svg class="w-3 h-3 ml-auto text-white/30" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_qr'] ); ?></span>
+                      <span class="text-xs truncate text-white/70"><?php echo esc_html( $t['layer_qr'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_date'] ); ?></span>
+                      <span class="text-xs truncate text-white/70"><?php echo esc_html( $t['layer_date'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-canvas-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_vip'] ); ?></span>
+                      <span class="text-xs truncate text-white/70"><?php echo esc_html( $t['layer_vip'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_venue'] ); ?></span>
+                      <span class="text-xs truncate text-white/70"><?php echo esc_html( $t['layer_venue'] ); ?></span>
                     </div>
                     <div class="layer-item rounded px-2 py-1.5 flex items-center gap-2 cursor-pointer">
                       <svg class="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/></svg>
-                      <span class="text-white/70 text-xs truncate"><?php echo esc_html( $t['layer_seat'] ); ?></span>
+                      <span class="text-xs truncate text-white/70"><?php echo esc_html( $t['layer_seat'] ); ?></span>
                     </div>
                   </div>
                 </div>
@@ -414,11 +411,11 @@ $t = [
             </div>
 
             <!-- Floating Variable Badge -->
-            <div class="absolute -top-4 -left-4 bg-dark-800 rounded-xl px-3 py-2 border border-canvas-purple/30 shadow-xl animate-float z-10">
+            <div class="absolute z-10 px-3 py-2 border shadow-xl -top-4 -left-4 bg-dark-800 rounded-xl border-canvas-purple/30 animate-float">
               <div class="flex items-center gap-2">
-                <span class="text-canvas-purple font-mono text-sm">{{</span>
-                <span class="text-white text-sm">event.name</span>
-                <span class="text-canvas-purple font-mono text-sm">}}</span>
+                <span class="font-mono text-sm text-canvas-purple">{{</span>
+                <span class="text-sm text-white">event.name</span>
+                <span class="font-mono text-sm text-canvas-purple">}}</span>
               </div>
             </div>
 
@@ -427,8 +424,8 @@ $t = [
               <div class="flex items-center gap-2">
                 <span class="text-2xl">📐</span>
                 <div>
-                  <div class="text-white text-sm font-medium">200 × 80 mm</div>
-                  <div class="text-white/40 text-xs">300 DPI</div>
+                  <div class="text-sm font-medium text-white">200 × 80 mm</div>
+                  <div class="text-xs text-white/40">300 DPI</div>
                 </div>
               </div>
             </div>
@@ -439,125 +436,125 @@ $t = [
   </section>
 
   <!-- ==================== LAYER TYPES ==================== -->
-  <section class="py-24 relative overflow-hidden" id="functionalitati">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="functionalitati">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-canvas-purple text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['layer_types_label'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['layer_types_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['layer_types_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-canvas-purple"><?php echo esc_html( $t['layer_types_label'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['layer_types_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['layer_types_title2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['layer_types_desc'] ); ?></p>
       </div>
 
       <!-- Layer Types Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Text Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-purple/30 transition-all duration-500 reveal">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-purple/30 reveal">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-canvas-purple/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-purple/20">
               <svg class="w-7 h-7 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['text_title'] ); ?></h3>
-              <div class="text-canvas-purple text-xs font-mono">layer.type: "text"</div>
+              <div class="font-mono text-xs text-canvas-purple">layer.type: "text"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['text_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['text_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Helvetica</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Arial</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Georgia</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Helvetica</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Arial</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Georgia</span>
           </div>
         </div>
 
         <!-- Image Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-pink/30 transition-all duration-500 reveal reveal-delay-1">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-pink/30 reveal reveal-delay-1">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-canvas-pink/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-pink/20">
               <svg class="w-7 h-7 text-canvas-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['images_title'] ); ?></h3>
-              <div class="text-canvas-pink text-xs font-mono">layer.type: "image"</div>
+              <div class="font-mono text-xs text-canvas-pink">layer.type: "image"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['images_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['images_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">PNG</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">JPG</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">SVG</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">PNG</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">JPG</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">SVG</span>
           </div>
         </div>
 
         <!-- QR Code Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-orange/30 transition-all duration-500 reveal reveal-delay-2">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-orange/30 reveal reveal-delay-2">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-canvas-orange/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-orange/20">
               <svg class="w-7 h-7 text-canvas-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['qr_title'] ); ?></h3>
-              <div class="text-canvas-orange text-xs font-mono">layer.type: "qrcode"</div>
+              <div class="font-mono text-xs text-canvas-orange">layer.type: "qrcode"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['qr_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['qr_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-canvas-orange/10 text-canvas-orange text-xs"><?php echo esc_html( $t['qr_dynamic'] ); ?></span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Error Correction</span>
+            <span class="px-2 py-1 text-xs rounded bg-canvas-orange/10 text-canvas-orange"><?php echo esc_html( $t['qr_dynamic'] ); ?></span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Error Correction</span>
           </div>
         </div>
 
         <!-- Barcode Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-blue/30 transition-all duration-500 reveal">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-blue/30 reveal">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-canvas-blue/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-blue/20">
               <svg class="w-7 h-7 text-canvas-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m-4-4v4m8-8v8m-12-4v4m16-12v12M4 8h16"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['barcode_title'] ); ?></h3>
-              <div class="text-canvas-blue text-xs font-mono">layer.type: "barcode"</div>
+              <div class="font-mono text-xs text-canvas-blue">layer.type: "barcode"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['barcode_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['barcode_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Code128</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">EAN-13</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">PDF417</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Code128</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">EAN-13</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">PDF417</span>
           </div>
         </div>
 
         <!-- Shape Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-teal/30 transition-all duration-500 reveal reveal-delay-1">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-teal/30 reveal reveal-delay-1">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-canvas-teal/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-canvas-teal/20">
               <svg class="w-7 h-7 text-canvas-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['shapes_title'] ); ?></h3>
-              <div class="text-canvas-teal text-xs font-mono">layer.type: "shape"</div>
+              <div class="font-mono text-xs text-canvas-teal">layer.type: "shape"</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['shapes_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['shapes_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Rectangle</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Circle</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/60 text-xs">Line</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Rectangle</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Circle</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/60">Line</span>
           </div>
         </div>
 
         <!-- Background Layer -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-2">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-2xl bg-brand-violet/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-violet/20">
               <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
             </div>
             <div>
               <h3 class="text-xl font-semibold text-white"><?php echo esc_html( $t['bg_title'] ); ?></h3>
-              <div class="text-brand-violet text-xs font-mono">template.background</div>
+              <div class="font-mono text-xs text-brand-violet">template.background</div>
             </div>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['bg_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['bg_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="w-6 h-6 rounded bg-white border border-white/20"></span>
+            <span class="w-6 h-6 bg-white border rounded border-white/20"></span>
             <span class="w-6 h-6 rounded bg-gradient-to-r from-purple-500 to-pink-500"></span>
             <span class="w-6 h-6 rounded bg-gradient-to-r from-amber-500 to-orange-500"></span>
           </div>
@@ -567,65 +564,65 @@ $t = [
   </section>
 
   <!-- ==================== VARIABLES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-canvas-orange text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['vars_label'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['vars_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['vars_title2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['vars_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-canvas-orange"><?php echo esc_html( $t['vars_label'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['vars_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['vars_title2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['vars_desc'] ); ?></p>
 
           <div class="space-y-3">
             <!-- Event Variables -->
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/10">
               <div class="flex items-center gap-2 mb-2">
-                <span class="w-6 h-6 rounded bg-canvas-purple/20 flex items-center justify-center text-canvas-purple text-xs">📅</span>
-                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_event'] ); ?></span>
+                <span class="flex items-center justify-center w-6 h-6 text-xs rounded bg-canvas-purple/20 text-canvas-purple">📅</span>
+                <span class="text-sm font-medium text-white"><?php echo esc_html( $t['var_event'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-purple">{{event.name}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-purple">{{event.date}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-purple">{{event.time}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-purple">{{event.name}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-purple">{{event.date}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-purple">{{event.time}}</code>
               </div>
             </div>
 
             <!-- Venue Variables -->
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/10">
               <div class="flex items-center gap-2 mb-2">
-                <span class="w-6 h-6 rounded bg-canvas-pink/20 flex items-center justify-center text-canvas-pink text-xs">📍</span>
-                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_venue'] ); ?></span>
+                <span class="flex items-center justify-center w-6 h-6 text-xs rounded bg-canvas-pink/20 text-canvas-pink">📍</span>
+                <span class="text-sm font-medium text-white"><?php echo esc_html( $t['var_venue'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-pink">{{venue.name}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-pink">{{venue.address}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-pink">{{venue.city}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-pink">{{venue.name}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-pink">{{venue.address}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-pink">{{venue.city}}</code>
               </div>
             </div>
 
             <!-- Ticket Variables -->
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/10">
               <div class="flex items-center gap-2 mb-2">
-                <span class="w-6 h-6 rounded bg-canvas-orange/20 flex items-center justify-center text-canvas-orange text-xs">🎫</span>
-                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_ticket'] ); ?></span>
+                <span class="flex items-center justify-center w-6 h-6 text-xs rounded bg-canvas-orange/20 text-canvas-orange">🎫</span>
+                <span class="text-sm font-medium text-white"><?php echo esc_html( $t['var_ticket'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-orange">{{ticket.section}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-orange">{{ticket.row}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-orange">{{ticket.seat}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-orange">{{ticket.section}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-orange">{{ticket.row}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-orange">{{ticket.seat}}</code>
               </div>
             </div>
 
             <!-- Codes Variables -->
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-canvas-teal/20">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-canvas-teal/20">
               <div class="flex items-center gap-2 mb-2">
-                <span class="w-6 h-6 rounded bg-canvas-teal/20 flex items-center justify-center text-canvas-teal text-xs">📱</span>
-                <span class="text-white font-medium text-sm"><?php echo esc_html( $t['var_codes'] ); ?></span>
+                <span class="flex items-center justify-center w-6 h-6 text-xs rounded bg-canvas-teal/20 text-canvas-teal">📱</span>
+                <span class="text-sm font-medium text-white"><?php echo esc_html( $t['var_codes'] ); ?></span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-teal">{{codes.qr}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-teal">{{codes.barcode}}</code>
-                <code class="var-tag px-2 py-1 rounded text-xs text-canvas-teal">{{codes.ticket_ref}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-teal">{{codes.qr}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-teal">{{codes.barcode}}</code>
+                <code class="px-2 py-1 text-xs rounded var-tag text-canvas-teal">{{codes.ticket_ref}}</code>
               </div>
             </div>
           </div>
@@ -637,15 +634,15 @@ $t = [
             <!-- Template View -->
             <div class="relative">
               <div class="absolute -top-3 left-4 px-2 py-0.5 bg-canvas-purple rounded text-white text-xs font-medium"><?php echo esc_html( $t['template'] ); ?></div>
-              <div class="bg-dark-800 rounded-xl p-4 border border-canvas-purple/30">
-                <div class="bg-white rounded-lg p-4" style="aspect-ratio: 2.5/1;">
+              <div class="p-4 border bg-dark-800 rounded-xl border-canvas-purple/30">
+                <div class="p-4 bg-white rounded-lg" style="aspect-ratio: 2.5/1;">
                   <div class="space-y-2">
                     <div class="flex items-center gap-2">
                       <code class="var-tag px-1.5 py-0.5 rounded text-[10px] text-canvas-purple">{{event.name}}</code>
                     </div>
                     <div class="flex items-center gap-2">
                       <code class="var-tag px-1.5 py-0.5 rounded text-[10px] text-canvas-purple">{{event.date}}</code>
-                      <span class="text-gray-400 text-xs">•</span>
+                      <span class="text-xs text-gray-400">•</span>
                       <code class="var-tag px-1.5 py-0.5 rounded text-[10px] text-canvas-purple">{{event.time}}</code>
                     </div>
                     <div class="flex items-center gap-2">
@@ -662,7 +659,7 @@ $t = [
 
             <!-- Arrow -->
             <div class="flex justify-center">
-              <div class="w-10 h-10 rounded-full bg-canvas-purple/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-canvas-purple/20">
                 <svg class="w-5 h-5 text-canvas-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               </div>
             </div>
@@ -670,16 +667,16 @@ $t = [
             <!-- Rendered View -->
             <div class="relative">
               <div class="absolute -top-3 left-4 px-2 py-0.5 bg-brand-green rounded text-white text-xs font-medium"><?php echo esc_html( $t['generated'] ); ?></div>
-              <div class="bg-dark-800 rounded-xl p-4 border border-brand-green/30">
-                <div class="ticket-preview rounded-lg p-4" style="aspect-ratio: 2.5/1;">
+              <div class="p-4 border bg-dark-800 rounded-xl border-brand-green/30">
+                <div class="p-4 rounded-lg ticket-preview" style="aspect-ratio: 2.5/1;">
                   <div class="space-y-2">
-                    <div class="text-gray-900 font-bold text-lg">SUMMER FEST 2025</div>
-                    <div class="text-gray-600 text-sm">15 Aug 2025 • 18:00</div>
-                    <div class="text-gray-500 text-sm">Romexpo, București</div>
+                    <div class="text-lg font-bold text-gray-900">SUMMER FEST 2025</div>
+                    <div class="text-sm text-gray-600">15 Aug 2025 • 18:00</div>
+                    <div class="text-sm text-gray-500">Romexpo, București</div>
                     <div class="flex items-center justify-between mt-4">
                       <span class="px-2 py-0.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded">VIP PASS</span>
-                      <div class="w-10 h-10 bg-gray-900 rounded flex items-center justify-center">
-                        <span class="text-white text-lg">◱</span>
+                      <div class="flex items-center justify-center w-10 h-10 bg-gray-900 rounded">
+                        <span class="text-lg text-white">◱</span>
                       </div>
                     </div>
                   </div>
@@ -693,155 +690,155 @@ $t = [
   </section>
 
   <!-- ==================== PRESET SIZES ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-canvas-pink text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['presets_label'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['presets_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['presets_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-canvas-pink"><?php echo esc_html( $t['presets_label'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['presets_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['presets_title2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['presets_desc'] ); ?></p>
       </div>
 
       <!-- Presets Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 reveal">
         <!-- Standard Ticket -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-white/10 cursor-pointer">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="bg-white/10 rounded" style="width: 160px; height: 48px;"></div>
+        <div class="p-6 border cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/10">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="rounded bg-white/10" style="width: 160px; height: 48px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_standard'] ); ?></h3>
-          <p class="text-canvas-purple text-center text-sm font-mono">200 × 80 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_standard_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_standard'] ); ?></h3>
+          <p class="font-mono text-sm text-center text-canvas-purple">200 × 80 mm</p>
+          <p class="mt-2 text-xs text-center text-white/40"><?php echo esc_html( $t['preset_standard_note'] ); ?></p>
         </div>
 
         <!-- Ticket Landscape -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-white/10 cursor-pointer">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="bg-white/10 rounded" style="width: 48px; height: 120px;"></div>
+        <div class="p-6 border cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/10">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="rounded bg-white/10" style="width: 48px; height: 120px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_landscape'] ); ?></h3>
-          <p class="text-canvas-pink text-center text-sm font-mono">80 × 200 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_landscape_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_landscape'] ); ?></h3>
+          <p class="font-mono text-sm text-center text-canvas-pink">80 × 200 mm</p>
+          <p class="mt-2 text-xs text-center text-white/40"><?php echo esc_html( $t['preset_landscape_note'] ); ?></p>
         </div>
 
         <!-- A6 Portrait -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-white/10 cursor-pointer">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="bg-white/10 rounded" style="width: 63px; height: 89px;"></div>
+        <div class="p-6 border cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/10">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="rounded bg-white/10" style="width: 63px; height: 89px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a6_portrait'] ); ?></h3>
-          <p class="text-canvas-orange text-center text-sm font-mono">105 × 148 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a6_portrait_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_a6_portrait'] ); ?></h3>
+          <p class="font-mono text-sm text-center text-canvas-orange">105 × 148 mm</p>
+          <p class="mt-2 text-xs text-center text-white/40"><?php echo esc_html( $t['preset_a6_portrait_note'] ); ?></p>
         </div>
 
         <!-- A6 Landscape -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-white/10 cursor-pointer">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="bg-white/10 rounded" style="width: 89px; height: 63px;"></div>
+        <div class="p-6 border cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/10">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="rounded bg-white/10" style="width: 89px; height: 63px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a6_landscape'] ); ?></h3>
-          <p class="text-canvas-teal text-center text-sm font-mono">148 × 105 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a6_land_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_a6_landscape'] ); ?></h3>
+          <p class="font-mono text-sm text-center text-canvas-teal">148 × 105 mm</p>
+          <p class="mt-2 text-xs text-center text-white/40"><?php echo esc_html( $t['preset_a6_land_note'] ); ?></p>
         </div>
 
         <!-- A4 Portrait -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-white/10 cursor-pointer">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="bg-white/10 rounded" style="width: 63px; height: 89px;"></div>
+        <div class="p-6 border cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/10">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="rounded bg-white/10" style="width: 63px; height: 89px;"></div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_a4_portrait'] ); ?></h3>
-          <p class="text-canvas-blue text-center text-sm font-mono">210 × 297 mm</p>
-          <p class="text-white/40 text-center text-xs mt-2"><?php echo esc_html( $t['preset_a4_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_a4_portrait'] ); ?></h3>
+          <p class="font-mono text-sm text-center text-canvas-blue">210 × 297 mm</p>
+          <p class="mt-2 text-xs text-center text-white/40"><?php echo esc_html( $t['preset_a4_note'] ); ?></p>
         </div>
 
         <!-- Custom -->
-        <div class="preset-card bg-dark-800 rounded-2xl p-6 border border-dashed border-white/20 cursor-pointer hover:border-canvas-purple/50">
-          <div class="flex items-center justify-center mb-4 h-24">
-            <div class="w-16 h-16 rounded-xl border-2 border-dashed border-white/20 flex items-center justify-center">
+        <div class="p-6 border border-dashed cursor-pointer preset-card bg-dark-800 rounded-2xl border-white/20 hover:border-canvas-purple/50">
+          <div class="flex items-center justify-center h-24 mb-4">
+            <div class="flex items-center justify-center w-16 h-16 border-2 border-dashed rounded-xl border-white/20">
               <svg class="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
             </div>
           </div>
-          <h3 class="text-white font-semibold text-center mb-1"><?php echo esc_html( $t['preset_custom'] ); ?></h3>
-          <p class="text-white/40 text-center text-sm"><?php echo esc_html( $t['preset_custom_desc'] ); ?></p>
-          <p class="text-white/30 text-center text-xs mt-2"><?php echo esc_html( $t['preset_custom_note'] ); ?></p>
+          <h3 class="mb-1 font-semibold text-center text-white"><?php echo esc_html( $t['preset_custom'] ); ?></h3>
+          <p class="text-sm text-center text-white/40"><?php echo esc_html( $t['preset_custom_desc'] ); ?></p>
+          <p class="mt-2 text-xs text-center text-white/30"><?php echo esc_html( $t['preset_custom_note'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_label'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['usecases_label'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Branded Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-purple/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-purple/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20">
             <span class="text-2xl">🎨</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_branded'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_branded_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_branded'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_branded_desc'] ); ?></p>
         </div>
 
         <!-- VIP Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-pink/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-pink/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20">
             <span class="text-2xl">👑</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_vip'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_vip_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_vip'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_vip_desc'] ); ?></p>
         </div>
 
         <!-- Conference Badges -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-orange/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-orange/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20">
             <span class="text-2xl">🏷️</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_badges'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_badges_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_badges'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_badges_desc'] ); ?></p>
         </div>
 
         <!-- Multi-Day Passes -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-teal/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-teal/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20">
             <span class="text-2xl">📅</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_multiday'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_multiday_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_multiday'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_multiday_desc'] ); ?></p>
         </div>
 
         <!-- Promo Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20">
             <span class="text-2xl">📢</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_promo'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_promo_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_promo'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_promo_desc'] ); ?></p>
         </div>
 
         <!-- Collectible Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-canvas-blue/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-canvas-blue/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20">
             <span class="text-2xl">⭐</span>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['uc_collectible'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['uc_collectible_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['uc_collectible'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['uc_collectible_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-canvas-purple/10 to-canvas-pink/10 rounded-3xl p-8 md:p-12 border border-canvas-purple/20">
+        <div class="p-8 border bg-gradient-to-br from-canvas-purple/10 to-canvas-pink/10 rounded-3xl md:p-12 border-canvas-purple/20">
           <!-- Stars -->
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -851,12 +848,12 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <!-- Quote -->
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial_quote']; ?>"
           </blockquote>
           <!-- Author -->
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-canvas-purple to-canvas-pink"></div>
+            <div class="rounded-full w-14 h-14 bg-gradient-to-br from-canvas-purple to-canvas-pink"></div>
             <div>
               <div class="font-semibold text-white"><?php echo esc_html( $t['testimonial_author'] ); ?></div>
               <div class="text-white/50"><?php echo esc_html( $t['testimonial_role'] ); ?></div>
@@ -868,7 +865,7 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-canvas-purple/20 via-transparent to-canvas-pink/20"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(236,72,153,0.2) 100%);"></div>
 
@@ -880,22 +877,22 @@ $t = [
       <svg class="w-12 h-12 text-canvas-pink" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v3H5z"/></svg>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal"><?php echo esc_html( $t['cta_title'] ); ?><br><span class="text-gradient-canvas"><?php echo esc_html( $t['cta_title2'] ); ?></span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-canvas-purple to-canvas-pink text-white hover:scale-105 hover:shadow-glow-purple transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-canvas-purple to-canvas-pink hover:scale-105 hover:shadow-glow-purple">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
           <?php echo esc_html( $t['cta_open_editor'] ); ?>
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['cta_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['cta_footer'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['cta_footer'] ); ?></p>
     </div>
   </section>
 </div>

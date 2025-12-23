@@ -89,7 +89,7 @@ $t = [
 	'post_event_desc'     => $current_lang === 'ro' ? 'Sincronizează participarea. Permite follow-up de vânzări cu participanții. Conversie lead-uri.' : 'Sync attendance. Enable sales follow-up with attendees. Convert leads.',
 
 	// Testimonial
-	'testimonial'         => $current_lang === 'ro' ? 'Echipa de vânzări vede acum <span class="text-gradient-sf font-semibold">întregul istoric</span> al clientului direct în Salesforce. Nu mai pierdem timp căutând informații. Deal-urile se închid mai repede.' : 'The sales team now sees the customer\'s <span class="text-gradient-sf font-semibold">complete history</span> directly in Salesforce. We no longer waste time searching for information. Deals close faster.',
+	'testimonial'         => $current_lang === 'ro' ? 'Echipa de vânzări vede acum <span class="font-semibold text-gradient-sf">întregul istoric</span> al clientului direct în Salesforce. Nu mai pierdem timp căutând informații. Deal-urile se închid mai repede.' : 'The sales team now sees the customer\'s <span class="font-semibold text-gradient-sf">complete history</span> directly in Salesforce. We no longer waste time searching for information. Deals close faster.',
 
 	// Final CTA
 	'final_title'         => $current_lang === 'ro' ? 'Conectează' : 'Connect',
@@ -104,8 +104,6 @@ $t = [
 
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-sf { background: linear-gradient(135deg, #00A1E0 0%, #00C7F2 50%, #1B96FF 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
 
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
@@ -170,31 +168,31 @@ $t = [
   }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
   <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #00A1E0, #00C7F2, #1B96FF);"></div>
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden cloud-bg">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden cloud-bg">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-salesforce-blue/20 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-salesforce-cloud/15 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating elements -->
-    <div class="absolute top-32 left-16 opacity-20 animate-float text-2xl">☁️</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">🔄</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">📊</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-20 animate-float">☁️</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">🔄</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">📊</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-salesforce-blue/10 border border-salesforce-blue/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-salesforce-blue/10 border-salesforce-blue/20">
             <svg class="w-5 h-5 text-salesforce-blue" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12.24 2.57c-1.4-.53-2.94-.24-4.08.78l-.13.12c-1.54 1.43-1.77 3.74-.62 5.44.24.36.19.85-.13 1.15l-.49.47c-.35.34-.9.34-1.25 0l-.55-.53c-1.15-1.1-2.97-1.1-4.12 0-1.14 1.1-1.14 2.88 0 3.98l6.27 6.06c.34.33.89.33 1.23 0l.01-.01 9.76-9.43c.34-.33.34-.86 0-1.19l-4.27-4.13c-.34-.33-.89-.33-1.23 0l-.57.55c-.35.34-.35.89 0 1.23l2.71 2.62-7.08 6.84-4.53-4.38c-.25-.24-.25-.63 0-.87.25-.24.66-.24.91 0l3.12 3.01c.35.34.91.34 1.26 0l5.82-5.62c.35-.34.35-.89 0-1.23l-4.27-4.13c-.57-.55-.57-1.44 0-1.99.57-.55 1.5-.55 2.07 0l6.34 6.13c1.15 1.1 1.15 2.88 0 3.98l-9.76 9.43c-1.15 1.1-3.01 1.1-4.16 0L.65 14.34c-1.73-1.67-1.73-4.38 0-6.05 1.15-1.1 2.81-1.32 4.19-.66"/>
             </svg>
-            <span class="text-salesforce-blue text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-salesforce-blue"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -203,18 +201,18 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-salesforce-blue to-salesforce-light text-white hover:scale-105 hover:shadow-glow-sf transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-salesforce-blue to-salesforce-light hover:scale-105 hover:shadow-glow-sf">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.24 2.57c-1.4-.53-2.94-.24-4.08.78l-.13.12c-1.54 1.43-1.77 3.74-.62 5.44"/></svg>
               <?php echo esc_html( $t['cta_connect'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#obiecte" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#obiecte" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_see_objects'] ); ?>
             </a>
           </div>
@@ -222,16 +220,16 @@ $t = [
           <!-- Stats -->
           <div class="grid grid-cols-3 gap-6">
             <div>
-              <div class="text-3xl font-display font-bold text-salesforce-blue">Bi-Sync</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['both_directions'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-salesforce-blue">Bi-Sync</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['both_directions'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-white">Real-time</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['at_each_event'] ); ?></div>
+              <div class="text-3xl font-bold text-white font-display">Real-time</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['at_each_event'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-salesforce-cloud">SOQL</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['advanced_queries'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-salesforce-cloud">SOQL</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['advanced_queries'] ); ?></div>
             </div>
           </div>
         </div>
@@ -241,16 +239,16 @@ $t = [
           <div class="relative" x-data="{ syncing: false, synced: 0 }" x-init="setInterval(() => { syncing = true; setTimeout(() => { syncing = false; synced++; }, 1500); }, 3000)">
 
             <!-- Main Sync Card -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-3xl p-6 border border-salesforce-blue/20 shadow-2xl">
+            <div class="p-6 border shadow-2xl bg-dark-800/80 backdrop-blur-xl rounded-3xl border-salesforce-blue/20">
               <!-- Header -->
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-salesforce-blue/20 flex items-center justify-center">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-salesforce-blue/20">
                     <svg class="w-5 h-5 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold"><?php echo esc_html( $t['active_sync'] ); ?></div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['bidirectional_rt'] ); ?></div>
+                    <div class="font-semibold text-white"><?php echo esc_html( $t['active_sync'] ); ?></div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['bidirectional_rt'] ); ?></div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2" :class="syncing ? 'animate-pulse' : ''">
@@ -260,63 +258,63 @@ $t = [
               </div>
 
               <!-- Sync Visualization -->
-              <div class="grid grid-cols-3 gap-4 items-center mb-6">
+              <div class="grid items-center grid-cols-3 gap-4 mb-6">
                 <!-- Tixello Side -->
                 <div class="text-center">
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-violet to-brand-cyan mx-auto mb-2 flex items-center justify-center shadow-lg">
-                    <span class="text-white font-display font-bold text-xl">T</span>
+                  <div class="flex items-center justify-center w-16 h-16 mx-auto mb-2 shadow-lg rounded-2xl bg-gradient-to-br from-brand-violet to-brand-cyan">
+                    <span class="text-xl font-bold text-white font-display">T</span>
                   </div>
-                  <div class="text-white font-medium text-sm">Tixello</div>
-                  <div class="text-white/40 text-xs">Ticketing</div>
+                  <div class="text-sm font-medium text-white">Tixello</div>
+                  <div class="text-xs text-white/40">Ticketing</div>
                 </div>
 
                 <!-- Sync Arrows -->
                 <div class="flex flex-col items-center gap-2">
-                  <div class="w-full h-8 relative flex items-center justify-center">
+                  <div class="relative flex items-center justify-center w-full h-8">
                     <div class="absolute inset-x-0 h-0.5 bg-gradient-to-r from-brand-violet via-salesforce-blue to-salesforce-blue" :class="syncing ? 'animate-pulse' : ''"></div>
-                    <svg class="w-4 h-4 text-salesforce-blue absolute right-0" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    <svg class="absolute right-0 w-4 h-4 text-salesforce-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
                   </div>
-                  <div class="text-salesforce-blue text-xs font-medium">⟷ Bi-Sync</div>
-                  <div class="w-full h-8 relative flex items-center justify-center">
+                  <div class="text-xs font-medium text-salesforce-blue">⟷ Bi-Sync</div>
+                  <div class="relative flex items-center justify-center w-full h-8">
                     <div class="absolute inset-x-0 h-0.5 bg-gradient-to-l from-brand-violet via-salesforce-blue to-salesforce-blue" :class="syncing ? 'animate-pulse' : ''"></div>
-                    <svg class="w-4 h-4 text-brand-violet absolute left-0" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+                    <svg class="absolute left-0 w-4 h-4 text-brand-violet" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
                   </div>
                 </div>
 
                 <!-- Salesforce Side -->
                 <div class="text-center">
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-salesforce-blue to-salesforce-light mx-auto mb-2 flex items-center justify-center shadow-lg shadow-salesforce-blue/30">
+                  <div class="flex items-center justify-center w-16 h-16 mx-auto mb-2 shadow-lg rounded-2xl bg-gradient-to-br from-salesforce-blue to-salesforce-light shadow-salesforce-blue/30">
                     <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                   </div>
-                  <div class="text-white font-medium text-sm">Salesforce</div>
-                  <div class="text-white/40 text-xs">CRM</div>
+                  <div class="text-sm font-medium text-white">Salesforce</div>
+                  <div class="text-xs text-white/40">CRM</div>
                 </div>
               </div>
 
               <!-- Synced Records -->
               <div class="space-y-2">
-                <div class="sf-record rounded-lg p-3 flex items-center justify-between">
+                <div class="flex items-center justify-between p-3 rounded-lg sf-record">
                   <div class="flex items-center gap-3">
                     <span class="sf-object-badge px-2 py-0.5 rounded">Contact</span>
-                    <span class="text-white text-sm">Maria Ionescu</span>
+                    <span class="text-sm text-white">Maria Ionescu</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="text-brand-green text-xs">✓ Synced</span>
+                    <span class="text-xs text-brand-green">✓ Synced</span>
                   </div>
                 </div>
-                <div class="sf-record rounded-lg p-3 flex items-center justify-between">
+                <div class="flex items-center justify-between p-3 rounded-lg sf-record">
                   <div class="flex items-center gap-3">
                     <span class="sf-object-badge px-2 py-0.5 rounded">Opportunity</span>
-                    <span class="text-white text-sm">VIP Package - €450</span>
+                    <span class="text-sm text-white">VIP Package - €450</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="text-brand-green text-xs">✓ Synced</span>
+                    <span class="text-xs text-brand-green">✓ Synced</span>
                   </div>
                 </div>
-                <div class="sf-record rounded-lg p-3 flex items-center justify-between" :class="syncing ? 'border-salesforce-blue' : ''">
+                <div class="flex items-center justify-between p-3 rounded-lg sf-record" :class="syncing ? 'border-salesforce-blue' : ''">
                   <div class="flex items-center gap-3">
                     <span class="sf-object-badge px-2 py-0.5 rounded">Lead</span>
-                    <span class="text-white text-sm">Corporate Inquiry</span>
+                    <span class="text-sm text-white">Corporate Inquiry</span>
                   </div>
                   <div class="flex items-center gap-2">
                     <span class="text-xs" :class="syncing ? 'text-salesforce-blue animate-pulse' : 'text-brand-green'" x-text="syncing ? '⟳ Syncing...' : '✓ Synced'"></span>
@@ -325,31 +323,31 @@ $t = [
               </div>
 
               <!-- Stats -->
-              <div class="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-white/10">
+              <div class="grid grid-cols-3 gap-4 pt-4 mt-4 border-t border-white/10">
                 <div class="text-center">
                   <div class="text-xl font-bold text-white">1,247</div>
-                  <div class="text-white/40 text-xs">Contacts</div>
+                  <div class="text-xs text-white/40">Contacts</div>
                 </div>
                 <div class="text-center">
                   <div class="text-xl font-bold text-salesforce-blue">89</div>
-                  <div class="text-white/40 text-xs">Opportunities</div>
+                  <div class="text-xs text-white/40">Opportunities</div>
                 </div>
                 <div class="text-center">
                   <div class="text-xl font-bold text-salesforce-cloud">34</div>
-                  <div class="text-white/40 text-xs">Accounts</div>
+                  <div class="text-xs text-white/40">Accounts</div>
                 </div>
               </div>
             </div>
 
             <!-- Floating OAuth Badge -->
-            <div class="absolute -top-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-brand-green/30 shadow-xl animate-float z-10">
+            <div class="absolute z-10 px-4 py-3 border shadow-xl -top-4 -left-4 bg-dark-800 rounded-xl border-brand-green/30 animate-float">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-green/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-green/20">
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
                 <div>
-                  <div class="text-brand-green text-sm font-medium">OAuth 2.0</div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure'] ); ?></div>
+                  <div class="text-sm font-medium text-brand-green">OAuth 2.0</div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['secure'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -359,8 +357,8 @@ $t = [
               <div class="flex items-center gap-2">
                 <span class="text-2xl">⚡</span>
                 <div>
-                  <div class="text-salesforce-blue text-sm font-medium" x-text="synced + ' <?php echo esc_attr( $t['syncs'] ); ?>'">0 <?php echo esc_html( $t['syncs'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['last_hour'] ); ?></div>
+                  <div class="text-sm font-medium text-salesforce-blue" x-text="synced + ' <?php echo esc_attr( $t['syncs'] ); ?>'">0 <?php echo esc_html( $t['syncs'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['last_hour'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -371,27 +369,27 @@ $t = [
   </section>
 
   <!-- ==================== OBJECTS ==================== -->
-  <section class="py-24 relative overflow-hidden" id="obiecte">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="obiecte">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['objects_badge'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['objects_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-salesforce-blue"><?php echo esc_html( $t['objects_badge'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['objects_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['objects_title2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['objects_desc'] ); ?></p>
       </div>
 
       <!-- Objects Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <!-- Contact -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-blue/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-salesforce-blue/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-salesforce-blue/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-salesforce-blue/20">
             <svg class="w-7 h-7 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           </div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="text-xl font-semibold text-white">Contact</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['contact_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['contact_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Email</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Phone</span>
@@ -400,15 +398,15 @@ $t = [
         </div>
 
         <!-- Lead -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-cloud/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-salesforce-cloud/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-salesforce-cloud/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-salesforce-cloud/20">
             <svg class="w-7 h-7 text-salesforce-cloud" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="text-xl font-semibold text-white">Lead</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['lead_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['lead_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Status</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Source</span>
@@ -417,15 +415,15 @@ $t = [
         </div>
 
         <!-- Opportunity -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-brand-green/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-green/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-green/20">
             <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="text-xl font-semibold text-white">Opportunity</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['opportunity_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['opportunity_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Amount</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Stage</span>
@@ -434,15 +432,15 @@ $t = [
         </div>
 
         <!-- Account -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-3">
-          <div class="w-14 h-14 rounded-2xl bg-brand-amber/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-amber/30 reveal reveal-delay-3">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-amber/20">
             <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
           </div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="text-xl font-semibold text-white">Account</h3>
             <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Standard</span>
           </div>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['account_desc'] ); ?></p>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['account_desc'] ); ?></p>
           <div class="flex flex-wrap gap-1">
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Name</span>
             <span class="px-2 py-0.5 rounded bg-white/5 text-white/50 text-xs">Industry</span>
@@ -453,7 +451,7 @@ $t = [
 
       <!-- Custom Objects -->
       <div class="mt-8 text-center reveal">
-        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-dark-800/50 border border-white/10">
+        <div class="inline-flex items-center gap-3 px-6 py-3 border rounded-2xl bg-dark-800/50 border-white/10">
           <svg class="w-5 h-5 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
           <span class="text-white/70"><?php echo esc_html( $t['custom_objects'] ); ?></span>
         </div>
@@ -462,55 +460,55 @@ $t = [
   </section>
 
   <!-- ==================== SYNC DIRECTIONS ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-salesforce-cloud text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['sync_badge'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['sync_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-salesforce-cloud"><?php echo esc_html( $t['sync_badge'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['sync_desc'] ); ?></p>
 
           <div class="space-y-4">
             <!-- Push -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-violet/20">
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-medium">Push</span>
-                  <span class="text-white/40 text-sm">Tixello → Salesforce</span>
+                  <span class="font-medium text-white">Push</span>
+                  <span class="text-sm text-white/40">Tixello → Salesforce</span>
                 </div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['push_desc'] ); ?></p>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['push_desc'] ); ?></p>
               </div>
             </div>
 
             <!-- Pull -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-salesforce-blue/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-salesforce-blue/20">
                 <svg class="w-6 h-6 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-medium">Pull</span>
-                  <span class="text-white/40 text-sm">Salesforce → Tixello</span>
+                  <span class="font-medium text-white">Pull</span>
+                  <span class="text-sm text-white/40">Salesforce → Tixello</span>
                 </div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['pull_desc'] ); ?></p>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['pull_desc'] ); ?></p>
               </div>
             </div>
 
             <!-- Bidirectional -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-salesforce-blue/30">
-              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-violet/20 to-salesforce-blue/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-salesforce-blue/30">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-violet/20 to-salesforce-blue/20">
                 <svg class="w-6 h-6 text-salesforce-cloud" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-medium"><?php echo esc_html( $t['bidirectional'] ); ?></span>
+                  <span class="font-medium text-white"><?php echo esc_html( $t['bidirectional'] ); ?></span>
                   <span class="px-2 py-0.5 rounded-full bg-salesforce-blue/20 text-salesforce-blue text-xs"><?php echo esc_html( $t['recommended'] ); ?></span>
                 </div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['bidirectional_desc'] ); ?></p>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['bidirectional_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -518,14 +516,14 @@ $t = [
 
         <!-- Visual - Sync Config -->
         <div class="reveal reveal-delay-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-salesforce-blue/20">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-salesforce-blue/20">
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-xl bg-salesforce-blue/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-salesforce-blue/20">
                 <svg class="w-5 h-5 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['sync_config'] ); ?></div>
-                <div class="text-white/40 text-xs"><?php echo esc_html( $t['per_object'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['sync_config'] ); ?></div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['per_object'] ); ?></div>
               </div>
             </div>
 
@@ -535,7 +533,7 @@ $t = [
                 <div class="flex items-center gap-3">
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Contact</span>
                 </div>
-                <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
+                <select class="px-3 py-1 text-sm text-white border rounded outline-none bg-dark-700 border-white/10 focus:border-salesforce-blue">
                   <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
                   <option>← Pull</option>
@@ -547,7 +545,7 @@ $t = [
                 <div class="flex items-center gap-3">
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Lead</span>
                 </div>
-                <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
+                <select class="px-3 py-1 text-sm text-white border rounded outline-none bg-dark-700 border-white/10 focus:border-salesforce-blue">
                   <option>→ Push</option>
                   <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>← Pull</option>
@@ -559,7 +557,7 @@ $t = [
                 <div class="flex items-center gap-3">
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Opportunity</span>
                 </div>
-                <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
+                <select class="px-3 py-1 text-sm text-white border rounded outline-none bg-dark-700 border-white/10 focus:border-salesforce-blue">
                   <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
                   <option>← Pull</option>
@@ -571,7 +569,7 @@ $t = [
                 <div class="flex items-center gap-3">
                   <span class="sf-object-badge px-2 py-0.5 rounded text-[10px]">Account</span>
                 </div>
-                <select class="bg-dark-700 border border-white/10 rounded px-3 py-1 text-white text-sm focus:border-salesforce-blue outline-none">
+                <select class="px-3 py-1 text-sm text-white border rounded outline-none bg-dark-700 border-white/10 focus:border-salesforce-blue">
                   <option>← Pull</option>
                   <option>⟷ <?php echo esc_html( $t['bidirectional'] ); ?></option>
                   <option>→ Push</option>
@@ -585,82 +583,82 @@ $t = [
   </section>
 
   <!-- ==================== FIELD MAPPING ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['field_badge'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['field_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['field_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['field_badge'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['field_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['field_title2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['field_desc'] ); ?></p>
       </div>
 
       <!-- Field Mapping Visual -->
       <div class="max-w-4xl mx-auto reveal">
-        <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
-          <div class="grid grid-cols-5 gap-4 items-center mb-4 text-center">
+        <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
+          <div class="grid items-center grid-cols-5 gap-4 mb-4 text-center">
             <div class="col-span-2">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['tixello_field'] ); ?></div>
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['tixello_field'] ); ?></div>
             </div>
             <div></div>
             <div class="col-span-2">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['salesforce_field'] ); ?></div>
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['salesforce_field'] ); ?></div>
             </div>
           </div>
 
           <div class="space-y-3">
             <!-- Email -->
-            <div class="grid grid-cols-5 gap-4 items-center">
-              <div class="col-span-2 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/20">
-                <span class="text-white font-mono text-sm">email</span>
+            <div class="grid items-center grid-cols-5 gap-4">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/20">
+                <span class="font-mono text-sm text-white">email</span>
               </div>
               <div class="flex justify-center">
                 <svg class="w-6 h-6 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </div>
-              <div class="col-span-2 p-3 rounded-lg bg-salesforce-blue/10 border border-salesforce-blue/20">
-                <span class="text-white font-mono text-sm">Email</span>
+              <div class="col-span-2 p-3 border rounded-lg bg-salesforce-blue/10 border-salesforce-blue/20">
+                <span class="font-mono text-sm text-white">Email</span>
               </div>
             </div>
 
             <!-- Name -->
-            <div class="grid grid-cols-5 gap-4 items-center">
-              <div class="col-span-2 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/20">
-                <span class="text-white font-mono text-sm">first_name</span>
+            <div class="grid items-center grid-cols-5 gap-4">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/20">
+                <span class="font-mono text-sm text-white">first_name</span>
               </div>
               <div class="flex justify-center">
                 <svg class="w-6 h-6 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </div>
-              <div class="col-span-2 p-3 rounded-lg bg-salesforce-blue/10 border border-salesforce-blue/20">
-                <span class="text-white font-mono text-sm">FirstName</span>
+              <div class="col-span-2 p-3 border rounded-lg bg-salesforce-blue/10 border-salesforce-blue/20">
+                <span class="font-mono text-sm text-white">FirstName</span>
               </div>
             </div>
 
             <!-- Total purchases - Custom field -->
-            <div class="grid grid-cols-5 gap-4 items-center">
-              <div class="col-span-2 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/20">
-                <span class="text-white font-mono text-sm">total_purchases</span>
+            <div class="grid items-center grid-cols-5 gap-4">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/20">
+                <span class="font-mono text-sm text-white">total_purchases</span>
               </div>
               <div class="flex justify-center">
                 <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </div>
-              <div class="col-span-2 p-3 rounded-lg bg-brand-green/10 border border-brand-green/20">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-green/10 border-brand-green/20">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-mono text-sm">Total_Spent__c</span>
+                  <span class="font-mono text-sm text-white">Total_Spent__c</span>
                   <span class="px-1.5 py-0.5 rounded bg-brand-green/20 text-brand-green text-[10px]">Custom</span>
                 </div>
               </div>
             </div>
 
             <!-- Last event - Custom field -->
-            <div class="grid grid-cols-5 gap-4 items-center">
-              <div class="col-span-2 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/20">
-                <span class="text-white font-mono text-sm">last_event_name</span>
+            <div class="grid items-center grid-cols-5 gap-4">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/20">
+                <span class="font-mono text-sm text-white">last_event_name</span>
               </div>
               <div class="flex justify-center">
                 <svg class="w-6 h-6 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </div>
-              <div class="col-span-2 p-3 rounded-lg bg-brand-green/10 border border-brand-green/20">
+              <div class="col-span-2 p-3 border rounded-lg bg-brand-green/10 border-brand-green/20">
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-mono text-sm">Last_Event__c</span>
+                  <span class="font-mono text-sm text-white">Last_Event__c</span>
                   <span class="px-1.5 py-0.5 rounded bg-brand-green/20 text-brand-green text-[10px]">Custom</span>
                 </div>
               </div>
@@ -668,7 +666,7 @@ $t = [
           </div>
 
           <!-- Add mapping button -->
-          <button class="mt-4 w-full p-3 rounded-lg border-2 border-dashed border-white/10 text-white/40 text-sm hover:border-salesforce-blue/30 hover:text-white/70 transition-all">
+          <button class="w-full p-3 mt-4 text-sm transition-all border-2 border-dashed rounded-lg border-white/10 text-white/40 hover:border-salesforce-blue/30 hover:text-white/70">
             <?php echo esc_html( $t['add_mapping'] ); ?>
           </button>
         </div>
@@ -677,19 +675,19 @@ $t = [
   </section>
 
   <!-- ==================== SOQL ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Visual - SOQL Query -->
-        <div class="reveal order-2 lg:order-1">
-          <div class="bg-dark-800 rounded-2xl overflow-hidden border border-salesforce-blue/20">
-            <div class="flex items-center gap-2 px-4 py-3 bg-salesforce-dark border-b border-white/10">
-              <div class="w-3 h-3 rounded-full bg-red-500"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              <span class="text-white/40 text-xs ml-2 font-mono">SOQL Query</span>
+        <div class="order-2 reveal lg:order-1">
+          <div class="overflow-hidden border bg-dark-800 rounded-2xl border-salesforce-blue/20">
+            <div class="flex items-center gap-2 px-4 py-3 border-b bg-salesforce-dark border-white/10">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span class="ml-2 font-mono text-xs text-white/40">SOQL Query</span>
             </div>
-            <div class="p-4 font-mono text-sm overflow-x-auto">
+            <div class="p-4 overflow-x-auto font-mono text-sm">
               <div>
                 <span class="soql-keyword">SELECT</span>
                 <span class="soql-field"> Id, FirstName, LastName, Email,</span>
@@ -719,20 +717,20 @@ $t = [
             </div>
 
             <!-- Results preview -->
-            <div class="border-t border-white/10 p-4">
-              <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['results'] ); ?></div>
+            <div class="p-4 border-t border-white/10">
+              <div class="mb-3 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['results'] ); ?></div>
               <div class="space-y-2">
-                <div class="flex items-center justify-between p-2 rounded bg-dark-900/50 text-sm">
+                <div class="flex items-center justify-between p-2 text-sm rounded bg-dark-900/50">
                   <span class="text-white">Maria Ionescu</span>
-                  <span class="text-brand-green font-mono">€2,450</span>
+                  <span class="font-mono text-brand-green">€2,450</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded bg-dark-900/50 text-sm">
+                <div class="flex items-center justify-between p-2 text-sm rounded bg-dark-900/50">
                   <span class="text-white">Alexandru Popa</span>
-                  <span class="text-brand-green font-mono">€1,890</span>
+                  <span class="font-mono text-brand-green">€1,890</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded bg-dark-900/50 text-sm">
+                <div class="flex items-center justify-between p-2 text-sm rounded bg-dark-900/50">
                   <span class="text-white">Elena Dumitrescu</span>
-                  <span class="text-brand-green font-mono">€1,650</span>
+                  <span class="font-mono text-brand-green">€1,650</span>
                 </div>
               </div>
             </div>
@@ -740,10 +738,10 @@ $t = [
         </div>
 
         <!-- Content -->
-        <div class="reveal order-1 lg:order-2">
-          <span class="text-salesforce-blue text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['soql_badge'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['soql_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['soql_title2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['soql_desc'] ); ?></p>
+        <div class="order-1 reveal lg:order-2">
+          <span class="text-sm font-medium tracking-widest uppercase text-salesforce-blue"><?php echo esc_html( $t['soql_badge'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['soql_title'] ); ?><br><span class="text-gradient-sf"><?php echo esc_html( $t['soql_title2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['soql_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -751,8 +749,8 @@ $t = [
                 <svg class="w-4 h-4 text-salesforce-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['advanced_filter'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['advanced_filter_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['advanced_filter'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['advanced_filter_desc'] ); ?></p>
               </div>
             </div>
 
@@ -761,8 +759,8 @@ $t = [
                 <svg class="w-4 h-4 text-salesforce-cloud" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['segment_customers'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['segment_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['segment_customers'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['segment_desc'] ); ?></p>
               </div>
             </div>
 
@@ -771,8 +769,8 @@ $t = [
                 <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['custom_reporting'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['custom_report_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['custom_reporting'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['custom_report_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -782,59 +780,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer">supercharged</span></h2>
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer">supercharged</span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-blue/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-blue/20 to-salesforce-cloud/20 flex items-center justify-center mb-4"><span class="text-2xl">🏢</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['b2b_sales'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['b2b_desc'] ); ?></p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-salesforce-blue/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-blue/20 to-salesforce-cloud/20"><span class="text-2xl">🏢</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['b2b_sales'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['b2b_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">👑</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['vip_tracking'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['vip_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-amber/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10"><span class="text-2xl">👑</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['vip_tracking'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['vip_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['event_campaigns'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['events_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10"><span class="text-2xl">📊</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['event_campaigns'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['events_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-green/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center mb-4"><span class="text-2xl">💼</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['corporate_clients'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['corporate_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-green/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-green/20 to-brand-green/10"><span class="text-2xl">💼</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['corporate_clients'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['corporate_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-salesforce-cloud/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-cloud/20 to-salesforce-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">📈</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['pipeline_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-salesforce-cloud/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-salesforce-cloud/20 to-salesforce-blue/10"><span class="text-2xl">📈</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['sales_pipeline'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['pipeline_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🎯</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['post_event'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['post_event_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-cyan/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10"><span class="text-2xl">🎯</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['post_event'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['post_event_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 bg-dark-850">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-salesforce-blue/10 to-salesforce-cloud/10 rounded-3xl p-8 md:p-12 border border-salesforce-blue/20">
+        <div class="p-8 border bg-gradient-to-br from-salesforce-blue/10 to-salesforce-cloud/10 rounded-3xl md:p-12 border-salesforce-blue/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -842,11 +840,11 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-salesforce-blue to-salesforce-cloud"></div>
+            <div class="rounded-full w-14 h-14 bg-gradient-to-br from-salesforce-blue to-salesforce-cloud"></div>
             <div>
               <div class="font-semibold text-white">Mihai R.</div>
               <div class="text-white/50">Sales Director, Untold Festival</div>
@@ -858,7 +856,7 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-salesforce-blue/20 via-transparent to-salesforce-cloud/20"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,161,224,0.3) 0%, rgba(0,199,242,0.2) 100%);"></div>
 
@@ -866,21 +864,21 @@ $t = [
       <svg class="w-16 h-16 text-salesforce-blue" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-sf">Salesforce</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal"><?php echo esc_html( $t['final_title'] ); ?><br><span class="text-gradient-sf">Salesforce</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-salesforce-blue to-salesforce-light text-white hover:scale-105 hover:shadow-glow-sf transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-salesforce-blue to-salesforce-light hover:scale-105 hover:shadow-glow-sf">
           <?php echo esc_html( $t['cta_connect'] ); ?>
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['cta_questions'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 </div>

@@ -71,8 +71,6 @@ $t = [
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-stripe { background: linear-gradient(135deg, #635BFF 0%, #80E9FF 50%, #635BFF 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
 
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
-
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
@@ -166,29 +164,29 @@ $t = [
   .animate-secure-glow { animation: secureGlow 2s ease-in-out infinite; }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden" x-data="{ mobileMenu: false }">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200" x-data="{ mobileMenu: false }">
   <div class="fixed top-0 left-0 h-1 z-[1001]" id="scroll-progress" style="background: linear-gradient(90deg, #635BFF, #80E9FF, #635BFF);"></div>
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-stripe-purple/20 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-stripe-gradient/15 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating payment icons -->
-    <div class="absolute top-32 left-16 opacity-20 animate-float text-2xl">💳</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">✓</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">€</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-20 animate-float">💳</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">✓</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">€</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-stripe-purple/10 border border-stripe-purple/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-stripe-purple/10 border-stripe-purple/20">
             <svg class="w-5 h-5 text-stripe-purple" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
-            <span class="text-stripe-purple text-sm font-medium">Powered by Stripe</span>
+            <span class="text-sm font-medium text-stripe-purple">Powered by Stripe</span>
           </div>
 
           <!-- Heading -->
@@ -197,17 +195,17 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-gradient-to-r from-stripe-purple to-stripe-light text-white hover:scale-105 hover:shadow-glow-stripe transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-stripe-purple to-stripe-light hover:scale-105 hover:shadow-glow-stripe">
               <?php echo esc_html( $t['cta_connect'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#metode-plata" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#metode-plata" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_methods'] ); ?>
             </a>
           </div>
@@ -215,16 +213,16 @@ $t = [
           <!-- Stats -->
           <div class="grid grid-cols-3 gap-6">
             <div>
-              <div class="text-3xl font-display font-bold text-stripe-purple">135+</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_currencies'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-stripe-purple">135+</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_currencies'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-white">99.9%</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_uptime'] ); ?></div>
+              <div class="text-3xl font-bold text-white font-display">99.9%</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_uptime'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-brand-green">PCI L1</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['stat_security'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-brand-green">PCI L1</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['stat_security'] ); ?></div>
             </div>
           </div>
         </div>
@@ -238,50 +236,50 @@ $t = [
             success: false
           }">
             <!-- Checkout Card -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-3xl p-6 border border-white/10 shadow-2xl">
+            <div class="p-6 border shadow-2xl bg-dark-800/80 backdrop-blur-xl rounded-3xl border-white/10">
               <!-- Header -->
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-stripe-purple/20 flex items-center justify-center">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-stripe-purple/20">
                     <svg class="w-5 h-5 text-stripe-purple" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
                   </div>
                   <div>
-                    <div class="text-white font-semibold"><?php echo esc_html( $t['checkout'] ); ?></div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['secure_payment'] ); ?></div>
+                    <div class="font-semibold text-white"><?php echo esc_html( $t['checkout'] ); ?></div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['secure_payment'] ); ?></div>
                   </div>
                 </div>
-                <div class="secure-badge px-3 py-1 rounded-full flex items-center gap-1">
+                <div class="flex items-center gap-1 px-3 py-1 rounded-full secure-badge">
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                  <span class="text-brand-green text-xs font-medium">SSL</span>
+                  <span class="text-xs font-medium text-brand-green">SSL</span>
                 </div>
               </div>
 
               <!-- Amount -->
-              <div class="bg-dark-900/50 rounded-xl p-4 mb-6">
+              <div class="p-4 mb-6 bg-dark-900/50 rounded-xl">
                 <div class="flex items-center justify-between">
                   <div>
-                    <div class="text-white/40 text-xs"><?php echo esc_html( $t['total'] ); ?></div>
-                    <div class="text-3xl font-display font-bold text-white">€157<span class="text-lg">.50</span></div>
+                    <div class="text-xs text-white/40"><?php echo esc_html( $t['total'] ); ?></div>
+                    <div class="text-3xl font-bold text-white font-display">€157<span class="text-lg">.50</span></div>
                   </div>
                   <div class="text-right">
-                    <div class="text-white/40 text-xs">2 <?php echo $current_lang === 'ro' ? 'bilete VIP' : 'VIP tickets'; ?></div>
-                    <div class="text-white/60 text-sm">Summer Fest 2025</div>
+                    <div class="text-xs text-white/40">2 <?php echo $current_lang === 'ro' ? 'bilete VIP' : 'VIP tickets'; ?></div>
+                    <div class="text-sm text-white/60">Summer Fest 2025</div>
                   </div>
                 </div>
               </div>
 
               <!-- Payment Methods -->
               <div class="mb-4">
-                <div class="text-white/40 text-xs uppercase tracking-wider mb-3"><?php echo esc_html( $t['pay_with'] ); ?></div>
+                <div class="mb-3 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['pay_with'] ); ?></div>
                 <div class="flex gap-2">
-                  <button @click="paymentMethod = 'card'" :class="paymentMethod === 'card' ? 'active' : ''" class="payment-badge flex-1 rounded-lg p-3 flex items-center justify-center gap-2">
+                  <button @click="paymentMethod = 'card'" :class="paymentMethod === 'card' ? 'active' : ''" class="flex items-center justify-center flex-1 gap-2 p-3 rounded-lg payment-badge">
                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/></svg>
-                    <span class="text-white text-sm">Card</span>
+                    <span class="text-sm text-white">Card</span>
                   </button>
-                  <button @click="paymentMethod = 'apple'" :class="paymentMethod === 'apple' ? 'active' : ''" class="payment-badge rounded-lg p-3 flex items-center justify-center">
+                  <button @click="paymentMethod = 'apple'" :class="paymentMethod === 'apple' ? 'active' : ''" class="flex items-center justify-center p-3 rounded-lg payment-badge">
                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                   </button>
-                  <button @click="paymentMethod = 'google'" :class="paymentMethod === 'google' ? 'active' : ''" class="payment-badge rounded-lg p-3 flex items-center justify-center">
+                  <button @click="paymentMethod = 'google'" :class="paymentMethod === 'google' ? 'active' : ''" class="flex items-center justify-center p-3 rounded-lg payment-badge">
                     <svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                   </button>
                 </div>
@@ -290,25 +288,25 @@ $t = [
               <!-- Card Form -->
               <div x-show="paymentMethod === 'card'" class="space-y-4">
                 <div>
-                  <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block"><?php echo esc_html( $t['card_number'] ); ?></label>
-                  <div class="stripe-input flex items-center gap-3">
-                    <span class="text-white font-mono" x-text="cardNumber">4242 4242 4242 4242</span>
-                    <div class="ml-auto flex items-center gap-2">
+                  <label class="block mb-2 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['card_number'] ); ?></label>
+                  <div class="flex items-center gap-3 stripe-input">
+                    <span class="font-mono text-white" x-text="cardNumber">4242 4242 4242 4242</span>
+                    <div class="flex items-center gap-2 ml-auto">
                       <svg class="w-8 h-5" viewBox="0 0 32 20"><rect fill="#1A1F71" width="32" height="20" rx="2"/><text x="5" y="14" fill="white" font-size="8" font-weight="bold">VISA</text></svg>
                     </div>
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block"><?php echo esc_html( $t['expiry'] ); ?></label>
+                    <label class="block mb-2 text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['expiry'] ); ?></label>
                     <div class="stripe-input">
-                      <span class="text-white font-mono">12 / 28</span>
+                      <span class="font-mono text-white">12 / 28</span>
                     </div>
                   </div>
                   <div>
-                    <label class="text-white/40 text-xs uppercase tracking-wider mb-2 block">CVC</label>
+                    <label class="block mb-2 text-xs tracking-wider uppercase text-white/40">CVC</label>
                     <div class="stripe-input">
-                      <span class="text-white font-mono">•••</span>
+                      <span class="font-mono text-white">•••</span>
                     </div>
                   </div>
                 </div>
@@ -316,16 +314,16 @@ $t = [
 
               <!-- Apple/Google Pay -->
               <div x-show="paymentMethod !== 'card'" class="py-8 text-center">
-                <div class="text-white/60 text-sm mb-2"><?php echo $current_lang === 'ro' ? 'Apasă pentru a continua cu' : 'Press to continue with'; ?></div>
-                <div x-show="paymentMethod === 'apple'" class="text-white text-xl font-semibold"> Pay</div>
-                <div x-show="paymentMethod === 'google'" class="text-white text-xl font-semibold">Google Pay</div>
+                <div class="mb-2 text-sm text-white/60"><?php echo $current_lang === 'ro' ? 'Apasă pentru a continua cu' : 'Press to continue with'; ?></div>
+                <div x-show="paymentMethod === 'apple'" class="text-xl font-semibold text-white"> Pay</div>
+                <div x-show="paymentMethod === 'google'" class="text-xl font-semibold text-white">Google Pay</div>
               </div>
 
               <!-- Pay Button -->
               <button
                 @click="processing = true; setTimeout(() => { processing = false; success = true; }, 2000)"
                 :disabled="processing || success"
-                class="w-full py-4 rounded-xl font-semibold text-white transition-all duration-300 mt-6"
+                class="w-full py-4 mt-6 font-semibold text-white transition-all duration-300 rounded-xl"
                 :class="success ? 'bg-brand-green' : 'bg-gradient-to-r from-stripe-purple to-stripe-light hover:shadow-glow-stripe'"
               >
                 <span x-show="!processing && !success" class="flex items-center justify-center gap-2">
@@ -344,15 +342,15 @@ $t = [
 
               <!-- Trust badges -->
               <div class="flex items-center justify-center gap-6 mt-6">
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                   PCI DSS
                 </div>
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                   3D Secure
                 </div>
-                <div class="flex items-center gap-1 text-white/30 text-xs">
+                <div class="flex items-center gap-1 text-xs text-white/30">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
                   Stripe
                 </div>
@@ -360,14 +358,14 @@ $t = [
             </div>
 
             <!-- Floating Card -->
-            <div class="absolute -top-8 -right-8 w-48 credit-card p-4 shadow-card animate-card-float z-10">
-              <div class="flex justify-between items-start mb-8">
+            <div class="absolute z-10 w-48 p-4 -top-8 -right-8 credit-card shadow-card animate-card-float">
+              <div class="flex items-start justify-between mb-8">
                 <div class="card-chip"></div>
                 <svg class="w-8 h-8 text-white/30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M9.5 16.5l7-4.5-7-4.5z"/></svg>
               </div>
-              <div class="text-white/70 font-mono text-sm tracking-wider mb-2">•••• •••• •••• 4242</div>
+              <div class="mb-2 font-mono text-sm tracking-wider text-white/70">•••• •••• •••• 4242</div>
               <div class="flex justify-between">
-                <div class="text-white/40 text-xs">VALID THRU<br><span class="text-white/70">12/28</span></div>
+                <div class="text-xs text-white/40">VALID THRU<br><span class="text-white/70">12/28</span></div>
                 <svg class="w-12 h-8" viewBox="0 0 48 32"><circle cx="16" cy="16" r="14" fill="#EB001B"/><circle cx="32" cy="16" r="14" fill="#F79E1B"/><path d="M24 6.5c3.5 2.5 5.8 6.5 5.8 11s-2.3 8.5-5.8 11c-3.5-2.5-5.8-6.5-5.8-11s2.3-8.5 5.8-11z" fill="#FF5F00"/></svg>
               </div>
             </div>
@@ -375,12 +373,12 @@ $t = [
             <!-- Success Badge -->
             <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-brand-green/30 shadow-xl animate-float [animation-delay:1s] z-10">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-green/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-green/20">
                   <svg class="w-4 h-4 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
                 <div>
-                  <div class="text-brand-green text-sm font-medium">Instant</div>
-                  <div class="text-white/40 text-xs"><?php echo $current_lang === 'ro' ? 'Confirmare plată' : 'Payment confirmed'; ?></div>
+                  <div class="text-sm font-medium text-brand-green">Instant</div>
+                  <div class="text-xs text-white/40"><?php echo $current_lang === 'ro' ? 'Confirmare plată' : 'Payment confirmed'; ?></div>
                 </div>
               </div>
             </div>
@@ -391,159 +389,159 @@ $t = [
   </section>
 
   <!-- ==================== PAYMENT METHODS ==================== -->
-  <section class="py-24 relative overflow-hidden" id="metode-plata">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="metode-plata">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-stripe-purple text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['methods'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo $current_lang === 'ro' ? 'Lasă clienții să' : 'Let customers'; ?><br><span class="text-gradient-stripe"><?php echo $current_lang === 'ro' ? 'aleagă' : 'choose'; ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-stripe-purple"><?php echo esc_html( $t['methods'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo $current_lang === 'ro' ? 'Lasă clienții să' : 'Let customers'; ?><br><span class="text-gradient-stripe"><?php echo $current_lang === 'ro' ? 'aleagă' : 'choose'; ?></span></h2>
         <p class="text-lg text-white/60"><?php echo $current_lang === 'ro' ? 'Carduri, portofele digitale și metode locale. Toate funcționează instantaneu.' : 'Cards, digital wallets and local methods. All work instantly.'; ?></p>
       </div>
 
       <!-- Payment Methods Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 reveal">
         <!-- Cards -->
-        <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all">
+        <div class="p-6 transition-all border bg-dark-800 rounded-2xl border-white/10 hover:border-stripe-purple/30">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-stripe-purple/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-stripe-purple/20">
               <svg class="w-6 h-6 text-stripe-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold"><?php echo $current_lang === 'ro' ? 'Carduri' : 'Cards'; ?></h3>
-              <p class="text-white/40 text-xs">Credit & Debit</p>
+              <h3 class="font-semibold text-white"><?php echo $current_lang === 'ro' ? 'Carduri' : 'Cards'; ?></h3>
+              <p class="text-xs text-white/40">Credit & Debit</p>
             </div>
           </div>
           <div class="flex flex-wrap gap-2">
-            <div class="px-2 py-1 rounded bg-payment-visa/20 text-xs text-white/70">Visa</div>
-            <div class="px-2 py-1 rounded bg-payment-mastercard/20 text-xs text-white/70">Mastercard</div>
-            <div class="px-2 py-1 rounded bg-payment-amex/20 text-xs text-white/70">Amex</div>
+            <div class="px-2 py-1 text-xs rounded bg-payment-visa/20 text-white/70">Visa</div>
+            <div class="px-2 py-1 text-xs rounded bg-payment-mastercard/20 text-white/70">Mastercard</div>
+            <div class="px-2 py-1 text-xs rounded bg-payment-amex/20 text-white/70">Amex</div>
           </div>
         </div>
 
         <!-- Apple Pay -->
-        <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all">
+        <div class="p-6 transition-all border bg-dark-800 rounded-2xl border-white/10 hover:border-white/30">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-white/10">
               <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold">Apple Pay</h3>
-              <p class="text-white/40 text-xs">Touch & Face ID</p>
+              <h3 class="font-semibold text-white">Apple Pay</h3>
+              <p class="text-xs text-white/40">Touch & Face ID</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Checkout cu o atingere pe iPhone, iPad, Mac și Apple Watch.' : 'One-touch checkout on iPhone, iPad, Mac and Apple Watch.'; ?></div>
+          <div class="text-sm text-white/50"><?php echo $current_lang === 'ro' ? 'Checkout cu o atingere pe iPhone, iPad, Mac și Apple Watch.' : 'One-touch checkout on iPhone, iPad, Mac and Apple Watch.'; ?></div>
         </div>
 
         <!-- Google Pay -->
-        <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 hover:border-payment-google/30 transition-all">
+        <div class="p-6 transition-all border bg-dark-800 rounded-2xl border-white/10 hover:border-payment-google/30">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-payment-google/10 flex items-center justify-center">
+            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-payment-google/10">
               <svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold">Google Pay</h3>
-              <p class="text-white/40 text-xs">Android & Chrome</p>
+              <h3 class="font-semibold text-white">Google Pay</h3>
+              <p class="text-xs text-white/40">Android & Chrome</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Plătește rapid cu cardurile salvate în contul Google.' : 'Pay quickly with cards saved in your Google account.'; ?></div>
+          <div class="text-sm text-white/50"><?php echo $current_lang === 'ro' ? 'Plătește rapid cu cardurile salvate în contul Google.' : 'Pay quickly with cards saved in your Google account.'; ?></div>
         </div>
 
         <!-- SEPA -->
-        <div class="bg-dark-800 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all">
+        <div class="p-6 transition-all border bg-dark-800 rounded-2xl border-white/10 hover:border-brand-cyan/30">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 flex items-center justify-center">
+            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-brand-cyan/20">
               <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold">SEPA Direct Debit</h3>
-              <p class="text-white/40 text-xs">Europa (EUR)</p>
+              <h3 class="font-semibold text-white">SEPA Direct Debit</h3>
+              <p class="text-xs text-white/40">Europa (EUR)</p>
             </div>
           </div>
-          <div class="text-white/50 text-sm"><?php echo $current_lang === 'ro' ? 'Debitare directă din contul bancar pentru clienții europeni.' : 'Direct debit from bank account for European customers.'; ?></div>
+          <div class="text-sm text-white/50"><?php echo $current_lang === 'ro' ? 'Debitare directă din contul bancar pentru clienții europeni.' : 'Direct debit from bank account for European customers.'; ?></div>
         </div>
       </div>
 
       <!-- More methods -->
-      <div class="mt-8 flex flex-wrap justify-center gap-4 reveal reveal-delay-1">
-        <div class="currency-pill px-4 py-2 rounded-full flex items-center gap-2">
-          <span class="text-white/70 text-sm">iDEAL</span>
-          <span class="text-white/30 text-xs">🇳🇱</span>
+      <div class="flex flex-wrap justify-center gap-4 mt-8 reveal reveal-delay-1">
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full currency-pill">
+          <span class="text-sm text-white/70">iDEAL</span>
+          <span class="text-xs text-white/30">🇳🇱</span>
         </div>
-        <div class="currency-pill px-4 py-2 rounded-full flex items-center gap-2">
-          <span class="text-white/70 text-sm">Bancontact</span>
-          <span class="text-white/30 text-xs">🇧🇪</span>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full currency-pill">
+          <span class="text-sm text-white/70">Bancontact</span>
+          <span class="text-xs text-white/30">🇧🇪</span>
         </div>
-        <div class="currency-pill px-4 py-2 rounded-full flex items-center gap-2">
-          <span class="text-white/70 text-sm">Sofort</span>
-          <span class="text-white/30 text-xs">🇩🇪</span>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full currency-pill">
+          <span class="text-sm text-white/70">Sofort</span>
+          <span class="text-xs text-white/30">🇩🇪</span>
         </div>
-        <div class="currency-pill px-4 py-2 rounded-full flex items-center gap-2">
-          <span class="text-white/70 text-sm">Klarna</span>
-          <span class="text-white/30 text-xs">BNPL</span>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full currency-pill">
+          <span class="text-sm text-white/70">Klarna</span>
+          <span class="text-xs text-white/30">BNPL</span>
         </div>
-        <div class="currency-pill px-4 py-2 rounded-full flex items-center gap-2">
-          <span class="text-white/70 text-sm">Link</span>
-          <span class="text-white/30 text-xs">1-click</span>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full currency-pill">
+          <span class="text-sm text-white/70">Link</span>
+          <span class="text-xs text-white/30">1-click</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== SECURITY ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-brand-green text-sm font-medium uppercase tracking-widest"><?php echo $current_lang === 'ro' ? 'Securitate' : 'Security'; ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo $current_lang === 'ro' ? 'Protecție' : 'Protection'; ?><br><span class="text-gradient animate-shimmer"><?php echo $current_lang === 'ro' ? 'la fiecare pas' : 'at every step'; ?></span></h2>
-          <p class="text-lg text-white/60 mb-8">Cele mai înalte standarde de securitate. Datele cardurilor nu ating niciodată serverele tale.</p>
+          <span class="text-sm font-medium tracking-widest uppercase text-brand-green"><?php echo $current_lang === 'ro' ? 'Securitate' : 'Security'; ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo $current_lang === 'ro' ? 'Protecție' : 'Protection'; ?><br><span class="text-gradient animate-shimmer"><?php echo $current_lang === 'ro' ? 'la fiecare pas' : 'at every step'; ?></span></h2>
+          <p class="mb-8 text-lg text-white/60">Cele mai înalte standarde de securitate. Datele cardurilor nu ating niciodată serverele tale.</p>
 
           <div class="space-y-4">
             <!-- PCI DSS -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-brand-green/20">
-              <div class="w-14 h-14 rounded-xl bg-brand-green/20 flex items-center justify-center flex-shrink-0 animate-secure-glow">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-brand-green/20">
+              <div class="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl bg-brand-green/20 animate-secure-glow">
                 <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-white font-semibold">PCI DSS Nivel 1</span>
+                  <span class="font-semibold text-white">PCI DSS Nivel 1</span>
                   <span class="px-2 py-0.5 rounded-full bg-brand-green/20 text-brand-green text-xs">Certificat</span>
                 </div>
-                <p class="text-white/50 text-sm">Cel mai înalt nivel de conformitate pentru procesarea plăților</p>
+                <p class="text-sm text-white/50">Cel mai înalt nivel de conformitate pentru procesarea plăților</p>
               </div>
             </div>
 
             <!-- 3D Secure -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-14 h-14 rounded-xl bg-stripe-purple/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl bg-stripe-purple/20">
                 <svg class="w-7 h-7 text-stripe-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <div>
-                <span class="text-white font-semibold">3D Secure 2.0</span>
-                <p class="text-white/50 text-sm">Autentificare puternică cerută de regulamentele UE (SCA)</p>
+                <span class="font-semibold text-white">3D Secure 2.0</span>
+                <p class="text-sm text-white/50">Autentificare puternică cerută de regulamentele UE (SCA)</p>
               </div>
             </div>
 
             <!-- Stripe Radar -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-14 h-14 rounded-xl bg-brand-amber/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl bg-brand-amber/20">
                 <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
               </div>
               <div>
-                <span class="text-white font-semibold">Stripe Radar</span>
-                <p class="text-white/50 text-sm">Detecție fraudă cu ML antrenat pe miliarde de tranzacții</p>
+                <span class="font-semibold text-white">Stripe Radar</span>
+                <p class="text-sm text-white/50">Detecție fraudă cu ML antrenat pe miliarde de tranzacții</p>
               </div>
             </div>
 
             <!-- Tokenization -->
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-14 h-14 rounded-xl bg-brand-cyan/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl bg-brand-cyan/20">
                 <svg class="w-7 h-7 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <span class="text-white font-semibold">Tokenizare</span>
-                <p class="text-white/50 text-sm">Numerele de card sunt înlocuite cu tokens securizate</p>
+                <span class="font-semibold text-white">Tokenizare</span>
+                <p class="text-sm text-white/50">Numerele de card sunt înlocuite cu tokens securizate</p>
               </div>
             </div>
           </div>
@@ -553,25 +551,25 @@ $t = [
         <div class="reveal reveal-delay-1">
           <div class="relative">
             <!-- Shield visual -->
-            <div class="bg-dark-800 rounded-3xl p-8 border border-brand-green/20">
+            <div class="p-8 border bg-dark-800 rounded-3xl border-brand-green/20">
               <div class="flex items-center justify-center">
                 <div class="relative">
                   <!-- Outer ring -->
-                  <div class="w-48 h-48 rounded-full border-4 border-dashed border-brand-green/20 flex items-center justify-center">
+                  <div class="flex items-center justify-center w-48 h-48 border-4 border-dashed rounded-full border-brand-green/20">
                     <!-- Middle ring -->
-                    <div class="w-36 h-36 rounded-full border-2 border-brand-green/30 flex items-center justify-center">
+                    <div class="flex items-center justify-center border-2 rounded-full w-36 h-36 border-brand-green/30">
                       <!-- Inner shield -->
-                      <div class="w-24 h-24 rounded-full bg-gradient-to-br from-brand-green/20 to-brand-green/10 flex items-center justify-center animate-secure-glow">
+                      <div class="flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-brand-green/20 to-brand-green/10 animate-secure-glow">
                         <svg class="w-12 h-12 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                       </div>
                     </div>
                   </div>
 
                   <!-- Floating badges -->
-                  <div class="absolute -top-2 right-0 px-3 py-1 bg-dark-700 rounded-full border border-brand-green/30 text-brand-green text-xs font-medium">
+                  <div class="absolute right-0 px-3 py-1 text-xs font-medium border rounded-full -top-2 bg-dark-700 border-brand-green/30 text-brand-green">
                     Criptat
                   </div>
-                  <div class="absolute -bottom-2 left-0 px-3 py-1 bg-dark-700 rounded-full border border-stripe-purple/30 text-stripe-purple text-xs font-medium">
+                  <div class="absolute left-0 px-3 py-1 text-xs font-medium border rounded-full -bottom-2 bg-dark-700 border-stripe-purple/30 text-stripe-purple">
                     Verificat
                   </div>
                 </div>
@@ -580,16 +578,16 @@ $t = [
               <!-- Stats -->
               <div class="grid grid-cols-3 gap-4 mt-8">
                 <div class="text-center">
-                  <div class="text-2xl font-display font-bold text-brand-green">256</div>
-                  <div class="text-white/40 text-xs">bit encryption</div>
+                  <div class="text-2xl font-bold font-display text-brand-green">256</div>
+                  <div class="text-xs text-white/40">bit encryption</div>
                 </div>
                 <div class="text-center">
-                  <div class="text-2xl font-display font-bold text-stripe-purple">0%</div>
-                  <div class="text-white/40 text-xs">date brute</div>
+                  <div class="text-2xl font-bold font-display text-stripe-purple">0%</div>
+                  <div class="text-xs text-white/40">date brute</div>
                 </div>
                 <div class="text-center">
-                  <div class="text-2xl font-display font-bold text-brand-amber">ML</div>
-                  <div class="text-white/40 text-xs">fraud detection</div>
+                  <div class="text-2xl font-bold font-display text-brand-amber">ML</div>
+                  <div class="text-xs text-white/40">fraud detection</div>
                 </div>
               </div>
             </div>
@@ -600,63 +598,63 @@ $t = [
   </section>
 
   <!-- ==================== GLOBAL ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-stripe-purple text-sm font-medium uppercase tracking-widest">Global</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Acceptă plăți de<br><span class="text-gradient-stripe">oriunde</span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-stripe-purple">Global</span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl">Acceptă plăți de<br><span class="text-gradient-stripe">oriunde</span></h2>
         <p class="text-lg text-white/60">135+ valute, metode de plată locale, decontare în valuta ta.</p>
       </div>
 
       <!-- Currency grid -->
       <div class="flex flex-wrap justify-center gap-3 reveal">
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇪🇺</span>
           <div>
-            <div class="text-white font-semibold">EUR</div>
-            <div class="text-white/40 text-xs">Euro</div>
+            <div class="font-semibold text-white">EUR</div>
+            <div class="text-xs text-white/40">Euro</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇺🇸</span>
           <div>
-            <div class="text-white font-semibold">USD</div>
-            <div class="text-white/40 text-xs">Dollar</div>
+            <div class="font-semibold text-white">USD</div>
+            <div class="text-xs text-white/40">Dollar</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇬🇧</span>
           <div>
-            <div class="text-white font-semibold">GBP</div>
-            <div class="text-white/40 text-xs">Pound</div>
+            <div class="font-semibold text-white">GBP</div>
+            <div class="text-xs text-white/40">Pound</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇷🇴</span>
           <div>
-            <div class="text-white font-semibold">RON</div>
-            <div class="text-white/40 text-xs">Leu</div>
+            <div class="font-semibold text-white">RON</div>
+            <div class="text-xs text-white/40">Leu</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇨🇭</span>
           <div>
-            <div class="text-white font-semibold">CHF</div>
-            <div class="text-white/40 text-xs">Franc</div>
+            <div class="font-semibold text-white">CHF</div>
+            <div class="text-xs text-white/40">Franc</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl">
           <span class="text-2xl">🇯🇵</span>
           <div>
-            <div class="text-white font-semibold">JPY</div>
-            <div class="text-white/40 text-xs">Yen</div>
+            <div class="font-semibold text-white">JPY</div>
+            <div class="text-xs text-white/40">Yen</div>
           </div>
         </div>
-        <div class="currency-pill px-5 py-3 rounded-xl flex items-center gap-3 opacity-60">
+        <div class="flex items-center gap-3 px-5 py-3 currency-pill rounded-xl opacity-60">
           <span class="text-xl">+129</span>
           <div>
-            <div class="text-white/70 text-sm">alte valute</div>
+            <div class="text-sm text-white/70">alte valute</div>
           </div>
         </div>
       </div>
@@ -664,59 +662,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest">Cazuri de Utilizare</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Perfect pentru<br><span class="text-gradient animate-shimmer">orice eveniment</span></h2>
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet">Cazuri de Utilizare</span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl">Perfect pentru<br><span class="text-gradient animate-shimmer">orice eveniment</span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-4"><span class="text-2xl">🌍</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Evenimente Internaționale</h3>
-          <p class="text-white/50 text-sm">Metode de plată locale afișate automat în funcție de țara clientului.</p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20"><span class="text-2xl">🌍</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Evenimente Internaționale</h3>
+          <p class="text-sm text-white/50">Metode de plată locale afișate automat în funcție de țara clientului.</p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4"><span class="text-2xl">🚀</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Vânzări cu Volum Mare</h3>
-          <p class="text-white/50 text-sm">Mii de tranzacții pe secundă. Infrastructura scalează automat la cerere.</p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20"><span class="text-2xl">🚀</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Vânzări cu Volum Mare</h3>
+          <p class="text-sm text-white/50">Mii de tranzacții pe secundă. Infrastructura scalează automat la cerere.</p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-4"><span class="text-2xl">📱</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Mobile-First</h3>
-          <p class="text-white/50 text-sm">Apple Pay și Google Pay pentru checkout cu o singură atingere. Conversii mai mari.</p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20"><span class="text-2xl">📱</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Mobile-First</h3>
+          <p class="text-sm text-white/50">Apple Pay și Google Pay pentru checkout cu o singură atingere. Conversii mai mari.</p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4"><span class="text-2xl">🔄</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Clienți Recurenți</h3>
-          <p class="text-white/50 text-sm">Carduri salvate pentru cumpărături viitoare cu un click. Reduce abandonul.</p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20"><span class="text-2xl">🔄</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Clienți Recurenți</h3>
+          <p class="text-sm text-white/50">Carduri salvate pentru cumpărături viitoare cu un click. Reduce abandonul.</p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4"><span class="text-2xl">💱</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Multi-Valută</h3>
-          <p class="text-white/50 text-sm">Prețuri în valuta locală, decontare în valuta ta. Fără bătăi de cap.</p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20"><span class="text-2xl">💱</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Multi-Valută</h3>
+          <p class="text-sm text-white/50">Prețuri în valuta locală, decontare în valuta ta. Fără bătăi de cap.</p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-stripe-purple/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-4"><span class="text-2xl">👑</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2">Evenimente Premium</h3>
-          <p class="text-white/50 text-sm">Protecție împotriva fraudei și gestionarea disputelor pentru tranzacții mari.</p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-stripe-purple/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20"><span class="text-2xl">👑</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white">Evenimente Premium</h3>
+          <p class="text-sm text-white/50">Protecție împotriva fraudei și gestionarea disputelor pentru tranzacții mari.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-stripe-purple/10 to-stripe-light/10 rounded-3xl p-8 md:p-12 border border-stripe-purple/20">
+        <div class="p-8 border bg-gradient-to-br from-stripe-purple/10 to-stripe-light/10 rounded-3xl md:p-12 border-stripe-purple/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -724,11 +722,11 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
-            "De când am integrat Stripe, <span class="text-gradient-stripe font-semibold">rata de abandon</span> la checkout a scăzut cu 35%. Apple Pay pe mobil a fost game-changer - clienții finalizează în secunde."
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
+            "De când am integrat Stripe, <span class="font-semibold text-gradient-stripe">rata de abandon</span> la checkout a scăzut cu 35%. Apple Pay pe mobil a fost game-changer - clienții finalizează în secunde."
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-stripe-purple to-stripe-light"></div>
+            <div class="rounded-full w-14 h-14 bg-gradient-to-br from-stripe-purple to-stripe-light"></div>
             <div>
               <div class="font-semibold text-white">Andreea P.</div>
               <div class="text-white/50">COO, Electric Castle</div>
@@ -740,7 +738,7 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-stripe-purple/20 via-transparent to-stripe-light/20"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(99,91,255,0.3) 0%, rgba(128,233,255,0.2) 100%);"></div>
 
@@ -748,21 +746,21 @@ $t = [
       <svg class="w-16 h-16 text-stripe-purple" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Start<br><span class="text-gradient-stripe">accepting</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1">Conectează Stripe în minute. Acceptă plăți global. Crește-ți veniturile.</p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal">Start<br><span class="text-gradient-stripe">accepting</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1">Conectează Stripe în minute. Acceptă plăți global. Crește-ți veniturile.</p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-gradient-to-r from-stripe-purple to-stripe-light text-white hover:scale-105 hover:shadow-glow-stripe transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-gradient-to-r from-stripe-purple to-stripe-light hover:scale-105 hover:shadow-glow-stripe">
           Conectează Stripe
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           Întrebări? Contactează-ne
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3">Configurare în minute. 135+ valute. Transferuri automate.</p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3">Configurare în minute. 135+ valute. Transferuri automate.</p>
     </div>
   </section>
 </div>

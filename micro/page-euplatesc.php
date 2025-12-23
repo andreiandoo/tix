@@ -102,7 +102,7 @@ $t = [
     'budget_desc'        => $current_lang === 'ro' ? 'Comisioane competitive maximizeaza veniturile. Fiecare punct procentual conteaza.' : 'Competitive fees maximize revenue. Every percentage point counts.',
 
     // Testimonial
-    'testimonial_text'   => $current_lang === 'ro' ? 'Cu <span class="text-gradient-eu font-semibold">EuPlatesc</span>, rata de aprobare pentru cardurile romanesti a crescut cu 15%. Clientii nostri recunosc brandul si platesc cu incredere.' : 'With <span class="text-gradient-eu font-semibold">EuPlatesc</span>, approval rate for Romanian cards increased by 15%. Our customers recognize the brand and pay with confidence.',
+    'testimonial_text'   => $current_lang === 'ro' ? 'Cu <span class="font-semibold text-gradient-eu">EuPlatesc</span>, rata de aprobare pentru cardurile romanesti a crescut cu 15%. Clientii nostri recunosc brandul si platesc cu incredere.' : 'With <span class="font-semibold text-gradient-eu">EuPlatesc</span>, approval rate for Romanian cards increased by 15%. Our customers recognize the brand and pay with confidence.',
     'testimonial_role'   => $current_lang === 'ro' ? 'Director, Filarmonica Brasov' : 'Director, Brasov Philharmonic',
 
     // Final CTA
@@ -119,8 +119,6 @@ $t = [
 
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-eu { background: linear-gradient(135deg, #00A651 0%, #FFD700 50%, #00A651 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
 
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
@@ -240,28 +238,28 @@ $t = [
   }
 </style>
 
-<div class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<div class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-euplatesc-primary/10 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-euplatesc-secondary/10 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating elements -->
-    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">💳</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">🇷🇴</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">✓</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-30 animate-float">💳</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">🇷🇴</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">✓</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-euplatesc-primary/10 border border-euplatesc-primary/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-euplatesc-primary/10 border-euplatesc-primary/20">
             <svg class="w-5 h-5 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-            <span class="text-euplatesc-primary text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-euplatesc-primary"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -270,24 +268,24 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-euplatesc-primary text-white hover:bg-euplatesc-secondary hover:scale-105 hover:shadow-glow-eu transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-euplatesc-primary hover:bg-euplatesc-secondary hover:scale-105 hover:shadow-glow-eu">
               <?php echo esc_html( $t['cta_activate'] ); ?>
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="#avantaje" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#avantaje" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_why'] ); ?>
             </a>
           </div>
 
           <!-- Card Brands -->
           <div class="flex items-center gap-4">
-            <span class="text-white/40 text-sm"><?php echo esc_html( $t['we_accept'] ); ?></span>
+            <span class="text-sm text-white/40"><?php echo esc_html( $t['we_accept'] ); ?></span>
             <div class="card-brand visa">VISA</div>
             <div class="card-brand mastercard">MC</div>
             <div class="card-brand maestro">Maestro</div>
@@ -307,7 +305,7 @@ $t = [
           }, 2000)">
 
             <!-- Credit Card -->
-            <div class="credit-card mb-6">
+            <div class="mb-6 credit-card">
               <div class="flex items-center justify-between mb-8">
                 <div class="credit-card-chip"></div>
                 <div class="eu-logo">
@@ -316,61 +314,61 @@ $t = [
               </div>
 
               <div class="mb-6">
-                <div class="text-white/40 text-xs uppercase mb-1"><?php echo esc_html( $t['card_number'] ); ?></div>
-                <div class="text-white font-mono text-xl tracking-wider">•••• •••• •••• 4242</div>
+                <div class="mb-1 text-xs uppercase text-white/40"><?php echo esc_html( $t['card_number'] ); ?></div>
+                <div class="font-mono text-xl tracking-wider text-white">•••• •••• •••• 4242</div>
               </div>
 
               <div class="flex items-center justify-between">
                 <div>
-                  <div class="text-white/40 text-xs uppercase mb-1"><?php echo esc_html( $t['holder'] ); ?></div>
-                  <div class="text-white font-medium">MARIA IONESCU</div>
+                  <div class="mb-1 text-xs uppercase text-white/40"><?php echo esc_html( $t['holder'] ); ?></div>
+                  <div class="font-medium text-white">MARIA IONESCU</div>
                 </div>
                 <div>
-                  <div class="text-white/40 text-xs uppercase mb-1"><?php echo esc_html( $t['exp'] ); ?></div>
-                  <div class="text-white font-medium">12/27</div>
+                  <div class="mb-1 text-xs uppercase text-white/40"><?php echo esc_html( $t['exp'] ); ?></div>
+                  <div class="font-medium text-white">12/27</div>
                 </div>
                 <div class="card-brand visa">VISA</div>
               </div>
             </div>
 
             <!-- Transaction Status -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-2xl p-6 border border-euplatesc-primary/20">
+            <div class="p-6 border bg-dark-800/80 backdrop-blur-xl rounded-2xl border-euplatesc-primary/20">
               <div class="flex items-center justify-between mb-4">
                 <div>
-                  <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['transaction'] ); ?></div>
-                  <div class="text-white font-semibold">Festival Summer 2025</div>
+                  <div class="text-xs uppercase text-white/40"><?php echo esc_html( $t['transaction'] ); ?></div>
+                  <div class="font-semibold text-white">Festival Summer 2025</div>
                 </div>
                 <div class="text-right">
-                  <div class="text-white/40 text-xs uppercase"><?php echo esc_html( $t['total'] ); ?></div>
-                  <div class="text-euplatesc-primary font-bold text-2xl" x-text="amount + ' RON'">250 RON</div>
+                  <div class="text-xs uppercase text-white/40"><?php echo esc_html( $t['total'] ); ?></div>
+                  <div class="text-2xl font-bold text-euplatesc-primary" x-text="amount + ' RON'">250 RON</div>
                 </div>
               </div>
 
               <!-- Payment Flow Steps -->
               <div class="flex items-center justify-between mb-4">
-                <div class="flow-step text-center flex-1" :class="step >= 1 && 'opacity-100'" :class="step < 1 && 'opacity-30'">
-                  <div class="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center transition-all duration-300" :class="step >= 1 ? 'bg-euplatesc-primary text-white' : 'bg-dark-700 text-white/40'">
+                <div class="flex-1 text-center flow-step" :class="step >= 1 && 'opacity-100'" :class="step < 1 && 'opacity-30'">
+                  <div class="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 rounded-full" :class="step >= 1 ? 'bg-euplatesc-primary text-white' : 'bg-dark-700 text-white/40'">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                   </div>
                   <div class="text-xs text-white/60"><?php echo esc_html( $t['card'] ); ?></div>
                 </div>
 
-                <div class="flow-step text-center flex-1" :class="step >= 2 && 'opacity-100'" :class="step < 2 && 'opacity-30'">
-                  <div class="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center transition-all duration-300" :class="step >= 2 ? 'bg-euplatesc-primary text-white' : 'bg-dark-700 text-white/40'">
+                <div class="flex-1 text-center flow-step" :class="step >= 2 && 'opacity-100'" :class="step < 2 && 'opacity-30'">
+                  <div class="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 rounded-full" :class="step >= 2 ? 'bg-euplatesc-primary text-white' : 'bg-dark-700 text-white/40'">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                   </div>
                   <div class="text-xs text-white/60">3D Secure</div>
                 </div>
 
-                <div class="flow-step text-center flex-1" :class="step >= 3 && 'opacity-100'" :class="step < 3 && 'opacity-30'">
-                  <div class="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center transition-all duration-300" :class="step >= 3 ? 'bg-euplatesc-primary text-white animate-pulse' : 'bg-dark-700 text-white/40'">
+                <div class="flex-1 text-center flow-step" :class="step >= 3 && 'opacity-100'" :class="step < 3 && 'opacity-30'">
+                  <div class="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 rounded-full" :class="step >= 3 ? 'bg-euplatesc-primary text-white animate-pulse' : 'bg-dark-700 text-white/40'">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                   </div>
                   <div class="text-xs text-white/60"><?php echo esc_html( $t['processing'] ); ?></div>
                 </div>
 
-                <div class="text-center flex-1" :class="step >= 4 && 'opacity-100'" :class="step < 4 && 'opacity-30'">
-                  <div class="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center transition-all duration-300" :class="step >= 4 ? 'bg-brand-green text-white' : 'bg-dark-700 text-white/40'">
+                <div class="flex-1 text-center" :class="step >= 4 && 'opacity-100'" :class="step < 4 && 'opacity-30'">
+                  <div class="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 rounded-full" :class="step >= 4 ? 'bg-brand-green text-white' : 'bg-dark-700 text-white/40'">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                   </div>
                   <div class="text-xs text-white/60"><?php echo esc_html( $t['approved'] ); ?></div>
@@ -378,7 +376,7 @@ $t = [
               </div>
 
               <!-- Status -->
-              <div class="p-3 rounded-lg transition-all duration-300" :class="status === 'approved' ? 'tx-approved' : 'bg-dark-900/50'">
+              <div class="p-3 transition-all duration-300 rounded-lg" :class="status === 'approved' ? 'tx-approved' : 'bg-dark-900/50'">
                 <div class="flex items-center justify-between">
                   <span class="text-sm font-medium" x-text="status === 'approved' ? '<?php echo esc_attr( $t['tx_approved'] ); ?>' : '<?php echo esc_attr( $t['tx_processing'] ); ?>'"></span>
                   <span class="text-xs" x-text="status === 'approved' ? 'EP-123456789' : ''"></span>
@@ -387,9 +385,9 @@ $t = [
             </div>
 
             <!-- Floating 3D Secure Badge -->
-            <div class="absolute -top-4 -right-4 secure-3d shadow-xl animate-float z-10">
+            <div class="absolute z-10 shadow-xl -top-4 -right-4 secure-3d animate-float">
               <svg class="w-5 h-5 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              <span class="text-euplatesc-primary font-bold text-sm">3D Secure</span>
+              <span class="text-sm font-bold text-euplatesc-primary">3D Secure</span>
             </div>
 
             <!-- Floating RON Badge -->
@@ -397,8 +395,8 @@ $t = [
               <div class="flex items-center gap-2">
                 <span class="ron-badge">RON</span>
                 <div>
-                  <div class="text-white text-sm font-medium"><?php echo esc_html( $t['local_currency'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['no_conversion'] ); ?></div>
+                  <div class="text-sm font-medium text-white"><?php echo esc_html( $t['local_currency'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['no_conversion'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -409,179 +407,179 @@ $t = [
   </section>
 
   <!-- ==================== ADVANTAGES ==================== -->
-  <section class="py-24 relative overflow-hidden" id="avantaje">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="avantaje">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-euplatesc-primary text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['why_euplatesc'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['adv_title_1'] ); ?><br><span class="text-gradient-eu"><?php echo esc_html( $t['adv_title_2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-euplatesc-primary"><?php echo esc_html( $t['why_euplatesc'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['adv_title_1'] ); ?><br><span class="text-gradient-eu"><?php echo esc_html( $t['adv_title_2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['adv_desc'] ); ?></p>
       </div>
 
       <!-- Advantages Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Trust -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-euplatesc-primary/20 hover:border-euplatesc-primary/50 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-euplatesc-primary/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-euplatesc-primary/20 hover:border-euplatesc-primary/50 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-euplatesc-primary/10">
             <svg class="w-7 h-7 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['trust_brand'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['trust_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['trust_brand'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['trust_desc'] ); ?></p>
         </div>
 
         <!-- Approval Rates -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-green/20 hover:border-brand-green/50 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-green/20 hover:border-brand-green/50 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-green/10">
             <svg class="w-7 h-7 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['approval_rates'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['approval_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['approval_rates'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['approval_desc'] ); ?></p>
         </div>
 
         <!-- Competitive Pricing -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-euplatesc-accent/20 hover:border-euplatesc-accent/50 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-euplatesc-accent/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-euplatesc-accent/20 hover:border-euplatesc-accent/50 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-euplatesc-accent/10">
             <svg class="w-7 h-7 text-euplatesc-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['competitive_fees'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['competitive_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['competitive_fees'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['competitive_desc'] ); ?></p>
         </div>
 
         <!-- RON Settlement -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-cyan/20 hover:border-brand-cyan/50 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-cyan/20 hover:border-brand-cyan/50 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-cyan/10">
             <svg class="w-7 h-7 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['ron_settlement'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['ron_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['ron_settlement'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['ron_desc'] ); ?></p>
         </div>
 
         <!-- 3D Secure -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-violet/20 hover:border-brand-violet/50 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-brand-violet/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-violet/20 hover:border-brand-violet/50 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-violet/10">
             <svg class="w-7 h-7 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['3d_mandatory'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['3d_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['3d_mandatory'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['3d_desc'] ); ?></p>
         </div>
 
         <!-- Simple Integration -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-amber/20 hover:border-brand-amber/50 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-brand-amber/10 flex items-center justify-center mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-amber/20 hover:border-brand-amber/50 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-brand-amber/10">
             <svg class="w-7 h-7 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['simple_integration'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['simple_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['simple_integration'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['simple_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== PAYMENT FLOW ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['payment_flow'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Securizat &<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['secure_simple'] ); ?></span></h2>
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-cyan"><?php echo esc_html( $t['payment_flow'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl">Securizat &<br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['secure_simple'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['flow_desc'] ); ?></p>
       </div>
 
       <!-- Flow Steps -->
       <div class="max-w-4xl mx-auto reveal">
-        <div class="grid md:grid-cols-6 gap-4 items-start">
+        <div class="grid items-start gap-4 md:grid-cols-6">
           <!-- Step 1 -->
           <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-euplatesc-primary/20 border border-euplatesc-primary/30 flex items-center justify-center mx-auto mb-3">
-              <span class="text-euplatesc-primary font-bold text-xl">1</span>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-euplatesc-primary/20 border-euplatesc-primary/30">
+              <span class="text-xl font-bold text-euplatesc-primary">1</span>
             </div>
-            <div class="text-white font-medium text-sm mb-1"><?php echo esc_html( $t['selection'] ); ?></div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['selection_desc'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white"><?php echo esc_html( $t['selection'] ); ?></div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['selection_desc'] ); ?></div>
           </div>
 
           <!-- Arrow -->
-          <div class="hidden md:flex items-center justify-center pt-6">
+          <div class="items-center justify-center hidden pt-6 md:flex">
             <svg class="w-6 h-6 text-euplatesc-primary/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </div>
 
           <!-- Step 2 -->
           <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-euplatesc-primary/20 border border-euplatesc-primary/30 flex items-center justify-center mx-auto mb-3">
-              <span class="text-euplatesc-primary font-bold text-xl">2</span>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-euplatesc-primary/20 border-euplatesc-primary/30">
+              <span class="text-xl font-bold text-euplatesc-primary">2</span>
             </div>
-            <div class="text-white font-medium text-sm mb-1"><?php echo esc_html( $t['redirect'] ); ?></div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['redirect_desc'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white"><?php echo esc_html( $t['redirect'] ); ?></div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['redirect_desc'] ); ?></div>
           </div>
 
           <!-- Arrow -->
-          <div class="hidden md:flex items-center justify-center pt-6">
+          <div class="items-center justify-center hidden pt-6 md:flex">
             <svg class="w-6 h-6 text-euplatesc-primary/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </div>
 
           <!-- Step 3 -->
           <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-brand-violet/20 border border-brand-violet/30 flex items-center justify-center mx-auto mb-3">
-              <span class="text-brand-violet font-bold text-xl">3</span>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-brand-violet/20 border-brand-violet/30">
+              <span class="text-xl font-bold text-brand-violet">3</span>
             </div>
-            <div class="text-white font-medium text-sm mb-1">3D Secure</div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['bank_verify'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white">3D Secure</div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['bank_verify'] ); ?></div>
           </div>
 
           <!-- Arrow -->
-          <div class="hidden md:flex items-center justify-center pt-6">
+          <div class="items-center justify-center hidden pt-6 md:flex">
             <svg class="w-6 h-6 text-brand-green/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </div>
         </div>
 
         <!-- Second row -->
-        <div class="grid md:grid-cols-6 gap-4 items-start mt-8">
+        <div class="grid items-start gap-4 mt-8 md:grid-cols-6">
           <!-- Step 4 -->
           <div class="text-center md:col-start-1">
-            <div class="w-16 h-16 rounded-2xl bg-brand-green/20 border border-brand-green/30 flex items-center justify-center mx-auto mb-3">
-              <span class="text-brand-green font-bold text-xl">4</span>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-brand-green/20 border-brand-green/30">
+              <span class="text-xl font-bold text-brand-green">4</span>
             </div>
-            <div class="text-white font-medium text-sm mb-1"><?php echo esc_html( $t['approval'] ); ?></div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['tx_processed'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white"><?php echo esc_html( $t['approval'] ); ?></div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['tx_processed'] ); ?></div>
           </div>
 
           <!-- Arrow -->
-          <div class="hidden md:flex items-center justify-center pt-6">
+          <div class="items-center justify-center hidden pt-6 md:flex">
             <svg class="w-6 h-6 text-brand-green/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </div>
 
           <!-- Step 5 -->
           <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-brand-cyan/20 border border-brand-cyan/30 flex items-center justify-center mx-auto mb-3">
-              <span class="text-brand-cyan font-bold text-xl">5</span>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-brand-cyan/20 border-brand-cyan/30">
+              <span class="text-xl font-bold text-brand-cyan">5</span>
             </div>
-            <div class="text-white font-medium text-sm mb-1"><?php echo esc_html( $t['callback'] ); ?></div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['webhook_notify'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white"><?php echo esc_html( $t['callback'] ); ?></div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['webhook_notify'] ); ?></div>
           </div>
 
           <!-- Arrow -->
-          <div class="hidden md:flex items-center justify-center pt-6">
+          <div class="items-center justify-center hidden pt-6 md:flex">
             <svg class="w-6 h-6 text-brand-cyan/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </div>
 
           <!-- Step 6 -->
           <div class="text-center">
-            <div class="w-16 h-16 rounded-2xl bg-euplatesc-primary/20 border border-euplatesc-primary/30 flex items-center justify-center mx-auto mb-3">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 border rounded-2xl bg-euplatesc-primary/20 border-euplatesc-primary/30">
               <svg class="w-8 h-8 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <div class="text-white font-medium text-sm mb-1"><?php echo esc_html( $t['confirmation'] ); ?></div>
-            <div class="text-white/40 text-xs"><?php echo esc_html( $t['ticket_issued'] ); ?></div>
+            <div class="mb-1 text-sm font-medium text-white"><?php echo esc_html( $t['confirmation'] ); ?></div>
+            <div class="text-xs text-white/40"><?php echo esc_html( $t['ticket_issued'] ); ?></div>
           </div>
         </div>
       </div>
 
       <!-- Security Note -->
       <div class="max-w-2xl mx-auto mt-12 reveal reveal-delay-1">
-        <div class="p-4 rounded-xl bg-euplatesc-primary/10 border border-euplatesc-primary/30 flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-euplatesc-primary/20 flex items-center justify-center flex-shrink-0">
+        <div class="flex items-center gap-4 p-4 border rounded-xl bg-euplatesc-primary/10 border-euplatesc-primary/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-euplatesc-primary/20">
             <svg class="w-6 h-6 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
           <div>
-            <div class="text-euplatesc-primary font-medium"><?php echo esc_html( $t['pci_compliance'] ); ?></div>
-            <div class="text-white/60 text-sm"><?php echo esc_html( $t['pci_desc'] ); ?></div>
+            <div class="font-medium text-euplatesc-primary"><?php echo esc_html( $t['pci_compliance'] ); ?></div>
+            <div class="text-sm text-white/60"><?php echo esc_html( $t['pci_desc'] ); ?></div>
           </div>
         </div>
       </div>
@@ -589,43 +587,43 @@ $t = [
   </section>
 
   <!-- ==================== SETTLEMENT ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-euplatesc-accent text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['settlement'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['funds_title_1'] ); ?><br><span class="text-gradient-eu"><?php echo esc_html( $t['funds_title_2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['settlement_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-euplatesc-accent"><?php echo esc_html( $t['settlement'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['funds_title_1'] ); ?><br><span class="text-gradient-eu"><?php echo esc_html( $t['funds_title_2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['settlement_desc'] ); ?></p>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-euplatesc-primary/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-euplatesc-primary/20">
                 <svg class="w-6 h-6 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['regular_schedule'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['schedule_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['regular_schedule'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['schedule_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-cyan/20">
                 <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['detailed_reports'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['reports_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['detailed_reports'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['reports_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-euplatesc-accent/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-euplatesc-accent/20">
                 <svg class="w-6 h-6 text-euplatesc-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['ro_bank_account'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['ro_bank_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['ro_bank_account'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['ro_bank_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -633,68 +631,68 @@ $t = [
 
         <!-- Visual - Settlement Report -->
         <div class="reveal reveal-delay-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-euplatesc-primary/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-euplatesc-primary/20">
                   <svg class="w-5 h-5 text-euplatesc-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div>
-                  <div class="text-white font-semibold"><?php echo esc_html( $t['settlement_report'] ); ?></div>
-                  <div class="text-white/40 text-xs">15 Ianuarie 2025</div>
+                  <div class="font-semibold text-white"><?php echo esc_html( $t['settlement_report'] ); ?></div>
+                  <div class="text-xs text-white/40">15 Ianuarie 2025</div>
                 </div>
               </div>
-              <span class="px-3 py-1 rounded-full bg-brand-green/20 text-brand-green text-xs font-medium"><?php echo esc_html( $t['transferred'] ); ?></span>
+              <span class="px-3 py-1 text-xs font-medium rounded-full bg-brand-green/20 text-brand-green"><?php echo esc_html( $t['transferred'] ); ?></span>
             </div>
 
             <!-- Summary -->
             <div class="grid grid-cols-2 gap-4 mb-6">
               <div class="p-4 rounded-xl bg-dark-900/50">
-                <div class="text-white/40 text-xs uppercase mb-1"><?php echo esc_html( $t['transactions'] ); ?></div>
-                <div class="text-white font-bold text-2xl">147</div>
+                <div class="mb-1 text-xs uppercase text-white/40"><?php echo esc_html( $t['transactions'] ); ?></div>
+                <div class="text-2xl font-bold text-white">147</div>
               </div>
-              <div class="p-4 rounded-xl bg-euplatesc-primary/10 border border-euplatesc-primary/30">
-                <div class="text-euplatesc-primary text-xs uppercase mb-1"><?php echo esc_html( $t['total_settled'] ); ?></div>
-                <div class="text-euplatesc-primary font-bold text-2xl">28,450 RON</div>
+              <div class="p-4 border rounded-xl bg-euplatesc-primary/10 border-euplatesc-primary/30">
+                <div class="mb-1 text-xs uppercase text-euplatesc-primary"><?php echo esc_html( $t['total_settled'] ); ?></div>
+                <div class="text-2xl font-bold text-euplatesc-primary">28,450 RON</div>
               </div>
             </div>
 
             <!-- Transaction List -->
-            <div class="space-y-2 mb-4">
-              <div class="text-white/40 text-xs uppercase mb-2"><?php echo esc_html( $t['last_transactions'] ); ?></div>
+            <div class="mb-4 space-y-2">
+              <div class="mb-2 text-xs uppercase text-white/40"><?php echo esc_html( $t['last_transactions'] ); ?></div>
 
               <div class="flex items-center justify-between p-3 rounded-lg bg-dark-900/30">
                 <div class="flex items-center gap-3">
                   <span class="tx-approved px-2 py-0.5 rounded text-xs"><?php echo esc_html( $t['approved_status'] ); ?></span>
-                  <span class="text-white text-sm">EP-123456789</span>
+                  <span class="text-sm text-white">EP-123456789</span>
                 </div>
-                <span class="text-euplatesc-primary font-medium">250 RON</span>
+                <span class="font-medium text-euplatesc-primary">250 RON</span>
               </div>
 
               <div class="flex items-center justify-between p-3 rounded-lg bg-dark-900/30">
                 <div class="flex items-center gap-3">
                   <span class="tx-approved px-2 py-0.5 rounded text-xs"><?php echo esc_html( $t['approved_status'] ); ?></span>
-                  <span class="text-white text-sm">EP-123456788</span>
+                  <span class="text-sm text-white">EP-123456788</span>
                 </div>
-                <span class="text-euplatesc-primary font-medium">175 RON</span>
+                <span class="font-medium text-euplatesc-primary">175 RON</span>
               </div>
 
               <div class="flex items-center justify-between p-3 rounded-lg bg-dark-900/30">
                 <div class="flex items-center gap-3">
                   <span class="tx-approved px-2 py-0.5 rounded text-xs"><?php echo esc_html( $t['approved_status'] ); ?></span>
-                  <span class="text-white text-sm">EP-123456787</span>
+                  <span class="text-sm text-white">EP-123456787</span>
                 </div>
-                <span class="text-euplatesc-primary font-medium">320 RON</span>
+                <span class="font-medium text-euplatesc-primary">320 RON</span>
               </div>
             </div>
 
             <!-- Bank Info -->
-            <div class="p-3 rounded-lg bg-dark-900/50 flex items-center justify-between">
+            <div class="flex items-center justify-between p-3 rounded-lg bg-dark-900/50">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span class="text-white/60 text-sm">Banca Transilvania</span>
+                <span class="text-sm text-white/60">Banca Transilvania</span>
               </div>
-              <span class="text-white/40 text-xs font-mono">RO** **** **** 1234</span>
+              <span class="font-mono text-xs text-white/40">RO** **** **** 1234</span>
             </div>
           </div>
         </div>
@@ -703,59 +701,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['use_cases'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['perfect_for'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['romanian_market'] ); ?></span></h2>
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['use_cases'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['perfect_for'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['romanian_market'] ); ?></span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-euplatesc-primary/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-euplatesc-primary/20 to-euplatesc-primary/10 flex items-center justify-center mb-4"><span class="text-2xl">🎵</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['concert_halls'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['concert_desc'] ); ?></p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-euplatesc-primary/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-euplatesc-primary/20 to-euplatesc-primary/10"><span class="text-2xl">🎵</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['concert_halls'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['concert_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">🎪</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['festivals'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['festivals_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-amber/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10"><span class="text-2xl">🎪</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['festivals'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['festivals_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🎭</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['theater_culture'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['theater_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10"><span class="text-2xl">🎭</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['theater_culture'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['theater_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">🎤</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['local_promoters'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['promoters_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-cyan/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10"><span class="text-2xl">🎤</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['local_promoters'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['promoters_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-rose/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">🗓️</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['regional_series'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['regional_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-rose/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10"><span class="text-2xl">🗓️</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['regional_series'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['regional_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-euplatesc-accent/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-euplatesc-accent/20 to-euplatesc-accent/10 flex items-center justify-center mb-4"><span class="text-2xl">💰</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['limited_budget'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['budget_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-euplatesc-accent/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-euplatesc-accent/20 to-euplatesc-accent/10"><span class="text-2xl">💰</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['limited_budget'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['budget_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-euplatesc-primary/10 to-euplatesc-secondary/10 rounded-3xl p-8 md:p-12 border border-euplatesc-primary/20">
+        <div class="p-8 border bg-gradient-to-br from-euplatesc-primary/10 to-euplatesc-secondary/10 rounded-3xl md:p-12 border-euplatesc-primary/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -763,12 +761,12 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial_text']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-euplatesc-primary to-euplatesc-secondary flex items-center justify-center">
-              <span class="text-white font-bold">DM</span>
+            <div class="flex items-center justify-center rounded-full w-14 h-14 bg-gradient-to-br from-euplatesc-primary to-euplatesc-secondary">
+              <span class="font-bold text-white">DM</span>
             </div>
             <div>
               <div class="font-semibold text-white">Dan M.</div>
@@ -781,28 +779,28 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-euplatesc-primary/10 via-transparent to-euplatesc-accent/10"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,166,81,0.2) 0%, rgba(255,215,0,0.1) 100%);"></div>
 
-    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">💳</div>
-    <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">🇷🇴</div>
+    <div class="absolute text-4xl top-20 left-20 opacity-20 animate-float">💳</div>
+    <div class="absolute text-3xl bottom-20 right-20 opacity-20 animate-float" style="animation-delay: 1s;">🇷🇴</div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal"><span class="text-gradient-eu">EuPlatesc</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal"><span class="text-gradient-eu">EuPlatesc</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['cta_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-euplatesc-primary text-white hover:bg-euplatesc-secondary hover:scale-105 hover:shadow-glow-eu transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-euplatesc-primary hover:bg-euplatesc-secondary hover:scale-105 hover:shadow-glow-eu">
           <?php echo esc_html( $t['cta_activate'] ); ?>
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['questions_contact'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 

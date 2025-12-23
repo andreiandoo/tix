@@ -12,8 +12,6 @@ get_header();
 
   .text-gradient-shop { background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
-
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
@@ -49,33 +47,33 @@ get_header();
   .product-shelf { background: linear-gradient(180deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.9) 100%); }
 </style>
 
-<main class="noise bg-dark-950 min-h-screen">
+<main class="min-h-screen bg-dark-950">
 
   <!-- Background -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute top-1/2 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-float-delay"></div>
-    <div class="absolute bottom-20 left-1/3 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl animate-float-delay-2"></div>
+    <div class="absolute rounded-full top-20 left-10 w-72 h-72 bg-orange-500/10 blur-3xl animate-float"></div>
+    <div class="absolute rounded-full top-1/2 right-10 w-96 h-96 bg-amber-500/10 blur-3xl animate-float-delay"></div>
+    <div class="absolute w-64 h-64 rounded-full bottom-20 left-1/3 bg-yellow-500/10 blur-3xl animate-float-delay-2"></div>
   </div>
 
   <!-- HERO - Shop Window Concept -->
-  <section class="relative pt-28 pb-16 overflow-hidden">
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative pb-16 overflow-hidden pt-28">
+    <div class="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
       <!-- Top Badge -->
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm">
+      <div class="mb-8 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 text-sm text-orange-400 border rounded-full bg-orange-500/10 border-orange-500/20">
           <span>🛒</span>
           <span>E-commerce complet integrat cu ticketing</span>
         </div>
       </div>
 
       <!-- Main Title -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-display">
+      <div class="mb-12 text-center">
+        <h1 class="mb-6 text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl font-display">
           Vinde mai mult decât <span class="text-gradient-shop animate-neon">bilete</span>
         </h1>
-        <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto">
+        <p class="max-w-2xl mx-auto text-lg sm:text-xl text-white/60">
           Tricouri, hanorace, postere, muzică digitală. Un magazin complet, același checkout cu biletele. <strong class="text-white">Zero fricțiune, +35% venit.</strong>
         </p>
       </div>
@@ -84,20 +82,20 @@ get_header();
       <div class="relative max-w-5xl mx-auto" x-data="shopWindow()">
 
         <!-- The Shop Window Frame -->
-        <div class="relative rounded-3xl border-2 border-orange-500/30 animate-pulse-border overflow-hidden shop-window">
+        <div class="relative overflow-hidden border-2 rounded-3xl border-orange-500/30 animate-pulse-border shop-window">
 
           <!-- Neon Sign -->
-          <div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
-            <div class="px-6 py-2 rounded-full bg-dark-900 border border-orange-500/50 shadow-lg shadow-orange-500/20">
-              <span class="text-orange-400 font-bold tracking-wider animate-neon">MERCH SHOP</span>
+          <div class="absolute z-20 -translate-x-1/2 -top-5 left-1/2">
+            <div class="px-6 py-2 border rounded-full shadow-lg bg-dark-900 border-orange-500/50 shadow-orange-500/20">
+              <span class="font-bold tracking-wider text-orange-400 animate-neon">MERCH SHOP</span>
             </div>
           </div>
 
           <!-- Window Content -->
-          <div class="pt-8 pb-6 px-6">
+          <div class="px-6 pt-8 pb-6">
 
             <!-- Product Conveyor Belt -->
-            <div class="relative h-48 sm:h-56 overflow-hidden rounded-2xl bg-dark-900/50 mb-6">
+            <div class="relative h-48 mb-6 overflow-hidden sm:h-56 rounded-2xl bg-dark-900/50">
 
               <!-- Shelf Background -->
               <div class="absolute inset-x-0 bottom-0 h-16 product-shelf rounded-b-2xl"></div>
@@ -106,92 +104,92 @@ get_header();
               <div class="absolute inset-0 flex items-center">
                 <div class="flex gap-8 animate-conveyor" style="width: 200%;">
                   <!-- Product Set 1 -->
-                  <div class="flex gap-8 items-end px-4">
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('tshirt')">
-                      <div class="bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">👕</span>
-                        <p class="text-xs text-white/70 text-center">Festival Tee</p>
-                        <p class="text-orange-400 font-bold text-center">€29</p>
+                  <div class="flex items-end gap-8 px-4">
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('tshirt')">
+                      <div class="p-4 border bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">👕</span>
+                        <p class="text-xs text-center text-white/70">Festival Tee</p>
+                        <p class="font-bold text-center text-orange-400">€29</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('hoodie')">
-                      <div class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🧥</span>
-                        <p class="text-xs text-white/70 text-center">Hoodie VIP</p>
-                        <p class="text-orange-400 font-bold text-center">€59</p>
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('hoodie')">
+                      <div class="p-4 border bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🧥</span>
+                        <p class="text-xs text-center text-white/70">Hoodie VIP</p>
+                        <p class="font-bold text-center text-orange-400">€59</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('cap')">
-                      <div class="bg-gradient-to-br from-amber-600/20 to-orange-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🧢</span>
-                        <p class="text-xs text-white/70 text-center">Logo Cap</p>
-                        <p class="text-orange-400 font-bold text-center">€19</p>
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('cap')">
+                      <div class="p-4 border bg-gradient-to-br from-amber-600/20 to-orange-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🧢</span>
+                        <p class="text-xs text-center text-white/70">Logo Cap</p>
+                        <p class="font-bold text-center text-orange-400">€19</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('poster')">
-                      <div class="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🖼️</span>
-                        <p class="text-xs text-white/70 text-center">Poster Ltd</p>
-                        <p class="text-orange-400 font-bold text-center">€15</p>
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('poster')">
+                      <div class="p-4 border bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🖼️</span>
+                        <p class="text-xs text-center text-white/70">Poster Ltd</p>
+                        <p class="font-bold text-center text-orange-400">€15</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('vinyl')">
-                      <div class="bg-gradient-to-br from-violet-600/20 to-purple-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">💿</span>
-                        <p class="text-xs text-white/70 text-center">Vinyl Album</p>
-                        <p class="text-orange-400 font-bold text-center">€35</p>
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('vinyl')">
+                      <div class="p-4 border bg-gradient-to-br from-violet-600/20 to-purple-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">💿</span>
+                        <p class="text-xs text-center text-white/70">Vinyl Album</p>
+                        <p class="font-bold text-center text-orange-400">€35</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0 transform hover:scale-105 transition-transform cursor-pointer" @click="addToCart('digital')">
-                      <div class="bg-gradient-to-br from-cyan-600/20 to-blue-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🎵</span>
-                        <p class="text-xs text-white/70 text-center">Digital Pack</p>
-                        <p class="text-orange-400 font-bold text-center">€9</p>
+                    <div class="flex-shrink-0 transition-transform transform cursor-pointer w-28 sm:w-36 hover:scale-105" @click="addToCart('digital')">
+                      <div class="p-4 border bg-gradient-to-br from-cyan-600/20 to-blue-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🎵</span>
+                        <p class="text-xs text-center text-white/70">Digital Pack</p>
+                        <p class="font-bold text-center text-orange-400">€9</p>
                       </div>
                     </div>
                   </div>
                   <!-- Product Set 2 (duplicate for seamless loop) -->
-                  <div class="flex gap-8 items-end px-4">
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">👕</span>
-                        <p class="text-xs text-white/70 text-center">Festival Tee</p>
-                        <p class="text-orange-400 font-bold text-center">€29</p>
+                  <div class="flex items-end gap-8 px-4">
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">👕</span>
+                        <p class="text-xs text-center text-white/70">Festival Tee</p>
+                        <p class="font-bold text-center text-orange-400">€29</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🧥</span>
-                        <p class="text-xs text-white/70 text-center">Hoodie VIP</p>
-                        <p class="text-orange-400 font-bold text-center">€59</p>
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🧥</span>
+                        <p class="text-xs text-center text-white/70">Hoodie VIP</p>
+                        <p class="font-bold text-center text-orange-400">€59</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-amber-600/20 to-orange-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🧢</span>
-                        <p class="text-xs text-white/70 text-center">Logo Cap</p>
-                        <p class="text-orange-400 font-bold text-center">€19</p>
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-amber-600/20 to-orange-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🧢</span>
+                        <p class="text-xs text-center text-white/70">Logo Cap</p>
+                        <p class="font-bold text-center text-orange-400">€19</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🖼️</span>
-                        <p class="text-xs text-white/70 text-center">Poster Ltd</p>
-                        <p class="text-orange-400 font-bold text-center">€15</p>
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🖼️</span>
+                        <p class="text-xs text-center text-white/70">Poster Ltd</p>
+                        <p class="font-bold text-center text-orange-400">€15</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-violet-600/20 to-purple-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">💿</span>
-                        <p class="text-xs text-white/70 text-center">Vinyl Album</p>
-                        <p class="text-orange-400 font-bold text-center">€35</p>
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-violet-600/20 to-purple-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">💿</span>
+                        <p class="text-xs text-center text-white/70">Vinyl Album</p>
+                        <p class="font-bold text-center text-orange-400">€35</p>
                       </div>
                     </div>
-                    <div class="w-28 sm:w-36 flex-shrink-0">
-                      <div class="bg-gradient-to-br from-cyan-600/20 to-blue-600/20 rounded-xl p-4 border border-white/10">
-                        <span class="text-5xl sm:text-6xl block text-center mb-2">🎵</span>
-                        <p class="text-xs text-white/70 text-center">Digital Pack</p>
-                        <p class="text-orange-400 font-bold text-center">€9</p>
+                    <div class="flex-shrink-0 w-28 sm:w-36">
+                      <div class="p-4 border bg-gradient-to-br from-cyan-600/20 to-blue-600/20 rounded-xl border-white/10">
+                        <span class="block mb-2 text-5xl text-center sm:text-6xl">🎵</span>
+                        <p class="text-xs text-center text-white/70">Digital Pack</p>
+                        <p class="font-bold text-center text-orange-400">€9</p>
                       </div>
                     </div>
                   </div>
@@ -199,31 +197,31 @@ get_header();
               </div>
 
               <!-- Click hint -->
-              <div class="absolute bottom-2 right-3 text-xs text-white/30">Click pe produs pentru demo</div>
+              <div class="absolute text-xs bottom-2 right-3 text-white/30">Click pe produs pentru demo</div>
             </div>
 
             <!-- Bottom: Ticket + Cart Area -->
-            <div class="grid sm:grid-cols-2 gap-4">
+            <div class="grid gap-4 sm:grid-cols-2">
 
               <!-- Ticket (always in cart) -->
-              <div class="p-4 rounded-xl bg-gradient-to-br from-violet-600/10 to-purple-600/10 border border-violet-500/20">
+              <div class="p-4 border rounded-xl bg-gradient-to-br from-violet-600/10 to-purple-600/10 border-violet-500/20">
                 <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-xl bg-violet-600/20 flex items-center justify-center flex-shrink-0">
+                  <div class="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl bg-violet-600/20">
                     <span class="text-3xl">🎫</span>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm text-white font-medium truncate">Bilet VIP Festival</p>
+                    <p class="text-sm font-medium text-white truncate">Bilet VIP Festival</p>
                     <p class="text-xs text-white/50">Întotdeauna în coș</p>
                   </div>
                   <div class="text-right">
-                    <p class="text-violet-400 font-bold">€150</p>
+                    <p class="font-bold text-violet-400">€150</p>
                     <span class="text-xs text-emerald-400">✓</span>
                   </div>
                 </div>
               </div>
 
               <!-- Shopping Cart -->
-              <div class="p-4 rounded-xl bg-dark-800/50 border border-white/10" :class="{ 'animate-cart-shake': cartShake }">
+              <div class="p-4 border rounded-xl bg-dark-800/50 border-white/10" :class="{ 'animate-cart-shake': cartShake }">
                 <div class="flex items-center justify-between mb-3">
                   <div class="flex items-center gap-2">
                     <span class="text-xl">🛒</span>
@@ -253,23 +251,23 @@ get_header();
         </div>
 
         <!-- Price Tag floating -->
-        <div class="absolute -top-2 -right-2 sm:-right-6 bg-emerald-500 text-dark-900 px-4 py-2 rounded-xl font-bold shadow-lg transform rotate-6 animate-float">
+        <div class="absolute px-4 py-2 font-bold transform shadow-lg -top-2 -right-2 sm:-right-6 bg-emerald-500 text-dark-900 rounded-xl rotate-6 animate-float">
           €29/lună
         </div>
 
         <!-- Stats floating left -->
-        <div class="absolute -left-2 sm:-left-8 top-1/2 -translate-y-1/2 bg-dark-900 border border-white/10 rounded-xl p-3 shadow-xl animate-float-delay hidden sm:block">
+        <div class="absolute hidden p-3 -translate-y-1/2 border shadow-xl -left-2 sm:-left-8 top-1/2 bg-dark-900 border-white/10 rounded-xl animate-float-delay sm:block">
           <p class="text-2xl font-bold text-orange-400">+35%</p>
           <p class="text-xs text-white/50">Venit per client</p>
         </div>
       </div>
 
       <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-        <a href="https://core.tixello.com/register" class="px-8 py-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-dark-900 font-semibold hover:shadow-lg hover:shadow-orange-500/30 transition-all">
+      <div class="flex flex-col items-center justify-center gap-4 mt-10 sm:flex-row">
+        <a href="https://core.tixello.com/register" class="px-8 py-4 font-semibold transition-all rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-dark-900 hover:shadow-lg hover:shadow-orange-500/30">
           Deschide Magazinul
         </a>
-        <a href="#functionalitati" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors">
+        <a href="#functionalitati" class="px-8 py-4 font-medium text-white transition-colors border rounded-xl bg-white/5 border-white/10 hover:bg-white/10">
           Vezi funcționalități
         </a>
       </div>
@@ -278,22 +276,22 @@ get_header();
 
   <!-- Key Stats -->
   <section class="relative py-12 border-y border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
         <div class="text-center">
-          <p class="text-3xl sm:text-4xl font-bold text-orange-400 mb-1">∞</p>
+          <p class="mb-1 text-3xl font-bold text-orange-400 sm:text-4xl">∞</p>
           <p class="text-sm text-white/50">Produse Nelimitate</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl sm:text-4xl font-bold text-orange-400 mb-1">4</p>
+          <p class="mb-1 text-3xl font-bold text-orange-400 sm:text-4xl">4</p>
           <p class="text-sm text-white/50">Valute Suportate</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl sm:text-4xl font-bold text-orange-400 mb-1">6</p>
+          <p class="mb-1 text-3xl font-bold text-orange-400 sm:text-4xl">6</p>
           <p class="text-sm text-white/50">Statusuri Comandă</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl sm:text-4xl font-bold text-orange-400 mb-1">15min</p>
+          <p class="mb-1 text-3xl font-bold text-orange-400 sm:text-4xl">15min</p>
           <p class="text-sm text-white/50">Rezervare Stoc</p>
         </div>
       </div>
@@ -302,23 +300,23 @@ get_header();
 
   <!-- Main Features -->
   <section id="functionalitati" class="relative py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600/10 text-orange-400 text-sm font-medium mb-4">Funcționalități Complete</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Tot Ce Ai Nevoie Pentru E-commerce</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">De la gestionarea produselor până la livrare, totul integrat perfect cu platforma de ticketing.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Tot Ce Ai Nevoie Pentru E-commerce</h2>
+        <p class="max-w-2xl mx-auto text-white/50">De la gestionarea produselor până la livrare, totul integrat perfect cu platforma de ticketing.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
         <!-- Feature 1: Product Management -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">📦</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Gestionare Produse</h3>
-          <p class="text-sm text-white/50 mb-4">Vinde produse fizice, digitale și merchandise cu urmărire completă a stocului și variante multiple.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Gestionare Produse</h3>
+          <p class="mb-4 text-sm text-white/50">Vinde produse fizice, digitale și merchandise cu urmărire completă a stocului și variante multiple.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Produse fizice cu stoc</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Produse digitale descărcabile</li>
@@ -328,12 +326,12 @@ get_header();
         </div>
 
         <!-- Feature 2: Inventory -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">📊</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Inventar & Control Stoc</h3>
-          <p class="text-sm text-white/50 mb-4">Monitorizează stocul în timp real cu alerte automate și rezervare inteligentă la checkout.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Inventar & Control Stoc</h3>
+          <p class="mb-4 text-sm text-white/50">Monitorizează stocul în timp real cu alerte automate și rezervare inteligentă la checkout.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Actualizări în timp real</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Alerte stoc redus</li>
@@ -343,12 +341,12 @@ get_header();
         </div>
 
         <!-- Feature 3: Pricing -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">💰</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Prețuri Flexibile</h3>
-          <p class="text-sm text-white/50 mb-4">Setează prețuri promoționale, urmărește costurile și marjele în multiple valute.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Prețuri Flexibile</h3>
+          <p class="mb-4 text-sm text-white/50">Setează prețuri promoționale, urmărește costurile și marjele în multiple valute.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Prețuri promoționale programate</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Urmărire costuri și marje</li>
@@ -358,12 +356,12 @@ get_header();
         </div>
 
         <!-- Feature 4: Shipping -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">🚚</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Livrare & Îndeplinire</h3>
-          <p class="text-sm text-white/50 mb-4">Configurează zone de livrare, metode multiple și urmărește comenzile de la plasare la livrare.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Livrare & Îndeplinire</h3>
+          <p class="mb-4 text-sm text-white/50">Configurează zone de livrare, metode multiple și urmărește comenzile de la plasare la livrare.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Zone livrare personalizate</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Tarif fix / greutate / preț</li>
@@ -373,12 +371,12 @@ get_header();
         </div>
 
         <!-- Feature 5: Event Integration -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">🎫</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Integrare Evenimente</h3>
-          <p class="text-sm text-white/50 mb-4">Leagă produsele de evenimente specifice. Checkout unificat pentru bilete și merchandise.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Integrare Evenimente</h3>
+          <p class="mb-4 text-sm text-white/50">Leagă produsele de evenimente specifice. Checkout unificat pentru bilete și merchandise.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Produse per eveniment</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Checkout combinat</li>
@@ -388,12 +386,12 @@ get_header();
         </div>
 
         <!-- Feature 6: Gift Cards -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">🎁</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Carduri Cadou</h3>
-          <p class="text-sm text-white/50 mb-4">Vinde carduri cadou pentru bilete sau produse. Perfect pentru sărbători și ocazii speciale.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Carduri Cadou</h3>
+          <p class="mb-4 text-sm text-white/50">Vinde carduri cadou pentru bilete sau produse. Perfect pentru sărbători și ocazii speciale.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Valori personalizate</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Email personalizat</li>
@@ -403,12 +401,12 @@ get_header();
         </div>
 
         <!-- Feature 7: Customer Experience -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">⭐</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Experiență Client</h3>
-          <p class="text-sm text-white/50 mb-4">Recenzii produse, wishlist, notificări de stoc și recomandări personalizate.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Experiență Client</h3>
+          <p class="mb-4 text-sm text-white/50">Recenzii produse, wishlist, notificări de stoc și recomandări personalizate.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Recenzii și rating-uri</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Lista de dorințe</li>
@@ -418,12 +416,12 @@ get_header();
         </div>
 
         <!-- Feature 8: Coupons -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">🏷️</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Cupoane & Promoții</h3>
-          <p class="text-sm text-white/50 mb-4">Creează campanii de reduceri cu cupoane unice sau publice și limite de utilizare.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Cupoane & Promoții</h3>
+          <p class="mb-4 text-sm text-white/50">Creează campanii de reduceri cu cupoane unice sau publice și limite de utilizare.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Reducere % sau sumă fixă</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Limite de utilizare</li>
@@ -433,12 +431,12 @@ get_header();
         </div>
 
         <!-- Feature 9: Analytics -->
-        <div class="feature-card relative p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30">
-          <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center mb-4">
+        <div class="relative p-6 border feature-card rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-orange-600/20">
             <span class="text-2xl">📈</span>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Analiză & Rapoarte</h3>
-          <p class="text-sm text-white/50 mb-4">Dashboard cu metrici de vânzări, produse populare și comportament clienți.</p>
+          <h3 class="mb-2 text-lg font-semibold text-white">Analiză & Rapoarte</h3>
+          <p class="mb-4 text-sm text-white/50">Dashboard cu metrici de vânzări, produse populare și comportament clienți.</p>
           <ul class="space-y-2 text-sm text-white/60">
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Vânzări în timp real</li>
             <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Top produse</li>
@@ -452,12 +450,12 @@ get_header();
 
   <!-- Order Flow -->
   <section class="relative py-24 bg-dark-900/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600/10 text-orange-400 text-sm font-medium mb-4">Flux Comenzi</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Ciclul de Viață al Comenzii</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">Urmărește fiecare comandă de la plasare până la livrare cu statusuri clare.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Ciclul de Viață al Comenzii</h2>
+        <p class="max-w-2xl mx-auto text-white/50">Urmărește fiecare comandă de la plasare până la livrare cu statusuri clare.</p>
       </div>
 
       <!-- Order Status Flow -->
@@ -465,78 +463,78 @@ get_header();
         <!-- Connection Line -->
         <div class="hidden lg:block absolute top-8 left-[8%] right-[8%] h-0.5 bg-gradient-to-r from-yellow-500 via-blue-500 via-purple-500 via-cyan-500 to-green-500"></div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-yellow-500/20 border-2 border-yellow-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 border-yellow-500 rounded-full bg-yellow-500/20">
               <span class="text-2xl">⏳</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">În așteptare</h4>
+            <h4 class="mb-1 font-semibold text-white">În așteptare</h4>
             <p class="text-xs text-white/50">Plată în procesare</p>
           </div>
 
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 border-blue-500 rounded-full bg-blue-500/20">
               <span class="text-2xl">🔄</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Procesare</h4>
+            <h4 class="mb-1 font-semibold text-white">Procesare</h4>
             <p class="text-xs text-white/50">Se pregătește</p>
           </div>
 
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/20 border-2 border-purple-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 border-purple-500 rounded-full bg-purple-500/20">
               <span class="text-2xl">📦</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Împachetat</h4>
+            <h4 class="mb-1 font-semibold text-white">Împachetat</h4>
             <p class="text-xs text-white/50">Gata de expediere</p>
           </div>
 
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-cyan-500/20 border-2 border-cyan-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 rounded-full bg-cyan-500/20 border-cyan-500">
               <span class="text-2xl">🚚</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Expediat</h4>
+            <h4 class="mb-1 font-semibold text-white">Expediat</h4>
             <p class="text-xs text-white/50">La curier</p>
           </div>
 
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-green-500/20 border-2 border-green-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 border-green-500 rounded-full bg-green-500/20">
               <span class="text-2xl">✅</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Finalizat</h4>
+            <h4 class="mb-1 font-semibold text-white">Finalizat</h4>
             <p class="text-xs text-white/50">Livrat cu succes</p>
           </div>
 
           <div class="text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center mb-4 relative z-10">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 mx-auto mb-4 border-2 border-red-500 rounded-full bg-red-500/20">
               <span class="text-2xl">❌</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Anulat</h4>
+            <h4 class="mb-1 font-semibold text-white">Anulat</h4>
             <p class="text-xs text-white/50">Sau rambursat</p>
           </div>
         </div>
       </div>
 
       <!-- Order Features -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
-        <div class="p-4 rounded-xl bg-dark-900/50 border border-white/5 text-center">
-          <span class="text-2xl mb-2 block">🔢</span>
+      <div class="grid grid-cols-1 gap-4 mt-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="p-4 text-center border rounded-xl bg-dark-900/50 border-white/5">
+          <span class="block mb-2 text-2xl">🔢</span>
           <p class="text-sm text-white/70">Numere comandă automate</p>
-          <p class="text-orange-400 text-xs mt-1">SH-2024-00001</p>
+          <p class="mt-1 text-xs text-orange-400">SH-2024-00001</p>
         </div>
-        <div class="p-4 rounded-xl bg-dark-900/50 border border-white/5 text-center">
-          <span class="text-2xl mb-2 block">📜</span>
+        <div class="p-4 text-center border rounded-xl bg-dark-900/50 border-white/5">
+          <span class="block mb-2 text-2xl">📜</span>
           <p class="text-sm text-white/70">Istoric detaliat</p>
-          <p class="text-orange-400 text-xs mt-1">Cu marcaje temporale</p>
+          <p class="mt-1 text-xs text-orange-400">Cu marcaje temporale</p>
         </div>
-        <div class="p-4 rounded-xl bg-dark-900/50 border border-white/5 text-center">
-          <span class="text-2xl mb-2 block">📝</span>
+        <div class="p-4 text-center border rounded-xl bg-dark-900/50 border-white/5">
+          <span class="block mb-2 text-2xl">📝</span>
           <p class="text-sm text-white/70">Note interne</p>
-          <p class="text-orange-400 text-xs mt-1">Comunicare echipă</p>
+          <p class="mt-1 text-xs text-orange-400">Comunicare echipă</p>
         </div>
-        <div class="p-4 rounded-xl bg-dark-900/50 border border-white/5 text-center">
-          <span class="text-2xl mb-2 block">📤</span>
+        <div class="p-4 text-center border rounded-xl bg-dark-900/50 border-white/5">
+          <span class="block mb-2 text-2xl">📤</span>
           <p class="text-sm text-white/70">Export în masă</p>
-          <p class="text-orange-400 text-xs mt-1">Pentru fulfillment</p>
+          <p class="mt-1 text-xs text-orange-400">Pentru fulfillment</p>
         </div>
       </div>
     </div>
@@ -544,17 +542,17 @@ get_header();
 
   <!-- Admin Panel Section -->
   <section class="relative py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
 
         <div>
           <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600/10 text-orange-400 text-sm font-medium mb-4">Panou Admin</span>
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 font-display">Control Total Din Dashboard</h2>
-          <p class="text-white/60 mb-8">Accesează toate funcționalitățile magazinului direct din panoul de control. Interfață intuitivă pentru gestionare eficientă.</p>
+          <h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl font-display">Control Total Din Dashboard</h2>
+          <p class="mb-8 text-white/60">Accesează toate funcționalitățile magazinului direct din panoul de control. Interfață intuitivă pentru gestionare eficientă.</p>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-900/50 border border-white/5">
-              <div class="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-900/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-orange-600/20">
                 <span class="text-lg">📦</span>
               </div>
               <div>
@@ -563,8 +561,8 @@ get_header();
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-900/50 border border-white/5">
-              <div class="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-900/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-orange-600/20">
                 <span class="text-lg">🏷️</span>
               </div>
               <div>
@@ -573,8 +571,8 @@ get_header();
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-900/50 border border-white/5">
-              <div class="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-900/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-orange-600/20">
                 <span class="text-lg">📋</span>
               </div>
               <div>
@@ -583,8 +581,8 @@ get_header();
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-900/50 border border-white/5">
-              <div class="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-900/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-orange-600/20">
                 <span class="text-lg">🚚</span>
               </div>
               <div>
@@ -598,19 +596,19 @@ get_header();
         <!-- Mock Dashboard -->
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-amber-600/20 rounded-3xl blur-3xl"></div>
-          <div class="relative rounded-2xl bg-dark-900 border border-white/10 overflow-hidden">
+          <div class="relative overflow-hidden border rounded-2xl bg-dark-900 border-white/10">
             <!-- Dashboard Header -->
-            <div class="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/5">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-orange-600/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-600/20">
                   <span class="text-sm">🛒</span>
                 </div>
                 <span class="font-medium text-white">Magazin Dashboard</span>
               </div>
               <div class="flex items-center gap-2">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
               </div>
             </div>
 
@@ -619,15 +617,15 @@ get_header();
               <!-- Stats Row -->
               <div class="grid grid-cols-3 gap-4 mb-6">
                 <div class="p-3 rounded-lg bg-dark-800/50">
-                  <p class="text-xs text-white/50 mb-1">Comenzi Azi</p>
+                  <p class="mb-1 text-xs text-white/50">Comenzi Azi</p>
                   <p class="text-xl font-bold text-white">24</p>
                 </div>
                 <div class="p-3 rounded-lg bg-dark-800/50">
-                  <p class="text-xs text-white/50 mb-1">Venituri</p>
+                  <p class="mb-1 text-xs text-white/50">Venituri</p>
                   <p class="text-xl font-bold text-orange-400">€1,847</p>
                 </div>
                 <div class="p-3 rounded-lg bg-dark-800/50">
-                  <p class="text-xs text-white/50 mb-1">Produse</p>
+                  <p class="mb-1 text-xs text-white/50">Produse</p>
                   <p class="text-xl font-bold text-white">156</p>
                 </div>
               </div>
@@ -643,7 +641,7 @@ get_header();
                       <p class="text-xs text-white/50">2 produse • €87</p>
                     </div>
                   </div>
-                  <span class="px-2 py-1 rounded-full bg-blue-600/20 text-blue-400 text-xs">Procesare</span>
+                  <span class="px-2 py-1 text-xs text-blue-400 rounded-full bg-blue-600/20">Procesare</span>
                 </div>
                 <div class="flex items-center justify-between p-3 rounded-lg bg-dark-800/30">
                   <div class="flex items-center gap-3">
@@ -653,7 +651,7 @@ get_header();
                       <p class="text-xs text-white/50">1 produs • €35</p>
                     </div>
                   </div>
-                  <span class="px-2 py-1 rounded-full bg-cyan-600/20 text-cyan-400 text-xs">Expediat</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-cyan-600/20 text-cyan-400">Expediat</span>
                 </div>
                 <div class="flex items-center justify-between p-3 rounded-lg bg-dark-800/30">
                   <div class="flex items-center gap-3">
@@ -663,7 +661,7 @@ get_header();
                       <p class="text-xs text-white/50">3 produse • €124</p>
                     </div>
                   </div>
-                  <span class="px-2 py-1 rounded-full bg-green-600/20 text-green-400 text-xs">Finalizat</span>
+                  <span class="px-2 py-1 text-xs text-green-400 rounded-full bg-green-600/20">Finalizat</span>
                 </div>
               </div>
             </div>
@@ -675,23 +673,23 @@ get_header();
 
   <!-- Ticket + Product Integration -->
   <section class="relative py-24 bg-dark-900/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-violet-600/10 text-violet-400 text-sm font-medium mb-4">Integrare Bilete + Produse</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Conectează Produsele cu Biletele</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">Maximizează veniturile prin conectarea inteligentă a produselor cu vânzarea de bilete.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Conectează Produsele cu Biletele</h2>
+        <p class="max-w-2xl mx-auto text-white/50">Maximizează veniturile prin conectarea inteligentă a produselor cu vânzarea de bilete.</p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8">
+      <div class="grid gap-8 lg:grid-cols-2">
 
         <!-- Upsell at Checkout -->
-        <div class="p-8 rounded-3xl bg-gradient-to-br from-violet-600/10 to-purple-600/5 border border-violet-500/20">
-          <div class="w-16 h-16 rounded-2xl bg-violet-600/20 flex items-center justify-center mb-6">
+        <div class="p-8 border rounded-3xl bg-gradient-to-br from-violet-600/10 to-purple-600/5 border-violet-500/20">
+          <div class="flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-violet-600/20">
             <span class="text-4xl">🛍️</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Upsell la Checkout Bilete</h3>
-          <p class="text-white/60 mb-6">Când un client cumpără bilet la un eveniment, îi poți sugera produse relevante din magazin direct în procesul de checkout. Crește valoarea medie a comenzii fără efort suplimentar.</p>
+          <h3 class="mb-4 text-2xl font-bold text-white">Upsell la Checkout Bilete</h3>
+          <p class="mb-6 text-white/60">Când un client cumpără bilet la un eveniment, îi poți sugera produse relevante din magazin direct în procesul de checkout. Crește valoarea medie a comenzii fără efort suplimentar.</p>
 
           <div class="space-y-3">
             <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
@@ -700,15 +698,15 @@ get_header();
                 <p class="text-sm text-white">Bilet Festival VIP</p>
                 <p class="text-xs text-white/50">€150</p>
               </div>
-              <span class="text-emerald-400 text-sm">✓ În coș</span>
+              <span class="text-sm text-emerald-400">✓ În coș</span>
             </div>
-            <div class="flex items-center gap-3 p-3 rounded-xl bg-orange-600/10 border border-orange-500/30">
+            <div class="flex items-center gap-3 p-3 border rounded-xl bg-orange-600/10 border-orange-500/30">
               <span class="text-xl">👕</span>
               <div class="flex-1">
                 <p class="text-sm text-white">Tricou Official Festival</p>
                 <p class="text-xs text-orange-400">+€25 - Recomandat pentru tine</p>
               </div>
-              <button class="px-3 py-1 rounded-lg bg-orange-600 text-white text-xs font-medium">Adaugă</button>
+              <button class="px-3 py-1 text-xs font-medium text-white bg-orange-600 rounded-lg">Adaugă</button>
             </div>
             <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
               <span class="text-xl">🧢</span>
@@ -716,42 +714,42 @@ get_header();
                 <p class="text-sm text-white">Șapcă Limited Edition</p>
                 <p class="text-xs text-white/50">+€15</p>
               </div>
-              <button class="px-3 py-1 rounded-lg bg-white/10 text-white/70 text-xs font-medium">Adaugă</button>
+              <button class="px-3 py-1 text-xs font-medium rounded-lg bg-white/10 text-white/70">Adaugă</button>
             </div>
           </div>
 
-          <div class="mt-6 p-4 rounded-xl bg-violet-600/10 border border-violet-500/20">
+          <div class="p-4 mt-6 border rounded-xl bg-violet-600/10 border-violet-500/20">
             <p class="text-sm text-violet-300"><strong>💡 Rezultat:</strong> În medie +23% valoare per comandă cu upsell activat.</p>
           </div>
         </div>
 
         <!-- Free Product with Ticket -->
-        <div class="p-8 rounded-3xl bg-gradient-to-br from-emerald-600/10 to-teal-600/5 border border-emerald-500/20">
-          <div class="w-16 h-16 rounded-2xl bg-emerald-600/20 flex items-center justify-center mb-6">
+        <div class="p-8 border rounded-3xl bg-gradient-to-br from-emerald-600/10 to-teal-600/5 border-emerald-500/20">
+          <div class="flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-emerald-600/20">
             <span class="text-4xl">🎁</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Produs Gratuit cu Biletul</h3>
-          <p class="text-white/60 mb-6">Conectează produse din magazin cu tipuri specifice de bilete. Când cineva cumpără un bilet VIP, poate primi automat un tricou gratuit sau alt produs inclus.</p>
+          <h3 class="mb-4 text-2xl font-bold text-white">Produs Gratuit cu Biletul</h3>
+          <p class="mb-6 text-white/60">Conectează produse din magazin cu tipuri specifice de bilete. Când cineva cumpără un bilet VIP, poate primi automat un tricou gratuit sau alt produs inclus.</p>
 
           <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div class="p-4 border rounded-xl bg-white/5 border-white/10">
               <div class="flex items-center justify-between mb-3">
                 <span class="text-sm font-medium text-white">Configurare Bundle</span>
                 <span class="px-2 py-0.5 rounded bg-emerald-600/20 text-emerald-400 text-xs">Activ</span>
               </div>
               <div class="flex items-center gap-3">
-                <div class="flex-1 p-3 rounded-lg bg-dark-800/50 text-center">
-                  <span class="text-2xl block mb-1">🎫</span>
+                <div class="flex-1 p-3 text-center rounded-lg bg-dark-800/50">
+                  <span class="block mb-1 text-2xl">🎫</span>
                   <p class="text-xs text-white/70">Bilet VIP</p>
                 </div>
-                <span class="text-white/30 text-xl">+</span>
-                <div class="flex-1 p-3 rounded-lg bg-dark-800/50 text-center">
-                  <span class="text-2xl block mb-1">👕</span>
+                <span class="text-xl text-white/30">+</span>
+                <div class="flex-1 p-3 text-center rounded-lg bg-dark-800/50">
+                  <span class="block mb-1 text-2xl">👕</span>
                   <p class="text-xs text-white/70">Tricou</p>
                 </div>
-                <span class="text-white/30 text-xl">=</span>
-                <div class="flex-1 p-3 rounded-lg bg-emerald-600/20 text-center border border-emerald-500/30">
-                  <span class="text-2xl block mb-1">🎉</span>
+                <span class="text-xl text-white/30">=</span>
+                <div class="flex-1 p-3 text-center border rounded-lg bg-emerald-600/20 border-emerald-500/30">
+                  <span class="block mb-1 text-2xl">🎉</span>
                   <p class="text-xs text-emerald-400">Bundle</p>
                 </div>
               </div>
@@ -769,7 +767,7 @@ get_header();
             </div>
           </div>
 
-          <div class="mt-6 p-4 rounded-xl bg-emerald-600/10 border border-emerald-500/20">
+          <div class="p-4 mt-6 border rounded-xl bg-emerald-600/10 border-emerald-500/20">
             <p class="text-sm text-emerald-300"><strong>💡 Exemplu:</strong> Bilet Gold + Tricou Festival = Pachet complet fără cost suplimentar pentru client.</p>
           </div>
         </div>
@@ -779,51 +777,51 @@ get_header();
 
   <!-- Artist Merch Section -->
   <section class="relative py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
         <div>
           <span class="inline-block px-4 py-1.5 rounded-full bg-pink-600/10 text-pink-400 text-sm font-medium mb-4">Pentru Artiști</span>
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 font-display">Magazin pentru Artiști & Management</h2>
-          <p class="text-white/60 mb-8">Artiștii și echipele lor de management pot vinde merchandise oficial direct prin platformă. Fiecare artist poate avea propriul magazin integrat cu profilul său.</p>
+          <h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl font-display">Magazin pentru Artiști & Management</h2>
+          <p class="mb-8 text-white/60">Artiștii și echipele lor de management pot vinde merchandise oficial direct prin platformă. Fiecare artist poate avea propriul magazin integrat cu profilul său.</p>
 
-          <div class="space-y-4 mb-8">
+          <div class="mb-8 space-y-4">
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-pink-600/20 flex items-center justify-center flex-shrink-0">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-pink-600/20">
                 <span class="text-lg">👕</span>
               </div>
               <div>
-                <h4 class="font-medium text-white mb-1">Merch Oficial Artist</h4>
+                <h4 class="mb-1 font-medium text-white">Merch Oficial Artist</h4>
                 <p class="text-sm text-white/50">Vinde tricouri, hanorace, postere și alte produse cu branding-ul artistului</p>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-pink-600/20 flex items-center justify-center flex-shrink-0">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-pink-600/20">
                 <span class="text-lg">🎵</span>
               </div>
               <div>
-                <h4 class="font-medium text-white mb-1">Conținut Digital Exclusiv</h4>
+                <h4 class="mb-1 font-medium text-white">Conținut Digital Exclusiv</h4>
                 <p class="text-sm text-white/50">Vinde muzică, videoclipuri exclusive, behind-the-scenes și alte materiale digitale</p>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-pink-600/20 flex items-center justify-center flex-shrink-0">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-pink-600/20">
                 <span class="text-lg">📦</span>
               </div>
               <div>
-                <h4 class="font-medium text-white mb-1">Dropshipping & Fulfillment</h4>
+                <h4 class="mb-1 font-medium text-white">Dropshipping & Fulfillment</h4>
                 <p class="text-sm text-white/50">Integrează cu servicii de fulfillment pentru livrare fără stoc propriu</p>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-pink-600/20 flex items-center justify-center flex-shrink-0">
+              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-lg bg-pink-600/20">
                 <span class="text-lg">💰</span>
               </div>
               <div>
-                <h4 class="font-medium text-white mb-1">Revenue Split Automat</h4>
+                <h4 class="mb-1 font-medium text-white">Revenue Split Automat</h4>
                 <p class="text-sm text-white/50">Împarte veniturile automat între artist, management și platformă</p>
               </div>
             </div>
@@ -841,16 +839,16 @@ get_header();
         <!-- Artist Store Mockup -->
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-3xl blur-3xl"></div>
-          <div class="relative rounded-2xl bg-dark-900 border border-white/10 overflow-hidden">
+          <div class="relative overflow-hidden border rounded-2xl bg-dark-900 border-white/10">
             <!-- Store Header -->
             <div class="p-6 border-b border-white/5 bg-gradient-to-r from-pink-600/10 to-purple-600/10">
               <div class="flex items-center gap-4">
-                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-pink-600 to-purple-600">
                   <span class="text-2xl">🎤</span>
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <h4 class="font-bold text-white text-lg">Artist Name</h4>
+                    <h4 class="text-lg font-bold text-white">Artist Name</h4>
                     <span class="text-blue-400">✓</span>
                   </div>
                   <p class="text-sm text-white/50">Official Merchandise Store</p>
@@ -861,40 +859,40 @@ get_header();
             <!-- Products Grid -->
             <div class="p-6">
               <div class="grid grid-cols-2 gap-4">
-                <div class="rounded-xl bg-dark-800/50 overflow-hidden group cursor-pointer">
-                  <div class="aspect-square bg-gradient-to-br from-pink-600/20 to-purple-600/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class="overflow-hidden cursor-pointer rounded-xl bg-dark-800/50 group">
+                  <div class="flex items-center justify-center transition-transform aspect-square bg-gradient-to-br from-pink-600/20 to-purple-600/20 group-hover:scale-105">
                     <span class="text-4xl">👕</span>
                   </div>
                   <div class="p-3">
-                    <p class="text-sm text-white font-medium">Tour 2025 Tee</p>
-                    <p class="text-orange-400 text-sm font-bold">€35</p>
+                    <p class="text-sm font-medium text-white">Tour 2025 Tee</p>
+                    <p class="text-sm font-bold text-orange-400">€35</p>
                   </div>
                 </div>
-                <div class="rounded-xl bg-dark-800/50 overflow-hidden group cursor-pointer">
-                  <div class="aspect-square bg-gradient-to-br from-blue-600/20 to-cyan-600/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class="overflow-hidden cursor-pointer rounded-xl bg-dark-800/50 group">
+                  <div class="flex items-center justify-center transition-transform aspect-square bg-gradient-to-br from-blue-600/20 to-cyan-600/20 group-hover:scale-105">
                     <span class="text-4xl">🧢</span>
                   </div>
                   <div class="p-3">
-                    <p class="text-sm text-white font-medium">Logo Cap</p>
-                    <p class="text-orange-400 text-sm font-bold">€25</p>
+                    <p class="text-sm font-medium text-white">Logo Cap</p>
+                    <p class="text-sm font-bold text-orange-400">€25</p>
                   </div>
                 </div>
-                <div class="rounded-xl bg-dark-800/50 overflow-hidden group cursor-pointer">
-                  <div class="aspect-square bg-gradient-to-br from-amber-600/20 to-orange-600/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class="overflow-hidden cursor-pointer rounded-xl bg-dark-800/50 group">
+                  <div class="flex items-center justify-center transition-transform aspect-square bg-gradient-to-br from-amber-600/20 to-orange-600/20 group-hover:scale-105">
                     <span class="text-4xl">🎵</span>
                   </div>
                   <div class="p-3">
-                    <p class="text-sm text-white font-medium">Album Digital</p>
-                    <p class="text-orange-400 text-sm font-bold">€12</p>
+                    <p class="text-sm font-medium text-white">Album Digital</p>
+                    <p class="text-sm font-bold text-orange-400">€12</p>
                   </div>
                 </div>
-                <div class="rounded-xl bg-dark-800/50 overflow-hidden group cursor-pointer">
-                  <div class="aspect-square bg-gradient-to-br from-emerald-600/20 to-teal-600/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class="overflow-hidden cursor-pointer rounded-xl bg-dark-800/50 group">
+                  <div class="flex items-center justify-center transition-transform aspect-square bg-gradient-to-br from-emerald-600/20 to-teal-600/20 group-hover:scale-105">
                     <span class="text-4xl">📸</span>
                   </div>
                   <div class="p-3">
-                    <p class="text-sm text-white font-medium">Signed Poster</p>
-                    <p class="text-orange-400 text-sm font-bold">€45</p>
+                    <p class="text-sm font-medium text-white">Signed Poster</p>
+                    <p class="text-sm font-bold text-orange-400">€45</p>
                   </div>
                 </div>
               </div>
@@ -907,18 +905,18 @@ get_header();
 
   <!-- Product Attributes & Shipping -->
   <section class="relative py-24 bg-dark-900/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="grid lg:grid-cols-2 gap-12">
+      <div class="grid gap-12 lg:grid-cols-2">
 
         <!-- Product Attributes -->
         <div>
           <span class="inline-block px-4 py-1.5 rounded-full bg-cyan-600/10 text-cyan-400 text-sm font-medium mb-4">Atribute Produse</span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 font-display">Variante Nelimitate pentru Produse</h2>
-          <p class="text-white/60 mb-8">Creează combinații complexe de atribute pentru orice tip de produs. Definește mărimi, culori, materiale și orice alte caracteristici specifice.</p>
+          <h2 class="mb-6 text-2xl font-bold text-white sm:text-3xl font-display">Variante Nelimitate pentru Produse</h2>
+          <p class="mb-8 text-white/60">Creează combinații complexe de atribute pentru orice tip de produs. Definește mărimi, culori, materiale și orice alte caracteristici specifice.</p>
 
           <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/5">
               <div class="flex items-center justify-between mb-3">
                 <span class="font-medium text-white">Mărime</span>
                 <span class="text-xs text-white/50">6 opțiuni</span>
@@ -933,21 +931,21 @@ get_header();
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/5">
               <div class="flex items-center justify-between mb-3">
                 <span class="font-medium text-white">Culoare</span>
                 <span class="text-xs text-white/50">5 opțiuni</span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <span class="w-8 h-8 rounded-full bg-black border-2 border-white/20"></span>
-                <span class="w-8 h-8 rounded-full bg-white border-2 border-white/20"></span>
-                <span class="w-8 h-8 rounded-full bg-red-600 border-2 border-cyan-400"></span>
-                <span class="w-8 h-8 rounded-full bg-blue-600 border-2 border-white/20"></span>
-                <span class="w-8 h-8 rounded-full bg-emerald-600 border-2 border-white/20"></span>
+                <span class="w-8 h-8 bg-black border-2 rounded-full border-white/20"></span>
+                <span class="w-8 h-8 bg-white border-2 rounded-full border-white/20"></span>
+                <span class="w-8 h-8 bg-red-600 border-2 rounded-full border-cyan-400"></span>
+                <span class="w-8 h-8 bg-blue-600 border-2 rounded-full border-white/20"></span>
+                <span class="w-8 h-8 border-2 rounded-full bg-emerald-600 border-white/20"></span>
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5">
+            <div class="p-4 border rounded-xl bg-dark-800/50 border-white/5">
               <div class="flex items-center justify-between mb-3">
                 <span class="font-medium text-white">Material</span>
                 <span class="text-xs text-white/50">Atribut custom</span>
@@ -960,7 +958,7 @@ get_header();
             </div>
           </div>
 
-          <div class="mt-6 p-4 rounded-xl bg-cyan-600/10 border border-cyan-500/20">
+          <div class="p-4 mt-6 border rounded-xl bg-cyan-600/10 border-cyan-500/20">
             <p class="text-sm text-cyan-300"><strong>💡 Flexibilitate:</strong> Creează atribute personalizate pentru orice nevoie: ediții limitate, personalizări, opțiuni de cadou.</p>
           </div>
         </div>
@@ -968,63 +966,63 @@ get_header();
         <!-- Shipping Methods -->
         <div>
           <span class="inline-block px-4 py-1.5 rounded-full bg-amber-600/10 text-amber-400 text-sm font-medium mb-4">Metode Livrare</span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 font-display">Multiple Opțiuni de Livrare</h2>
-          <p class="text-white/60 mb-8">Configurează diferite metode de livrare pentru a acoperi toate nevoile clienților. De la livrare gratuită la opțiuni express.</p>
+          <h2 class="mb-6 text-2xl font-bold text-white sm:text-3xl font-display">Multiple Opțiuni de Livrare</h2>
+          <p class="mb-8 text-white/60">Configurează diferite metode de livrare pentru a acoperi toate nevoile clienților. De la livrare gratuită la opțiuni express.</p>
 
           <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-emerald-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-600/20">
                 <span class="text-2xl">🆓</span>
               </div>
               <div class="flex-1">
                 <h4 class="font-medium text-white">Livrare Gratuită</h4>
                 <p class="text-sm text-white/50">Pentru comenzi peste €50</p>
               </div>
-              <span class="text-emerald-400 font-bold">€0</span>
+              <span class="font-bold text-emerald-400">€0</span>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-blue-600/20">
                 <span class="text-2xl">📦</span>
               </div>
               <div class="flex-1">
                 <h4 class="font-medium text-white">Curier Standard</h4>
                 <p class="text-sm text-white/50">3-5 zile lucrătoare</p>
               </div>
-              <span class="text-white font-bold">€15</span>
+              <span class="font-bold text-white">€15</span>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-orange-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-orange-600/20">
                 <span class="text-2xl">⚡</span>
               </div>
               <div class="flex-1">
                 <h4 class="font-medium text-white">Livrare Express</h4>
                 <p class="text-sm text-white/50">1-2 zile lucrătoare</p>
               </div>
-              <span class="text-white font-bold">€25</span>
+              <span class="font-bold text-white">€25</span>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-purple-600/20">
                 <span class="text-2xl">📍</span>
               </div>
               <div class="flex-1">
                 <h4 class="font-medium text-white">Ridicare la Eveniment</h4>
                 <p class="text-sm text-white/50">Ridică comanda la intrare</p>
               </div>
-              <span class="text-emerald-400 font-bold">€0</span>
+              <span class="font-bold text-emerald-400">€0</span>
             </div>
 
-            <div class="p-4 rounded-xl bg-dark-800/50 border border-white/5 flex items-center gap-4">
-              <div class="w-12 h-12 rounded-xl bg-slate-600/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/5">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-slate-600/20">
                 <span class="text-2xl">⚖️</span>
               </div>
               <div class="flex-1">
                 <h4 class="font-medium text-white">Bazat pe Greutate</h4>
                 <p class="text-sm text-white/50">Calculat automat</p>
               </div>
-              <span class="text-white/50 font-bold">Variabil</span>
+              <span class="font-bold text-white/50">Variabil</span>
             </div>
           </div>
         </div>
@@ -1034,72 +1032,72 @@ get_header();
 
   <!-- Tracking & Analytics Integration -->
   <section class="relative py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-blue-600/10 text-blue-400 text-sm font-medium mb-4">Tracking & Analytics</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Integrare cu Tracking & Analytics</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">Urmărește fiecare vânzare din magazin în platformele tale de advertising pentru optimizare maximă.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Integrare cu Tracking & Analytics</h2>
+        <p class="max-w-2xl mx-auto text-white/50">Urmărește fiecare vânzare din magazin în platformele tale de advertising pentru optimizare maximă.</p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div class="grid items-center gap-8 lg:grid-cols-2">
 
         <!-- Platforms -->
         <div class="grid grid-cols-2 gap-4">
-          <div class="p-6 rounded-2xl bg-dark-900/50 border border-white/5 text-center group hover:border-blue-500/30 transition-colors">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-600/20 to-blue-400/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <div class="p-6 text-center transition-colors border rounded-2xl bg-dark-900/50 border-white/5 group hover:border-blue-500/30">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 transition-transform rounded-2xl bg-gradient-to-br from-blue-600/20 to-blue-400/10 group-hover:scale-110">
               <span class="text-3xl">📊</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Google Analytics</h4>
+            <h4 class="mb-1 font-semibold text-white">Google Analytics</h4>
             <p class="text-xs text-white/50">GA4 E-commerce Events</p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-dark-900/50 border border-white/5 text-center group hover:border-yellow-500/30 transition-colors">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-yellow-600/20 to-yellow-400/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <div class="p-6 text-center transition-colors border rounded-2xl bg-dark-900/50 border-white/5 group hover:border-yellow-500/30">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 transition-transform rounded-2xl bg-gradient-to-br from-yellow-600/20 to-yellow-400/10 group-hover:scale-110">
               <span class="text-3xl">🏷️</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Google Tag Manager</h4>
+            <h4 class="mb-1 font-semibold text-white">Google Tag Manager</h4>
             <p class="text-xs text-white/50">DataLayer Events</p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-dark-900/50 border border-white/5 text-center group hover:border-blue-500/30 transition-colors">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-700/20 to-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <div class="p-6 text-center transition-colors border rounded-2xl bg-dark-900/50 border-white/5 group hover:border-blue-500/30">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 transition-transform rounded-2xl bg-gradient-to-br from-blue-700/20 to-blue-500/10 group-hover:scale-110">
               <span class="text-3xl">📘</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">Meta Pixel</h4>
+            <h4 class="mb-1 font-semibold text-white">Meta Pixel</h4>
             <p class="text-xs text-white/50">Facebook & Instagram Ads</p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-dark-900/50 border border-white/5 text-center group hover:border-pink-500/30 transition-colors">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-pink-600/20 to-pink-400/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <div class="p-6 text-center transition-colors border rounded-2xl bg-dark-900/50 border-white/5 group hover:border-pink-500/30">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 transition-transform rounded-2xl bg-gradient-to-br from-pink-600/20 to-pink-400/10 group-hover:scale-110">
               <span class="text-3xl">🎵</span>
             </div>
-            <h4 class="font-semibold text-white mb-1">TikTok Pixel</h4>
+            <h4 class="mb-1 font-semibold text-white">TikTok Pixel</h4>
             <p class="text-xs text-white/50">TikTok Ads Tracking</p>
           </div>
         </div>
 
         <!-- Events Tracked -->
-        <div class="p-8 rounded-2xl bg-dark-900/50 border border-white/5">
-          <h4 class="font-semibold text-white mb-6">Evenimente urmărite automat:</h4>
+        <div class="p-8 border rounded-2xl bg-dark-900/50 border-white/5">
+          <h4 class="mb-6 font-semibold text-white">Evenimente urmărite automat:</h4>
 
           <div class="flex flex-wrap items-center gap-2 mb-6">
-            <span class="px-3 py-2 rounded-lg bg-blue-600/10 text-blue-400 text-sm font-mono">view_item</span>
+            <span class="px-3 py-2 font-mono text-sm text-blue-400 rounded-lg bg-blue-600/10">view_item</span>
             <span class="text-white/30">→</span>
-            <span class="px-3 py-2 rounded-lg bg-orange-600/10 text-orange-400 text-sm font-mono">add_to_cart</span>
+            <span class="px-3 py-2 font-mono text-sm text-orange-400 rounded-lg bg-orange-600/10">add_to_cart</span>
             <span class="text-white/30">→</span>
-            <span class="px-3 py-2 rounded-lg bg-red-600/10 text-red-400 text-sm font-mono">remove_from_cart</span>
+            <span class="px-3 py-2 font-mono text-sm text-red-400 rounded-lg bg-red-600/10">remove_from_cart</span>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="px-3 py-2 rounded-lg bg-purple-600/10 text-purple-400 text-sm font-mono">begin_checkout</span>
+            <span class="px-3 py-2 font-mono text-sm text-purple-400 rounded-lg bg-purple-600/10">begin_checkout</span>
             <span class="text-white/30">→</span>
-            <span class="px-3 py-2 rounded-lg bg-cyan-600/10 text-cyan-400 text-sm font-mono">add_payment_info</span>
+            <span class="px-3 py-2 font-mono text-sm rounded-lg bg-cyan-600/10 text-cyan-400">add_payment_info</span>
             <span class="text-white/30">→</span>
-            <span class="px-3 py-2 rounded-lg bg-emerald-600/10 text-emerald-400 text-sm font-mono">purchase</span>
+            <span class="px-3 py-2 font-mono text-sm rounded-lg bg-emerald-600/10 text-emerald-400">purchase</span>
           </div>
 
-          <div class="mt-6 p-4 rounded-xl bg-blue-600/10 border border-blue-500/20">
+          <div class="p-4 mt-6 border rounded-xl bg-blue-600/10 border-blue-500/20">
             <p class="text-sm text-blue-300"><strong>🔗 Conectat cu:</strong> Microserviciul Tracking & Analytics (€19/lună)</p>
           </div>
         </div>
@@ -1109,63 +1107,63 @@ get_header();
 
   <!-- Configuration Table -->
   <section class="relative py-24 bg-dark-900/30">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600/10 text-orange-400 text-sm font-medium mb-4">Configurare</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Opțiuni de Configurare</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">Personalizează magazinul să funcționeze exact cum ai nevoie.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Opțiuni de Configurare</h2>
+        <p class="max-w-2xl mx-auto text-white/50">Personalizează magazinul să funcționeze exact cum ai nevoie.</p>
       </div>
 
-      <div class="rounded-2xl bg-dark-900/50 border border-white/5 overflow-hidden">
+      <div class="overflow-hidden border rounded-2xl bg-dark-900/50 border-white/5">
         <table class="w-full">
           <thead>
             <tr class="border-b border-white/5">
-              <th class="px-6 py-4 text-left text-sm font-semibold text-white">Setare</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold text-white hidden sm:table-cell">Descriere</th>
-              <th class="px-6 py-4 text-right text-sm font-semibold text-white">Implicit</th>
+              <th class="px-6 py-4 text-sm font-semibold text-left text-white">Setare</th>
+              <th class="hidden px-6 py-4 text-sm font-semibold text-left text-white sm:table-cell">Descriere</th>
+              <th class="px-6 py-4 text-sm font-semibold text-right text-white">Implicit</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-white/5">
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Monedă</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Moneda principală pentru prețuri</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right">RON</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Monedă</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Moneda principală pentru prețuri</td>
+              <td class="px-6 py-4 text-sm text-right text-orange-400">RON</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">TVA Inclus</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Prețurile includ TVA</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right">Da</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">TVA Inclus</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Prețurile includ TVA</td>
+              <td class="px-6 py-4 text-sm text-right text-orange-400">Da</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Prefix Comandă</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Prefix pentru numere comenzi</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right font-mono">SH</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Prefix Comandă</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Prefix pentru numere comenzi</td>
+              <td class="px-6 py-4 font-mono text-sm text-right text-orange-400">SH</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Prag Stoc Redus</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Alertă când stocul scade sub</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right">5</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Prag Stoc Redus</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Alertă când stocul scade sub</td>
+              <td class="px-6 py-4 text-sm text-right text-orange-400">5</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Rezervare Stoc</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Timp rezervare la checkout</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right">15 min</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Rezervare Stoc</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Timp rezervare la checkout</td>
+              <td class="px-6 py-4 text-sm text-right text-orange-400">15 min</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Recenzii</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Permite recenzii produse</td>
-              <td class="px-6 py-4 text-sm text-white/40 text-right">Nu</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Recenzii</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Permite recenzii produse</td>
+              <td class="px-6 py-4 text-sm text-right text-white/40">Nu</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Wishlist</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Permite funcția wishlist</td>
-              <td class="px-6 py-4 text-sm text-white/40 text-right">Nu</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Wishlist</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Permite funcția wishlist</td>
+              <td class="px-6 py-4 text-sm text-right text-white/40">Nu</td>
             </tr>
             <tr class="hover:bg-white/[0.02]">
-              <td class="px-6 py-4 text-sm text-white font-medium">Mod Checkout</td>
-              <td class="px-6 py-4 text-sm text-white/50 hidden sm:table-cell">Combinat cu bilete sau separat</td>
-              <td class="px-6 py-4 text-sm text-orange-400 text-right">Combinat</td>
+              <td class="px-6 py-4 text-sm font-medium text-white">Mod Checkout</td>
+              <td class="hidden px-6 py-4 text-sm text-white/50 sm:table-cell">Combinat cu bilete sau separat</td>
+              <td class="px-6 py-4 text-sm text-right text-orange-400">Combinat</td>
             </tr>
           </tbody>
         </table>
@@ -1175,36 +1173,36 @@ get_header();
 
   <!-- Use Cases -->
   <section class="relative py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Cazuri de Utilizare</h2>
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Cazuri de Utilizare</h2>
         <p class="text-white/50">Perfect pentru orice tip de organizator.</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
-        <div class="p-6 rounded-xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <span class="text-4xl mb-4 block">🎪</span>
-          <h3 class="font-semibold text-white mb-2">Festivaluri</h3>
+        <div class="p-6 transition-colors border rounded-xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <span class="block mb-4 text-4xl">🎪</span>
+          <h3 class="mb-2 font-semibold text-white">Festivaluri</h3>
           <p class="text-sm text-white/50">Tricouri, hanorace, accesorii. Vinde înainte, în timpul și după festival cu ridicare la intrare.</p>
         </div>
 
-        <div class="p-6 rounded-xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <span class="text-4xl mb-4 block">🎤</span>
-          <h3 class="font-semibold text-white mb-2">Concerte & Tururi</h3>
+        <div class="p-6 transition-colors border rounded-xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <span class="block mb-4 text-4xl">🎤</span>
+          <h3 class="mb-2 font-semibold text-white">Concerte & Tururi</h3>
           <p class="text-sm text-white/50">Merch de turneu, ediții limitate per oraș, vinyls și conținut digital exclusiv.</p>
         </div>
 
-        <div class="p-6 rounded-xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <span class="text-4xl mb-4 block">🎭</span>
-          <h3 class="font-semibold text-white mb-2">Teatre & Cinematografe</h3>
+        <div class="p-6 transition-colors border rounded-xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <span class="block mb-4 text-4xl">🎭</span>
+          <h3 class="mb-2 font-semibold text-white">Teatre & Cinematografe</h3>
           <p class="text-sm text-white/50">Programe, afișe, carduri cadou pentru spectacole și abonamente.</p>
         </div>
 
-        <div class="p-6 rounded-xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <span class="text-4xl mb-4 block">🎓</span>
-          <h3 class="font-semibold text-white mb-2">Conferințe</h3>
+        <div class="p-6 transition-colors border rounded-xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <span class="block mb-4 text-4xl">🎓</span>
+          <h3 class="mb-2 font-semibold text-white">Conferințe</h3>
           <p class="text-sm text-white/50">Materiale pentru participanți, cărți, recording-uri video și pachete sponsor.</p>
         </div>
       </div>
@@ -1213,51 +1211,51 @@ get_header();
 
   <!-- Getting Started -->
   <section class="relative py-24 bg-dark-900/30">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
 
-      <div class="text-center mb-16">
+      <div class="mb-16 text-center">
         <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600/10 text-orange-400 text-sm font-medium mb-4">Ghid Rapid</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">Cum Să Începi</h2>
-        <p class="text-white/50 max-w-2xl mx-auto">Urmează acești pași simpli pentru a-ți lansa magazinul.</p>
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl font-display">Cum Să Începi</h2>
+        <p class="max-w-2xl mx-auto text-white/50">Urmează acești pași simpli pentru a-ți lansa magazinul.</p>
       </div>
 
       <div class="space-y-4">
-        <div class="flex gap-4 p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center flex-shrink-0 font-bold text-white">1</div>
+        <div class="flex gap-4 p-6 transition-colors border rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold text-white bg-orange-600 rounded-full">1</div>
           <div>
-            <h4 class="font-semibold text-white mb-1">Activează Microserviciul</h4>
+            <h4 class="mb-1 font-semibold text-white">Activează Microserviciul</h4>
             <p class="text-sm text-white/50">Activează Magazinul în setările tenant-ului din panoul de control.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center flex-shrink-0 font-bold text-white">2</div>
+        <div class="flex gap-4 p-6 transition-colors border rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold text-white bg-orange-600 rounded-full">2</div>
           <div>
-            <h4 class="font-semibold text-white mb-1">Configurează Setările</h4>
+            <h4 class="mb-1 font-semibold text-white">Configurează Setările</h4>
             <p class="text-sm text-white/50">Configurează numele magazinului, moneda și setările de taxare.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center flex-shrink-0 font-bold text-white">3</div>
+        <div class="flex gap-4 p-6 transition-colors border rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold text-white bg-orange-600 rounded-full">3</div>
           <div>
-            <h4 class="font-semibold text-white mb-1">Adaugă Produse</h4>
+            <h4 class="mb-1 font-semibold text-white">Adaugă Produse</h4>
             <p class="text-sm text-white/50">Creează primele produse cu imagini, descrieri, variante și prețuri.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 p-6 rounded-2xl bg-dark-900/50 border border-white/5 hover:border-orange-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center flex-shrink-0 font-bold text-white">4</div>
+        <div class="flex gap-4 p-6 transition-colors border rounded-2xl bg-dark-900/50 border-white/5 hover:border-orange-500/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold text-white bg-orange-600 rounded-full">4</div>
           <div>
-            <h4 class="font-semibold text-white mb-1">Configurează Livrarea</h4>
+            <h4 class="mb-1 font-semibold text-white">Configurează Livrarea</h4>
             <p class="text-sm text-white/50">Definește zonele și metodele de livrare pentru produsele fizice.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 p-6 rounded-2xl bg-gradient-to-r from-orange-600/20 to-amber-600/10 border border-orange-500/30">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center flex-shrink-0 font-bold text-dark-900">5</div>
+        <div class="flex gap-4 p-6 border rounded-2xl bg-gradient-to-r from-orange-600/20 to-amber-600/10 border-orange-500/30">
+          <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-gradient-to-br from-orange-500 to-amber-500 text-dark-900">5</div>
           <div>
-            <h4 class="font-semibold text-white mb-1">Testează & Lansează!</h4>
+            <h4 class="mb-1 font-semibold text-white">Testează & Lansează!</h4>
             <p class="text-sm text-white/50">Plasează o comandă de test pentru a verifica fluxul, apoi lansează magazinul! 🚀</p>
           </div>
         </div>
@@ -1270,21 +1268,21 @@ get_header();
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-orange-950/20 to-transparent"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-600/20 rounded-full blur-3xl"></div>
 
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 font-display">
+    <div class="relative max-w-4xl px-4 mx-auto text-center sm:px-6 lg:px-8">
+      <h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl font-display">
         Gata Să-ți Crești Veniturile?
       </h2>
-      <p class="text-lg text-white/60 mb-10 max-w-2xl mx-auto">
+      <p class="max-w-2xl mx-auto mb-10 text-lg text-white/60">
         Activează microserviciul Magazin și începe să vinzi merchandise, produse digitale și carduri cadou astăzi.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://core.tixello.com/register" class="group px-8 py-4 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-500 hover:shadow-lg hover:shadow-orange-600/30 transition-all flex items-center gap-2">
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href="https://core.tixello.com/register" class="flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all bg-orange-600 group rounded-xl hover:bg-orange-500 hover:shadow-lg hover:shadow-orange-600/30">
           Activează pentru €29/lună
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
         </a>
-        <a href="/contact" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
+        <a href="/contact" class="px-8 py-4 font-semibold text-white transition-all border rounded-xl bg-white/5 border-white/10 hover:bg-white/10">
           Întrebări? Contactează-ne
         </a>
       </div>

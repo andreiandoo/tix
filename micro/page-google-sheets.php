@@ -112,7 +112,7 @@ $t = [
 	'team_collab_desc'     => $current_lang === 'ro' ? 'Share native în Google Sheets. Finance, marketing, operațiuni - toți pe aceleași date.' : 'Native sharing in Google Sheets. Finance, marketing, operations - all on the same data.',
 
 	// Testimonial
-	'testimonial'          => $current_lang === 'ro' ? 'În fiecare dimineață la 6:00, raportul de vânzări apare <span class="text-gradient-sheets font-semibold">automat în Sheets</span>. Când ajung la birou, dashboard-ul e deja actualizat. Zero muncă manuală.' : 'Every morning at 6:00, the sales report appears <span class="text-gradient-sheets font-semibold">automatically in Sheets</span>. When I get to the office, the dashboard is already updated. Zero manual work.',
+	'testimonial'          => $current_lang === 'ro' ? 'În fiecare dimineață la 6:00, raportul de vânzări apare <span class="font-semibold text-gradient-sheets">automat în Sheets</span>. Când ajung la birou, dashboard-ul e deja actualizat. Zero muncă manuală.' : 'Every morning at 6:00, the sales report appears <span class="font-semibold text-gradient-sheets">automatically in Sheets</span>. When I get to the office, the dashboard is already updated. Zero manual work.',
 
 	// Final CTA
 	'final_desc'           => $current_lang === 'ro' ? 'Sincronizare real-time, export programat, mapare personalizată. Spreadsheet-uri care lucrează pentru tine.' : 'Real-time sync, scheduled export, custom mapping. Spreadsheets that work for you.',
@@ -128,8 +128,6 @@ $t = [
 
   .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #a78bfa 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .text-gradient-sheets { background: linear-gradient(135deg, #34A853 0%, #188038 50%, #34A853 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
-
-  .noise::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.02; pointer-events: none; z-index: 1000; }
 
   .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
@@ -239,31 +237,31 @@ $t = [
   }
 </style>
 
-<main class="noise font-body bg-dark-900 text-zinc-200 overflow-x-hidden">
+<main class="overflow-x-hidden font-body bg-dark-900 text-zinc-200">
 
   <!-- ==================== HERO ==================== -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+  <section class="relative flex items-center min-h-screen pt-20 overflow-hidden">
     <!-- Background -->
     <div class="absolute w-[800px] h-[800px] bg-sheets-green/10 rounded-full -top-60 -right-60 blur-[150px] pointer-events-none"></div>
     <div class="absolute w-[600px] h-[600px] bg-sheets-dark/10 rounded-full bottom-0 -left-40 blur-[150px] pointer-events-none"></div>
 
     <!-- Floating elements -->
-    <div class="absolute top-32 left-16 opacity-30 animate-float text-2xl">📊</div>
-    <div class="absolute bottom-40 right-24 opacity-20 animate-float text-xl" style="animation-delay: 1s;">📈</div>
-    <div class="absolute top-1/2 right-16 opacity-10 animate-float text-3xl" style="animation-delay: 2s;">📋</div>
+    <div class="absolute text-2xl top-32 left-16 opacity-30 animate-float">📊</div>
+    <div class="absolute text-xl bottom-40 right-24 opacity-20 animate-float" style="animation-delay: 1s;">📈</div>
+    <div class="absolute text-3xl top-1/2 right-16 opacity-10 animate-float" style="animation-delay: 2s;">📋</div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="px-6 py-20 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         <!-- Hero Content -->
         <div class="reveal">
           <!-- Badge -->
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-sheets-green/10 border border-sheets-green/20 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-sheets-green/10 border-sheets-green/20">
             <svg class="w-5 h-5 text-sheets-green" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
               <path d="M7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm4-8h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6z"/>
             </svg>
-            <span class="text-sheets-green text-sm font-medium"><?php echo esc_html( $t['badge'] ); ?></span>
+            <span class="text-sm font-medium text-sheets-green"><?php echo esc_html( $t['badge'] ); ?></span>
           </div>
 
           <!-- Heading -->
@@ -272,20 +270,20 @@ $t = [
           </h1>
 
           <!-- Description -->
-          <p class="text-xl text-white/60 mb-8 leading-relaxed max-w-xl">
+          <p class="max-w-xl mb-8 text-xl leading-relaxed text-white/60">
             <?php echo $t['hero_desc']; ?>
           </p>
 
           <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mb-12">
-            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-sheets-green text-white hover:bg-sheets-dark hover:scale-105 hover:shadow-glow-sheets transition-all duration-300">
+            <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full group bg-sheets-green hover:bg-sheets-dark hover:scale-105 hover:shadow-glow-sheets">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
                 <path d="M7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm4-8h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6z"/>
               </svg>
               <?php echo esc_html( $t['cta_connect'] ); ?>
             </a>
-            <a href="#functii" class="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+            <a href="#functii" class="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
               <?php echo esc_html( $t['cta_features'] ); ?>
             </a>
           </div>
@@ -293,16 +291,16 @@ $t = [
           <!-- Stats -->
           <div class="grid grid-cols-3 gap-6">
             <div>
-              <div class="text-3xl font-display font-bold text-sheets-green">Real-time</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['sync_label'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-sheets-green">Real-time</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['sync_label'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-white">4</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['export_types'] ); ?></div>
+              <div class="text-3xl font-bold text-white font-display">4</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['export_types'] ); ?></div>
             </div>
             <div>
-              <div class="text-3xl font-display font-bold text-sheets-green">Auto</div>
-              <div class="text-white/40 text-sm"><?php echo esc_html( $t['scheduling'] ); ?></div>
+              <div class="text-3xl font-bold font-display text-sheets-green">Auto</div>
+              <div class="text-sm text-white/40"><?php echo esc_html( $t['scheduling'] ); ?></div>
             </div>
           </div>
         </div>
@@ -332,7 +330,7 @@ $t = [
           }, 4000)">
 
             <!-- Main Spreadsheet Card -->
-            <div class="bg-dark-800/80 backdrop-blur-xl rounded-2xl border border-sheets-green/20 shadow-2xl overflow-hidden">
+            <div class="overflow-hidden border shadow-2xl bg-dark-800/80 backdrop-blur-xl rounded-2xl border-sheets-green/20">
               <!-- Toolbar -->
               <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-dark-900/50">
                 <div class="flex items-center gap-3">
@@ -341,8 +339,8 @@ $t = [
                     <path d="M7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm4-8h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6z"/>
                   </svg>
                   <div>
-                    <div class="text-white text-sm font-medium"><?php echo esc_html( $t['report_title'] ); ?></div>
-                    <div class="text-white/40 text-xs">Sheet1</div>
+                    <div class="text-sm font-medium text-white"><?php echo esc_html( $t['report_title'] ); ?></div>
+                    <div class="text-xs text-white/40">Sheet1</div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
@@ -358,29 +356,29 @@ $t = [
                 <!-- Column Headers -->
                 <div class="flex">
                   <div class="row-number">&nbsp;</div>
-                  <div class="column-header flex-1">A</div>
-                  <div class="column-header flex-1">B</div>
-                  <div class="column-header flex-1">C</div>
-                  <div class="column-header flex-1">D</div>
+                  <div class="flex-1 column-header">A</div>
+                  <div class="flex-1 column-header">B</div>
+                  <div class="flex-1 column-header">C</div>
+                  <div class="flex-1 column-header">D</div>
                 </div>
 
                 <!-- Header Row -->
                 <div class="flex spreadsheet-header">
-                  <div class="row-number flex items-center justify-center">1</div>
-                  <div class="spreadsheet-cell flex-1 text-white font-medium"><?php echo esc_html( $t['order'] ); ?></div>
-                  <div class="spreadsheet-cell flex-1 text-white font-medium"><?php echo esc_html( $t['email'] ); ?></div>
-                  <div class="spreadsheet-cell flex-1 text-white font-medium"><?php echo esc_html( $t['total'] ); ?></div>
-                  <div class="spreadsheet-cell flex-1 text-white font-medium"><?php echo esc_html( $t['status'] ); ?></div>
+                  <div class="flex items-center justify-center row-number">1</div>
+                  <div class="flex-1 font-medium text-white spreadsheet-cell"><?php echo esc_html( $t['order'] ); ?></div>
+                  <div class="flex-1 font-medium text-white spreadsheet-cell"><?php echo esc_html( $t['email'] ); ?></div>
+                  <div class="flex-1 font-medium text-white spreadsheet-cell"><?php echo esc_html( $t['total'] ); ?></div>
+                  <div class="flex-1 font-medium text-white spreadsheet-cell"><?php echo esc_html( $t['status'] ); ?></div>
                 </div>
 
                 <!-- Data Rows -->
                 <template x-for="(row, index) in rows" :key="row.id">
                   <div class="flex spreadsheet-row">
-                    <div class="row-number flex items-center justify-center" x-text="index + 2"></div>
-                    <div class="spreadsheet-cell flex-1 text-white/80 font-mono text-xs" x-text="row.id"></div>
-                    <div class="spreadsheet-cell flex-1 text-white/60 text-xs truncate" x-text="row.email"></div>
-                    <div class="spreadsheet-cell flex-1 text-sheets-green font-medium" x-text="row.total"></div>
-                    <div class="spreadsheet-cell flex-1">
+                    <div class="flex items-center justify-center row-number" x-text="index + 2"></div>
+                    <div class="flex-1 font-mono text-xs spreadsheet-cell text-white/80" x-text="row.id"></div>
+                    <div class="flex-1 text-xs truncate spreadsheet-cell text-white/60" x-text="row.email"></div>
+                    <div class="flex-1 font-medium spreadsheet-cell text-sheets-green" x-text="row.total"></div>
+                    <div class="flex-1 spreadsheet-cell">
                       <span
                         class="px-2 py-0.5 rounded text-xs"
                         :class="row.status === 'Plătit' ? 'bg-sheets-green/20 text-sheets-green' : 'bg-brand-amber/20 text-brand-amber'"
@@ -391,29 +389,29 @@ $t = [
                 </template>
 
                 <!-- New Row Indicator -->
-                <div class="flex spreadsheet-row opacity-50 border-t border-sheets-green/30">
-                  <div class="row-number flex items-center justify-center" x-text="rows.length + 2"></div>
-                  <div class="spreadsheet-cell flex-1 text-sheets-green/50 italic text-xs"><?php echo esc_html( $t['new_order'] ); ?></div>
-                  <div class="spreadsheet-cell flex-1"></div>
-                  <div class="spreadsheet-cell flex-1"></div>
-                  <div class="spreadsheet-cell flex-1"></div>
+                <div class="flex border-t opacity-50 spreadsheet-row border-sheets-green/30">
+                  <div class="flex items-center justify-center row-number" x-text="rows.length + 2"></div>
+                  <div class="flex-1 text-xs italic spreadsheet-cell text-sheets-green/50"><?php echo esc_html( $t['new_order'] ); ?></div>
+                  <div class="flex-1 spreadsheet-cell"></div>
+                  <div class="flex-1 spreadsheet-cell"></div>
+                  <div class="flex-1 spreadsheet-cell"></div>
                 </div>
               </div>
 
               <!-- Footer -->
-              <div class="px-4 py-2 border-t border-white/10 bg-dark-900/30 flex items-center justify-between">
-                <span class="text-white/40 text-xs" x-text="rowCount + ' <?php echo esc_js( $t['rows_synced'] ); ?>'"></span>
-                <span class="text-sheets-green text-xs font-medium">● Live</span>
+              <div class="flex items-center justify-between px-4 py-2 border-t border-white/10 bg-dark-900/30">
+                <span class="text-xs text-white/40" x-text="rowCount + ' <?php echo esc_js( $t['rows_synced'] ); ?>'"></span>
+                <span class="text-xs font-medium text-sheets-green">● Live</span>
               </div>
             </div>
 
             <!-- Floating Real-time Badge -->
-            <div class="absolute -top-4 -right-4 bg-sheets-green rounded-xl px-4 py-3 shadow-xl animate-float z-10">
+            <div class="absolute z-10 px-4 py-3 shadow-xl -top-4 -right-4 bg-sheets-green rounded-xl animate-float">
               <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 <div>
-                  <div class="text-white font-bold text-sm">Real-time</div>
-                  <div class="text-white/70 text-xs"><?php echo esc_html( $t['sync_active'] ); ?></div>
+                  <div class="text-sm font-bold text-white">Real-time</div>
+                  <div class="text-xs text-white/70"><?php echo esc_html( $t['sync_active'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -421,12 +419,12 @@ $t = [
             <!-- Floating Schedule Badge -->
             <div class="absolute -bottom-4 -left-4 bg-dark-800 rounded-xl px-4 py-3 border border-sheets-green/30 shadow-xl animate-float [animation-delay:1s] z-10">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-sheets-green/20 flex items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-sheets-green/20">
                   <svg class="w-4 h-4 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <div>
-                  <div class="text-sheets-green text-sm font-medium"><?php echo esc_html( $t['daily_at'] ); ?></div>
-                  <div class="text-white/40 text-xs"><?php echo esc_html( $t['auto_export'] ); ?></div>
+                  <div class="text-sm font-medium text-sheets-green"><?php echo esc_html( $t['daily_at'] ); ?></div>
+                  <div class="text-xs text-white/40"><?php echo esc_html( $t['auto_export'] ); ?></div>
                 </div>
               </div>
             </div>
@@ -437,70 +435,70 @@ $t = [
   </section>
 
   <!-- ==================== DATA TYPES ==================== -->
-  <section class="py-24 relative overflow-hidden" id="functii">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden" id="functii">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-sheets-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['data_types_badge'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['data_types_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['data_types_title2'] ); ?></span></h2>
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-sheets-green"><?php echo esc_html( $t['data_types_badge'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['data_types_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['data_types_title2'] ); ?></span></h2>
         <p class="text-lg text-white/60"><?php echo esc_html( $t['data_types_desc'] ); ?></p>
       </div>
 
       <!-- Data Type Cards -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 reveal">
         <!-- Orders -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-sheets-green/20 hover:border-sheets-green/50 transition-all duration-500">
-          <div class="data-type-icon bg-sheets-green/10 mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-sheets-green/20 hover:border-sheets-green/50">
+          <div class="mb-4 data-type-icon bg-sheets-green/10">
             <svg class="w-6 h-6 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['orders'] ); ?></h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['orders_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['orders'] ); ?></h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['orders_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">order_id</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">total</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">status</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">order_id</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">total</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">status</span>
           </div>
         </div>
 
         <!-- Tickets -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-violet/20 hover:border-brand-violet/50 transition-all duration-500">
-          <div class="data-type-icon bg-brand-violet/10 mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-violet/20 hover:border-brand-violet/50">
+          <div class="mb-4 data-type-icon bg-brand-violet/10">
             <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['tickets'] ); ?></h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['tickets_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['tickets'] ); ?></h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['tickets_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">ticket_id</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">attendee</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">checked_in</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">ticket_id</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">attendee</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">checked_in</span>
           </div>
         </div>
 
         <!-- Customers -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-cyan/20 hover:border-brand-cyan/50 transition-all duration-500">
-          <div class="data-type-icon bg-brand-cyan/10 mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-cyan/20 hover:border-brand-cyan/50">
+          <div class="mb-4 data-type-icon bg-brand-cyan/10">
             <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['customers'] ); ?></h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['customers_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['customers'] ); ?></h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['customers_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">email</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">purchases</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">lifetime</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">email</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">purchases</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">lifetime</span>
           </div>
         </div>
 
         <!-- Events -->
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-brand-amber/20 hover:border-brand-amber/50 transition-all duration-500">
-          <div class="data-type-icon bg-brand-amber/10 mb-4">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-brand-amber/20 hover:border-brand-amber/50">
+          <div class="mb-4 data-type-icon bg-brand-amber/10">
             <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['events'] ); ?></h3>
-          <p class="text-white/50 text-sm mb-4"><?php echo esc_html( $t['events_desc'] ); ?></p>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['events'] ); ?></h3>
+          <p class="mb-4 text-sm text-white/50"><?php echo esc_html( $t['events_desc'] ); ?></p>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">event_id</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">revenue</span>
-            <span class="px-2 py-1 rounded bg-white/5 text-white/40 text-xs">attendance</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">event_id</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">revenue</span>
+            <span class="px-2 py-1 text-xs rounded bg-white/5 text-white/40">attendance</span>
           </div>
         </div>
       </div>
@@ -508,53 +506,53 @@ $t = [
   </section>
 
   <!-- ==================== SYNC MODES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Content -->
         <div class="reveal">
-          <span class="text-sheets-green text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['sync_modes_badge'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['sync_desc'] ); ?></p>
+          <span class="text-sm font-medium tracking-widest uppercase text-sheets-green"><?php echo esc_html( $t['sync_modes_badge'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['sync_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['sync_title2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['sync_desc'] ); ?></p>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-sheets-green/10 border border-sheets-green/30">
-              <div class="w-12 h-12 rounded-xl bg-sheets-green/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-sheets-green/10 border-sheets-green/30">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-sheets-green/20">
                 <svg class="w-6 h-6 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['realtime'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['realtime_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['realtime'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['realtime_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-violet/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-violet/20">
                 <svg class="w-6 h-6 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['scheduled'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['scheduled_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['scheduled'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['scheduled_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-cyan/20">
                 <svg class="w-6 h-6 text-brand-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['incremental'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['incremental_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['incremental'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['incremental_desc'] ); ?></p>
               </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/10">
-              <div class="w-12 h-12 rounded-xl bg-brand-amber/20 flex items-center justify-center flex-shrink-0">
+            <div class="flex items-center gap-4 p-4 border rounded-xl bg-dark-800/50 border-white/10">
+              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-amber/20">
                 <svg class="w-6 h-6 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               </div>
               <div>
-                <span class="text-white font-medium"><?php echo esc_html( $t['full_sync'] ); ?></span>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['full_sync_desc'] ); ?></p>
+                <span class="font-medium text-white"><?php echo esc_html( $t['full_sync'] ); ?></span>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['full_sync_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -562,43 +560,43 @@ $t = [
 
         <!-- Visual - Schedule Config -->
         <div class="reveal reveal-delay-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-sheets-green/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-sheets-green/20">
                 <svg class="w-5 h-5 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['schedule_title'] ); ?></div>
-                <div class="text-white/40 text-xs"><?php echo esc_html( $t['schedule_desc'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['schedule_title'] ); ?></div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['schedule_desc'] ); ?></div>
               </div>
             </div>
 
             <!-- Frequency Options -->
-            <div class="space-y-3 mb-6">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['frequency'] ); ?></div>
+            <div class="mb-6 space-y-3">
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['frequency'] ); ?></div>
               <div class="grid grid-cols-4 gap-2">
-                <button class="py-2 px-3 rounded-lg bg-dark-900/50 border border-white/10 text-white/60 text-sm hover:border-sheets-green/50 transition-colors"><?php echo esc_html( $t['hourly'] ); ?></button>
-                <button class="py-2 px-3 rounded-lg bg-sheets-green/20 border border-sheets-green text-sheets-green text-sm font-medium"><?php echo esc_html( $t['daily'] ); ?></button>
-                <button class="py-2 px-3 rounded-lg bg-dark-900/50 border border-white/10 text-white/60 text-sm hover:border-sheets-green/50 transition-colors"><?php echo esc_html( $t['weekly'] ); ?></button>
-                <button class="py-2 px-3 rounded-lg bg-dark-900/50 border border-white/10 text-white/60 text-sm hover:border-sheets-green/50 transition-colors"><?php echo esc_html( $t['monthly'] ); ?></button>
+                <button class="px-3 py-2 text-sm transition-colors border rounded-lg bg-dark-900/50 border-white/10 text-white/60 hover:border-sheets-green/50"><?php echo esc_html( $t['hourly'] ); ?></button>
+                <button class="px-3 py-2 text-sm font-medium border rounded-lg bg-sheets-green/20 border-sheets-green text-sheets-green"><?php echo esc_html( $t['daily'] ); ?></button>
+                <button class="px-3 py-2 text-sm transition-colors border rounded-lg bg-dark-900/50 border-white/10 text-white/60 hover:border-sheets-green/50"><?php echo esc_html( $t['weekly'] ); ?></button>
+                <button class="px-3 py-2 text-sm transition-colors border rounded-lg bg-dark-900/50 border-white/10 text-white/60 hover:border-sheets-green/50"><?php echo esc_html( $t['monthly'] ); ?></button>
               </div>
             </div>
 
             <!-- Time -->
-            <div class="space-y-3 mb-6">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['time'] ); ?></div>
+            <div class="mb-6 space-y-3">
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['time'] ); ?></div>
               <div class="flex items-center gap-2">
-                <div class="flex-1 p-3 rounded-lg bg-dark-900/50 border border-white/10">
-                  <span class="text-white font-mono">06:00</span>
+                <div class="flex-1 p-3 border rounded-lg bg-dark-900/50 border-white/10">
+                  <span class="font-mono text-white">06:00</span>
                 </div>
-                <span class="text-white/40 text-sm">Europe/Bucharest</span>
+                <span class="text-sm text-white/40">Europe/Bucharest</span>
               </div>
             </div>
 
             <!-- Data Type -->
-            <div class="space-y-3 mb-6">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['data_type'] ); ?></div>
-              <select class="w-full p-3 rounded-lg bg-dark-900/50 border border-white/10 text-white appearance-none">
+            <div class="mb-6 space-y-3">
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['data_type'] ); ?></div>
+              <select class="w-full p-3 text-white border rounded-lg appearance-none bg-dark-900/50 border-white/10">
                 <option><?php echo esc_html( $t['orders'] ); ?></option>
                 <option><?php echo esc_html( $t['tickets'] ); ?></option>
                 <option><?php echo esc_html( $t['customers'] ); ?></option>
@@ -608,20 +606,20 @@ $t = [
 
             <!-- Scheduled Jobs -->
             <div class="space-y-2">
-              <div class="text-white/40 text-xs uppercase tracking-wider"><?php echo esc_html( $t['active_jobs'] ); ?></div>
-              <div class="p-3 rounded-lg bg-sheets-green/10 border border-sheets-green/30 flex items-center justify-between">
+              <div class="text-xs tracking-wider uppercase text-white/40"><?php echo esc_html( $t['active_jobs'] ); ?></div>
+              <div class="flex items-center justify-between p-3 border rounded-lg bg-sheets-green/10 border-sheets-green/30">
                 <div class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-sheets-green animate-pulse"></span>
-                  <span class="text-white text-sm"><?php echo esc_html( $t['daily_orders'] ); ?></span>
+                  <span class="text-sm text-white"><?php echo esc_html( $t['daily_orders'] ); ?></span>
                 </div>
-                <span class="text-sheets-green text-xs">06:00</span>
+                <span class="text-xs text-sheets-green">06:00</span>
               </div>
-              <div class="p-3 rounded-lg bg-dark-900/50 border border-white/10 flex items-center justify-between">
+              <div class="flex items-center justify-between p-3 border rounded-lg bg-dark-900/50 border-white/10">
                 <div class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
-                  <span class="text-white/70 text-sm"><?php echo esc_html( $t['weekly_summary'] ); ?></span>
+                  <span class="text-sm text-white/70"><?php echo esc_html( $t['weekly_summary'] ); ?></span>
                 </div>
-                <span class="text-white/40 text-xs"><?php echo esc_html( $t['monday'] ); ?> 08:00</span>
+                <span class="text-xs text-white/40"><?php echo esc_html( $t['monday'] ); ?> 08:00</span>
               </div>
             </div>
           </div>
@@ -631,82 +629,82 @@ $t = [
   </section>
 
   <!-- ==================== COLUMN MAPPING ==================== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section class="relative py-24 overflow-hidden">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <!-- Visual - Column Mapping UI -->
-        <div class="reveal order-2 lg:order-1">
-          <div class="bg-dark-800 rounded-2xl p-6 border border-white/10">
+        <div class="order-2 reveal lg:order-1">
+          <div class="p-6 border bg-dark-800 rounded-2xl border-white/10">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-brand-violet/20 flex items-center justify-center">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-violet/20">
                 <svg class="w-5 h-5 text-brand-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
               <div>
-                <div class="text-white font-semibold"><?php echo esc_html( $t['column_mapping'] ); ?></div>
-                <div class="text-white/40 text-xs"><?php echo esc_html( $t['column_mapping_desc'] ); ?></div>
+                <div class="font-semibold text-white"><?php echo esc_html( $t['column_mapping'] ); ?></div>
+                <div class="text-xs text-white/40"><?php echo esc_html( $t['column_mapping_desc'] ); ?></div>
               </div>
             </div>
 
             <!-- Mapping Rows -->
             <div class="space-y-4">
               <div class="flex items-center gap-4">
-                <div class="flex-1 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/30">
-                  <div class="text-brand-violet text-xs uppercase mb-1">Tixello</div>
-                  <div class="text-white font-mono text-sm">order_number</div>
+                <div class="flex-1 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/30">
+                  <div class="mb-1 text-xs uppercase text-brand-violet">Tixello</div>
+                  <div class="font-mono text-sm text-white">order_number</div>
                 </div>
-                <div class="w-16 flex items-center justify-center">
-                  <div class="mapping-line w-full"></div>
+                <div class="flex items-center justify-center w-16">
+                  <div class="w-full mapping-line"></div>
                 </div>
-                <div class="flex-1 p-3 rounded-lg bg-sheets-green/10 border border-sheets-green/30">
-                  <div class="text-sheets-green text-xs uppercase mb-1">Sheets</div>
-                  <div class="text-white font-mono text-sm">Nr. Comandă</div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-4">
-                <div class="flex-1 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/30">
-                  <div class="text-brand-violet text-xs uppercase mb-1">Tixello</div>
-                  <div class="text-white font-mono text-sm">customer_email</div>
-                </div>
-                <div class="w-16 flex items-center justify-center">
-                  <div class="mapping-line w-full"></div>
-                </div>
-                <div class="flex-1 p-3 rounded-lg bg-sheets-green/10 border border-sheets-green/30">
-                  <div class="text-sheets-green text-xs uppercase mb-1">Sheets</div>
-                  <div class="text-white font-mono text-sm">Email Client</div>
+                <div class="flex-1 p-3 border rounded-lg bg-sheets-green/10 border-sheets-green/30">
+                  <div class="mb-1 text-xs uppercase text-sheets-green">Sheets</div>
+                  <div class="font-mono text-sm text-white">Nr. Comandă</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-4">
-                <div class="flex-1 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/30">
-                  <div class="text-brand-violet text-xs uppercase mb-1">Tixello</div>
-                  <div class="text-white font-mono text-sm">total_amount</div>
+                <div class="flex-1 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/30">
+                  <div class="mb-1 text-xs uppercase text-brand-violet">Tixello</div>
+                  <div class="font-mono text-sm text-white">customer_email</div>
                 </div>
-                <div class="w-16 flex items-center justify-center">
-                  <div class="mapping-line w-full"></div>
+                <div class="flex items-center justify-center w-16">
+                  <div class="w-full mapping-line"></div>
                 </div>
-                <div class="flex-1 p-3 rounded-lg bg-sheets-green/10 border border-sheets-green/30">
-                  <div class="text-sheets-green text-xs uppercase mb-1">Sheets</div>
-                  <div class="text-white font-mono text-sm">Total (€)</div>
+                <div class="flex-1 p-3 border rounded-lg bg-sheets-green/10 border-sheets-green/30">
+                  <div class="mb-1 text-xs uppercase text-sheets-green">Sheets</div>
+                  <div class="font-mono text-sm text-white">Email Client</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-4">
-                <div class="flex-1 p-3 rounded-lg bg-brand-violet/10 border border-brand-violet/30">
-                  <div class="text-brand-violet text-xs uppercase mb-1">Tixello</div>
-                  <div class="text-white font-mono text-sm">payment_status</div>
+                <div class="flex-1 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/30">
+                  <div class="mb-1 text-xs uppercase text-brand-violet">Tixello</div>
+                  <div class="font-mono text-sm text-white">total_amount</div>
                 </div>
-                <div class="w-16 flex items-center justify-center">
-                  <div class="mapping-line w-full"></div>
+                <div class="flex items-center justify-center w-16">
+                  <div class="w-full mapping-line"></div>
                 </div>
-                <div class="flex-1 p-3 rounded-lg bg-sheets-green/10 border border-sheets-green/30">
-                  <div class="text-sheets-green text-xs uppercase mb-1">Sheets</div>
-                  <div class="text-white font-mono text-sm">Status Plată</div>
+                <div class="flex-1 p-3 border rounded-lg bg-sheets-green/10 border-sheets-green/30">
+                  <div class="mb-1 text-xs uppercase text-sheets-green">Sheets</div>
+                  <div class="font-mono text-sm text-white">Total (€)</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="flex-1 p-3 border rounded-lg bg-brand-violet/10 border-brand-violet/30">
+                  <div class="mb-1 text-xs uppercase text-brand-violet">Tixello</div>
+                  <div class="font-mono text-sm text-white">payment_status</div>
+                </div>
+                <div class="flex items-center justify-center w-16">
+                  <div class="w-full mapping-line"></div>
+                </div>
+                <div class="flex-1 p-3 border rounded-lg bg-sheets-green/10 border-sheets-green/30">
+                  <div class="mb-1 text-xs uppercase text-sheets-green">Sheets</div>
+                  <div class="font-mono text-sm text-white">Status Plată</div>
                 </div>
               </div>
 
               <!-- Add field button -->
-              <button class="w-full p-3 rounded-lg border border-dashed border-white/20 text-white/40 text-sm hover:border-sheets-green/50 hover:text-sheets-green transition-colors">
+              <button class="w-full p-3 text-sm transition-colors border border-dashed rounded-lg border-white/20 text-white/40 hover:border-sheets-green/50 hover:text-sheets-green">
                 <?php echo esc_html( $t['add_field'] ); ?>
               </button>
             </div>
@@ -714,10 +712,10 @@ $t = [
         </div>
 
         <!-- Content -->
-        <div class="reveal order-1 lg:order-2">
-          <span class="text-brand-violet text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['mapping_badge'] ); ?></span>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['mapping_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['mapping_title2'] ); ?></span></h2>
-          <p class="text-lg text-white/60 mb-8"><?php echo esc_html( $t['mapping_desc'] ); ?></p>
+        <div class="order-1 reveal lg:order-2">
+          <span class="text-sm font-medium tracking-widest uppercase text-brand-violet"><?php echo esc_html( $t['mapping_badge'] ); ?></span>
+          <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['mapping_title'] ); ?><br><span class="text-gradient-sheets"><?php echo esc_html( $t['mapping_title2'] ); ?></span></h2>
+          <p class="mb-8 text-lg text-white/60"><?php echo esc_html( $t['mapping_desc'] ); ?></p>
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -725,8 +723,8 @@ $t = [
                 <svg class="w-4 h-4 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['select_fields'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['select_fields_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['select_fields'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['select_fields_desc'] ); ?></p>
               </div>
             </div>
 
@@ -735,8 +733,8 @@ $t = [
                 <svg class="w-4 h-4 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['rename_headers'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['rename_headers_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['rename_headers'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['rename_headers_desc'] ); ?></p>
               </div>
             </div>
 
@@ -745,8 +743,8 @@ $t = [
                 <svg class="w-4 h-4 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['set_order'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['set_order_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['set_order'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['set_order_desc'] ); ?></p>
               </div>
             </div>
 
@@ -755,8 +753,8 @@ $t = [
                 <svg class="w-4 h-4 text-sheets-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="text-white font-medium"><?php echo esc_html( $t['format_dates'] ); ?></div>
-                <p class="text-white/50 text-sm"><?php echo esc_html( $t['format_dates_desc'] ); ?></p>
+                <div class="font-medium text-white"><?php echo esc_html( $t['format_dates'] ); ?></div>
+                <p class="text-sm text-white/50"><?php echo esc_html( $t['format_dates_desc'] ); ?></p>
               </div>
             </div>
           </div>
@@ -766,59 +764,59 @@ $t = [
   </section>
 
   <!-- ==================== USE CASES ==================== -->
-  <section class="py-24 bg-dark-850 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-        <span class="text-brand-cyan text-sm font-medium uppercase tracking-widest"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
+  <section class="relative py-24 bg-dark-850">
+    <div class="px-6 mx-auto max-w-7xl lg:px-8">
+      <div class="max-w-3xl mx-auto mb-16 text-center reveal">
+        <span class="text-sm font-medium tracking-widest uppercase text-brand-cyan"><?php echo esc_html( $t['usecases_badge'] ); ?></span>
+        <h2 class="mt-4 mb-6 text-4xl font-bold text-white font-display md:text-5xl"><?php echo esc_html( $t['usecases_title'] ); ?><br><span class="text-gradient animate-shimmer"><?php echo esc_html( $t['usecases_title2'] ); ?></span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-sheets-green/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sheets-green/20 to-sheets-green/10 flex items-center justify-center mb-4"><span class="text-2xl">📊</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sales_dashboard'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['sales_dashboard_desc'] ); ?></p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-sheets-green/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-sheets-green/20 to-sheets-green/10"><span class="text-2xl">📊</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['sales_dashboard'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['sales_dashboard_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-amber/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10 flex items-center justify-center mb-4"><span class="text-2xl">💰</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['finance_reports'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['finance_reports_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-amber/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-amber/20 to-brand-amber/10"><span class="text-2xl">💰</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['finance_reports'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['finance_reports_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-violet/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10 flex items-center justify-center mb-4"><span class="text-2xl">🎯</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['marketing_analysis'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['marketing_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-violet/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-violet/20 to-brand-violet/10"><span class="text-2xl">🎯</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['marketing_analysis'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['marketing_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-cyan/30 transition-all duration-500 reveal">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 flex items-center justify-center mb-4"><span class="text-2xl">📋</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['event_day_ops'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['event_day_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-cyan/30 reveal">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10"><span class="text-2xl">📋</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['event_day_ops'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['event_day_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-brand-rose/30 transition-all duration-500 reveal reveal-delay-1">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10 flex items-center justify-center mb-4"><span class="text-2xl">📈</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['sponsor_reports'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['sponsor_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-brand-rose/30 reveal reveal-delay-1">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-rose/20 to-brand-rose/10"><span class="text-2xl">📈</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['sponsor_reports'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['sponsor_desc'] ); ?></p>
         </div>
 
-        <div class="feature-card relative bg-dark-800/50 rounded-2xl p-6 border border-white/10 hover:border-google-blue/30 transition-all duration-500 reveal reveal-delay-2">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-google-blue/20 to-google-blue/10 flex items-center justify-center mb-4"><span class="text-2xl">🤝</span></div>
-          <h3 class="text-xl font-semibold text-white mb-2"><?php echo esc_html( $t['team_collab'] ); ?></h3>
-          <p class="text-white/50 text-sm"><?php echo esc_html( $t['team_collab_desc'] ); ?></p>
+        <div class="relative p-6 transition-all duration-500 border feature-card bg-dark-800/50 rounded-2xl border-white/10 hover:border-google-blue/30 reveal reveal-delay-2">
+          <div class="flex items-center justify-center mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-google-blue/20 to-google-blue/10"><span class="text-2xl">🤝</span></div>
+          <h3 class="mb-2 text-xl font-semibold text-white"><?php echo esc_html( $t['team_collab'] ); ?></h3>
+          <p class="text-sm text-white/50"><?php echo esc_html( $t['team_collab_desc'] ); ?></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== TESTIMONIAL ==================== -->
-  <section class="py-24 relative">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+  <section class="relative py-24">
+    <div class="max-w-4xl px-6 mx-auto lg:px-8">
       <div class="relative reveal">
         <div class="absolute -top-6 -left-6 text-8xl text-white/5 font-display">"</div>
-        <div class="bg-gradient-to-br from-sheets-green/10 to-sheets-dark/10 rounded-3xl p-8 md:p-12 border border-sheets-green/20">
+        <div class="p-8 border bg-gradient-to-br from-sheets-green/10 to-sheets-dark/10 rounded-3xl md:p-12 border-sheets-green/20">
           <div class="flex items-center gap-1 mb-6">
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -826,12 +824,12 @@ $t = [
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg class="w-6 h-6 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <blockquote class="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+          <blockquote class="mb-8 text-2xl font-light leading-relaxed text-white md:text-3xl">
             "<?php echo $t['testimonial']; ?>"
           </blockquote>
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-sheets-green to-sheets-dark flex items-center justify-center">
-              <span class="text-white font-bold">RM</span>
+            <div class="flex items-center justify-center rounded-full w-14 h-14 bg-gradient-to-br from-sheets-green to-sheets-dark">
+              <span class="font-bold text-white">RM</span>
             </div>
             <div>
               <div class="font-semibold text-white">Raluca M.</div>
@@ -844,31 +842,31 @@ $t = [
   </section>
 
   <!-- ==================== FINAL CTA ==================== -->
-  <section class="py-32 relative overflow-hidden">
+  <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-sheets-green/10 via-transparent to-sheets-dark/10"></div>
     <div class="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[150px] pointer-events-none" style="background: radial-gradient(circle, rgba(52,168,83,0.2) 0%, transparent 70%);"></div>
 
-    <div class="absolute top-20 left-20 opacity-20 animate-float text-4xl">📊</div>
-    <div class="absolute bottom-20 right-20 opacity-20 animate-float text-3xl" style="animation-delay: 1s;">📈</div>
+    <div class="absolute text-4xl top-20 left-20 opacity-20 animate-float">📊</div>
+    <div class="absolute text-3xl bottom-20 right-20 opacity-20 animate-float" style="animation-delay: 1s;">📈</div>
 
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-      <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 reveal">Google<br><span class="text-gradient-sheets">Sheets</span></h2>
-      <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
+    <div class="relative max-w-4xl px-6 mx-auto text-center lg:px-8">
+      <h2 class="mb-6 text-5xl font-bold text-white font-display md:text-7xl reveal">Google<br><span class="text-gradient-sheets">Sheets</span></h2>
+      <p class="max-w-2xl mx-auto mb-10 text-xl text-white/60 reveal reveal-delay-1"><?php echo esc_html( $t['final_desc'] ); ?></p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-2">
-        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="group inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-sheets-green text-white hover:bg-sheets-dark hover:scale-105 hover:shadow-glow-sheets transition-all duration-300">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row reveal reveal-delay-2">
+        <a href="<?php echo esc_url(home_url('/signup')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full group bg-sheets-green hover:bg-sheets-dark hover:scale-105 hover:shadow-glow-sheets">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
             <path d="M7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm4-8h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6z"/>
           </svg>
           <?php echo esc_html( $t['cta_connect'] ); ?>
         </a>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 font-semibold text-lg px-10 py-4 rounded-full bg-transparent text-white border border-white/20 hover:bg-white/10 transition-all duration-300">
+        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="inline-flex items-center justify-center gap-2 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 bg-transparent border rounded-full border-white/20 hover:bg-white/10">
           <?php echo esc_html( $t['cta_questions'] ); ?>
         </a>
       </div>
 
-      <p class="text-white/30 text-sm mt-8 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
+      <p class="mt-8 text-sm text-white/30 reveal reveal-delay-3"><?php echo esc_html( $t['final_tagline'] ); ?></p>
     </div>
   </section>
 

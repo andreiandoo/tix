@@ -16,6 +16,7 @@
 
 		gtag('config', 'G-3QWH3K2WB2');
 	</script>
+	<meta name='impact-site-verification' value='bcae8305-997a-4d18-bd8c-cbe1033a9b1e'>
 	<!-- Alpine.js Plugins (must load before Alpine core) -->
 	<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>

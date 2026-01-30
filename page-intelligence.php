@@ -236,14 +236,8 @@ $t = [
 get_header();
 ?>
 
-<!-- Scroll Progress -->
-<div class="int-scroll-progress" :style="`transform: scaleX(${scrollProgress / 100})`"></div>
-
 <!-- Noise overlay -->
 <div class="int-noise-overlay"></div>
-
-<!-- Scanline effect -->
-<div class="int-scanline"></div>
 
 <!-- Aurora Background -->
 <div class="int-aurora">

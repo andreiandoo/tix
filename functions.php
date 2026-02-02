@@ -2573,7 +2573,7 @@ function tixello_get_artist_by_slug_cached( $slug ) {
  */
 class EPAS_Changelog {
 
-    private const API_URL = 'https://api.epas.ro/api/v1/public/changelog';
+    private const API_URL = 'https://core.tixello.com/api/v1/public/changelog';
     private const API_KEY = '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
     private const CACHE_TTL = 300; // Cache 5 minute
 

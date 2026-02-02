@@ -2583,10 +2583,14 @@ class EPAS_Changelog {
     public static function fetch(array $params = []): array {
         $cacheKey = 'epas_changelog_' . md5(json_encode($params));
 
-        $cached = get_transient($cacheKey);
-        if ($cached !== false) {
-            return $cached;
+        if (function_exists('get_transient')) {
+            $cached = get_transient($cacheKey);
+            if ($cached !== false) {
+                return $cached;
+            }
         }
+        
+        $params['api_key'] = self::API_KEY;
 
         $url = self::API_URL . '?' . http_build_query($params);
         $response = self::makeRequest($url);

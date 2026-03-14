@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * Clear Tixello API cache from wp-admin.
+ * Usage: /wp-admin/?clear_tixello_cache=1
+ */
+add_action( 'admin_init', function() {
+	if ( isset( $_GET['clear_tixello_cache'] ) && current_user_can( 'manage_options' ) ) {
+		delete_transient( 'tixello_public_data' );
+		wp_die( 'Transient deleted! Stats will refresh on next page load.' );
+	}
+});
+
+/**
  * Theme setup.
  */
 function tailpress_setup() {

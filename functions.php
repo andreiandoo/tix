@@ -1930,7 +1930,7 @@ function tixello_fetch_venues_core() {
         ? TIXELLO_API_KEY
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
-    $base_url = 'https://core.tixello.com/api/v1/public/venues';
+    $base_url = 'https://core.tixello.com/api/v1/public/venues-map';
 
     $all   = [];
     $page  = 1;
@@ -2047,7 +2047,7 @@ function tixello_fetch_public_data_core() {
         return $static_cache;
     }
 
-    // Încearcă din transient (cache la nivel de site, ex: 60 sec.)
+    // Încearcă din transient (cache 24 ore – endpoint-ul /summary cachează server-side tot 24h)
     $cached = get_transient( 'tixello_public_data' );
     if ( $cached && is_array( $cached ) ) {
         $static_cache = $cached;
@@ -2058,7 +2058,7 @@ function tixello_fetch_public_data_core() {
         ? TIXELLO_API_KEY
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
-    $url = 'https://core.tixello.com/api/v1/public/data';
+    $url = 'https://core.tixello.com/api/v1/public/summary';
 
     $response = wp_remote_get(
         $url,
@@ -2076,15 +2076,42 @@ function tixello_fetch_public_data_core() {
     }
 
     $body = wp_remote_retrieve_body( $response );
-    $data = json_decode( $body, true );
+    $raw  = json_decode( $body, true );
 
-    if ( ! is_array( $data ) ) {
+    if ( ! is_array( $raw ) ) {
         $static_cache = [];
         return [];
     }
 
-    // Cache 60 secunde (poți crește, ex. 300 pentru 5 min)
-    set_transient( 'tixello_public_data', $data, 60 );
+    // Flatten nested summary into a flat array for backward compatibility with shortcodes
+    $data = [
+        'tickets_sold'         => $raw['tickets_sold'] ?? 0,
+        'customers'            => $raw['customers'] ?? 0,
+        'venues'               => $raw['venues']['total'] ?? 0,
+        'venues_with_coords'   => $raw['venues']['with_coordinates'] ?? 0,
+        'venues_cities_on_map' => $raw['venues']['cities_on_map'] ?? 0,
+        'venues_cities_list'   => $raw['venues']['cities_list'] ?? [],
+        'events'               => $raw['events']['total'] ?? 0,
+        'events_upcoming'      => $raw['events']['upcoming'] ?? 0,
+        'events_this_month'    => $raw['events']['upcoming_this_month'] ?? 0,
+        'artists'              => $raw['artists']['total'] ?? 0,
+        'artists_active'       => $raw['artists']['active'] ?? 0,
+        'tenants'              => $raw['tenants']['total'] ?? 0,
+        'tenants_active'       => $raw['tenants']['active'] ?? 0,
+        'orders'               => $raw['orders']['total'] ?? 0,
+        'orders_paid'          => $raw['orders']['paid'] ?? 0,
+        'cached_at'            => $raw['cached_at'] ?? '',
+    ];
+
+    // Păstrăm și cheile originale dacă API-ul le trimite flat (backward compat)
+    foreach ( ['event_genres','event_types','venue_categories','venue_types','artist_genres','artist_types','microservices','affiliates','orders_total_cents','orders_paid_total_cents'] as $k ) {
+        if ( isset( $raw[ $k ] ) ) {
+            $data[ $k ] = $raw[ $k ];
+        }
+    }
+
+    // Cache 24 ore (se aliniază cu cache-ul server-side al endpoint-ului /summary)
+    set_transient( 'tixello_public_data', $data, DAY_IN_SECONDS );
     $static_cache = $data;
 
     return $data;

@@ -77,7 +77,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
     $response = wp_remote_get(
-        'https://core.tixello.com/api/v1/public/venues',
+        'https://core.tixello.com/api/v1/public/venues-map',
         [
             'headers' => [
                 'X-API-Key' => $api_key,

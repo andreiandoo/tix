@@ -9,6 +9,36 @@ add_action( 'admin_init', function() {
 		delete_transient( 'tixello_public_data' );
 		wp_die( 'Transient deleted! Stats will refresh on next page load.' );
 	}
+
+	// Debug: /wp-admin/?tixello_debug=1
+	if ( isset( $_GET['tixello_debug'] ) && current_user_can( 'manage_options' ) ) {
+		$api_key = defined( 'TIXELLO_API_KEY' )
+			? TIXELLO_API_KEY
+			: '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
+
+		$url = 'https://core.tixello.com/api/v1/public/summary';
+		$response = wp_remote_get( $url, [
+			'headers' => [ 'X-API-Key' => $api_key ],
+			'timeout' => 15,
+		]);
+
+		$out  = '<h2>Tixello API Debug</h2>';
+		$out .= '<p><strong>API Key (first 10 chars):</strong> ' . esc_html( substr( $api_key, 0, 10 ) ) . '...</p>';
+		$out .= '<p><strong>URL:</strong> ' . esc_html( $url ) . '</p>';
+
+		if ( is_wp_error( $response ) ) {
+			$out .= '<p style="color:red"><strong>WP_Error:</strong> ' . esc_html( $response->get_error_message() ) . '</p>';
+		} else {
+			$code = wp_remote_retrieve_response_code( $response );
+			$body = wp_remote_retrieve_body( $response );
+			$out .= '<p><strong>HTTP Status:</strong> ' . esc_html( $code ) . '</p>';
+			$out .= '<p><strong>Cached transient exists:</strong> ' . ( get_transient( 'tixello_public_data' ) ? 'YES' : 'NO' ) . '</p>';
+			$out .= '<h3>Response Body:</h3>';
+			$out .= '<pre style="background:#f0f0f0;padding:15px;max-height:500px;overflow:auto">' . esc_html( $body ) . '</pre>';
+		}
+
+		wp_die( $out, 'Tixello Debug' );
+	}
 });
 
 /**
@@ -2082,13 +2112,16 @@ function tixello_fetch_public_data_core() {
     );
 
     if ( is_wp_error( $response ) ) {
+        error_log( '[Tixello Summary] WP_Error: ' . $response->get_error_message() );
         $static_cache = [];
         return [];
     }
 
     // Check HTTP status — don't cache error responses (e.g. 500)
     $http_code = wp_remote_retrieve_response_code( $response );
+    error_log( '[Tixello Summary] HTTP ' . $http_code . ' from ' . $url );
     if ( $http_code < 200 || $http_code >= 300 ) {
+        error_log( '[Tixello Summary] Error body: ' . wp_remote_retrieve_body( $response ) );
         $static_cache = [];
         return [];
     }

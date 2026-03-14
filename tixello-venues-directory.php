@@ -77,7 +77,7 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
     $response = wp_remote_get(
-        'https://core.tixello.com/api/v1/public/venues-map',
+        'https://core.tixello.com/api/v1/public/venues',
         [
             'headers' => [
                 'X-API-Key' => $api_key,
@@ -251,10 +251,16 @@ foreach ( $venues as $v ) {
 
     $first_letter = strtoupper( mb_substr( $name, 0, 1 ) );
 
-    // Get coordinates — prefer API values, fallback to city lookup
-    $lat = isset( $v['lat'] ) ? (float) $v['lat'] : null;
-    $lng = isset( $v['lng'] ) ? (float) $v['lng'] : null;
-    if ( ! $lat && ! $lng && $city && isset( $city_coords[ $city ] ) ) {
+    // Get coordinates — prefer API location, then top-level lat/lng, then city lookup
+    $lat = null;
+    $lng = null;
+    if ( ! empty( $v['location']['latitude'] ) && ! empty( $v['location']['longitude'] ) ) {
+        $lat = (float) $v['location']['latitude'];
+        $lng = (float) $v['location']['longitude'];
+    } elseif ( isset( $v['lat'] ) && isset( $v['lng'] ) ) {
+        $lat = (float) $v['lat'];
+        $lng = (float) $v['lng'];
+    } elseif ( $city && isset( $city_coords[ $city ] ) ) {
         $lat = $city_coords[ $city ]['lat'];
         $lng = $city_coords[ $city ]['lng'];
     }

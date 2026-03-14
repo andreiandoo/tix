@@ -1626,8 +1626,10 @@ function tixello_ajax_load_artists() {
         }
 
         $image_url = '';
-        if ( ! empty( $a['media']['image_url'] ) ) {
-            $path = $a['media']['image_url'];
+        $raw_image = ! empty( $a['images']['main_image_url'] ) ? $a['images']['main_image_url']
+                   : ( ! empty( $a['media']['image_url'] ) ? $a['media']['image_url'] : '' );
+        if ( ! empty( $raw_image ) ) {
+            $path = $raw_image;
             if ( ! preg_match( '#^https?://#i', $path ) ) {
                 $path = ltrim( $path, '/' );
                 $image_url = $STORAGE_BASE . $path;
@@ -1971,10 +1973,81 @@ function tixello_fetch_venues_core() {
         ? TIXELLO_API_KEY
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
-    $url = 'https://core.tixello.com/api/v1/public/venues-map';
+    $base_url = 'https://core.tixello.com/api/v1/public/venues';
+
+    $all   = [];
+    $page  = 1;
+    $max_pages_safety = 50;
+
+    while ( $page <= $max_pages_safety ) {
+        $url = add_query_arg( [ 'page' => $page, 'per_page' => 100 ], $base_url );
+
+        $response = wp_remote_get(
+            $url,
+            [
+                'headers' => [ 'X-API-Key' => $api_key ],
+                'timeout' => 20,
+            ]
+        );
+
+        if ( is_wp_error( $response ) ) {
+            break;
+        }
+
+        $http_code = wp_remote_retrieve_response_code( $response );
+        if ( $http_code < 200 || $http_code >= 300 ) {
+            break;
+        }
+
+        $body = wp_remote_retrieve_body( $response );
+        $data = json_decode( $body, true );
+
+        if ( ! is_array( $data ) ) {
+            break;
+        }
+
+        $items = isset( $data['data'] ) && is_array( $data['data'] ) ? $data['data'] : [];
+
+        if ( empty( $items ) ) {
+            break;
+        }
+
+        foreach ( $items as $item ) {
+            if ( is_array( $item ) ) {
+                $all[] = $item;
+            }
+        }
+
+        if ( isset( $data['pagination']['current_page'], $data['pagination']['last_page'] ) ) {
+            if ( (int) $data['pagination']['current_page'] >= (int) $data['pagination']['last_page'] ) {
+                break;
+            }
+            $page = (int) $data['pagination']['current_page'] + 1;
+        } else {
+            break;
+        }
+    }
+
+    $cached = $all;
+    return $all;
+}
+
+/**
+ * Fetch venues for map display (lightweight, with coordinates).
+ */
+function tixello_fetch_venues_map() {
+    static $cached = null;
+
+    if ( ! is_null( $cached ) ) {
+        return $cached;
+    }
+
+    $api_key = defined( 'TIXELLO_API_KEY' )
+        ? TIXELLO_API_KEY
+        : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
     $response = wp_remote_get(
-        $url,
+        'https://core.tixello.com/api/v1/public/venues-map',
         [
             'headers' => [ 'X-API-Key' => $api_key ],
             'timeout' => 20,
@@ -1995,20 +2068,7 @@ function tixello_fetch_venues_core() {
     $body = wp_remote_retrieve_body( $response );
     $data = json_decode( $body, true );
 
-    if ( ! is_array( $data ) ) {
-        $cached = [];
-        return [];
-    }
-
-    // Response: { pins: [...], total: N, cities: [...], cities_count: N }
-    if ( isset( $data['pins'] ) && is_array( $data['pins'] ) ) {
-        $cached = $data['pins'];
-    } elseif ( isset( $data['data'] ) && is_array( $data['data'] ) ) {
-        $cached = $data['data'];
-    } else {
-        $cached = $data;
-    }
-
+    $cached = ( is_array( $data ) && isset( $data['pins'] ) ) ? $data['pins'] : [];
     return $cached;
 }
 

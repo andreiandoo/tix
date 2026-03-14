@@ -2075,6 +2075,13 @@ function tixello_fetch_public_data_core() {
         return [];
     }
 
+    // Check HTTP status — don't cache error responses (e.g. 500)
+    $http_code = wp_remote_retrieve_response_code( $response );
+    if ( $http_code < 200 || $http_code >= 300 ) {
+        $static_cache = [];
+        return [];
+    }
+
     $body = wp_remote_retrieve_body( $response );
     $raw  = json_decode( $body, true );
 

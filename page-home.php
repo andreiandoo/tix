@@ -669,45 +669,62 @@ get_header();
                 $stats_data  = tixello_fetch_public_data_core();
                 $s_events    = number_format_i18n( intval( $stats_data['events'] ?? 0 ) );
                 $s_customers = number_format_i18n( intval( $stats_data['customers'] ?? 0 ) );
+                $s_tickets   = number_format_i18n( intval( $stats_data['tickets_sold'] ?? 0 ) );
                 $s_eur       = number_format( floatval( $stats_data['revenue_total_eur'] ?? 0 ), 0, '.', ',' );
                 $s_ron       = number_format( floatval( $stats_data['revenue_total_ron'] ?? 0 ), 0, '.', ',' );
             ?>
-            <div class="flex flex-wrap items-center justify-center max-w-5xl gap-x-10 gap-y-6 mx-auto mb-16 anim-fade-up delay-650 sm:mb-20">
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-pink-500/10">
-                        <svg class="w-5 h-5 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
-                        </svg>
+            <div class="max-w-5xl mx-auto mb-16 anim-fade-up delay-650 sm:mb-20">
+                <p class="mb-5 text-xs tracking-widest text-center uppercase text-white/30">Procesate prin platforma Tixello</p>
+                <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-pink-500/10">
+                            <svg class="w-5 h-5 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_events ); ?></span>
+                            <p class="text-xs tracking-wide uppercase text-white/40">Evenimente</p>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_events ); ?></span>
-                        <p class="text-xs tracking-wide uppercase text-white/40">Evenimente</p>
+                    <span class="hidden w-px h-10 sm:block bg-white/10"></span>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_customers ); ?></span>
+                            <p class="text-xs tracking-wide uppercase text-white/40">Clienți</p>
+                        </div>
+                    </div>
+                    <span class="hidden w-px h-10 sm:block bg-white/10"></span>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-500/10">
+                            <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_tickets ); ?></span>
+                            <p class="text-xs tracking-wide uppercase text-white/40">Bilete vândute</p>
+                        </div>
+                    </div>
+                    <span class="hidden w-px h-10 sm:block bg-white/10"></span>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-teal-500/10">
+                            <svg class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_eur ); ?> <span class="text-base font-medium text-teal-400/70">EUR</span></span>
+                            <p class="text-xs text-white/40"><?php echo esc_html( $s_ron ); ?> RON</p>
+                        </div>
                     </div>
                 </div>
-                <span class="hidden w-px h-10 sm:block bg-white/10"></span>
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10">
-                        <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_customers ); ?></span>
-                        <p class="text-xs tracking-wide uppercase text-white/40">Clienți</p>
-                    </div>
-                </div>
-                <span class="hidden w-px h-10 sm:block bg-white/10"></span>
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-teal-500/10">
-                        <svg class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="text-2xl font-black text-white sm:text-3xl"><?php echo esc_html( $s_eur ); ?> <span class="text-base font-medium text-teal-400/70">EUR</span></span>
-                        <p class="text-xs text-white/40"><?php echo esc_html( $s_ron ); ?> RON</p>
-                    </div>
-                </div>
+                <p class="mt-4 text-xs text-center text-white/20">GMV (volum total tranzacții procesate pentru organizatori)</p>
             </div>
 
             <!-- Price Comparison -->

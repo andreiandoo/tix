@@ -2100,6 +2100,10 @@ function tixello_fetch_public_data_core() {
         'tenants_active'       => $raw['tenants']['active'] ?? 0,
         'orders'               => $raw['orders']['total'] ?? 0,
         'orders_paid'          => $raw['orders']['paid'] ?? 0,
+        'revenue_total_eur'    => $raw['revenue']['total_eur'] ?? 0,
+        'revenue_total_ron'    => $raw['revenue']['total_ron'] ?? 0,
+        'revenue_native_eur'   => $raw['revenue']['native_eur'] ?? 0,
+        'revenue_native_ron'   => $raw['revenue']['native_ron'] ?? 0,
         'cached_at'            => $raw['cached_at'] ?? '',
     ];
 
@@ -2140,6 +2144,12 @@ function tixello_get_stat_value( $key ) {
         'orders',
         'orders_total_cents',
         'orders_paid_total_cents',
+        'revenue_total_eur',
+        'revenue_total_ron',
+        'revenue_native_eur',
+        'revenue_native_ron',
+        'events_upcoming',
+        'events_this_month',
     ];
 
     if ( ! in_array( $key, $allowed_keys, true ) ) {
@@ -2267,6 +2277,25 @@ function tixello_orderspaidtotal_shortcode() {
     return tixello_get_stat_value( 'orders_paid_total_cents' );
 }
 add_shortcode( 'tixello_orderspaidtotal', 'tixello_orderspaidtotal_shortcode' );
+
+/**
+ * Revenue shortcodes – formatează cu 2 zecimale (nu intval ca celelalte).
+ * [tixello_revenue_eur] → ex: "12,345.67"
+ * [tixello_revenue_ron] → ex: "61,234.56"
+ */
+function tixello_revenue_eur_shortcode() {
+    $data = tixello_fetch_public_data_core();
+    $val  = floatval( $data['revenue_total_eur'] ?? 0 );
+    return number_format( $val, 2, '.', ',' );
+}
+add_shortcode( 'tixello_revenue_eur', 'tixello_revenue_eur_shortcode' );
+
+function tixello_revenue_ron_shortcode() {
+    $data = tixello_fetch_public_data_core();
+    $val  = floatval( $data['revenue_total_ron'] ?? 0 );
+    return number_format( $val, 2, '.', ',' );
+}
+add_shortcode( 'tixello_revenue_ron', 'tixello_revenue_ron_shortcode' );
 
 /**
  * Shortcode: [tixello_stats_cards]

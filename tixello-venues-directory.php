@@ -90,10 +90,10 @@ if ( function_exists( 'tixello_fetch_venues_core' ) ) {
         $body = wp_remote_retrieve_body( $response );
         $data = json_decode( $body, true );
         if ( is_array( $data ) ) {
-            if ( isset( $data['data'] ) && is_array( $data['data'] ) ) {
+            if ( isset( $data['pins'] ) && is_array( $data['pins'] ) ) {
+                $venues = $data['pins'];
+            } elseif ( isset( $data['data'] ) && is_array( $data['data'] ) ) {
                 $venues = $data['data'];
-            } elseif ( isset( $data['venues'] ) && is_array( $data['venues'] ) ) {
-                $venues = $data['venues'];
             } else {
                 $venues = $data;
             }
@@ -218,7 +218,12 @@ foreach ( $venues as $v ) {
     $country = isset( $v['country'] ) ? $v['country'] : '';
     $address = isset( $v['address'] ) ? $v['address'] : '';
 
-    $cap_total = isset( $v['capacity']['total'] ) ? (int) $v['capacity']['total'] : null;
+    $cap_total = null;
+    if ( isset( $v['capacity'] ) ) {
+        $cap_total = is_array( $v['capacity'] )
+            ? ( isset( $v['capacity']['total'] ) ? (int) $v['capacity']['total'] : null )
+            : (int) $v['capacity'];
+    }
 
     $image_url = '';
     if ( ! empty( $v['media']['image_url'] ) ) {
@@ -246,10 +251,10 @@ foreach ( $venues as $v ) {
 
     $first_letter = strtoupper( mb_substr( $name, 0, 1 ) );
 
-    // Get coordinates from city lookup
-    $lat = null;
-    $lng = null;
-    if ( $city && isset( $city_coords[ $city ] ) ) {
+    // Get coordinates — prefer API values, fallback to city lookup
+    $lat = isset( $v['lat'] ) ? (float) $v['lat'] : null;
+    $lng = isset( $v['lng'] ) ? (float) $v['lng'] : null;
+    if ( ! $lat && ! $lng && $city && isset( $city_coords[ $city ] ) ) {
         $lat = $city_coords[ $city ]['lat'];
         $lng = $city_coords[ $city ]['lng'];
     }

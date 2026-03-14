@@ -1971,71 +1971,45 @@ function tixello_fetch_venues_core() {
         ? TIXELLO_API_KEY
         : '4Ln4AsAdwe63AjIuNVVx3kPFlhyc1JPHXbNTkynDFsg85XUPgMgDrTCAzFbf4nut';
 
-    $base_url = 'https://core.tixello.com/api/v1/public/venues-map';
+    $url = 'https://core.tixello.com/api/v1/public/venues-map';
 
-    $all   = [];
-    $page  = 1;
-    $max_pages_safety = 50;
+    $response = wp_remote_get(
+        $url,
+        [
+            'headers' => [ 'X-API-Key' => $api_key ],
+            'timeout' => 20,
+        ]
+    );
 
-    while ( $page <= $max_pages_safety ) {
-        $url = add_query_arg( 'page', $page, $base_url );
-
-        $response = wp_remote_get(
-            $url,
-            [
-                'headers' => [
-                    'X-API-Key' => $api_key,
-                ],
-                'timeout' => 20,
-            ]
-        );
-
-        if ( is_wp_error( $response ) ) {
-            break;
-        }
-
-        $body = wp_remote_retrieve_body( $response );
-        $data = json_decode( $body, true );
-
-        if ( ! is_array( $data ) ) {
-            break;
-        }
-
-        $items = [];
-        if ( isset( $data['data'] ) && is_array( $data['data'] ) ) {
-            $items = $data['data'];
-        }
-
-        if ( empty( $items ) ) {
-            break;
-        }
-
-        foreach ( $items as $item ) {
-            if ( is_array( $item ) ) {
-                $all[] = $item;
-            }
-        }
-
-        if (
-            isset( $data['pagination']['current_page'], $data['pagination']['last_page'] )
-        ) {
-            $current_page = (int) $data['pagination']['current_page'];
-            $last_page    = (int) $data['pagination']['last_page'];
-
-            if ( $current_page >= $last_page ) {
-                break;
-            }
-
-            $page = $current_page + 1;
-        } elseif ( ! empty( $data['pagination']['next_page_url'] ) ) {
-            $page++;
-        } else {
-            break;
-        }
+    if ( is_wp_error( $response ) ) {
+        $cached = [];
+        return [];
     }
 
-    $cached = $all;
-    return $all;
+    $http_code = wp_remote_retrieve_response_code( $response );
+    if ( $http_code < 200 || $http_code >= 300 ) {
+        $cached = [];
+        return [];
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    $data = json_decode( $body, true );
+
+    if ( ! is_array( $data ) ) {
+        $cached = [];
+        return [];
+    }
+
+    // Response: { pins: [...], total: N, cities: [...], cities_count: N }
+    if ( isset( $data['pins'] ) && is_array( $data['pins'] ) ) {
+        $cached = $data['pins'];
+    } elseif ( isset( $data['data'] ) && is_array( $data['data'] ) ) {
+        $cached = $data['data'];
+    } else {
+        $cached = $data;
+    }
+
+    return $cached;
 }
 
 
